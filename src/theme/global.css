@@ -1,103 +1,392 @@
-
 .w-full {
-    width: 100%;
+   width: 100%;
 }
 
 .logoSize {
-    width: 35px;
+   width: 35px;
 }
+
 .LogoGroup {
-    display: grid;
-    align-items: center;
-    justify-content: flex-start;
-    grid-gap: 15px;
-    grid-auto-flow: column;
+   display: grid;
+   align-items: center;
+   justify-content: flex-start;
+   grid-gap: 15px;
+   grid-auto-flow: column;
 }
+
 .TopBarIcons {
-    width: 25px;
+   width: 25px;
 }
 
 .MainImg {
-    padding: 1rem;
+   padding: 1rem;
 }
 
 .header-md::after {
-    display: none;
+   display: none;
 }
 
 .title-large {
-    font-weight: 600;
-    color: var(--ion-color-primary);
+   font-weight: 600;
+   color: var(--ion-color-primary);
 }
 
 .flex {
-    display: flex;
+   display: flex;
 }
 
 .TabIcon {
-    width: 25px;
-    margin-bottom: 5px;
+   width: 25px;
+   margin-bottom: 5px;
 }
+
 .BoxContent {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 0px;
+   text-align: left;
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   padding-top: 0px;
 }
+
 .ProPrice {
-    font-weight: 600 !important;
-    font-size: 16px !important;
+   font-weight: 600 !important;
+   font-size: 16px !important;
 }
+
 .TextContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
 
 .ChipDesign {
-    font-weight: 800;
-    margin: 0;
-    border-radius: 5px;
-    padding: 2px 5px;
-    height: auto;
-    color: #00a94f;
-    background: #e5f7ee;
-    font-size: 12px;
-}
-.linethro {
-    text-decoration: line-through;
+   font-weight: 800;
+   margin: 0;
+   border-radius: 5px;
+   padding: 2px 5px;
+   height: auto;
+   color: #00a94f;
+   background: #e5f7ee;
+   font-size: 12px;
 }
 
-.RateDesign { 
-    font-weight: 800;
-    margin: 0;
-    border-radius: 30px;
-    padding: 2px 10px;
-    height: auto;
-    color: #fff;
-    background: #ffc10e;
-    font-size: 12px;
+.linethro {
+   text-decoration: line-through;
 }
+
+.RateDesign {
+   font-weight: 800;
+   margin: 0;
+   border-radius: 30px;
+   padding: 2px 10px;
+   height: auto;
+   color: #fff;
+   background: #ffc10e;
+   font-size: 12px;
+}
+
 .RateDesign ion-icon {
-    width: 15px;
+   width: 15px;
 }
 
 .AddToCart {
-    margin: 0;
+   margin: 0;
 }
+
 .SmartKitchen img {
-    width: 20px;
+   width: 20px;
 }
+
 .SmartKitchen {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
+   position: absolute;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   gap: 10px;
 }
+
 .BookMark {
-    position: absolute;
-    right: 0;
-    top: 0;
+   position: absolute;
+   right: 0;
+   top: 0;
 }
+
+/* OTP Modal */
+
+
+.OTPModal::part(content) {
+   height: auto;
+   margin-top: auto;
+   border-radius: 20px 20px 0 0;
+   overflow: visible;
+}
+
+.OTPModal::part(backdrop) {
+   opacity: 0.8 !important;
+}
+
+.OTPContainer {
+   padding: 0 50px 30px;
+}
+
+.OTPContainer .closeButton {
+   margin: -20px auto 0;
+   width: 40px;
+   height: 40px;
+   --border-radius: 3px;
+   --background: #fff;
+}
+
+.OTPContainer .closeButton ion-icon {
+   fill: #8f1a1d;
+}
+
+.OTPContainer .title {
+   text-align: center;
+   display: block;
+   padding: 25px 0px;
+   font-size: 22px;
+   font-weight: 600;
+}
+
+.contactNumber-inputGroup {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   margin: 0 0 20px;
+}
+
+.contactNumber-inputGroup ion-text {
+   font-size: 22px;
+}
+
+.contactNumber-inputGroup ion-input {
+   --padding-top: 10px;
+   --padding-end: 15px;
+   --padding-bottom: 10px;
+   --padding-start: 15px;
+   font-size: 14px;
+}
+
+.contactNumber-inputGroup ion-input input {
+   min-height: 44px;
+   border: 1px solid #ccc !important;
+   border-radius: 5px !important;
+}
+
+.OTPGroup {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   width: 100%;
+   max-width: 270px;
+   margin: auto;
+}
+
+.OTPInput {
+   display: flex;
+   gap: 20px;
+   justify-content: space-between;
+}
+
+.OTPInput ion-input {
+   border-radius: 0;
+   --padding-top: 10px;
+   --padding-end: 10px;
+   --padding-bottom: 10px;
+   --padding-start: 10px;
+   min-width: 44px;
+   max-width: 44px;
+}
+
+.OTPInput ion-input input {
+   min-height: 44px;
+   border: 1px solid #ccc !important;
+   text-align: center;
+}
+
+.btnGroup {
+   display: flex;
+   gap: 15px;
+}
+
+.btnGroup ion-button {
+   margin: 0;
+   width: 100%;
+   min-height: 44px;
+}
+
+.btnGroup ion-button.yallow-btn {
+   --background: #f3ae26;
+}
+
+.resendCode {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   justify-content: center;
+}
+
+.resendCode ion-button {
+   margin: 0;
+   text-transform: capitalize;
+   height: auto;
+}
+
+.resendCode ion-button::part(native) {
+   padding: 5px;
+   letter-spacing: 0;
+   font-weight: bold;
+}
+
+.orDivider {
+   display: flex;
+   justify-content: center;
+   margin: 25px 0;
+   align-items: center;
+   position: relative;
+   gap: 10px;
+}
+
+.orDivider:after {
+   content: '';
+   width: 100px;
+   height: 1px;
+   background: #ddd;
+}
+
+.orDivider:before {
+   content: '';
+   width: 100px;
+   height: 1px;
+   background: #ddd;
+}
+
+.orDivider span {
+   font-size: 16px;
+   font-weight: bold;
+   color: #bbb;
+}
+
+.SignupGroup {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   margin: 0 0 25px;
+}
+
+.SignupSocials {
+   display: flex;
+   gap: 30px;
+}
+
+.SignupSocials ion-button {
+   margin: 0;
+   height: auto;
+}
+
+.SignupSocials ion-button::part(native) {
+   padding: 0;
+}
+
+.SignupSocials ion-button img {
+   height: 34px;
+}
+
+.SignupGroup ion-text {
+   font-size: 18px;
+   color: #6c6c6c;
+}
+
+.TermsGroup {
+   margin: 0 -30px;
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+}
+
+
+.checkGroup {
+   display: flex;
+   gap: 10px;
+}
+
+.checkGroup ion-checkbox {
+   min-width: fit-content;
+}
+
+.checkGroup ion-text {
+   font-size: 13px;
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 5px;
+}
+
+.checkGroup ion-text ion-button {
+   margin: 0;
+   height: auto;
+   text-transform: capitalize;
+   letter-spacing: 0;
+   font-size: 13px;
+}
+
+.checkGroup ion-text ion-button::part(native) {
+   padding: 0;
+}
+
+@media (max-width: 375px) {
+   .checkGroup ion-text {
+      font-size: 12px;
+   }
+
+   .checkGroup ion-text ion-button {
+      font-size: 12px;
+   }
+}
+
+@media (max-width: 320px) {
+
+   .OTPContainer .title {
+      padding: 20px 0px;
+      font-size: 16px;
+   }
+
+   .contactNumber-inputGroup ion-input input {
+      min-height: 40px;
+   }
+
+   .OTPInput ion-input {
+      min-width: 40px;
+      max-width: 40px;
+   }
+
+   .OTPInput ion-input input {
+      min-height: 40px;
+   }
+
+   .orDivider span,
+   .resendCode,
+   .resendCode ion-button {
+      font-size: 14px;
+   }
+
+   .SignupGroup ion-text {
+      font-size: 16px;
+   }
+
+   .checkGroup ion-text,
+   .checkGroup ion-text ion-button {
+      font-size: 10px;
+   }
+
+   .SignupGroup {
+      gap: 15px;
+      margin: 0 0 20px;
+   }
+}
+
+/* OTP Modal end */

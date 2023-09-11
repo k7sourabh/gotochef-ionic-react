@@ -28,7 +28,7 @@ import CategoryProducts from "./pages/Products/CategoryProducts";
 import Product from "./pages/Products/Product";
 import FavouriteProducts from "./pages/Products/FavouriteProducts";
 import CartProducts from "./pages/Products/CartProducts";
-import Welcome from './pages/Welcome';
+import Welcome from './pages/Welcome/Welcome';
 import './theme/global.css'
 import { SplashScreen } from '@capacitor/splash-screen';
 
@@ -57,61 +57,61 @@ const App = () => {
   return (
     <IonApp>
       <IonReactRouter>
-      <IonTabs>
         <IonRouterOutlet>
-          <Route path="/" exact={true}>
-            <Redirect to="/home" />
-          </Route>
-          <Route path="/home" exact={true}>
-            <Home />
-          </Route>
-
-          <Route path="/favourites" exact>
-            <FavouriteProducts />
-          </Route>
-
-          <Route path="/cart" exact>
-            <CartProducts />
-          </Route>
-
-          <Route path="/category/:slug" exact>
-            <CategoryProducts />
-          </Route>
-
-          <Route path="/category/:slug/:id" exact>
-            <Product />
-          </Route>
-
           <Route path="/welcome" exact>
             <Welcome />
           </Route>
         </IonRouterOutlet>
-      
-      <IonTabBar slot="bottom">
-          <IonTabButton tab="home" href="/home">
-            <img src="/assets/img/Home.png" alt="Images" className="TabIcon" />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
+        {window.location.pathname !== "/welcome" && <IonTabs>
+          <IonRouterOutlet>
+            <Route path="/" exact={true}>
+              <Redirect to="/home" />
+            </Route>
+            <Route path="/home" exact={true}>
+              <Home />
+            </Route>
 
-          <IonTabButton tab="radio" href="/radio">
-          <img src="/assets/img/Mysmart.png" alt="Images" className="TabIcon" />
-            <IonLabel>MySmartKitchen</IonLabel>
-          </IonTabButton>
+            <Route path="/favourites" exact>
+              <FavouriteProducts />
+            </Route>
 
-          <IonTabButton tab="library" href="/library">
-          <img src="/assets/img/NutriBuddy.png" alt="Images" className="TabIcon" />
-            <IonLabel>NutriBuddy</IonLabel>
-          </IonTabButton> 
+            <Route path="/cart" exact>
+              <CartProducts />
+            </Route>
 
-          <IonTabButton tab="search" href="/search">
-          <img src="/assets/img/Cart.png" alt="Images" className="TabIcon" />
-            <IonLabel>Cart</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
+            <Route path="/category/:slug" exact>
+              <CategoryProducts />
+            </Route>
+
+            <Route path="/category/:slug/:id" exact>
+              <Product />
+            </Route>
+          </IonRouterOutlet>
+
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="home" href="/home">
+              <img src="/assets/img/Home.png" alt="Images" className="TabIcon" />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
+
+            <IonTabButton tab="radio" href="/radio">
+              <img src="/assets/img/Mysmart.png" alt="Images" className="TabIcon" />
+              <IonLabel>MySmartKitchen</IonLabel>
+            </IonTabButton>
+
+            <IonTabButton tab="library" href="/library">
+              <img src="/assets/img/NutriBuddy.png" alt="Images" className="TabIcon" />
+              <IonLabel>NutriBuddy</IonLabel>
+            </IonTabButton>
+
+            <IonTabButton tab="search" href="/search">
+              <img src="/assets/img/Cart.png" alt="Images" className="TabIcon" />
+              <IonLabel>Cart</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>}
       </IonReactRouter>
-    </IonApp>
-
+    </IonApp >
   );
 };
 
