@@ -1,0 +1,103 @@
+
+.w-full {
+    width: 100%;
+}
+
+.logoSize {
+    width: 35px;
+}
+.LogoGroup {
+    display: grid;
+    align-items: center;
+    justify-content: flex-start;
+    grid-gap: 15px;
+    grid-auto-flow: column;
+}
+.TopBarIcons {
+    width: 25px;
+}
+
+.MainImg {
+    padding: 1rem;
+}
+
+.header-md::after {
+    display: none;
+}
+
+.title-large {
+    font-weight: 600;
+    color: var(--ion-color-primary);
+}
+
+.flex {
+    display: flex;
+}
+
+.TabIcon {
+    width: 25px;
+    margin-bottom: 5px;
+}
+.BoxContent {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 0px;
+}
+.ProPrice {
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+.TextContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ChipDesign {
+    font-weight: 800;
+    margin: 0;
+    border-radius: 5px;
+    padding: 2px 5px;
+    height: auto;
+    color: #00a94f;
+    background: #e5f7ee;
+    font-size: 12px;
+}
+.linethro {
+    text-decoration: line-through;
+}
+
+.RateDesign { 
+    font-weight: 800;
+    margin: 0;
+    border-radius: 30px;
+    padding: 2px 10px;
+    height: auto;
+    color: #fff;
+    background: #ffc10e;
+    font-size: 12px;
+}
+.RateDesign ion-icon {
+    width: 15px;
+}
+
+.AddToCart {
+    margin: 0;
+}
+.SmartKitchen img {
+    width: 20px;
+}
+.SmartKitchen {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.BookMark {
+    position: absolute;
+    right: 0;
+    top: 0;
+}

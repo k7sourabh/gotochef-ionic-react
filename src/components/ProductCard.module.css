@@ -4,13 +4,7 @@
 }
 
 .categoryCard {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    /* min-height: 20rem !important; */
+    box-shadow: none;
 }
 
 .productCardActions {
