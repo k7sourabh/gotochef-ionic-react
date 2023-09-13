@@ -129,9 +129,9 @@ const ProductCard = (props) => {
         </IonCardContent> */}
 
         <div className="SmartKitchen">
-          <img src="/assets/img/Mysmart.png" alt="Images" />
+          <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
 
-          <img src="/assets/img/veg-icon.svg" alt="Images" />
+          <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
         </div>
 
         <img src={product.image} alt="category cover" className="MainImg" />

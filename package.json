@@ -21,7 +21,8 @@
     "react-scripts": "^5.0.1",
     "reselect": "^4.1.6",
     "resolve-url-loader": "^5.0.0",
-    "sass-loader": "^13.3.2"
+    "sass-loader": "^13.3.2",
+    "swiper": "^10.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

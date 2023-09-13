@@ -93,7 +93,7 @@
    margin: 0;
 }
 
-.SmartKitchen img {
+.SmartKitchen img.icon-img {
    width: 20px;
 }
 
@@ -111,25 +111,36 @@
    top: 0;
 }
 
-/* OTP Modal */
+/* Modal Popup */
 
-
-.OTPModal::part(content) {
+.loginModal::part(content) {
    height: auto;
    margin-top: auto;
-   border-radius: 20px 20px 0 0;
+   border-radius: 30px 30px 0 0;
    overflow: visible;
+   background: #efeff1;
 }
 
-.OTPModal::part(backdrop) {
+.ForgotModal::part(content) {
+   height: auto;
+   border-radius: 30px;
+   background: #efeff1;
+   width: 80%;
+}
+
+.loginModal::part(backdrop),
+.ForgotModal::part(backdrop) {
    opacity: 0.8 !important;
 }
 
-.OTPContainer {
-   padding: 0 50px 30px;
+.loginContainer {
+   padding: 0 35px 30px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 
-.OTPContainer .closeButton {
+.loginContainer .closeButton {
    margin: -20px auto 0;
    width: 40px;
    height: 40px;
@@ -137,16 +148,46 @@
    --background: #fff;
 }
 
-.OTPContainer .closeButton ion-icon {
+.loginContainer .closeButton ion-icon {
    fill: #8f1a1d;
 }
 
-.OTPContainer .title {
+.loginContainer .title {
    text-align: center;
    display: block;
-   padding: 25px 0px;
-   font-size: 22px;
+   padding: 30px 0px;
+   font-size: 24px;
    font-weight: 600;
+}
+
+.loginForm {
+   width: 100%;
+   margin: 0 0 20px;
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+}
+
+.loginInput {
+   position: relative;
+}
+
+.loginInput img {
+   position: absolute;
+   z-index: 3;
+   top: 50%;
+   transform: translateY(-50%);
+   left: 15px;
+}
+
+.loginInput ion-input input {
+   padding-left: 50px !important;
+}
+
+.forgotPass {
+   font-size: 13px;
+   padding: 10px 0;
+   color: #515151;
 }
 
 .contactNumber-inputGroup {
@@ -154,24 +195,27 @@
    align-items: center;
    gap: 10px;
    margin: 0 0 20px;
+   width: 100%;
+   max-width: 270px;
 }
 
 .contactNumber-inputGroup ion-text {
    font-size: 22px;
 }
 
-.contactNumber-inputGroup ion-input {
+.loginContainer ion-input {
    --padding-top: 10px;
    --padding-end: 15px;
    --padding-bottom: 10px;
    --padding-start: 15px;
+   --background: #fff;
    font-size: 14px;
+   border-radius: 10px;
+   border: 1px solid #ccc;
 }
 
-.contactNumber-inputGroup ion-input input {
+.loginContainer ion-input input {
    min-height: 44px;
-   border: 1px solid #ccc !important;
-   border-radius: 5px !important;
 }
 
 .OTPGroup {
@@ -190,18 +234,17 @@
 }
 
 .OTPInput ion-input {
-   border-radius: 0;
-   --padding-top: 10px;
-   --padding-end: 10px;
-   --padding-bottom: 10px;
-   --padding-start: 10px;
    min-width: 44px;
    max-width: 44px;
+   border-radius: 0;
+   --padding-top: 5px;
+   --padding-end: 5px;
+   --padding-bottom: 5px;
+   --padding-start: 5px;
+   text-align: center;
 }
 
 .OTPInput ion-input input {
-   min-height: 44px;
-   border: 1px solid #ccc !important;
    text-align: center;
 }
 
@@ -225,12 +268,13 @@
    flex-wrap: wrap;
    align-items: center;
    justify-content: center;
+   gap: 5px;
+   color: #515151;
 }
 
-.resendCode ion-button {
-   margin: 0;
-   text-transform: capitalize;
-   height: auto;
+.resendCode ion-text {
+   color: #8f1a1d;
+   font-weight: 600;
 }
 
 .resendCode ion-button::part(native) {
@@ -275,7 +319,6 @@
    justify-content: center;
    flex-direction: column;
    align-items: center;
-   margin: 0 0 25px;
 }
 
 .SignupSocials {
@@ -298,14 +341,14 @@
 
 .SignupGroup ion-text {
    font-size: 18px;
-   color: #6c6c6c;
+   color: #515151;
 }
 
 .TermsGroup {
-   margin: 0 -30px;
+   margin: 30px -30px 0;
    display: flex;
    flex-direction: column;
-   gap: 15px;
+   gap: 10px;
 }
 
 
@@ -326,17 +369,31 @@
    gap: 5px;
 }
 
-.checkGroup ion-text ion-button {
-   margin: 0;
-   height: auto;
-   text-transform: capitalize;
-   letter-spacing: 0;
-   font-size: 13px;
+.checkGroup ion-text ion-text {
+   color: #1a42ba;
 }
 
 .checkGroup ion-text ion-button::part(native) {
    padding: 0;
 }
+
+.ForgotModal .loginContainer {
+   padding: 0 30px 30px;
+}
+
+.ForgotModal .loginForm {
+   margin: 0;
+   gap: 20px;
+}
+
+.ForgotModal .btnGroup {
+   justify-content: center;
+}
+
+.ForgotModal .btnGroup ion-button {
+   width: fit-content;
+}
+
 
 @media (max-width: 375px) {
    .checkGroup ion-text {
@@ -348,9 +405,15 @@
    }
 }
 
+@media (max-width: 360px) {
+   .loginContainer .title {
+      font-size: 22px;
+   }
+}
+
 @media (max-width: 320px) {
 
-   .OTPContainer .title {
+   .loginContainer .title {
       padding: 20px 0px;
       font-size: 16px;
    }
@@ -369,8 +432,7 @@
    }
 
    .orDivider span,
-   .resendCode,
-   .resendCode ion-button {
+   .resendCode {
       font-size: 14px;
    }
 
@@ -389,4 +451,4 @@
    }
 }
 
-/* OTP Modal end */
+/* Modal Popup end */

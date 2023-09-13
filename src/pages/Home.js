@@ -8,7 +8,6 @@ import {
   IonChip,
   IonCol,
   IonContent,
-  IonFab,
   IonFabButton,
   IonGrid,
   IonHeader,
@@ -17,8 +16,6 @@ import {
   IonModal,
   IonPage,
   IonRow,
-  IonSlide,
-  IonSlides,
   IonText,
   IonTitle,
   IonToolbar,
@@ -28,24 +25,25 @@ import styles from "./Home.module.css";
 import { arrowForward, star, add, bookmarkOutline, close } from "ionicons/icons";
 
 import { ProductStore } from "../data/ProductStore";
-import { useRef } from "react";
-// import { FavouritesStore } from "../data/FavouritesStore";
-// import { CartStore } from "../data/CartStore";
+import { useRef, useState } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-const slideOpts = {
-  initialSlide: 1,
-  speed: 400,
-  slidesPerView: 2,
-  spaceBetween: 10,
-};
+import 'swiper/css';
+import '@ionic/react/css/ionic-swiper.css';
+import LoginPopup from "../modal/LoginPopup";
+import OTPPopup from "../modal/OTPPopup";
 
 const Home = () => {
   const products = ProductStore.useState((s) => s.products);
+
+  const [isOpenOtp, setIsOpenOtp] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
   // const favourites = FavouritesStore.useState((s) => s.product_ids);
   // const shopCart = CartStore.useState((s) =>  s.product_ids);
   // console.log(products, "products")
 
   const modal = useRef(null);
+  console.log(modal.current)
 
   return (
     <IonPage id="home-page" className={styles.homePage}>
@@ -69,14 +67,14 @@ const Home = () => {
               </IonCol>
               <IonCol size="6" className="ion-justify-content-end">
                 <IonButtons className="ion-justify-content-end">
-                  <IonButton routerLink="/favourites">
+                  <IonButton onClick={() => setIsOpenLogin(true)} >
                     <img
                       src="/assets/img/Search.png"
                       alt="Images"
                       className="TopBarIcons"
                     />
                   </IonButton>
-                  <IonButton id="open-modal">
+                  <IonButton onClick={() => setIsOpenOtp(true)}>
                     <img
                       src="/assets/img/edit.png"
                       alt="Images"
@@ -98,44 +96,47 @@ const Home = () => {
       </IonHeader>
 
       <IonContent fullscreen>
-        <IonSlides>
-          <IonSlide>
+        <Swiper>
+          <SwiperSlide>
             <img
               src="/assets/img/recipe-banner.jpg"
               alt="Images"
               className="Banners"
             />
-          </IonSlide>
-          <IonSlide>
-            <h1>Slide 2</h1>
-          </IonSlide>
-        </IonSlides>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <img
+              src="/assets/img/recipe-banner.jpg"
+              alt="Images"
+              className="Banners"
+            />
+          </SwiperSlide>
+        </Swiper>
 
         <IonHeader>
           <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
             <IonTitle size="large" className="ion-no-padding">
               Exclusive Product Stores
             </IonTitle>
-
             <IonIcon color="dark" icon={arrowForward} />
           </div>
         </IonHeader>
 
         <IonGrid>
           <IonRow>
-            <IonSlides pager={false} options={slideOpts}>
+            <Swiper slidesPerView={2}>
               {products.map((category, index) => {
                 return (
-                  <IonSlide key={index}>
+                  <SwiperSlide key={index}>
                     <IonCol size="12">
                       <IonCard
                         routerLink={`/category/${category.slug}`}
                         className={styles.categoryCard}
                       >
                         <div className="SmartKitchen">
-                          <img src="/assets/img/Mysmart.png" alt="Images" />
-
-                          <img src="/assets/img/veg-icon.svg" alt="Images" />
+                          <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
+                          <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
                         </div>
 
                         <img
@@ -184,10 +185,10 @@ const Home = () => {
                         </IonButton>
                       </IonCardContent>
                     </IonCol>
-                  </IonSlide>
+                  </SwiperSlide>
                 );
               })}
-            </IonSlides>
+            </Swiper>
           </IonRow>
         </IonGrid>
 
@@ -203,19 +204,19 @@ const Home = () => {
 
         <IonGrid>
           <IonRow>
-            <IonSlides pager={false} options={slideOpts}>
+            <Swiper slidesPerView={2}>
               {products.map((category, index) => {
                 return (
-                  <IonSlide key={index}>
+                  <SwiperSlide key={index}>
                     <IonCol size="12">
                       <IonCard
                         routerLink={`/category/${category.slug}`}
                         className={styles.categoryCard}
                       >
                         <div className="SmartKitchen">
-                          <img src="/assets/img/Mysmart.png" alt="Images" />
+                          <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
 
-                          <img src="/assets/img/veg-icon.svg" alt="Images" />
+                          <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
                         </div>
 
                         <img
@@ -264,71 +265,17 @@ const Home = () => {
                         </IonButton>
                       </IonCardContent>
                     </IonCol>
-                  </IonSlide>
+                  </SwiperSlide>
                 );
               })}
-            </IonSlides>
+            </Swiper>
           </IonRow>
         </IonGrid>
       </IonContent>
 
-      <IonModal ref={modal} trigger="open-modal" className='OTPModal'>
-        <div className="OTPContainer">
-          <IonFabButton className="closeButton" onClick={() => modal.current?.dismiss()}>
-            <IonIcon icon={close}></IonIcon>
-          </IonFabButton>
-          <IonText color="dark" className="title">Verify your mobile number to signup</IonText>
-          <div className="contactNumber-inputGroup">
-            <IonText color="dark">+91</IonText>
-            <IonInput label="Default input" placeholder="Enter your mobile number"></IonInput>
-          </div>
-
-          <div className="OTPGroup">
-            <div className="OTPInput">
-              <IonInput type="number"></IonInput>
-              <IonInput type="number"></IonInput>
-              <IonInput type="number"></IonInput>
-              <IonInput type="number"></IonInput>
-            </div>
-
-            <div className="btnGroup">
-              <IonButton className="yallow-btn">Send OTP</IonButton>
-              <IonButton>Verify</IonButton>
-            </div>
-            <IonText color="dark" className="resendCode">Didn't receive the code? <IonButton fill="clear">Resend</IonButton></IonText>
-          </div>
-
-          <div className="orDivider">
-            <span>OR</span>
-          </div>
-
-          <div className="SignupGroup">
-            <IonText color="dark">Signup with</IonText>
-            <div className="SignupSocials">
-              <IonButton fill="clear">
-                <img src="/assets/img/facebook-icon.png" alt="Images"/>
-              </IonButton>
-              <IonButton fill="clear">
-                <img src="/assets/img/google-icon.png" alt="Images"/>
-              </IonButton>
-              <IonButton fill="clear">
-                <img src="/assets/img/apple-icon.png" alt="Images"/>
-              </IonButton>
-            </div>
-          </div>
-
-          <div className="TermsGroup">
-            <div className="checkGroup">
-              <IonCheckbox labelPlacement="end"></IonCheckbox>
-              <IonText color="dark">I hereby accept the <IonButton fill="clear">Terms and Conditions</IonButton>of GotoChe</IonText>
-            </div>
-            <div className="checkGroup">
-              <IonCheckbox labelPlacement="end"></IonCheckbox>
-              <IonText color="dark">I hereby accept the <IonButton fill="clear">Privacy Policy</IonButton>of GotoChe</IonText>
-            </div>
-          </div>
-        </div>
-      </IonModal>
+      <LoginPopup isOpen={isOpenLogin} setIsOpen={setIsOpenLogin}/>
+      
+      <OTPPopup isOpen={isOpenOtp} setIsOpen={setIsOpenOtp}/>
     </IonPage>
   );
 };
