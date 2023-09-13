@@ -2,6 +2,8 @@
     --border-style: none;
 }
 
+
+
 .categoryCard {
     display: flex;
     flex-direction: column;
@@ -9,6 +11,7 @@
     align-content: center;
     align-items: center;
     text-align: center;
+    box-shadow: none !important;
 }
 
 .productCardActions {
@@ -25,6 +28,14 @@
 
 .productCardHeader {
     min-height: 17rem;
+    
+}
+.chefhat{
+    max-width: 30px;
+}
+
+.chefhatbtn{
+    max-width: 20px;
 }
 
 .productCardHeader p {
@@ -53,4 +64,123 @@
 .productPrice {
     display: flex;
     flex-direction: row;
+}
+.boxcontent{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 15px;
+}
+
+.titleNames{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    row-gap: 5px;
+    font-weight: bold;
+    
+    color: #000;
+}
+
+.titleNames span{
+    font-size: 14px;
+    color: #9a1a0a;
+}
+
+.raterp{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    text-wrap:balance;
+}
+
+.TextContent{
+    display: flex;
+    justify-content: start;
+    column-gap: 10px;
+}
+
+.addButn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chefbutton{
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.paylogo{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 50px;
+    border: 1px solid #e8e8e8;
+    border-radius: 50%;
+    max-width: 50px !important;
+}
+
+.paymentlist{
+    padding: 12px;
+    border-bottom:1px solid #e8e8e8;
+}
+
+
+.paymentrow{
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    padding: 10px;
+}
+
+.paylogo img{
+    max-width: 50px;
+    padding: 10px;
+    width: 100%;
+}
+
+.paycontent{
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+
+}
+
+.paycontent ion-text:first-child{
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.paycontent ion-text:last-child{
+    color: #b4b4b4;
+    font-size: 12px;
+    letter-spacing: -0.2px;
+}
+
+.rating{
+    max-width: 90px;
+}
+
+.reviews{
+    padding: 15px;
+    background-color: #f8f6f4;
+    border-radius: 15px;
+}
+
+.reviewcontainer{
+    padding: 10px;
+    row-gap: 15px;
+}
+
+.headingtext{
+    font-weight: 600;
+    font-size: 16px;
 }

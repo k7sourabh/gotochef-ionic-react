@@ -22,7 +22,8 @@ import {
 } from "@ionic/react";
 
 import styles from "./Home.module.css";
-import { arrowForward, star, add, bookmarkOutline, close } from "ionicons/icons";
+import "./Home.css";
+import { arrowForward, star, add, bookmarkOutline, close, arrowForwardCircle ,arrowForwardCircleSharp ,chevronForwardCircleSharp } from "ionicons/icons";
 
 import { ProductStore } from "../data/ProductStore";
 import { useRef, useState } from "react";
@@ -119,7 +120,7 @@ const Home = () => {
             <IonTitle size="large" className="ion-no-padding">
               Exclusive Product Stores
             </IonTitle>
-            <IonIcon color="dark" icon={arrowForward} />
+            <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
           </div>
         </IonHeader>
 
@@ -190,7 +191,13 @@ const Home = () => {
               })}
             </Swiper>
           </IonRow>
+          <IonRow>
+            <IonCol size="12" className="flex ion-justify-content-center ion-padding">
+              <IonButton fill="outline">View More</IonButton>
+            </IonCol>
+          </IonRow>
         </IonGrid>
+
 
         <IonHeader>
           <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
@@ -198,13 +205,13 @@ const Home = () => {
               See What’s Trending
             </IonTitle>
 
-            <IonIcon color="dark" icon={arrowForward} />
+            <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
           </div>
         </IonHeader>
 
         <IonGrid>
           <IonRow>
-            <Swiper slidesPerView={2}>
+            <Swiper slidesPerView={2} className={styles.swipertab}>
               {products.map((category, index) => {
                 return (
                   <SwiperSlide key={index}>
@@ -269,6 +276,11 @@ const Home = () => {
                 );
               })}
             </Swiper>
+          </IonRow>
+          <IonRow>
+            <IonCol size="12" className="flex ion-justify-content-center ion-padding">
+              <IonButton fill="outline">View More</IonButton>
+            </IonCol>
           </IonRow>
         </IonGrid>
       </IonContent>

@@ -63,6 +63,7 @@ const CategoryProducts = () => {
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
+      
       <IonHeader>
         <IonToolbar>
           <IonGrid className="ion-no-padding">

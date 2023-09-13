@@ -31,6 +31,7 @@ import CartProducts from "./pages/Products/CartProducts";
 import Welcome from './pages/Welcome/Welcome';
 import './theme/global.css'
 import { SplashScreen } from '@capacitor/splash-screen';
+import AddPayment from "./pages/Payment/AddPayment";
 
 
 // Hide the splash (you should do this on app launch)
@@ -85,6 +86,10 @@ const App = () => {
 
             <Route path="/category/:slug/:id" exact>
               <Product />
+            </Route>
+
+            <Route path="/add-payment" exact>
+              <AddPayment />
             </Route>
           </IonRouterOutlet>
 
