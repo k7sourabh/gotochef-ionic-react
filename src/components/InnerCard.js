@@ -119,7 +119,7 @@ import {
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           </IonText>
   
-          <IonText color="dark" className="TextContent">
+          <IonText color="dark" className={styles.textcontent}>
             <div>
                 <IonIcon icon={starOutline}  /> 
                 <IonIcon icon={starOutline}  />

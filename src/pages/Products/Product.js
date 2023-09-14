@@ -126,10 +126,20 @@ const Product = () => {
 
 
                   </div>
+                  <div className={styles.productCardActions}>
+                    <IonButton fill="">
+                        <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat}/>
+                    </IonButton>
+
+                    <IonIcon size="large" color="danger" icon={bookmarkOutline} />
+
+
+                  </div>
+
                   <img src={product.image} alt="product pic" />
                   <p className={styles.titleNames} ><span>Kissan</span>
                     <div className={styles.raterp}>{product.name}
-                      <IonChip className="RateDesignInner">
+                      <IonChip className={styles.RateDesignInner}>
                         4.4<IonIcon color="light" size="small" icon={star} />
                       </IonChip></div>
                     <span>Glass Bottle of 1 Gram</span></p>
@@ -143,7 +153,7 @@ const Product = () => {
                   <div className={styles.addButn}>
                     <IonText color="dark" className={styles.TextContent}>
                       <h4 className="linethro">485.0</h4>
-                      <IonChip className="ChipDesign">33% OFF</IonChip>
+                      <IonChip className={styles.ChipDesign}>33% OFF</IonChip>
                     </IonText>
                     <IonButton
                       className="AddToCart"
@@ -165,7 +175,7 @@ const Product = () => {
 
           <IonRow className="ion-padding">
             <IonCol size="12">
-              <div className="">
+              <div className={styles.chefbuttonouter}>
                 <IonButton size="default" expand="block" fill="outline" className={styles.chefbutton}>
                   <div className={styles.chefbuttoninner}>
                     <img
