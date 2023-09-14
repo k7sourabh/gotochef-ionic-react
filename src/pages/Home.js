@@ -1,9 +1,9 @@
+import React from 'react'
 import {
   IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardSubtitle,
   IonChip,
   IonCol,
   IonContent,
@@ -21,13 +21,10 @@ import "./Home.css";
 import { star, add, bookmarkOutline, chevronForwardCircleSharp } from "ionicons/icons";
 
 import { ProductStore } from "../data/ProductStore";
-import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import '@ionic/react/css/ionic-swiper.css';
-import LoginPopup from "../modal/LoginPopup";
-import OTPPopup from "../modal/OTPPopup";
 import Header from "../components/Header";
 
 const Home = () => {
@@ -35,10 +32,8 @@ const Home = () => {
 
   // const favourites = FavouritesStore.useState((s) => s.product_ids);
   // const shopCart = CartStore.useState((s) =>  s.product_ids);
-  // console.log(products, "products")
 
-  const modal = useRef(null);
-  console.log(modal.current)
+
 
   return (
     <IonPage id="home-page" className={styles.homePage}>
@@ -63,16 +58,17 @@ const Home = () => {
           </SwiperSlide>
         </Swiper>
 
-        <IonHeader>
-          <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-            <IonTitle size="large" className="ion-no-padding">
-              Exclusive Product Stores
-            </IonTitle>
-            <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
-          </div>
-        </IonHeader>
+
 
         <IonGrid className="ion-no-padding">
+          <IonHeader>
+            <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
+              <IonTitle size="large" className="ion-no-padding">
+                Exclusive Product Stores
+              </IonTitle>
+              <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
+            </div>
+          </IonHeader>
           <Swiper slidesPerView={2} >
             {products.map((category, index) => {
               return (
@@ -129,25 +125,25 @@ const Home = () => {
             })}
           </Swiper>
 
-          <IonRow>
-            <IonCol size="12" className="flex ion-justify-content-center ion-padding">
+          <IonRow className="ion-padding-bottom ion-padding-horizontal">
+            <IonCol size="12" className="flex ion-justify-content-center">
               <IonButton fill="outline">View More</IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
 
 
-        <IonHeader>
-          <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-            <IonTitle size="large" className="ion-no-padding">
-              See What’s Trending
-            </IonTitle>
+        <IonGrid className="ion-no-padding">
+          <IonHeader>
+            <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
+              <IonTitle size="large" className="ion-no-padding">
+                See What’s Trending
+              </IonTitle>
 
-            <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
-          </div>
-        </IonHeader>
+              <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
+            </div>
+          </IonHeader>
 
-        <IonGrid className="px-6">
           <Swiper slidesPerView={2} className={styles.swipertab}>
             {products.map((category, index) => {
               return (
@@ -204,8 +200,8 @@ const Home = () => {
             })}
           </Swiper>
 
-          <IonRow>
-            <IonCol size="12" className="flex ion-justify-content-center ion-padding">
+          <IonRow className="ion-padding-bottom ion-padding-horizontal">
+            <IonCol size="12" className="flex ion-justify-content-center">
               <IonButton fill="outline">View More</IonButton>
             </IonCol>
           </IonRow>

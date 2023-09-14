@@ -72,13 +72,17 @@ const CategoryProducts = () => {
           {category && category.name}
         </IonTitle>
 
-        <IonSearchbar
-          className={styles.search}
-          onKeyUp={search}
-          placeholder="Search Products"
-          searchIcon={searchOutline}
-          animated={true}
-        />
+        <IonGrid className="ion-padding">
+          <IonRow className="ion-text-center">
+            <IonSearchbar
+              className={styles.search}
+              onKeyUp={search}
+              placeholder="Search Products"
+              searchIcon={searchOutline}
+              animated={true}
+            />
+          </IonRow>
+        </IonGrid>
 
         <IonGrid>
           <IonRow className="ion-text-center">
@@ -94,7 +98,7 @@ const CategoryProducts = () => {
           </IonRow>
         </IonGrid>
 
-        <IonGrid className="px-6">
+        <IonGrid className="ion-no-padding">
           <IonRow>
             {searchResults &&
               searchResults.map((product, index) => {

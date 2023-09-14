@@ -32,6 +32,7 @@ import Welcome from './pages/Welcome/Welcome';
 import './theme/global.css'
 import { SplashScreen } from '@capacitor/splash-screen';
 import AddPayment from "./pages/Payment/AddPayment";
+import MainCategory from "./pages/Products/MainCategory";
 
 
 // Hide the splash (you should do this on app launch)
@@ -86,6 +87,10 @@ const App = () => {
 
             <Route path="/category/:slug/:id" exact>
               <Product />
+            </Route>
+
+            <Route path="/main-category" exact>
+              <MainCategory />
             </Route>
 
             <Route path="/add-payment" exact>

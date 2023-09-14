@@ -4,7 +4,6 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardSubtitle,
   IonChip,
   IonCol,
   IonIcon,
@@ -18,7 +17,7 @@ import {
 import { useRef } from "react";
 import { addToCart } from "../data/CartStore";
 // import { addToFavourites, } from "../data/FavouritesStore";
-import styles from "./ProductCard.module.css";
+// import styles from "./ProductCard.module.css";
 
 const ProductCard = (props) => {
   const { product, category, index, cartRef } = props;
@@ -150,7 +149,7 @@ const ProductCard = (props) => {
             />
           </div>
         </IonCardHeader>
-        
+
         <IonCardContent className="ProductDetails">
           <IonText className="ProductTitle">{product.name}</IonText>
           <div className="PriceRating">

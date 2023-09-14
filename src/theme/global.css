@@ -200,6 +200,44 @@ body {
    color: #125b7b;
 }
 
+/* Category Product */
+
+.CategoryCard {
+   text-align: center;
+   margin: 0;
+   box-shadow: none;
+   padding: 15px;
+}
+
+.CategoryCard::part(native) {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.CategoryThumb {
+   padding: 25px;
+   aspect-ratio: 1;
+   width: 100%;
+   border-radius: 100%;
+   background: #f2f2f2;
+   overflow: hidden;
+}
+
+.CategoryThumb img {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+}
+
+.CategoryTitle {
+   font-size: 18px;
+   color: #555;
+   font-weight: 600;
+}
+
+/* Category Product end */
+
 /* Product */
 
 .header-md::after {
