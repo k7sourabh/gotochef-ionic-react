@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap');
 
-body{
+body {
    font-family: 'Open Sans', sans-serif !important;
 }
 
@@ -33,14 +33,187 @@ body{
 
 /* Header end */
 
+/* Footer */
+
+.FooterTab {
+   --background: #f2f2f2;
+   border: 0;
+}
+
+/* Footer end */
+
 /* Product */
 
-.MainImg {
-   padding: 1rem;
+.ProductCard {
+   margin: 6px;
+   box-shadow: none;
+   position: relative;
+   padding: 10px;
+   height: 100%;
 }
+
+.ProductCard::part(native) {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+}
+
+.ProductThumb {
+   padding: 5px 25px 15px;
+   position: relative;
+}
+
+.MainProductThumb {
+   aspect-ratio: 1;
+   object-fit: contain;
+}
+
+.SmartKitchen {
+   position: absolute;
+   top: 5px;
+   left: 0;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.counter {
+   position: relative;
+}
+
+.counter span {
+   position: absolute;
+   top: -5px;
+   right: -15px;
+   font-size: 10px;
+   font-weight: 600;
+   color: var(--ion-color-primary);
+}
+
+.SmartKitchen img.icon-img {
+   width: 20px;
+}
+
+.BookMark {
+   position: absolute;
+   right: 0;
+   top: 5px;
+}
+
+.ProductDetails {
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   flex: 1;
+}
+
+.ProductTitle {
+   font-size: 16px;
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+   text-align: left;
+   line-height: normal;
+}
+
+.PriceRating {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.CurrentPrice {
+   line-height: normal;
+   font-size: 18px;
+   font-weight: 600;
+}
+
+.RateDesign {
+   font-weight: 600;
+   margin: 0;
+   padding: 5px 10px;
+   height: auto;
+   color: #fff;
+   background: #ffc10e;
+   font-size: 12px;
+   line-height: normal;
+}
+
+.RateDesign span {
+   line-height: normal;
+}
+
+.RateDesign ion-icon {
+   width: 14px;
+   height: 14px;
+}
+
+.OfferInfo {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.OldPrice {
+   font-size: 16px;
+   color: #999;
+   text-decoration: line-through;
+   font-weight: 600;
+}
+
+.offerBedge {
+   font-weight: 600;
+   margin: 0;
+   border-radius: 5px;
+   padding: 5px 5px;
+   height: auto;
+   color: #00a94f;
+   background: #e6f6f1;
+   font-size: 12px;
+   line-height: normal;
+}
+
+.AddToCartBtn {
+   margin: auto 0 0;
+   --border-color: #999;
+   --border-width: 1px;
+}
+
+.AddToCartBtn::part(native) {
+   padding: 0 20px;
+}
+
+.addText {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+   color: #125b7b;
+   font-weight: 600;
+   text-transform: capitalize;
+}
+
+.addText ion-icon {
+   color: #125b7b;
+}
+
+/* Product */
 
 .header-md::after {
    display: none;
+}
+
+ion-button {
+   margin: 0;
+   text-transform: capitalize;
+   font-weight: 600;
+}
+
+ion-button.button-outline {
+   --border-width: 1px;
 }
 
 .title-large {
@@ -64,69 +237,6 @@ body{
    flex-direction: column;
    gap: 10px;
    padding-top: 0px;
-}
-
-.ProPrice {
-   font-weight: 600 !important;
-   font-size: 16px !important;
-}
-
-.TextContent {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-}
-
-.ChipDesign {
-   font-weight: 800;
-   margin: 0;
-   border-radius: 5px;
-   padding: 2px 5px;
-   height: auto;
-   color: #00a94f;
-   background: #e5f7ee;
-   font-size: 12px;
-}
-
-.linethro {
-   text-decoration: line-through;
-}
-
-.RateDesign {
-   font-weight: 800;
-   margin: 0;
-   border-radius: 30px;
-   padding: 2px 10px;
-   height: auto;
-   color: #fff;
-   background: #ffc10e;
-   font-size: 12px;
-}
-
-.RateDesign ion-icon {
-   width: 15px;
-}
-
-.AddToCart {
-   margin: 0;
-}
-
-.SmartKitchen img.icon-img {
-   width: 20px;
-}
-
-.SmartKitchen {
-   position: absolute;
-   display: flex;
-   align-items: center;
-   flex-direction: column;
-   gap: 10px;
-}
-
-.BookMark {
-   position: absolute;
-   right: 0;
-   top: 0;
 }
 
 /* Modal Popup */

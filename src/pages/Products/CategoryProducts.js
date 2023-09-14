@@ -16,7 +16,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import {searchOutline } from "ionicons/icons";
+import { searchOutline } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import ProductCard from "../../components/ProductCard";
@@ -25,6 +25,7 @@ import ProductCard from "../../components/ProductCard";
 import { ProductStore } from "../../data/ProductStore";
 
 import styles from "./CategoryProducts.module.css";
+import Header from "../../components/Header";
 
 const CategoryProducts = () => {
   const params = useParams();
@@ -63,59 +64,13 @@ const CategoryProducts = () => {
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
-      
-      <IonHeader>
-        <IonToolbar>
-          <IonGrid className="ion-no-padding">
-            <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
-              <IonCol size="4">
-                <div className="LogoGroup">
-                  <img
-                    src="/assets/img/MainLogo.png"
-                    alt="Images"
-                    className="logoSize"
-                  />
-                  <img
-                    src="/assets/img/ScanIcon.png"
-                    alt="Images"
-                    className="logoSize"
-                  />
-                </div>
-              </IonCol>
-              <IonCol size="6" className="ion-justify-content-end">
-                <IonButtons className="ion-justify-content-end">
-                  <IonButton routerLink="/favourites">
-                    <img
-                      src="/assets/img/Search.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
-                  <IonButton routerLink="/favourites">
-                    <img
-                      src="/assets/img/edit.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
-                  <IonButton routerLink="/favourites">
-                    <img
-                      src="/assets/img/menu.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
-                </IonButtons>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonToolbar>
-      </IonHeader>
+
+      <Header />
 
       <IonContent fullscreen>
-      <IonTitle size="large" className="ion-padding">
-      {category && category.name}
-            </IonTitle>
+        <IonTitle size="large" className="ion-padding">
+          {category && category.name}
+        </IonTitle>
 
         <IonSearchbar
           className={styles.search}
@@ -137,7 +92,9 @@ const CategoryProducts = () => {
               </IonNote>
             </IonCol>
           </IonRow>
+        </IonGrid>
 
+        <IonGrid className="px-6">
           <IonRow>
             {searchResults &&
               searchResults.map((product, index) => {

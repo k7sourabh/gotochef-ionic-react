@@ -2,6 +2,7 @@ import {
   IonButton,
   IonCard,
   IonCardContent,
+  IonCardHeader,
   IonCardSubtitle,
   IonChip,
   IonCol,
@@ -17,7 +18,7 @@ import {
 
 import styles from "./Home.module.css";
 import "./Home.css";
-import { star, add, bookmarkOutline ,chevronForwardCircleSharp } from "ionicons/icons";
+import { star, add, bookmarkOutline, chevronForwardCircleSharp } from "ionicons/icons";
 
 import { ProductStore } from "../data/ProductStore";
 import { useRef, useState } from "react";
@@ -41,7 +42,7 @@ const Home = () => {
 
   return (
     <IonPage id="home-page" className={styles.homePage}>
-      <Header/>
+      <Header />
 
       <IonContent fullscreen>
         <Swiper>
@@ -71,73 +72,63 @@ const Home = () => {
           </div>
         </IonHeader>
 
-        <IonGrid>
-          <IonRow>
-            <Swiper slidesPerView={2}>
-              {products.map((category, index) => {
-                return (
-                  <SwiperSlide key={index}>
-                    <IonCol size="12">
-                      <IonCard
-                        routerLink={`/category/${category.slug}`}
-                        className={styles.categoryCard}
-                      >
-                        <div className="SmartKitchen">
+        <IonGrid className="ion-no-padding">
+          <Swiper slidesPerView={2} >
+            {products.map((category, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <IonCard className="ProductCard" routerLink={`/category/${category.slug}`}>
+                    <IonCardHeader className="ProductThumb" >
+                      <div className="SmartKitchen">
+                        <div className="counter">
                           <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
-                          <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+                          <span>16</span>
                         </div>
+                        <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+                      </div>
 
-                        <img
-                          src={category.cover}
-                          alt="category cover"
-                          className="MainImg"
+                      <img
+                        src={category.cover}
+                        alt="category cover"
+                        className="MainProductThumb"
+                      />
+                      <div className="BookMark">
+                        <IonIcon
+                          color="primary"
+                          size="small"
+                          icon={bookmarkOutline}
                         />
-                        <div className="BookMark">
-                          <IonIcon
-                            color="primary"
-                            size="small"
-                            icon={bookmarkOutline}
-                          />
+                      </div>
+                    </IonCardHeader>
+
+                    <IonCardContent className="ProductDetails">
+                      <IonText className="ProductTitle">{category.name}</IonText>
+                      <div className="PriceRating">
+                        <IonText color="dark" className="CurrentPrice">352.00</IonText>
+                        <IonChip className="RateDesign">
+                          <span>3.2</span>
+                          <IonIcon color="light" size="small" icon={star} />
+                        </IonChip>
+                      </div>
+
+                      <div className="OfferInfo">
+                        <IonText color="dark" className="OldPrice">485.00</IonText>
+                        <IonChip className="offerBedge">33% OFF</IonChip>
+                      </div>
+
+                      <IonButton className="AddToCartBtn" size="default" shape="round" fill="outline">
+                        <div className="addText">
+                          Add
+                          <IonIcon slot="end" size="small" icon={add} />
                         </div>
-                      </IonCard>
+                      </IonButton>
+                    </IonCardContent>
+                  </IonCard>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
 
-                      <IonCardContent className="BoxContent">
-                        <IonCardSubtitle>{category.name}</IonCardSubtitle>
-                        <IonText color="dark" className="TextContent">
-                          <h3 className="ProPrice">352.00</h3>
-                          <IonChip className="RateDesign">
-                            3 <IonIcon color="light" size="small" icon={star} />
-                          </IonChip>
-                        </IonText>
-
-                        <IonText color="dark" className="TextContent">
-                          <h4 className="linethro">485.00</h4>
-                          <IonChip className="ChipDesign">33% OFF</IonChip>
-                        </IonText>
-
-                        <IonButton
-                          className="AddToCart"
-                          size="default"
-                          shape="round"
-                          fill="outline"
-                        >
-                          <div className="flex ion-justify-content-between ion-align-items-center w-full">
-                            Add
-                            <IonIcon
-                              slot="end"
-                              color="dark"
-                              size="small"
-                              icon={add}
-                            />
-                          </div>
-                        </IonButton>
-                      </IonCardContent>
-                    </IonCol>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </IonRow>
           <IonRow>
             <IonCol size="12" className="flex ion-justify-content-center ion-padding">
               <IonButton fill="outline">View More</IonButton>
@@ -156,74 +147,63 @@ const Home = () => {
           </div>
         </IonHeader>
 
-        <IonGrid>
-          <IonRow>
-            <Swiper slidesPerView={2} className={styles.swipertab}>
-              {products.map((category, index) => {
-                return (
-                  <SwiperSlide key={index}>
-                    <IonCol size="12">
-                      <IonCard
-                        routerLink={`/category/${category.slug}`}
-                        className={styles.categoryCard}
-                      >
-                        <div className="SmartKitchen">
+        <IonGrid className="px-6">
+          <Swiper slidesPerView={2} className={styles.swipertab}>
+            {products.map((category, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <IonCard className="ProductCard" routerLink={`/category/${category.slug}`}>
+                    <IonCardHeader className="ProductThumb">
+                      <div className="SmartKitchen">
+                        <div className="counter">
                           <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
-
-                          <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+                          <span>16</span>
                         </div>
+                        <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+                      </div>
 
-                        <img
-                          src={category.cover}
-                          alt="category cover"
-                          className="MainImg"
+                      <img
+                        src={category.cover}
+                        alt="category cover"
+                        className="MainProductThumb"
+                      />
+                      <div className="BookMark">
+                        <IonIcon
+                          color="primary"
+                          size="small"
+                          icon={bookmarkOutline}
                         />
-                        <div className="BookMark">
-                          <IonIcon
-                            color="primary"
-                            size="small"
-                            icon={bookmarkOutline}
-                          />
+                      </div>
+                    </IonCardHeader>
+
+                    <IonCardContent className="ProductDetails">
+                      <IonText className="ProductTitle">{category.name}</IonText>
+                      <div className="PriceRating">
+                        <IonText color="dark" className="CurrentPrice">352.00</IonText>
+                        <IonChip className="RateDesign">
+                          <span>3.2</span>
+                          <IonIcon color="light" size="small" icon={star} />
+                        </IonChip>
+                      </div>
+
+                      <div className="OfferInfo">
+                        <IonText color="dark" className="OldPrice">485.00</IonText>
+                        <IonChip className="offerBedge">33% OFF</IonChip>
+                      </div>
+
+                      <IonButton className="AddToCartBtn" size="default" shape="round" fill="outline">
+                        <div className="addText">
+                          Add
+                          <IonIcon slot="end" size="small" icon={add} />
                         </div>
-                      </IonCard>
+                      </IonButton>
+                    </IonCardContent>
+                  </IonCard>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
 
-                      <IonCardContent className="BoxContent">
-                        <IonCardSubtitle>{category.name}</IonCardSubtitle>
-                        <IonText color="dark" className="TextContent">
-                          <h3 className="ProPrice">352.00</h3>
-                          <IonChip className="RateDesign">
-                            3 <IonIcon color="light" size="small" icon={star} />
-                          </IonChip>
-                        </IonText>
-
-                        <IonText color="dark" className="TextContent">
-                          <h4 className="linethro">485.00</h4>
-                          <IonChip className="ChipDesign">33% OFF</IonChip>
-                        </IonText>
-
-                        <IonButton
-                          className="AddToCart"
-                          size="default"
-                          shape="round"
-                          fill="outline"
-                        >
-                          <div className="flex ion-justify-content-between ion-align-items-center w-full">
-                            Add
-                            <IonIcon
-                              slot="end"
-                              color="dark"
-                              size="small"
-                              icon={add}
-                            />
-                          </div>
-                        </IonButton>
-                      </IonCardContent>
-                    </IonCol>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </IonRow>
           <IonRow>
             <IonCol size="12" className="flex ion-justify-content-center ion-padding">
               <IonButton fill="outline">View More</IonButton>
