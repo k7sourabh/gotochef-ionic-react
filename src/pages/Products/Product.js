@@ -1,13 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
-  IonBadge,
   IonButton,
-  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardSubtitle,
   IonChip,
   IonCol,
   IonContent,
@@ -24,10 +21,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import {
-  cart,
-  chevronBackOutline,
   closeCircle,
-  add,
   star,
   pencil,
   thumbsUp,
@@ -40,13 +34,14 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import ProductCard from "../../components/ProductCard";
+import InnerCard from "../../components/InnerCard";
 import { addToCart, CartStore } from "../../data/CartStore";
 import { addToFavourites, FavouritesStore } from "../../data/FavouritesStore";
 import { ProductStore } from "../../data/ProductStore";
 
+
 import styles from "./Product.module.css";
 import Header from "../../components/Header";
-import InnerCard from "../../components/InnerCard";
 
 const Product = () => {
   const params = useParams();
@@ -96,25 +91,7 @@ const Product = () => {
       .classList.add("animate__fadeOutTopRight");
   };
 
-  const addProductToCart = (e, categorySlug, productID) => {
-    e.preventDefault();
-
-    document.getElementById(
-      `placeholder_cart_${categorySlug}_${productID}`
-    ).style.display = "";
-    document
-      .getElementById(`placeholder_cart_${categorySlug}_${productID}`)
-      .classList.add("animate__fadeOutUp");
-
-    setTimeout(() => {
-      cartRef.current.classList.add("animate__tada");
-      addToCart(categorySlug, productID);
-
-      setTimeout(() => {
-        cartRef.current.classList.remove("animate__tada");
-      }, 500);
-    }, 500);
-  };
+  
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
