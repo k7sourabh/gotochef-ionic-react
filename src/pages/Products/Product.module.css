@@ -30,7 +30,7 @@
     
 }
 .chefhat{
-    max-width: 30px;
+    max-width: 25px;
 }
 
 .chefhatbtn{
@@ -100,6 +100,7 @@
     display: flex;
     justify-content: start;
     column-gap: 10px;
+    align-items: center;
 }
 
 .addButn{
@@ -218,5 +219,50 @@
 
 .reviewbtn{
     height: 50px;
+}
+
+
+.RateDesignInner{
+    font-weight: 600;
+    margin: 0;
+    padding: 5px 10px;
+    height: auto;
+    color: #fff;
+    background: #03A244;
+    font-size: 12px;
+    line-height: normal;
+}
+
+.boxcontent h3{
+    font-size: 18px;
+    text-align: start;
+    font-weight: bold;
+
+}
+
+.ChipDesign{
+    font-weight: 600;
+    margin: 0;
+    border-radius: 5px;
+    padding: 5px 5px;
+    height: auto;
+    color: #00a94f;
+    background: #e6f6f1;
+    font-size: 12px;
+    line-height: normal;
+}
+
+.chefbuttonouter{
+    display: flex;
+    column-gap:16px;
+}
+
+.chefbuttonouter ion-button{
+    width: 100%;
+}
+
+.iconimg{
+    max-width: 20px;
+    padding-left: 10px;
 }
 

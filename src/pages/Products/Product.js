@@ -1,13 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
-  IonBadge,
   IonButton,
-  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardSubtitle,
   IonChip,
   IonCol,
   IonContent,
@@ -24,10 +21,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import {
-  cart,
-  chevronBackOutline,
   closeCircle,
-  add,
   star,
   pencil,
   thumbsUp,
@@ -40,13 +34,14 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import ProductCard from "../../components/ProductCard";
+import InnerCard from "../../components/InnerCard";
 import { addToCart, CartStore } from "../../data/CartStore";
 import { addToFavourites, FavouritesStore } from "../../data/FavouritesStore";
 import { ProductStore } from "../../data/ProductStore";
 
+
 import styles from "./Product.module.css";
 import Header from "../../components/Header";
-import InnerCard from "../../components/InnerCard";
 
 const Product = () => {
   const params = useParams();
@@ -96,25 +91,7 @@ const Product = () => {
       .classList.add("animate__fadeOutTopRight");
   };
 
-  const addProductToCart = (e, categorySlug, productID) => {
-    e.preventDefault();
-
-    document.getElementById(
-      `placeholder_cart_${categorySlug}_${productID}`
-    ).style.display = "";
-    document
-      .getElementById(`placeholder_cart_${categorySlug}_${productID}`)
-      .classList.add("animate__fadeOutUp");
-
-    setTimeout(() => {
-      cartRef.current.classList.add("animate__tada");
-      addToCart(categorySlug, productID);
-
-      setTimeout(() => {
-        cartRef.current.classList.remove("animate__tada");
-      }, 500);
-    }, 500);
-  };
+  
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
@@ -149,10 +126,20 @@ const Product = () => {
 
 
                   </div>
+                  <div className={styles.productCardActions}>
+                    <IonButton fill="">
+                        <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat}/>
+                    </IonButton>
+
+                    <IonIcon size="large" color="danger" icon={bookmarkOutline} />
+
+
+                  </div>
+
                   <img src={product.image} alt="product pic" />
                   <p className={styles.titleNames} ><span>Kissan</span>
                     <div className={styles.raterp}>{product.name}
-                      <IonChip className="RateDesignInner">
+                      <IonChip className={styles.RateDesignInner}>
                         4.4<IonIcon color="light" size="small" icon={star} />
                       </IonChip></div>
                     <span>Glass Bottle of 1 Gram</span></p>
@@ -166,7 +153,7 @@ const Product = () => {
                   <div className={styles.addButn}>
                     <IonText color="dark" className={styles.TextContent}>
                       <h4 className="linethro">485.0</h4>
-                      <IonChip className="ChipDesign">33% OFF</IonChip>
+                      <IonChip className={styles.ChipDesign}>33% OFF</IonChip>
                     </IonText>
                     <IonButton
                       className="AddToCart"
@@ -188,7 +175,7 @@ const Product = () => {
 
           <IonRow className="ion-padding">
             <IonCol size="12">
-              <div className="">
+              <div className={styles.chefbuttonouter}>
                 <IonButton size="default" expand="block" fill="outline" className={styles.chefbutton}>
                   <div className={styles.chefbuttoninner}>
                     <img

@@ -41,6 +41,9 @@ import { ProductStore } from "../../data/ProductStore";
 import Header from "../../components/Header";
 
 import styles from "./CartProducts.module.css";
+import { FavouritesStore } from "../../data/FavouritesStore";
+import { useParams } from "react-router/cjs/react-router.min";
+import InnerCard from "../../components/InnerCard";
 
 const CartProducts = () => {
   const cartRef = useRef();
@@ -48,8 +51,13 @@ const CartProducts = () => {
   const shopCart = CartStore.useState((s) => s.product_ids);
   const [cartProducts, setCartProducts] = useState([]);
   const [amountLoaded /* , setAmountLoaded */] = useState(6);
-
   const [total, setTotal] = useState(0);
+  const favourites = FavouritesStore.useState((s) => s.product_ids);
+  const [isFavourite, setIsFavourite] = useState(false);
+  const [product, setProduct] = useState({});
+  const [category, setCategory] = useState({});
+
+
 
   useEffect(() => {
     const getCartProducts = () => {
@@ -85,15 +93,7 @@ const CartProducts = () => {
     getCartProducts();
   }, [shopCart]);
 
-  //   const fetchMore = async (e) => {
-  //     //	Increment the amount loaded by 6 for the next iteration
-  //     setAmountLoaded((prevAmount) => prevAmount + 6);
-  //     e.target.complete();
-  //   };
-
-  const removeProductFromCart = async (index) => {
-    removeFromCart(index);
-  };
+ 
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
@@ -149,6 +149,34 @@ const CartProducts = () => {
                   </IonGrid>
             </IonCol>
           </IonRow>
+        </IonGrid>
+
+        <IonGrid>
+        <IonRow className="ion-text-start ion-padding">
+            <IonCol size="12">
+            <IonText className={styles.headingtext}>Saved For Later</IonText>
+            </IonCol>
+        </IonRow>
+
+        <IonRow>
+            {category &&
+              category.products &&
+              category.products.map((similar, index) => {
+                if (similar.id !== product.id && product.image && index < 4) {
+                  return (
+                    <InnerCard
+                      key={`similar_product_${index}`}
+                      product={similar}
+                      index={index}
+                      isFavourite={false}
+                      cartRef={cartRef}
+                      category={category}
+                    />
+                  );
+                }
+              })}
+          </IonRow>
+          
         </IonGrid>
 
       </IonContent>

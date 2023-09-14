@@ -50,3 +50,8 @@
     flex-direction: column;
     row-gap: 7px;
 }
+
+.textcontent{
+    display: flex;
+    justify-content: space-between;
+}
