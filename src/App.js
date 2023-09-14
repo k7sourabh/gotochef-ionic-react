@@ -93,7 +93,7 @@ const App = () => {
             </Route>
           </IonRouterOutlet>
 
-          <IonTabBar slot="bottom">
+          <IonTabBar slot="bottom" className="FooterTab">
             <IonTabButton tab="home" href="/home">
               <img src="/assets/img/Home.png" alt="Images" className="TabIcon" />
               <IonLabel>Home</IonLabel>

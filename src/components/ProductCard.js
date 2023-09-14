@@ -3,6 +3,7 @@ import {
   IonButton,
   IonCard,
   IonCardContent,
+  IonCardHeader,
   IonCardSubtitle,
   IonChip,
   IonCol,
@@ -16,6 +17,7 @@ import {
 } from "ionicons/icons";
 import { useRef } from "react";
 import { addToCart } from "../data/CartStore";
+// import { addToFavourites, } from "../data/FavouritesStore";
 import styles from "./ProductCard.module.css";
 
 const ProductCard = (props) => {
@@ -73,8 +75,7 @@ const ProductCard = (props) => {
     <IonCol size="6" key={`category_product_list_${index}`}>
       <IonCard
         routerLink={`/category/${category.slug}/${product.id}`}
-        className={styles.categoryCard}
-      >
+        className="ProductCard">
         {/* <IonCardHeader className={styles.productCardHeader}>
           <div className={styles.productCardActions}>
             <IonIcon
@@ -127,45 +128,53 @@ const ProductCard = (props) => {
           </div>
         </IonCardContent> */}
 
-        <div className="SmartKitchen">
-          <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
+        <IonCardHeader className="ProductThumb" >
+          <div className="SmartKitchen">
+            <div className="counter">
+              <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
+              <span>16</span>
+            </div>
+            <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+          </div>
 
-          <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
-        </div>
+          <img
+            src={product.image}
+            alt="category cover"
+            className="MainProductThumb"
+          />
+          <div className="BookMark">
+            <IonIcon
+              color="primary"
+              size="small"
+              icon={bookmarkOutline}
+            />
+          </div>
+        </IonCardHeader>
+        
+        <IonCardContent className="ProductDetails">
+          <IonText className="ProductTitle">{product.name}</IonText>
+          <div className="PriceRating">
+            <IonText color="dark" className="CurrentPrice">{product.price}</IonText>
+            <IonChip className="RateDesign">
+              <span>3.2</span>
+              <IonIcon color="light" size="small" icon={star} />
+            </IonChip>
+          </div>
 
-        <img src={product.image} alt="category cover" className="MainImg" />
-        <div className="BookMark">
-          <IonIcon color="primary" size="small" icon={bookmarkOutline} />
-        </div>
+          <div className="OfferInfo">
+            <IonText color="dark" className="OldPrice">485.00</IonText>
+            <IonChip className="offerBedge">33% OFF</IonChip>
+          </div>
+
+          <IonButton className="AddToCartBtn" size="default" shape="round" fill="outline" onClick={(e) => addProductToCart(e, category.slug, product.id)}>
+            <div className="addText">
+              Add
+              <IonIcon slot="end" size="small" icon={add} />
+            </div>
+          </IonButton>
+        </IonCardContent>
       </IonCard>
 
-      <IonCardContent className="BoxContent">
-        <IonCardSubtitle>{product.name}</IonCardSubtitle>
-        <IonText color="dark" className="TextContent">
-          <h3 className="ProPrice"> {product.price}</h3>
-          <IonChip className="RateDesign">
-            3 <IonIcon color="light" size="small" icon={star} />
-          </IonChip>
-        </IonText>
-
-        <IonText color="dark" className="TextContent">
-          <h4 className="linethro">485.00</h4>
-          <IonChip className="ChipDesign">33% OFF</IonChip>
-        </IonText>
-
-        <IonButton
-          onClick={(e) => addProductToCart(e, category.slug, product.id)}
-          className="AddToCart"
-          size="default"
-          shape="round"
-          fill="outline"
-        >
-          <div className="flex ion-justify-content-between ion-align-items-center w-full">
-            Add
-            <IonIcon slot="end" color="dark" size="small" icon={add} />
-          </div>
-        </IonButton>
-      </IonCardContent>
     </IonCol>
   );
 };
