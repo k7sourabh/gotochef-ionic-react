@@ -9,6 +9,7 @@ import {
   IonCol,
   IonContent,
   IonFooter,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
@@ -21,18 +22,23 @@ import {
   IonNote,
   IonPage,
   IonRow,
+  IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import {
+  addOutline,
+  arrowBack,
   cart,
   checkmarkSharp,
   chevronBackOutline,
+  removeOutline,
   trashOutline,
 } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { CartStore, removeFromCart } from "../../data/CartStore";
 import { ProductStore } from "../../data/ProductStore";
+import Header from "../../components/Header";
 
 import styles from "./CartProducts.module.css";
 
@@ -91,91 +97,70 @@ const CartProducts = () => {
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton color="dark" routerLink="/" routerDirection="back">
-              <IonIcon color="dark" icon={chevronBackOutline} />
-              &nbsp;Categories
-            </IonButton>
-          </IonButtons>
-          <IonTitle>Cart</IonTitle>
-
-          <IonButtons slot="end">
-            <IonBadge color="dark">{shopCart.length}</IonBadge>
-            <IonButton color="dark">
-              <IonIcon
-                ref={cartRef}
-                className="animate__animated"
-                icon={cart}
-              />
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
+      <Header />
 
       <IonContent fullscreen>
-        <IonRow className="ion-text-center ion-margin-top">
-          <IonCol size="12">
-            <IonNote>
-              {cartProducts && cartProducts.length}{" "}
-              {cartProducts.length > 1 || cartProducts.length === 0
-                ? " products"
-                : " product"}{" "}
-              found
-            </IonNote>
-          </IonCol>
-        </IonRow>
+        <IonHeader className={styles.boxshadow}>
+          <div className="flex ion-justify-content-between ion-padding ion-align-items-center">
+          <IonIcon color="dark" icon={arrowBack} />
+            <IonTitle size="large" className={styles.mainhead}>
+              Review Cart
+            </IonTitle>
+          </div>
+        </IonHeader>
 
-        <IonList>
-          {cartProducts &&
-            cartProducts.map((product, index) => {
-              if (index <= amountLoaded) {
-                return (
-                  <IonItemSliding className={styles.cartSlider}>
-                    <IonItem
-                      key={index}
-                      lines="none"
-                      detail={false}
-                      className={styles.cartItem}
-                    >
-                      <IonAvatar>
-                        <IonImg src={product.product.image} />
-                      </IonAvatar>
-                      <IonLabel className="ion-padding-start ion-text-wrap">
-                        <p>{product.category.name}</p>
-                        <h4>{product.product.name}</h4>
-                      </IonLabel>
+        <IonGrid>
+          <IonRow>
+            <IonCol size="12">
+                  <IonGrid className={styles.paymentlist} >
+                     <IonRow className={styles.paymentrow}>
+                        <IonCol className={styles.paylogo} size="2">
+                        <img
+                        src="/assets/img/kissan-sauce.png"
+                     alt="Images"
+                     />
+                        </IonCol>
 
-                      <div className={styles.cartActions}>
-                        <IonBadge color="dark">
-                          {product.product.price}
-                        </IonBadge>
-                      </div>
-                    </IonItem>
+                        <IonCol className={styles.paycontent} size="4">
+                           <IonText>Kissan Fresh Tomato Sauce 500G</IonText>
+                           <IonText>By Kissan<br />
+                           500 Grams</IonText>
+                        </IonCol>
 
-                    <IonItemOptions side="end">
-                      <IonItemOption
-                        color="danger"
-                        style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-                        onClick={() => removeProductFromCart(index)}
-                      >
-                        <IonIcon icon={trashOutline} />
-                      </IonItemOption>
-                    </IonItemOptions>
-                  </IonItemSliding>
-                );
-              }
-            })}
-        </IonList>
+                        <IonCol size="3">
+                          <div className={styles.counteritem}>
+                            <IonButton fill="" className="ion-no-padding" size="small">
+                              <IonIcon icon={addOutline} />
+                            </IonButton>
+                              <IonText>1</IonText>
+                            <IonButton fill="" className="ion-no-padding" size="small">
+                              <IonIcon icon={removeOutline} />
+                            </IonButton>
+                            
+                            </div>  
+                        </IonCol>
+
+                        <IonCol size="3" className={styles.pricecontent}>
+                        <IonText>120.00</IonText>
+                           <IonText>160.00
+                           </IonText>
+                        </IonCol>
+                     </IonRow>
+                  </IonGrid>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+
       </IonContent>
 
       <IonFooter className={styles.cartFooter}>
         <div className={styles.cartCheckout}>
-          <IonCardSubtitle>£{total.toFixed(2)}</IonCardSubtitle>
+          <IonCardSubtitle>
 
-          <IonButton color="dark">
-            <IonIcon icon={checkmarkSharp} />
+          </IonCardSubtitle>
+
+          <IonButton color="primary">
+          Rs{total.toFixed(2)}
             &nbsp;Checkout
           </IonButton>
         </div>

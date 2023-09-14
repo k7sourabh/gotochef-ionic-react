@@ -1,0 +1,52 @@
+.innerCard{
+    display: flex;
+}
+
+.paymentrow{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    column-gap: 15px;
+}
+
+
+
+.paycontent{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+}
+
+
+.paycontent ion-text:first-child{
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.paycontent ion-text:last-child{
+    color: #9a1a0a;
+    font-size: 10px;
+    letter-spacing: -0.2px;
+}
+
+.recipehead{
+    font-size: 12px !important;
+    font-weight: bold !important;
+}
+.textwrp{
+    font-size: 10px;
+}
+
+
+.recipeContent{
+    padding: 10px !important;
+}
+
+.recipeBg{
+    background-color: #F7F8F3;
+    padding: 5px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    row-gap: 7px;
+}

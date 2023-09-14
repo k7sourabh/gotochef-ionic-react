@@ -2,58 +2,13 @@ import { IonButton, IonButtons, IonCheckbox, IonCol, IonContent, IonGrid, IonHea
 import React from "react";
 import styles from "./AddPayment.module.css";
 import { arrowBack } from "ionicons/icons";
+import Header from "../../components/Header";
 
 const AddPayment = () => {
   return (
     <>
       <IonPage id="home-page" className={styles.homePage}>
-        <IonHeader>
-          <IonToolbar>
-            <IonGrid className="ion-no-padding">
-              <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
-                <IonCol size="4">
-                  <div className="LogoGroup">
-                    <img
-                      src="/assets/img/MainLogo.png"
-                      alt="Images"
-                      className="logoSize"
-                    />
-                    <img
-                      src="/assets/img/ScanIcon.png"
-                      alt="Images"
-                      className="logoSize"
-                    />
-                  </div>
-                </IonCol>
-                <IonCol size="6" className="ion-justify-content-end">
-                  <IonButtons className="ion-justify-content-end">
-                    <IonButton>
-                      <img
-                        src="/assets/img/Search.png"
-                        alt="Images"
-                        className="TopBarIcons"
-                      />
-                    </IonButton>
-                    <IonButton>
-                      <img
-                        src="/assets/img/edit.png"
-                        alt="Images"
-                        className="TopBarIcons"
-                      />
-                    </IonButton>
-                    <IonButton routerLink="/favourites">
-                      <img
-                        src="/assets/img/menu.png"
-                        alt="Images"
-                        className="TopBarIcons"
-                      />
-                    </IonButton>
-                  </IonButtons>
-                </IonCol>
-              </IonRow>
-            </IonGrid>
-          </IonToolbar>
-        </IonHeader>
+      <Header/>
 
         <IonContent fullscreen>
         <IonHeader className={styles.boxshadow}>
