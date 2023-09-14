@@ -103,6 +103,18 @@ body{
    font-size: 12px;
 }
 
+
+.RateDesignInner {
+   font-weight: 800;
+   margin: 0;
+   border-radius: 30px;
+   padding: 2px 10px;
+   height: auto;
+   color: #fff;
+   background: #00a94f;
+   font-size: 12px;
+}
+
 .RateDesign ion-icon {
    width: 15px;
 }

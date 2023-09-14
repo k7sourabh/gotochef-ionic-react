@@ -31,7 +31,11 @@ import {
   star,
   pencil,
   thumbsUp,
-  arrowUndo
+  arrowUndo,
+  bookmarkOutline,
+  starOutline,
+  arrowBack,
+  alertCircle
 } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
@@ -41,6 +45,8 @@ import { addToFavourites, FavouritesStore } from "../../data/FavouritesStore";
 import { ProductStore } from "../../data/ProductStore";
 
 import styles from "./Product.module.css";
+import Header from "../../components/Header";
+import InnerCard from "../../components/InnerCard";
 
 const Product = () => {
   const params = useParams();
@@ -112,37 +118,20 @@ const Product = () => {
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton
-              color="dark"
-              text={category.name}
-              routerLink={`/category/${category.slug}`}
-              routerDirection="back"
-            >
-              <IonIcon color="dark" icon={chevronBackOutline} />
-              &nbsp;{category.name}
-            </IonButton>
-          </IonButtons>
-
-          <IonTitle>View Product</IonTitle>
-
-          <IonButtons slot="end">
-            <IonBadge color="dark">{shopCart.length}</IonBadge>
-            <IonButton color="dark" routerLink="/cart">
-              <IonIcon
-                ref={cartRef}
-                className="animate__animated"
-                icon={cart}
-              />
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
+      <Header/>
 
       <IonContent fullscreen>
         <IonGrid>
+
+        <IonHeader className={styles.boxshadow}>
+          <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
+          <IonIcon color="dark" icon={arrowBack} />
+            <IonTitle size="large" className={styles.mainhead}>
+              Kissan Tomato Sauce...
+            </IonTitle>
+          </div>
+        </IonHeader>
+
           <IonRow>
             <IonCol size="12">
               <IonCard className={styles.categoryCard}>
@@ -163,8 +152,8 @@ const Product = () => {
                   <img src={product.image} alt="product pic" />
                   <p className={styles.titleNames} ><span>Kissan</span>
                     <div className={styles.raterp}>{product.name}
-                    <IonChip className="RateDesign">
-                            3 <IonIcon color="light" size="small" icon={star} />
+                    <IonChip className="RateDesignInner">
+                            4.4<IonIcon color="light" size="small" icon={star} />
                           </IonChip></div>
                     <span>Glass Bottle of 1 Gram</span></p>
                 </IonCardHeader>
@@ -184,15 +173,11 @@ const Product = () => {
                             size="default"
                             shape="round"
                             fill="outline"
+                            color="warning"
                           >
                             <div className="flex ion-justify-content-between ion-align-items-center w-full">
                               Add
-                              <IonIcon
-                                slot="end"
-                                color="dark"
-                                size="small"
-                                icon={add}
-                              />
+                              
                             </div>
                           </IonButton>
                         </div>
@@ -204,32 +189,26 @@ const Product = () => {
          <IonRow className="ion-padding">
             <IonCol size="6">
             <IonButton size="default" expand="block" fill="outline" className={styles.chefbutton}>
-                            <div className="flex ion-justify-content-center ion-align-items-center">
-                            <IonButton fill="">
+                            <div className={styles.chefbuttoninner}>
                             <img
                               src="/assets/img/Mysmart.png"
                               alt="Images"
                               className={styles.chefhatbtn}
                                   />
-                            </IonButton>
                               MySmartKitchen
                             </div>
               </IonButton>
             </IonCol>
             <IonCol size="6">
             <IonButton size="default" expand="block" fill="outline" className={styles.chefbutton}>
-                            <div className="flex ion-justify-content-center ion-align-items-center ion-text-center">
-                            <IonButton fill="">
-                            <img
-                              src="/assets/img/Mysmart.png"
-                              alt="Images"
-                              className={styles.chefhatbtn}
-                                  />
-                            </IonButton>
+                            <div className={styles.chefbuttoninner}>
+                            <IonIcon icon={bookmarkOutline} size="small" />
                               Wishlist
                             </div>
               </IonButton>
             </IonCol>
+            
+            
          </IonRow>
 
 
@@ -249,7 +228,7 @@ const Product = () => {
 
          <IonRow >
           <IonCol size="12" className="flex ion-justify-content-center ion-align-items-center">
-            <IonButton>
+            <IonButton color="medium" >
               <div className="flex ion-justify-content-between ion-align-items-center">
                 <IonIcon icon={pencil} />
               
@@ -258,12 +237,6 @@ const Product = () => {
               </div></IonButton>
           </IonCol>
          </IonRow>
-
-          <IonRow className="ion-padding">
-            <IonText className={styles.headingtext}>
-              Review
-            </IonText>
-          </IonRow>
 
          <IonRow className={styles.reviewcontainer}>
             <IonCol size="12" className={styles.reviews}>
@@ -282,11 +255,11 @@ const Product = () => {
                         </IonCol>
 
                         <IonCol className={styles.rating}>
-                          <IonIcon icon={star}   />
-                          <IonIcon icon={star}   />
-                          <IonIcon icon={star}   />
-                          <IonIcon icon={star}   />
-                          <IonIcon icon={star}   />
+                          <IonIcon icon={star} color="warning"  />
+                          <IonIcon icon={star} color="warning"  />
+                          <IonIcon icon={star} color="warning"  />
+                          <IonIcon icon={star} color="warning"  />
+                          <IonIcon icon={starOutline}  />
                         </IonCol>
                 </IonRow>
                 <IonRow className="ion-justify-content-end">
@@ -299,10 +272,10 @@ const Product = () => {
                 </IonRow>
                 <IonRow className="ion-padding">
                   <IonCol size="1">
-                      <IonIcon icon={thumbsUp}/>
+                      <IonIcon icon={thumbsUp} size="small"/>
                   </IonCol>
-                  <IonCol size="2">
-                      <IonIcon icon={arrowUndo}/>
+                  <IonCol size="3" className={styles.reply}>
+                      <IonIcon icon={arrowUndo} size="small"/>
                       Reply
                   </IonCol>
                 </IonRow>
@@ -310,7 +283,6 @@ const Product = () => {
 
                 
             </IonCol>
-
             <IonCol size="12" className={styles.reviews}>
                 <div>
                 <IonRow className={styles.paymentrow}>
@@ -327,11 +299,11 @@ const Product = () => {
                         </IonCol>
 
                         <IonCol className={styles.rating}>
-                          <IonIcon icon={star}   />
-                          <IonIcon icon={star}   />
-                          <IonIcon icon={star}   />
-                          <IonIcon icon={star}   />
-                          <IonIcon icon={star}   />
+                          <IonIcon icon={star} color="warning"  />
+                          <IonIcon icon={star} color="warning"  />
+                          <IonIcon icon={star} color="warning"  />
+                          <IonIcon icon={star} color="warning"  />
+                          <IonIcon icon={starOutline}  />
                         </IonCol>
                 </IonRow>
                 <IonRow className="ion-justify-content-end">
@@ -344,10 +316,10 @@ const Product = () => {
                 </IonRow>
                 <IonRow className="ion-padding">
                   <IonCol size="1">
-                      <IonIcon icon={thumbsUp}/>
+                      <IonIcon icon={thumbsUp} size="small"/>
                   </IonCol>
-                  <IonCol size="2">
-                      <IonIcon icon={arrowUndo}/>
+                  <IonCol size="3" className={styles.reply}>
+                      <IonIcon icon={arrowUndo} size="small"/>
                       Reply
                   </IonCol>
                 </IonRow>
@@ -355,16 +327,25 @@ const Product = () => {
 
                 
             </IonCol>
+
+            
          </IonRow>
           
 
-         <IonRow >
+         <IonRow className="ion-padding" >
           <IonCol size="12" >
-            <IonButton expand="block" shape="round" fill="outline" >
+            <IonButton expand="block" shape="round" fill="outline" className={styles.reviewbtn} >
 
               View all Review
               
           </IonButton>
+          </IonCol>
+         </IonRow>
+
+         <IonRow className="ion-justify-content-end" >
+          <IonCol size="4" className={styles.report} >
+                <IonIcon  icon={alertCircle} size="small" />
+                Report a Issue
           </IonCol>
          </IonRow>
 
@@ -380,7 +361,7 @@ const Product = () => {
               category.products.map((similar, index) => {
                 if (similar.id !== product.id && product.image && index < 4) {
                   return (
-                    <ProductCard
+                    <InnerCard
                       key={`similar_product_${index}`}
                       product={similar}
                       index={index}
