@@ -4,26 +4,36 @@ body{
    font-family: 'Open Sans', sans-serif !important;
 }
 
-
 .w-full {
    width: 100%;
 }
 
-.logoSize {
+/* Header */
+
+.LogoGroup {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   gap: 10px;
+}
+
+.LogoGroup .mainLogo {
    width: 35px;
 }
 
-.LogoGroup {
-   display: grid;
-   align-items: center;
-   justify-content: flex-start;
-   grid-gap: 15px;
-   grid-auto-flow: column;
+.LogoGroup .logoTag {
+   height: 30px;
+   object-fit: contain;
 }
 
-.TopBarIcons {
-   width: 25px;
+.TopIconBtn {
+   width: 40px;
+   height: 40px !important;
 }
+
+/* Header end */
+
+/* Product */
 
 .MainImg {
    padding: 1rem;

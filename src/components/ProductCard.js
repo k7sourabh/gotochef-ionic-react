@@ -16,7 +16,6 @@ import {
 } from "ionicons/icons";
 import { useRef } from "react";
 import { addToCart } from "../data/CartStore";
-// import { addToFavourites, } from "../data/FavouritesStore";
 import styles from "./ProductCard.module.css";
 
 const ProductCard = (props) => {

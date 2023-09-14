@@ -59,10 +59,6 @@ const OTPPopup = (props) => {
                      <IonCheckbox labelPlacement="end"></IonCheckbox>
                      <IonText color="dark">I hereby accept the <IonText>Privacy Policy</IonText>of GotoChe</IonText>
                   </div>
-                  
-                  <IonCheckbox justify="space-between">
-                  <IonLabel>Space Between Label and Control</IonLabel>
-                  </IonCheckbox>
                </div>
             </div>
          </IonModal>

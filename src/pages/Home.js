@@ -1,29 +1,23 @@
 import {
   IonButton,
-  IonButtons,
   IonCard,
   IonCardContent,
   IonCardSubtitle,
-  IonCheckbox,
   IonChip,
   IonCol,
   IonContent,
-  IonFabButton,
   IonGrid,
   IonHeader,
   IonIcon,
-  IonInput,
-  IonModal,
   IonPage,
   IonRow,
   IonText,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 
 import styles from "./Home.module.css";
 import "./Home.css";
-import { arrowForward, star, add, bookmarkOutline, close, arrowForwardCircle ,arrowForwardCircleSharp ,chevronForwardCircleSharp } from "ionicons/icons";
+import { star, add, bookmarkOutline ,chevronForwardCircleSharp } from "ionicons/icons";
 
 import { ProductStore } from "../data/ProductStore";
 import { useRef, useState } from "react";
@@ -33,12 +27,11 @@ import 'swiper/css';
 import '@ionic/react/css/ionic-swiper.css';
 import LoginPopup from "../modal/LoginPopup";
 import OTPPopup from "../modal/OTPPopup";
+import Header from "../components/Header";
 
 const Home = () => {
   const products = ProductStore.useState((s) => s.products);
 
-  const [isOpenOtp, setIsOpenOtp] = useState(false);
-  const [isOpenLogin, setIsOpenLogin] = useState(false);
   // const favourites = FavouritesStore.useState((s) => s.product_ids);
   // const shopCart = CartStore.useState((s) =>  s.product_ids);
   // console.log(products, "products")
@@ -48,53 +41,7 @@ const Home = () => {
 
   return (
     <IonPage id="home-page" className={styles.homePage}>
-      <IonHeader>
-        <IonToolbar>
-          <IonGrid className="ion-no-padding">
-            <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
-              <IonCol size="4">
-                <div className="LogoGroup">
-                  <img
-                    src="/assets/img/MainLogo.png"
-                    alt="Images"
-                    className="logoSize"
-                  />
-                  <img
-                    src="/assets/img/ScanIcon.png"
-                    alt="Images"
-                    className="logoSize"
-                  />
-                </div>
-              </IonCol>
-              <IonCol size="6" className="ion-justify-content-end">
-                <IonButtons className="ion-justify-content-end">
-                  <IonButton onClick={() => setIsOpenLogin(true)} >
-                    <img
-                      src="/assets/img/Search.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
-                  <IonButton onClick={() => setIsOpenOtp(true)}>
-                    <img
-                      src="/assets/img/edit.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
-                  <IonButton routerLink="/favourites">
-                    <img
-                      src="/assets/img/menu.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
-                </IonButtons>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonToolbar>
-      </IonHeader>
+      <Header/>
 
       <IonContent fullscreen>
         <Swiper>
@@ -284,10 +231,6 @@ const Home = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
-
-      <LoginPopup isOpen={isOpenLogin} setIsOpen={setIsOpenLogin}/>
-      
-      <OTPPopup isOpen={isOpenOtp} setIsOpen={setIsOpenOtp}/>
     </IonPage>
   );
 };
