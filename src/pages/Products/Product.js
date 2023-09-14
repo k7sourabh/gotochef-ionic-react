@@ -91,24 +91,23 @@ const Product = () => {
       .classList.add("animate__fadeOutTopRight");
   };
 
-  
+
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
       <Header />
 
       <IonContent fullscreen>
-        <IonGrid>
+        <IonHeader className={styles.boxshadow}>
+          <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
+            <IonIcon color="dark" icon={arrowBack} />
+            <IonTitle size="large" className={styles.mainhead}>
+              Kissan Tomato Sauce...
+            </IonTitle>
+          </div>
+        </IonHeader>
 
-          <IonHeader className={styles.boxshadow}>
-            <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-              <IonIcon color="dark" icon={arrowBack} />
-              <IonTitle size="large" className={styles.mainhead}>
-                Kissan Tomato Sauce...
-              </IonTitle>
-            </div>
-          </IonHeader>
-
+        <IonGrid className="ion-no-padding">
           <IonRow>
             <IonCol size="12">
               <IonCard className={styles.categoryCard}>
@@ -128,7 +127,7 @@ const Product = () => {
                   </div>
                   <div className={styles.productCardActions}>
                     <IonButton fill="">
-                        <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat}/>
+                      <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat} />
                     </IonButton>
 
                     <IonIcon size="large" color="danger" icon={bookmarkOutline} />
@@ -196,7 +195,9 @@ const Product = () => {
               </div>
             </IonCol>
           </IonRow>
+        </IonGrid>
 
+        <IonGrid className="ion-no-padding">
           <IonRow className="ion-padding">
             <IonSegment value="buttons">
               <IonSegmentButton value="default">
@@ -316,7 +317,6 @@ const Product = () => {
 
           </IonRow>
 
-
           <IonRow className="ion-padding" >
             <IonCol size="12" >
               <IonButton expand="block" shape="round" fill="outline" className={styles.reviewbtn} >
@@ -333,7 +333,9 @@ const Product = () => {
               Report a Issue
             </IonCol>
           </IonRow>
+        </IonGrid>
 
+        <IonGrid className="ion-no-padding ion-padding-bottom">
           <IonRow className="ion-text-start ion-padding">
             <IonCol size="12">
               <IonText className={styles.headingtext}>User Recipe</IonText>
@@ -383,8 +385,6 @@ const Product = () => {
                 }
               })}
           </IonRow>
-
-
         </IonGrid>
       </IonContent>
     </IonPage>

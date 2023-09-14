@@ -72,7 +72,7 @@ const CategoryProducts = () => {
           {category && category.name}
         </IonTitle>
 
-        <IonGrid className="ion-padding">
+        <IonGrid className="ion-padding-horizontal">
           <IonRow className="ion-text-center">
             <IonSearchbar
               className={styles.search}
@@ -84,7 +84,7 @@ const CategoryProducts = () => {
           </IonRow>
         </IonGrid>
 
-        <IonGrid>
+        <IonGrid className="ion-padding">
           <IonRow className="ion-text-center">
             <IonCol size="12">
               <IonNote>

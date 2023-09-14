@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
-    IonButton,
     IonCard,
     IonCardContent,
     IonCardSubtitle,
-    IonChip,
     IonCol,
     IonGrid,
     IonIcon,
@@ -12,10 +10,7 @@ import {
     IonText,
   } from "@ionic/react";
   import {
-    add,
-    bookmarkOutline,
     heartSharp,
-    star,
     starOutline,
   } from "ionicons/icons";
   import { useRef } from "react";
