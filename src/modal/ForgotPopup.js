@@ -4,7 +4,7 @@ import React from 'react'
 const ForgotPopup = (props) => {
    return (
       <>
-         <IonModal isOpen={props.isOpen} className='ForgotModal'>
+         <IonModal isOpen={props.isOpen} onDidDismiss={() => props.setIsOpen(false)} className='ForgotModal'>
             <div className="loginContainer">
                <IonText color="dark" className="title">Reset Password</IonText>
 

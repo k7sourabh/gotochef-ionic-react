@@ -51,24 +51,31 @@ const Product = () => {
   const [isFavourite, setIsFavourite] = useState(false);
   const shopCart = CartStore.useState((s) => s.product_ids);
   const [product, setProduct] = useState({});
+  const [productsState, setProducts] = useState([]);
   const [category, setCategory] = useState({});
 
   useEffect(() => {
-    const categorySlug = params.slug;
-    const productID = params.id;
-    const tempCategory = products.filter((p) => p.slug === categorySlug)[0];
-    const tempProduct = tempCategory.products.filter(
-      (p) => parseInt(p.id) === parseInt(productID)
+    setProducts(products);
+  }, [products]);
+
+  const getProductDetail = async () => {
+    const tempCategory = productsState.filter((p) => p.slug === params.slug)[0];
+    const tempProduct = tempCategory?.products.filter(
+      (p) => parseInt(p.id) === parseInt(params.id)
     )[0];
 
     const tempIsFavourite = favourites.find(
-      (f) => f === `${categorySlug}/${productID}`
+      (f) => f === `${params.slug}/${params.id}`
     );
 
     setIsFavourite(tempIsFavourite);
     setCategory(tempCategory);
     setProduct(tempProduct);
-  }, [params.slug, params.id]);
+  }
+
+  useEffect(() => {
+    getProductDetail();
+  }, [params.slug, params.id, productsState]);
 
   useEffect(() => {
     const tempIsFavourite = favourites.find(
@@ -135,9 +142,9 @@ const Product = () => {
 
                   </div>
 
-                  <img src={product.image} alt="product pic" />
+                  <img src={product?.image} alt="product pic" />
                   <p className={styles.titleNames} ><span>Kissan</span>
-                    <div className={styles.raterp}>{product.name}
+                    <div className={styles.raterp}>{product?.name}
                       <IonChip className={styles.RateDesignInner}>
                         4.4<IonIcon color="light" size="small" icon={star} />
                       </IonChip></div>
@@ -344,9 +351,9 @@ const Product = () => {
 
           <IonRow>
             {category &&
-              category.products &&
-              category.products.map((similar, index) => {
-                if (similar.id !== product.id && product.image && index < 4) {
+              category?.products &&
+              category?.products.map((similar, index) => {
+                if (similar.id !== product?.id && product?.image && index < 4) {
                   return (
                     <InnerCard
                       key={`similar_product_${index}`}

@@ -33,15 +33,25 @@ const CategoryProducts = () => {
   const products = ProductStore.useState((s) => s.products);
   // const shopCart = CartStore.useState((s) => s.product_ids);
   const [category, setCategory] = useState({});
+  const [productsState, setProducts] = useState([]);
   const [searchResults, setsearchResults] = useState([]);
   const [amountLoaded, setAmountLoaded] = useState(6);
 
-  useEffect(() => {
-    const categorySlug = params.slug;
-    const tempCategory = products.filter((p) => p.slug === categorySlug)[0];
+  const getProducts = async () => {
+    const tempCategory = await productsState.filter(
+      (p) => p.slug === params.slug
+    )[0];
     setCategory(tempCategory);
-    setsearchResults(tempCategory.products);
-  }, [params.slug]);
+    setsearchResults(tempCategory?.products);
+  };
+
+  useEffect(() => {
+    setProducts(products);
+  }, [products]);
+
+  useEffect(() => {
+    getProducts();
+  }, [params.slug, productsState]);
 
   const fetchMore = async (e) => {
     //	Increment the amount loaded by 6 for the next iteration
@@ -64,7 +74,6 @@ const CategoryProducts = () => {
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
-
       <Header />
 
       <IonContent fullscreen>
@@ -88,10 +97,10 @@ const CategoryProducts = () => {
           <IonRow className="ion-text-center">
             <IonCol size="12">
               <IonNote>
-                {searchResults && searchResults.length}{" "}
-                {searchResults.length > 1 || searchResults.length === 0
+                {searchResults && searchResults?.length}
+                {searchResults?.length > 1 || searchResults?.length === 0
                   ? " products"
-                  : " product"}{" "}
+                  : " product"}
                 found
               </IonNote>
             </IonCol>
