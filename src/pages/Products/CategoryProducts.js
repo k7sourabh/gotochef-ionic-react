@@ -86,12 +86,12 @@ const CategoryProducts = () => {
                 
                 <div className="CategoryInfo">
                   <div className="subCate-thumb">
-                    <img src={category.cover} alt="category cover"
+                    <img src={category?.cover} alt="category cover"
                     />
                   </div>
 
                   <div className="subCate-details">
-                    <IonText className="subCateTitle">{category.name}</IonText>
+                    <IonText className="subCateTitle">{category?.name}</IonText>
                     <span>158 items</span>
                   </div>
                 </div>
