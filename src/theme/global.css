@@ -26,9 +26,17 @@ body {
    object-fit: contain;
 }
 
-.TopIconBtn {
+.IconBtn {
    width: 40px;
    height: 40px !important;
+}
+
+.IconBtn::part(native) {
+   padding: 0;
+}
+
+.IconBtn img {
+   width: 24px;
 }
 
 /* Header end */
@@ -618,3 +626,61 @@ ion-button.button-outline {
 }
 
 /* Modal Popup end */
+
+
+/* Sub Category Title */
+
+.subCategory-titleBox {
+   display: flex;
+   gap: 15px;
+   align-items: center;
+}
+
+.CategoryInfo {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   overflow: hidden;
+}
+
+.subCate-thumb {
+   border: 1px solid #ccc;
+   border-radius: 15px;
+   padding: 12px;
+   width: 70px;
+   height: 70px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-width: 70px;
+}
+
+.subCate-details {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+}
+
+.subCateTitle {
+   font-size: 20px;
+   font-weight: 600;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+}
+
+.subCate-details span {
+   color: #515151;
+}
+
+.FilterBtn {
+   margin-left: auto;
+}
+
+.divider5 {
+   border-bottom: 5px solid #f2f2f2;
+}
+/* Sub Category Title end */

@@ -2,19 +2,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   IonButton,
-  IonButtons,
   IonCol,
   IonContent,
   IonGrid,
-  IonHeader,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   IonNote,
   IonPage,
   IonRow,
   IonSearchbar,
+  IonText,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
@@ -48,6 +46,7 @@ const CategoryProducts = () => {
     setAmountLoaded((prevAmount) => prevAmount + 6);
     e.target.complete();
   };
+  console.log(category, "category");
 
   const search = async (e) => {
     const searchVal = e.target.value;
@@ -68,11 +67,37 @@ const CategoryProducts = () => {
       <Header />
 
       <IonContent fullscreen>
-        <IonTitle size="large" className="ion-padding">
-          {category && category.name}
-        </IonTitle>
+        <IonGrid className="ion-padding">
+          <IonRow className="">
+            <IonCol size="12">
+              <div className="subCategory-titleBox">
+                <IonButton className='IconBtn' fill="clear">
+                  <img src="/assets/img/back-arrow.svg" alt="Images" className="back-icon" />
+                </IonButton>
+                
+                <div className="CategoryInfo">
+                  <div className="subCate-thumb">
+                    <img src={category.cover} alt="category cover"
+                    />
+                  </div>
 
-        <IonGrid className="ion-padding-horizontal">
+                  <div className="subCate-details">
+                    <IonText className="subCateTitle">{category.name}</IonText>
+                    <span>158 items</span>
+                  </div>
+                </div>
+
+                <IonButton className='IconBtn FilterBtn' fill="clear">
+                  <img src="/assets/img/filter.svg" alt="Images" className="back-icon" />
+                </IonButton>
+              </div>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+
+        <div className="divider5"></div>
+
+        {/* <IonGrid className="ion-padding-horizontal">
           <IonRow className="ion-text-center">
             <IonSearchbar
               className={styles.search}
@@ -96,7 +121,7 @@ const CategoryProducts = () => {
               </IonNote>
             </IonCol>
           </IonRow>
-        </IonGrid>
+        </IonGrid> */}
 
         <IonGrid className="ion-no-padding">
           <IonRow>

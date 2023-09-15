@@ -30,7 +30,7 @@ const Header = () => {
 
                      <IonCol size="auto" className="ion-justify-content-end">
                         <IonButtons className="ion-justify-content-end">
-                           <IonButton onClick={() => setIsOpenLogin(true)} className='TopIconBtn' >
+                           <IonButton onClick={() => setIsOpenLogin(true)} className='IconBtn' >
                               <img
                                  src="/assets/img/Search.png"
                                  alt="Images"
@@ -38,7 +38,7 @@ const Header = () => {
                               />
                            </IonButton>
 
-                           <IonButton onClick={() => setIsOpenOtp(true)} className='TopIconBtn'>
+                           <IonButton onClick={() => setIsOpenOtp(true)} className='IconBtn'>
                               <img
                                  src="/assets/img/edit.png"
                                  alt="Images"
@@ -46,7 +46,7 @@ const Header = () => {
                               />
                            </IonButton>
 
-                           <IonButton routerLink="/favourites" className='TopIconBtn'>
+                           <IonButton routerLink="/favourites" className='IconBtn'>
                               <img
                                  src="/assets/img/menu.png"
                                  alt="Images"

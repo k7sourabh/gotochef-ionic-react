@@ -104,9 +104,9 @@ const App = () => {
               <IonLabel>Home</IonLabel>
             </IonTabButton>
 
-            <IonTabButton tab="radio" href="/radio">
+            <IonTabButton tab="radio" href="/main-category">
               <img src="/assets/img/Mysmart.png" alt="Images" className="TabIcon" />
-              <IonLabel>MySmartKitchen</IonLabel>
+              <IonLabel>Category</IonLabel>
             </IonTabButton>
 
             <IonTabButton tab="library" href="/library">
