@@ -104,12 +104,15 @@ const Product = () => {
       <IonContent fullscreen>
         <IonHeader className={styles.boxshadow}>
           <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-            <IonIcon color="dark" icon={arrowBack} />
+            <IonButton className='IconBtn' fill="clear">
+              <img src="/assets/img/back-arrow.svg" alt="Images" className="back-icon" />
+            </IonButton>
             <IonTitle size="large" className={styles.mainhead}>
               Kissan Tomato Sauce...
             </IonTitle>
           </div>
         </IonHeader>
+        <div className="divider5"></div>
 
         <IonGrid className="ion-no-padding">
           <IonRow>
@@ -117,7 +120,7 @@ const Product = () => {
               <IonCard className={styles.categoryCard}>
                 <IonCardHeader className={styles.productCardHeader}>
                   <div className={styles.productCardActions}>
-                    <IonButton fill="">
+                    <IonButton fill="clear" className='IconBtn'>
                       <img
                         src="/assets/img/Mysmart.png"
                         alt="Images"
@@ -125,18 +128,19 @@ const Product = () => {
                       />
                     </IonButton>
 
-                    <IonIcon size="large" color="danger" icon={closeCircle} />
-
-
+                    <IonButton fill="clear" className='IconBtn'>
+                      <IonIcon size="large" color="danger" icon={closeCircle} />
+                    </IonButton>
                   </div>
+
                   <div className={styles.productCardActions}>
-                    <IonButton fill="">
+                    <IonButton fill="clear" className='IconBtn'>
                       <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat} />
                     </IonButton>
 
-                    <IonIcon size="large" color="danger" icon={bookmarkOutline} />
-
-
+                    <IonButton fill="clear" className='IconBtn'>
+                      <IonIcon size="large" color="danger" icon={bookmarkOutline} />
+                    </IonButton>
                   </div>
 
                   <img src={product?.image} alt="product pic" />

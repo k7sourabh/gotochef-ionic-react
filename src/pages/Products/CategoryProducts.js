@@ -2,15 +2,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   IonButton,
+  IonCard,
   IonCol,
   IonContent,
   IonGrid,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
+  IonLabel,
   IonNote,
   IonPage,
   IonRow,
   IonSearchbar,
+  IonSegment,
+  IonSegmentButton,
   IonText,
   IonTitle,
 } from "@ionic/react";
@@ -71,6 +75,15 @@ const CategoryProducts = () => {
     }
   };
 
+  // Tab 
+
+  const [selectedTab, setSelectedTab] = useState('tab1');
+  // const [activeCategory, setActiveCategory] = useState("");
+
+  const handleTabChange = (event) => {
+    setSelectedTab(event.detail.value);
+  };
+
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
       <Header />
@@ -83,7 +96,7 @@ const CategoryProducts = () => {
                 <IonButton className='IconBtn' fill="clear">
                   <img src="/assets/img/back-arrow.svg" alt="Images" className="back-icon" />
                 </IonButton>
-                
+
                 <div className="CategoryInfo">
                   <div className="subCate-thumb">
                     <img src={category?.cover} alt="category cover"
@@ -105,6 +118,52 @@ const CategoryProducts = () => {
         </IonGrid>
 
         <div className="divider5"></div>
+
+        <IonSegment className="subCateTab" value={selectedTab} onIonChange={handleTabChange} scrollable={true}>
+          {products.map((category, index) => (
+            <IonSegmentButton value={category.slug} key={index}>
+              <div className="subCategoryCard">
+                <div className="subCategoryThumb">
+                  <img
+                    src={category.cover}
+                    alt="category cover"
+                  />
+                </div>
+                <IonText className="subCategoryTitle">{category.name}</IonText>
+              </div>
+            </IonSegmentButton>
+          ))}
+        </IonSegment>
+
+        {/* {selectedTab === 'tab1' &&
+
+        } */}
+
+        <IonGrid className="ion-no-padding">
+          <IonRow>
+            {searchResults &&
+              searchResults.map((product, index) => {
+                if (index <= amountLoaded && product.image) {
+                  return (
+                    <ProductCard
+                      key={`category_product_${index}`}
+                      product={product}
+                      index={index}
+                      cartRef={cartRef}
+                      category={category}
+                    />
+                  );
+                }
+              })}
+          </IonRow>
+
+          <IonInfiniteScroll threshold="100px" onIonInfinite={fetchMore}>
+            <IonInfiniteScrollContent
+              loadingSpinner="bubbles"
+              loadingText="Fetching more..."
+            ></IonInfiniteScrollContent>
+          </IonInfiniteScroll>
+        </IonGrid>
 
         {/* <IonGrid className="ion-padding-horizontal">
           <IonRow className="ion-text-center">
@@ -131,32 +190,6 @@ const CategoryProducts = () => {
             </IonCol>
           </IonRow>
         </IonGrid> */}
-
-        <IonGrid className="ion-no-padding">
-          <IonRow>
-            {searchResults &&
-              searchResults.map((product, index) => {
-                if (index <= amountLoaded && product.image) {
-                  return (
-                    <ProductCard
-                      key={`category_product_${index}`}
-                      product={product}
-                      index={index}
-                      cartRef={cartRef}
-                      category={category}
-                    />
-                  );
-                }
-              })}
-          </IonRow>
-        </IonGrid>
-
-        <IonInfiniteScroll threshold="100px" onIonInfinite={fetchMore}>
-          <IonInfiniteScrollContent
-            loadingSpinner="bubbles"
-            loadingText="Fetching more..."
-          ></IonInfiniteScrollContent>
-        </IonInfiniteScroll>
       </IonContent>
     </IonPage>
   );
