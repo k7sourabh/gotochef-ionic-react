@@ -39,9 +39,9 @@ import MainCategory from "./pages/Products/MainCategory";
 await SplashScreen.hide();
 
 // Show the splash for an indefinite amount of time:
-await SplashScreen.show({
-  autoHide: false,
-});
+// await SplashScreen.show({
+//   autoHide: false,
+// });
 
 // Show the splash for two seconds and then automatically hide it:
 await SplashScreen.show({

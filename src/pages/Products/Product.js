@@ -18,7 +18,6 @@ import {
   IonSegmentButton,
   IonText,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 import {
   closeCircle,
@@ -35,11 +34,9 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import ProductCard from "../../components/ProductCard";
 import InnerCard from "../../components/InnerCard";
-import { addToCart, CartStore } from "../../data/CartStore";
-import { addToFavourites, FavouritesStore } from "../../data/FavouritesStore";
+// import { addToCart, CartStore } from "../../data/CartStore";
+import { FavouritesStore } from "../../data/FavouritesStore";
 import { ProductStore } from "../../data/ProductStore";
-
-
 import styles from "./Product.module.css";
 import Header from "../../components/Header";
 
@@ -49,7 +46,7 @@ const Product = () => {
   const products = ProductStore.useState((s) => s.products);
   const favourites = FavouritesStore.useState((s) => s.product_ids);
   const [isFavourite, setIsFavourite] = useState(false);
-  const shopCart = CartStore.useState((s) => s.product_ids);
+  // const shopCart = CartStore.useState((s) => s.product_ids);
   const [product, setProduct] = useState({});
   const [productsState, setProducts] = useState([]);
   const [category, setCategory] = useState({});
@@ -84,19 +81,19 @@ const Product = () => {
     setIsFavourite(tempIsFavourite ? true : false);
   }, [favourites, product]);
 
-  const addProductToFavourites = (e, categorySlug, productID) => {
-    e.preventDefault();
-    addToFavourites(categorySlug, productID);
+  // const addProductToFavourites = (e, categorySlug, productID) => {
+  //   e.preventDefault();
+  //   addToFavourites(categorySlug, productID);
 
-    document.getElementById(
-      `placeholder_favourite_product_${categorySlug}_${productID}`
-    ).style.display = "";
-    document
-      .getElementById(
-        `placeholder_favourite_product_${categorySlug}_${productID}`
-      )
-      .classList.add("animate__fadeOutTopRight");
-  };
+  //   document.getElementById(
+  //     `placeholder_favourite_product_${categorySlug}_${productID}`
+  //   ).style.display = "";
+  //   document
+  //     .getElementById(
+  //       `placeholder_favourite_product_${categorySlug}_${productID}`
+  //     )
+  //     .classList.add("animate__fadeOutTopRight");
+  // };
 
 
 
