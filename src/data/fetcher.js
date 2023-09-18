@@ -2,12 +2,12 @@ import { ProductStore } from "./ProductStore";
 
 export const fetchData = async () => {
   const json = [
-    "beds.json",
-    "armchairs.json",
-    "coffee_tables.json",
-    "cushions.json",
-    "floor_lamps.json",
-    "office_chairs.json",
+    "Spices.json",
+    "dry_fruits.json",
+    "fruits.json",
+    "beverages.json",
+    "snacks.json",
+    "sauces.json",
   ];
 
   var products = [];
@@ -22,7 +22,7 @@ export const fetchData = async () => {
     const productCategory = {
       name: categoryName,
       slug: category.replace(".json", ""),
-      cover: products[6].image,
+      cover: products[0].image,
       products,
     };
 

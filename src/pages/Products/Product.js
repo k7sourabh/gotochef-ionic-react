@@ -27,7 +27,7 @@ import {
   arrowUndo,
   bookmarkOutline,
   starOutline,
-  alertCircle
+  alertCircle,
 } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
@@ -40,9 +40,11 @@ import styles from "./Product.module.css";
 import Header from "../../components/Header";
 // import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import '@ionic/react/css/ionic-swiper.css';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "@ionic/react/css/ionic-swiper.css";
 
 const Product = () => {
   const params = useParams();
@@ -73,7 +75,7 @@ const Product = () => {
     setIsFavourite(tempIsFavourite);
     setCategory(tempCategory);
     setProduct(tempProduct);
-  }
+  };
 
   useEffect(() => {
     getProductDetail();
@@ -100,21 +102,21 @@ const Product = () => {
   //     .classList.add("animate__fadeOutTopRight");
   // };
 
-
-
   return (
     <IonPage id="productDetails-page">
       <Header />
 
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="IconBtn" fill="clear" onClick={() => history.push(`/category/${params.slug}`)}>
+          <IonButton
+            className="IconBtn"
+            fill="clear"
+            onClick={() => history.push(`/category/${params.slug}`)}
+          >
             <i class="material-icons dark">west</i>
           </IonButton>
 
-          <IonTitle color="dark">
-            {product?.name}
-          </IonTitle>
+          <IonTitle color="dark">{product?.name}</IonTitle>
         </IonHeader>
 
         <IonGrid className="ion-no-padding">
@@ -124,30 +126,50 @@ const Product = () => {
                 <IonCardHeader className={styles.productCardHeader}>
                   <div className={styles.ThumbIconsBlock}>
                     <div className={styles.productCardActions}>
-                      <IonButton fill="clear" className='IconBtn'>
+                      <IonButton fill="clear" className="IconBtn">
                         <div className="counter">
-                          <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
+                          <img
+                            src="/assets/img/Mysmart.png"
+                            alt="Images"
+                            className="icon-img"
+                          />
                           <span>16</span>
                         </div>
                       </IonButton>
 
-                      <IonButton fill="clear" className='IconBtn'>
-                        <IonIcon size="large" color="danger" icon={closeCircle} />
+                      <IonButton fill="clear" className="IconBtn">
+                        <IonIcon
+                          size="large"
+                          color="danger"
+                          icon={closeCircle}
+                        />
                       </IonButton>
                     </div>
 
                     <div className={styles.productCardActions}>
-                      <IonButton fill="clear" className='IconBtn'>
-                        <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat} />
+                      <IonButton fill="clear" className="IconBtn">
+                        <img
+                          src="/assets/img/veg-icon.png"
+                          alt="Images"
+                          className={styles.chefhat}
+                        />
                       </IonButton>
 
-                      <IonButton fill="clear" className='IconBtn'>
-                        <IonIcon size="large" color="danger" icon={bookmarkOutline} />
+                      <IonButton fill="clear" className="IconBtn">
+                        <IonIcon
+                          size="large"
+                          color="danger"
+                          icon={bookmarkOutline}
+                        />
                       </IonButton>
                     </div>
                   </div>
 
-                  <Swiper className={styles.ThumbSlide}>
+                  <Swiper
+                    className={styles.ThumbSlide}
+                    modules={[Pagination]}
+                    pagination={{ clickable: true }}
+                  >
                     <SwiperSlide>
                       <img src={product?.image} alt="product pic" />
                     </SwiperSlide>
@@ -157,13 +179,17 @@ const Product = () => {
                     </SwiperSlide>
                   </Swiper>
 
-                  
-                  <p className={styles.titleNames} ><span>Kissan</span>
-                    <div className={styles.raterp}>{product?.name}
+                  <p className={styles.titleNames}>
+                    <span>Kissan</span>
+                    <div className={styles.raterp}>
+                      {product?.name}
                       <IonChip className={styles.RateDesignInner}>
-                        4.4<IonIcon color="light" size="small" icon={star} />
-                      </IonChip></div>
-                    <span>Glass Bottle of 1 Gram</span></p>
+                        4.4
+                        <IonIcon color="light" size="small" icon={star} />
+                      </IonChip>
+                    </div>
+                    <span>Glass Bottle of 1 Gram</span>
+                  </p>
                 </IonCardHeader>
 
                 <IonCardContent className={styles.boxcontent}>
@@ -185,7 +211,6 @@ const Product = () => {
                     >
                       <div className="flex ion-justify-content-between ion-align-items-center w-full">
                         Add
-
                       </div>
                     </IonButton>
                   </div>
@@ -197,7 +222,12 @@ const Product = () => {
           <IonRow className="ion-padding">
             <IonCol size="12">
               <div className={styles.chefbuttonouter}>
-                <IonButton size="default" expand="block" fill="outline" className={styles.chefbutton}>
+                <IonButton
+                  size="default"
+                  expand="block"
+                  fill="outline"
+                  className={styles.chefbutton}
+                >
                   <div className={styles.chefbuttoninner}>
                     <img
                       src="/assets/img/Mysmart.png"
@@ -207,13 +237,17 @@ const Product = () => {
                     MySmartKitchen
                   </div>
                 </IonButton>
-                <IonButton size="default" expand="block" fill="outline" className={styles.chefbutton}>
+                <IonButton
+                  size="default"
+                  expand="block"
+                  fill="outline"
+                  className={styles.chefbutton}
+                >
                   <div className={styles.chefbuttoninner}>
                     <IonIcon icon={bookmarkOutline} size="small" />
                     Wishlist
                   </div>
                 </IonButton>
-
               </div>
             </IonCol>
           </IonRow>
@@ -234,15 +268,17 @@ const Product = () => {
             </IonSegment>
           </IonRow>
 
-          <IonRow >
-            <IonCol size="12" className="flex ion-justify-content-center ion-align-items-center">
-              <IonButton color="medium" >
+          <IonRow>
+            <IonCol
+              size="12"
+              className="flex ion-justify-content-center ion-align-items-center"
+            >
+              <IonButton color="medium">
                 <div className="flex ion-justify-content-between ion-align-items-center">
                   <IonIcon icon={pencil} />
-
                   Write a Review
-
-                </div></IonButton>
+                </div>
+              </IonButton>
             </IonCol>
           </IonRow>
 
@@ -251,10 +287,7 @@ const Product = () => {
               <div>
                 <IonRow className={styles.paymentrow}>
                   <IonCol className={styles.paylogo}>
-                    <img
-                      src="/assets/img/Amazon-pay.png"
-                      alt="Images"
-                    />
+                    <img src="/assets/img/Amazon-pay.png" alt="Images" />
                   </IonCol>
 
                   <IonCol className={styles.paycontent}>
@@ -273,8 +306,9 @@ const Product = () => {
                 <IonRow className="ion-justify-content-end">
                   <IonCol size="10">
                     <IonText>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s
                     </IonText>
                   </IonCol>
                 </IonRow>
@@ -288,17 +322,12 @@ const Product = () => {
                   </IonCol>
                 </IonRow>
               </div>
-
-
             </IonCol>
             <IonCol size="12" className={styles.reviews}>
               <div>
                 <IonRow className={styles.paymentrow}>
                   <IonCol className={styles.paylogo}>
-                    <img
-                      src="/assets/img/Amazon-pay.png"
-                      alt="Images"
-                    />
+                    <img src="/assets/img/Amazon-pay.png" alt="Images" />
                   </IonCol>
 
                   <IonCol className={styles.paycontent}>
@@ -317,8 +346,9 @@ const Product = () => {
                 <IonRow className="ion-justify-content-end">
                   <IonCol size="10">
                     <IonText>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s
                     </IonText>
                   </IonCol>
                 </IonRow>
@@ -332,25 +362,24 @@ const Product = () => {
                   </IonCol>
                 </IonRow>
               </div>
-
-
             </IonCol>
-
-
           </IonRow>
 
-          <IonRow className="ion-padding" >
-            <IonCol size="12" >
-              <IonButton expand="block" shape="round" fill="outline" className={styles.reviewbtn} >
-
+          <IonRow className="ion-padding">
+            <IonCol size="12">
+              <IonButton
+                expand="block"
+                shape="round"
+                fill="outline"
+                className={styles.reviewbtn}
+              >
                 View all Review
-
               </IonButton>
             </IonCol>
           </IonRow>
 
-          <IonRow className="ion-justify-content-end" >
-            <IonCol size="4" className={styles.report} >
+          <IonRow className="ion-justify-content-end">
+            <IonCol size="4" className={styles.report}>
               <IonIcon icon={alertCircle} size="small" />
               Report a Issue
             </IonCol>
