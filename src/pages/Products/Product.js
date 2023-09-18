@@ -39,9 +39,12 @@ import { FavouritesStore } from "../../data/FavouritesStore";
 import { ProductStore } from "../../data/ProductStore";
 import styles from "./Product.module.css";
 import Header from "../../components/Header";
+// import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Product = () => {
   const params = useParams();
+  const history = useHistory();
   const cartRef = useRef();
   const products = ProductStore.useState((s) => s.products);
   const favourites = FavouritesStore.useState((s) => s.product_ids);
@@ -104,11 +107,12 @@ const Product = () => {
       <IonContent fullscreen>
         <IonHeader className={styles.boxshadow}>
           <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-            <IonButton className='IconBtn' fill="clear">
+            <IonButton className='IconBtn' fill="clear" onClick={() => history.push(`/category/${params.slug}`)}>
               <img src="/assets/img/back-arrow.svg" alt="Images" className="back-icon" />
             </IonButton>
             <IonTitle size="large" className={styles.mainhead}>
-              Kissan Tomato Sauce...
+              {product?.name}
+              {/* Kissan Tomato Sauce... */}
             </IonTitle>
           </div>
         </IonHeader>

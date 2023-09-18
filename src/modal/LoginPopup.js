@@ -30,7 +30,7 @@ const LoginPopup = (props) => {
                   </div>
                </div>
 
-               <IonText color="dark" className="resendCode">Don’t have an account? <IonText>Signup Now</IonText></IonText>
+               <IonText color="dark" className="resendCode">Don’t have an account? <IonText onClick={() => {props.setIsOtpOpen(true); props.setIsOpen(false); setIsOpenFgp(false)}}>Signup Now</IonText></IonText>
 
                <div className="orDivider">
                   <span>OR</span>

@@ -2,34 +2,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   IonButton,
-  IonCard,
   IonCol,
   IonContent,
   IonGrid,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
-  IonLabel,
-  IonNote,
   IonPage,
   IonRow,
-  IonSearchbar,
   IonSegment,
   IonSegmentButton,
   IonText,
-  IonTitle,
 } from "@ionic/react";
-import { searchOutline } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import ProductCard from "../../components/ProductCard";
-
-// import { CartStore } from "../../data/CartStore";
 import { ProductStore } from "../../data/ProductStore";
-
 import styles from "./CategoryProducts.module.css";
 import Header from "../../components/Header";
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const CategoryProducts = () => {
+  const location = useLocation();
+  const history = useHistory();
   const params = useParams();
   const cartRef = useRef();
   const products = ProductStore.useState((s) => s.products);
@@ -38,6 +33,8 @@ const CategoryProducts = () => {
   const [productsState, setProducts] = useState([]);
   const [searchResults, setsearchResults] = useState([]);
   const [amountLoaded, setAmountLoaded] = useState(6);
+  const [selectedTab, setSelectedTab] = useState("tab1");
+  // const [activeCategory, setActiveCategory] = useState("");
 
   const getProducts = async () => {
     const tempCategory = await productsState.filter(
@@ -48,6 +45,7 @@ const CategoryProducts = () => {
   };
 
   useEffect(() => {
+    console.log(location, "location");
     setProducts(products);
   }, [products]);
 
@@ -62,23 +60,18 @@ const CategoryProducts = () => {
   };
   console.log(category, "category");
 
-  const search = async (e) => {
-    const searchVal = e.target.value;
+  // const search = async (e) => {
+  //   const searchVal = e.target.value;
 
-    if (searchVal !== "") {
-      const tempResults = category.products.filter((p) =>
-        p.name.toLowerCase().includes(searchVal.toLowerCase())
-      );
-      setsearchResults(tempResults);
-    } else {
-      setsearchResults(category.products);
-    }
-  };
-
-  // Tab 
-
-  const [selectedTab, setSelectedTab] = useState('tab1');
-  // const [activeCategory, setActiveCategory] = useState("");
+  //   if (searchVal !== "") {
+  //     const tempResults = category.products.filter((p) =>
+  //       p.name.toLowerCase().includes(searchVal.toLowerCase())
+  //     );
+  //     setsearchResults(tempResults);
+  //   } else {
+  //     setsearchResults(category.products);
+  //   }
+  // };
 
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
@@ -93,14 +86,17 @@ const CategoryProducts = () => {
           <IonRow className="">
             <IonCol size="12">
               <div className="subCategory-titleBox">
-                <IonButton className='IconBtn' fill="clear">
-                  <img src="/assets/img/back-arrow.svg" alt="Images" className="back-icon" />
+                <IonButton className="IconBtn" fill="clear" onClick={() => history.push(`/main-category`)}>
+                  <img
+                    src="/assets/img/back-arrow.svg"
+                    alt="Images"
+                    className="back-icon"
+                  />
                 </IonButton>
 
                 <div className="CategoryInfo">
                   <div className="subCate-thumb">
-                    <img src={category?.cover} alt="category cover"
-                    />
+                    <img src={category?.cover} alt="category cover" />
                   </div>
 
                   <div className="subCate-details">
@@ -109,8 +105,12 @@ const CategoryProducts = () => {
                   </div>
                 </div>
 
-                <IonButton className='IconBtn FilterBtn' fill="clear">
-                  <img src="/assets/img/filter.svg" alt="Images" className="back-icon" />
+                <IonButton className="IconBtn FilterBtn" fill="clear">
+                  <img
+                    src="/assets/img/filter.svg"
+                    alt="Images"
+                    className="back-icon"
+                  />
                 </IonButton>
               </div>
             </IonCol>
@@ -119,15 +119,23 @@ const CategoryProducts = () => {
 
         <div className="divider5"></div>
 
-        <IonSegment className="subCateTab" value={selectedTab} onIonChange={handleTabChange} scrollable={true}>
+        <IonSegment
+          className="subCateTab"
+          value={params.slug}
+          onIonChange={handleTabChange}
+          scrollable={true}
+        >
           {products.map((category, index) => (
-            <IonSegmentButton value={category.slug} key={index}>
+            <IonSegmentButton
+              value={category.slug}
+              key={index}
+              onClick={(e) => {
+                history.push(`/category/${category.slug}`, { from: `/category/${category.slug}` });
+              }}
+            >
               <div className="subCategoryCard">
                 <div className="subCategoryThumb">
-                  <img
-                    src={category.cover}
-                    alt="category cover"
-                  />
+                  <img src={category.cover} alt="category cover" />
                 </div>
                 <IonText className="subCategoryTitle">{category.name}</IonText>
               </div>

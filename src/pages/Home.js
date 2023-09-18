@@ -30,11 +30,6 @@ import Header from "../components/Header";
 const Home = () => {
   const products = ProductStore.useState((s) => s.products);
 
-  // const favourites = FavouritesStore.useState((s) => s.product_ids);
-  // const shopCart = CartStore.useState((s) =>  s.product_ids);
-
-
-
   return (
     <IonPage id="home-page" className={styles.homePage}>
       <Header />
@@ -73,7 +68,7 @@ const Home = () => {
             {products.map((category, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <IonCard className="ProductCard" routerLink={`/category/${category.slug}`}>
+                  <IonCard className="ProductCard" routerLink={`/category/${category.slug}/1`}>
                     <IonCardHeader className="ProductThumb" >
                       <div className="SmartKitchen">
                         <div className="counter">
