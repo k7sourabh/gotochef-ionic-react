@@ -27,7 +27,6 @@ import {
   arrowUndo,
   bookmarkOutline,
   starOutline,
-  arrowBack,
   alertCircle
 } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
@@ -41,6 +40,9 @@ import styles from "./Product.module.css";
 import Header from "../../components/Header";
 // import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import '@ionic/react/css/ionic-swiper.css';
 
 const Product = () => {
   const params = useParams();
@@ -101,53 +103,61 @@ const Product = () => {
 
 
   return (
-    <IonPage id="category-page" className={styles.categoryPage}>
+    <IonPage id="productDetails-page">
       <Header />
 
       <IonContent fullscreen>
-        <IonHeader className={styles.boxshadow}>
-          <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-            <IonButton className='IconBtn' fill="clear" onClick={() => history.push(`/category/${params.slug}`)}>
-              <img src="/assets/img/back-arrow.svg" alt="Images" className="back-icon" />
-            </IonButton>
-            <IonTitle size="large" className={styles.mainhead}>
-              {product?.name}
-              {/* Kissan Tomato Sauce... */}
-            </IonTitle>
-          </div>
+        <IonHeader className="TitleHead bottom-shadow">
+          <IonButton className="IconBtn" fill="clear" onClick={() => history.push(`/category/${params.slug}`)}>
+            <i class="material-icons dark">west</i>
+          </IonButton>
+
+          <IonTitle color="dark">
+            {product?.name}
+          </IonTitle>
         </IonHeader>
-        <div className="divider5"></div>
 
         <IonGrid className="ion-no-padding">
           <IonRow>
             <IonCol size="12">
               <IonCard className={styles.categoryCard}>
                 <IonCardHeader className={styles.productCardHeader}>
-                  <div className={styles.productCardActions}>
-                    <IonButton fill="clear" className='IconBtn'>
-                      <img
-                        src="/assets/img/Mysmart.png"
-                        alt="Images"
-                        className={styles.chefhat}
-                      />
-                    </IonButton>
+                  <div className={styles.ThumbIconsBlock}>
+                    <div className={styles.productCardActions}>
+                      <IonButton fill="clear" className='IconBtn'>
+                        <div className="counter">
+                          <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
+                          <span>16</span>
+                        </div>
+                      </IonButton>
 
-                    <IonButton fill="clear" className='IconBtn'>
-                      <IonIcon size="large" color="danger" icon={closeCircle} />
-                    </IonButton>
+                      <IonButton fill="clear" className='IconBtn'>
+                        <IonIcon size="large" color="danger" icon={closeCircle} />
+                      </IonButton>
+                    </div>
+
+                    <div className={styles.productCardActions}>
+                      <IonButton fill="clear" className='IconBtn'>
+                        <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat} />
+                      </IonButton>
+
+                      <IonButton fill="clear" className='IconBtn'>
+                        <IonIcon size="large" color="danger" icon={bookmarkOutline} />
+                      </IonButton>
+                    </div>
                   </div>
 
-                  <div className={styles.productCardActions}>
-                    <IonButton fill="clear" className='IconBtn'>
-                      <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat} />
-                    </IonButton>
+                  <Swiper className={styles.ThumbSlide}>
+                    <SwiperSlide>
+                      <img src={product?.image} alt="product pic" />
+                    </SwiperSlide>
 
-                    <IonButton fill="clear" className='IconBtn'>
-                      <IonIcon size="large" color="danger" icon={bookmarkOutline} />
-                    </IonButton>
-                  </div>
+                    <SwiperSlide>
+                      <img src={product?.image} alt="product pic" />
+                    </SwiperSlide>
+                  </Swiper>
 
-                  <img src={product?.image} alt="product pic" />
+                  
                   <p className={styles.titleNames} ><span>Kissan</span>
                     <div className={styles.raterp}>{product?.name}
                       <IonChip className={styles.RateDesignInner}>

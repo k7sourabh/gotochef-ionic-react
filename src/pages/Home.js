@@ -22,7 +22,6 @@ import { star, add, bookmarkOutline, chevronForwardCircleSharp } from "ionicons/
 
 import { ProductStore } from "../data/ProductStore";
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
 import '@ionic/react/css/ionic-swiper.css';
 import Header from "../components/Header";
@@ -54,15 +53,14 @@ const Home = () => {
         </Swiper>
 
 
-
         <IonGrid className="ion-no-padding">
-          <IonHeader>
-            <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-              <IonTitle size="large" className="ion-no-padding">
-                Exclusive Product Stores
-              </IonTitle>
+          <IonHeader className='TitleHead'>
+            <IonTitle>
+              Exclusive Product Stores
+            </IonTitle>
+            <IonButton fill="clear" className='IconBtn'>
               <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
-            </div>
+            </IonButton>
           </IonHeader>
           <Swiper slidesPerView={2} >
             {products.map((category, index) => {
@@ -129,14 +127,11 @@ const Home = () => {
 
 
         <IonGrid className="ion-no-padding">
-          <IonHeader>
-            <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-              <IonTitle size="large" className="ion-no-padding">
-                See What’s Trending
-              </IonTitle>
-
+          <IonHeader className='TitleHead'>
+            <IonTitle>See What’s Trending</IonTitle>
+            <IonButton fill="clear" className='IconBtn'>
               <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
-            </div>
+            </IonButton>
           </IonHeader>
 
           <Swiper slidesPerView={2} className={styles.swipertab}>

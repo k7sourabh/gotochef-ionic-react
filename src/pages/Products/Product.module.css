@@ -1,7 +1,3 @@
-.categoryPage ion-toolbar {
-    --border-style: none;
-}
-
 .categoryCard {
     text-align: center;
     box-shadow: none;
@@ -10,22 +6,13 @@
 
 .productCardActions {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    width: 100%;
-    margin-bottom: 1rem;
 }
 
-.productCardAction {
-    font-size: 1.1rem;
-}
-
-.productCardHeader {
-    min-height: 17rem;
-    
-}
-.chefhat{
-    max-width: 25px;
+.ThumbIconsBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .chefhatbtn{

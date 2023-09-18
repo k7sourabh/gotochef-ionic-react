@@ -24,15 +24,11 @@ const MainCategory = () => {
         <Header />
 
         <IonContent fullscreen>
-          <IonHeader>
-            <div className="flex ion-justify-content-between TitleBar ion-padding ion-align-items-center">
-              <IonTitle size="large" className="ion-no-padding">
-                Explore By Categories
-              </IonTitle>
-            </div>
+          <IonHeader className='TitleHead'>
+            <IonTitle className="ion-no-padding">Explore By Categories</IonTitle>
           </IonHeader>
 
-          <IonGrid className="ion-padding-horizontal">
+          <IonGrid className="ion-no-padding ion-padding-horizontal ion-padding-bottom">
             <IonRow>
               {products.map((category, index) => {
                 return (

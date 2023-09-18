@@ -5,6 +5,7 @@ import {
   IonCol,
   IonContent,
   IonGrid,
+  IonHeader,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   IonPage,
@@ -12,6 +13,7 @@ import {
   IonSegment,
   IonSegmentButton,
   IonText,
+  IonTitle,
 } from "@ionic/react";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
@@ -82,42 +84,25 @@ const CategoryProducts = () => {
       <Header />
 
       <IonContent fullscreen>
-        <IonGrid className="ion-padding">
-          <IonRow className="">
-            <IonCol size="12">
-              <div className="subCategory-titleBox">
-                <IonButton className="IconBtn" fill="clear" onClick={() => history.push(`/main-category`)}>
-                  <img
-                    src="/assets/img/back-arrow.svg"
-                    alt="Images"
-                    className="back-icon"
-                  />
-                </IonButton>
+        <IonHeader className='TitleHead bottom-shadow'>
+          <IonButton className="IconBtn" fill="clear" onClick={() => history.push(`/main-category`)}>
+            <i class="material-icons dark">west</i>
+          </IonButton>
+          <div className="CategoryInfoTitle">
+            <div className="subCate-thumb">
+              <img src={category?.cover} alt="category cover" />
+            </div>
 
-                <div className="CategoryInfo">
-                  <div className="subCate-thumb">
-                    <img src={category?.cover} alt="category cover" />
-                  </div>
+            <div className="subCate-details">
+              <IonTitle>{category?.name}</IonTitle>
+              <span>158 items</span>
+            </div>
+          </div>
+          <IonButton className="IconBtn ml-auto" fill="clear">
+            <img src="/assets/img/filter.svg" alt="Images" />
+          </IonButton>
 
-                  <div className="subCate-details">
-                    <IonText className="subCateTitle">{category?.name}</IonText>
-                    <span>158 items</span>
-                  </div>
-                </div>
-
-                <IonButton className="IconBtn FilterBtn" fill="clear">
-                  <img
-                    src="/assets/img/filter.svg"
-                    alt="Images"
-                    className="back-icon"
-                  />
-                </IonButton>
-              </div>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-
-        <div className="divider5"></div>
+        </IonHeader>
 
         <IonSegment
           className="subCateTab"
