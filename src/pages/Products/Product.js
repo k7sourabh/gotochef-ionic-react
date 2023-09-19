@@ -75,7 +75,7 @@ const Product = () => {
     setIsFavourite(tempIsFavourite);
     setCategory(tempCategory);
     setProduct(tempProduct);
-  }
+  };
 
   useEffect(() => {
     getProductDetail();
@@ -117,13 +117,15 @@ const Product = () => {
 
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="IconBtn" fill="clear" onClick={() => history.push(`/category/${params.slug}`)}>
+          <IonButton
+            className="IconBtn"
+            fill="clear"
+            onClick={() => history.push(`/category/${params.slug}`)}
+          >
             <i class="material-icons dark">west</i>
           </IonButton>
 
-          <IonTitle color="dark">
-            {product?.name}
-          </IonTitle>
+          <IonTitle color="dark">{product?.name}</IonTitle>
         </IonHeader>
 
         <IonGrid className="ion-no-padding">
@@ -133,25 +135,41 @@ const Product = () => {
                 <IonCardHeader>
                   <div className={styles.ThumbIconsBlock}>
                     <div className={styles.productCardActions}>
-                      <IonButton fill="clear" className='IconBtn'>
+                      <IonButton fill="clear" className="IconBtn">
                         <div className="counter">
-                          <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
+                          <img
+                            src="/assets/img/Mysmart.png"
+                            alt="Images"
+                            className="icon-img"
+                          />
                           <span>16</span>
                         </div>
                       </IonButton>
 
-                      <IonButton fill="clear" className='IconBtn'>
-                        <IonIcon size="large" color="danger" icon={closeCircle} />
+                      <IonButton fill="clear" className="IconBtn">
+                        <IonIcon
+                          size="large"
+                          color="danger"
+                          icon={closeCircle}
+                        />
                       </IonButton>
                     </div>
 
                     <div className={styles.productCardActions}>
-                      <IonButton fill="clear" className='IconBtn'>
-                        <img src="/assets/img/veg-icon.png" alt="Images" className={styles.chefhat} />
+                      <IonButton fill="clear" className="IconBtn">
+                        <img
+                          src="/assets/img/veg-icon.png"
+                          alt="Images"
+                          className={styles.chefhat}
+                        />
                       </IonButton>
 
-                      <IonButton fill="clear" className='IconBtn'>
-                        <IonIcon size="large" color="danger" icon={bookmarkOutline} />
+                      <IonButton fill="clear" className="IconBtn">
+                        <IonIcon
+                          size="large"
+                          color="danger"
+                          icon={bookmarkOutline}
+                        />
                       </IonButton>
                     </div>
                   </div>

@@ -15,14 +15,12 @@ import {
   IonText,
   IonTitle,
 } from "@ionic/react";
-
 import styles from "./Home.module.css";
 import "./Home.css";
 import { star, add, bookmarkOutline, chevronForwardCircleSharp } from "ionicons/icons";
-
 import { ProductStore } from "../data/ProductStore";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import 'swiper/swiper-bundle.css';
 import '@ionic/react/css/ionic-swiper.css';
 import Header from "../components/Header";
 
