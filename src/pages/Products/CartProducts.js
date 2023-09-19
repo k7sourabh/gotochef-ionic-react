@@ -43,7 +43,7 @@ import Header from "../../components/Header";
 import styles from "./CartProducts.module.css";
 import { FavouritesStore } from "../../data/FavouritesStore";
 import { useParams } from "react-router/cjs/react-router.min";
-import InnerCard from "../../components/InnerCard";
+// import InnerCard from "../../components/InnerCard";
 
 const CartProducts = () => {
   const cartRef = useRef();
@@ -93,7 +93,7 @@ const CartProducts = () => {
     getCartProducts();
   }, [shopCart]);
 
- 
+
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
@@ -102,7 +102,7 @@ const CartProducts = () => {
       <IonContent fullscreen>
         <IonHeader className={styles.boxshadow}>
           <div className="flex ion-justify-content-between ion-padding ion-align-items-center">
-          <IonIcon color="dark" icon={arrowBack} />
+            <IonIcon color="dark" icon={arrowBack} />
             <IonTitle size="large" className={styles.mainhead}>
               Review Cart
             </IonTitle>
@@ -112,53 +112,53 @@ const CartProducts = () => {
         <IonGrid>
           <IonRow>
             <IonCol size="12">
-                  <IonGrid className={styles.paymentlist} >
-                     <IonRow className={styles.paymentrow}>
-                        <IonCol className={styles.paylogo} size="2">
-                        <img
-                        src="/assets/img/kissan-sauce.png"
-                     alt="Images"
-                     />
-                        </IonCol>
+              <IonGrid className={styles.paymentlist} >
+                <IonRow className={styles.paymentrow}>
+                  <IonCol className={styles.paylogo} size="2">
+                    <img
+                      src="/assets/img/kissan-sauce.png"
+                      alt="Images"
+                    />
+                  </IonCol>
 
-                        <IonCol className={styles.paycontent} size="4">
-                           <IonText>Kissan Fresh Tomato Sauce 500G</IonText>
-                           <IonText>By Kissan<br />
-                           500 Grams</IonText>
-                        </IonCol>
+                  <IonCol className={styles.paycontent} size="4">
+                    <IonText>Kissan Fresh Tomato Sauce 500G</IonText>
+                    <IonText>By Kissan<br />
+                      500 Grams</IonText>
+                  </IonCol>
 
-                        <IonCol size="3">
-                          <div className={styles.counteritem}>
-                            <IonButton fill="" className="ion-no-padding" size="small">
-                              <IonIcon icon={addOutline} />
-                            </IonButton>
-                              <IonText>1</IonText>
-                            <IonButton fill="" className="ion-no-padding" size="small">
-                              <IonIcon icon={removeOutline} />
-                            </IonButton>
-                            
-                            </div>  
-                        </IonCol>
+                  <IonCol size="3">
+                    <div className={styles.counteritem}>
+                      <IonButton fill="" className="ion-no-padding" size="small">
+                        <IonIcon icon={addOutline} />
+                      </IonButton>
+                      <IonText>1</IonText>
+                      <IonButton fill="" className="ion-no-padding" size="small">
+                        <IonIcon icon={removeOutline} />
+                      </IonButton>
 
-                        <IonCol size="3" className={styles.pricecontent}>
-                        <IonText>120.00</IonText>
-                           <IonText>160.00
-                           </IonText>
-                        </IonCol>
-                     </IonRow>
-                  </IonGrid>
+                    </div>
+                  </IonCol>
+
+                  <IonCol size="3" className={styles.pricecontent}>
+                    <IonText>120.00</IonText>
+                    <IonText>160.00
+                    </IonText>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
             </IonCol>
           </IonRow>
         </IonGrid>
 
         <IonGrid>
-        <IonRow className="ion-text-start ion-padding">
+          <IonRow className="ion-text-start ion-padding">
             <IonCol size="12">
-            <IonText className={styles.headingtext}>Saved For Later</IonText>
+              <IonText className={styles.headingtext}>Saved For Later</IonText>
             </IonCol>
-        </IonRow>
+          </IonRow>
 
-        <IonRow>
+          {/* <IonRow>
             {category &&
               category.products &&
               category.products.map((similar, index) => {
@@ -175,8 +175,8 @@ const CartProducts = () => {
                   );
                 }
               })}
-          </IonRow>
-          
+          </IonRow> */}
+
         </IonGrid>
 
       </IonContent>
@@ -188,7 +188,7 @@ const CartProducts = () => {
           </IonCardSubtitle>
 
           <IonButton color="primary">
-          Rs{total.toFixed(2)}
+            Rs{total.toFixed(2)}
             &nbsp;Checkout
           </IonButton>
         </div>

@@ -120,7 +120,7 @@ const Home = () => {
 
           <IonRow className="ion-padding-bottom ion-padding-horizontal">
             <IonCol size="12" className="flex ion-justify-content-center">
-              <IonButton fill="outline">View More</IonButton>
+              <IonButton size="default" fill="outline">View More</IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -192,7 +192,7 @@ const Home = () => {
 
           <IonRow className="ion-padding-bottom ion-padding-horizontal">
             <IonCol size="12" className="flex ion-justify-content-center">
-              <IonButton fill="outline">View More</IonButton>
+              <IonButton size="default" fill="outline">View More</IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>

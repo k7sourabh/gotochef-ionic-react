@@ -22,17 +22,17 @@ import {
 import {
   closeCircle,
   star,
-  pencil,
   thumbsUp,
   arrowUndo,
   bookmarkOutline,
   starOutline,
-  alertCircle
+  alertCircle,
+  createOutline,
+  heartSharp
 } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import ProductCard from "../../components/ProductCard";
-import InnerCard from "../../components/InnerCard";
 // import { addToCart, CartStore } from "../../data/CartStore";
 import { FavouritesStore } from "../../data/FavouritesStore";
 import { ProductStore } from "../../data/ProductStore";
@@ -41,7 +41,9 @@ import Header from "../../components/Header";
 // import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/pagination';
 import '@ionic/react/css/ionic-swiper.css';
 
 const Product = () => {
@@ -100,6 +102,13 @@ const Product = () => {
   //     .classList.add("animate__fadeOutTopRight");
   // };
 
+  // Tab 
+
+  const [selectedTab, setSelectedTab] = useState('reviews');
+  const handleTabChange = (event) => {
+    setSelectedTab(event.detail.value);
+  };
+
 
 
   return (
@@ -120,8 +129,8 @@ const Product = () => {
         <IonGrid className="ion-no-padding">
           <IonRow>
             <IonCol size="12">
-              <IonCard className={styles.categoryCard}>
-                <IonCardHeader className={styles.productCardHeader}>
+              <IonCard className={styles.ProductCard}>
+                <IonCardHeader>
                   <div className={styles.ThumbIconsBlock}>
                     <div className={styles.productCardActions}>
                       <IonButton fill="clear" className='IconBtn'>
@@ -147,7 +156,7 @@ const Product = () => {
                     </div>
                   </div>
 
-                  <Swiper className={styles.ThumbSlide}>
+                  <Swiper className={styles.ThumbSlide} modules={[Pagination]} pagination={{ clickable: true }}>
                     <SwiperSlide>
                       <img src={product?.image} alt="product pic" />
                     </SwiperSlide>
@@ -157,237 +166,300 @@ const Product = () => {
                     </SwiperSlide>
                   </Swiper>
 
-                  
-                  <p className={styles.titleNames} ><span>Kissan</span>
-                    <div className={styles.raterp}>{product?.name}
+
+                  <IonCardContent className={styles.ProductInfo} >
+                    <span className={styles.cateName} >Kissan</span>
+                    <div className={styles.pTitle}>
+                      <IonText color="dark">{product?.name}</IonText>
+
                       <IonChip className={styles.RateDesignInner}>
                         4.4<IonIcon color="light" size="small" icon={star} />
                       </IonChip></div>
-                    <span>Glass Bottle of 1 Gram</span></p>
-                </IonCardHeader>
+                    <span>Glass Bottle of 1 Gram</span>
 
-                <IonCardContent className={styles.boxcontent}>
-                  <IonText color="dark" className="TextContent">
-                    <h3 className="ProPrice">352.00</h3>
-                  </IonText>
+                    <div className={styles.priceInfo}>
+                      <IonText color="dark" >352.00</IonText>
+                      <div className={styles.addButn}>
+                        <div className="OfferInfo">
+                          <IonText color="dark" className="OldPrice">485.00</IonText>
+                          <IonChip className="offerBedge">33% OFF</IonChip>
+                        </div>
+                        <IonButton
+                          className="AddToCart"
+                          size="default"
+                          shape="round"
+                          fill="outline"
+                          color="warning"
+                        >
+                          <div className="flex ion-justify-content-between ion-align-items-center w-full">
+                            Add
 
-                  <div className={styles.addButn}>
-                    <IonText color="dark" className={styles.TextContent}>
-                      <h4 className="linethro">485.0</h4>
-                      <IonChip className={styles.ChipDesign}>33% OFF</IonChip>
-                    </IonText>
-                    <IonButton
-                      className="AddToCart"
-                      size="default"
-                      shape="round"
-                      fill="outline"
-                      color="warning"
-                    >
-                      <div className="flex ion-justify-content-between ion-align-items-center w-full">
-                        Add
-
+                          </div>
+                        </IonButton>
                       </div>
-                    </IonButton>
-                  </div>
-                </IonCardContent>
+                    </div>
+                  </IonCardContent>
+                </IonCardHeader>
               </IonCard>
-            </IonCol>
-          </IonRow>
 
-          <IonRow className="ion-padding">
-            <IonCol size="12">
-              <div className={styles.chefbuttonouter}>
+              <div className="btnGroup ion-padding">
                 <IonButton size="default" expand="block" fill="outline" className={styles.chefbutton}>
-                  <div className={styles.chefbuttoninner}>
-                    <img
-                      src="/assets/img/Mysmart.png"
-                      alt="Images"
-                      className={styles.chefhatbtn}
-                    />
-                    MySmartKitchen
-                  </div>
+                  <img
+                    className="mr-05"
+                    src="/assets/img/Mysmart.png"
+                    alt="Images"
+                  />
+                  MySmartKitchen
                 </IonButton>
                 <IonButton size="default" expand="block" fill="outline" className={styles.chefbutton}>
-                  <div className={styles.chefbuttoninner}>
-                    <IonIcon icon={bookmarkOutline} size="small" />
-                    Wishlist
-                  </div>
+                  <IonIcon slot="start" icon={bookmarkOutline} size="small" />
+                  Wishlist
                 </IonButton>
-
               </div>
             </IonCol>
           </IonRow>
         </IonGrid>
 
         <IonGrid className="ion-no-padding">
-          <IonRow className="ion-padding">
-            <IonSegment value="buttons">
-              <IonSegmentButton value="default">
-                <IonLabel>Details</IonLabel>
-              </IonSegmentButton>
-              <IonSegmentButton value="segment">
-                <IonLabel>Nutrition</IonLabel>
-              </IonSegmentButton>
-              <IonSegmentButton value="buttons">
-                <IonLabel>Reviews</IonLabel>
-              </IonSegmentButton>
-            </IonSegment>
-          </IonRow>
+          <IonRow>
+            <IonCol size="12">
+              <IonSegment value={selectedTab} onIonChange={handleTabChange} className="FillSegment">
+                <IonSegmentButton value="details">
+                  <IonLabel>Details</IonLabel>
+                </IonSegmentButton>
+                <IonSegmentButton value="nutrition">
+                  <IonLabel>Nutrition</IonLabel>
+                </IonSegmentButton>
+                <IonSegmentButton value="reviews">
+                  <IonLabel>Reviews</IonLabel>
+                </IonSegmentButton>
+              </IonSegment>
 
-          <IonRow >
-            <IonCol size="12" className="flex ion-justify-content-center ion-align-items-center">
-              <IonButton color="medium" >
-                <div className="flex ion-justify-content-between ion-align-items-center">
-                  <IonIcon icon={pencil} />
+              {selectedTab === 'details' &&
+                <div>
+                  Content for Tab 1
+                </div>
+              }
+              {selectedTab === 'nutrition' &&
+                <div>
+                  Content for Tab 2
+                </div>
+              }
+              {selectedTab === 'reviews' &&
+                <IonGrid className="ion-padding">
+                  <IonRow className="ion-margin-bottom">
+                    <IonCol size="12" className="flex ion-justify-content-center ion-align-items-center">
+                      <IonButton color="medium" >
+                        <IonIcon slot="start" icon={createOutline} />
+                        Write a Review
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
 
-                  Write a Review
+                  <IonRow>
+                    <IonCol size="12" className="reviewsCard">
+                      <div className="reviewDetails">
+                        <div className="reviewThumb">
+                          <img src="/assets/img/Screenshot_1.png" alt="Images" />
+                        </div>
 
-                </div></IonButton>
+                        <div className="reviewInfo">
+                          <div className="reviewTitle">
+                            <div className="reviewName-info">
+                              <IonText>Mayur Jha</IonText>
+                              <span>May 11 2022</span>
+                            </div>
+
+                            <div className="ratingStar">
+                              <IonIcon icon={star} color="warning" />
+                              <IonIcon icon={star} color="warning" />
+                              <IonIcon icon={star} color="warning" />
+                              <IonIcon icon={star} color="warning" />
+                              <IonIcon icon={starOutline} />
+                            </div>
+                          </div>
+
+                          <div className="reviewDescription">
+                            <IonText>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</IonText>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="reviewFooter">
+                        <IonButton fill="clear" className='IconBtn' color="dark">
+                          <IonIcon icon={thumbsUp} size="small" />
+                        </IonButton>
+
+                        <IonButton fill="clear" color="dark">
+                          <IonIcon slot="start" icon={arrowUndo} size="small" />
+                          Reply
+                        </IonButton>
+                      </div>
+                    </IonCol>
+
+                    <IonCol size="12" className="reviewsCard">
+                      <div className="reviewDetails">
+                        <div className="reviewThumb">
+                          <img src="/assets/img/Screenshot_1.png" alt="Images" />
+                        </div>
+
+                        <div className="reviewInfo">
+                          <div className="reviewTitle">
+                            <div className="reviewName-info">
+                              <IonText>Mayur Jha</IonText>
+                              <span>May 11 2022</span>
+                            </div>
+
+                            <div className="ratingStar">
+                              <IonIcon icon={star} color="warning" />
+                              <IonIcon icon={star} color="warning" />
+                              <IonIcon icon={star} color="warning" />
+                              <IonIcon icon={star} color="warning" />
+                              <IonIcon icon={starOutline} />
+                            </div>
+                          </div>
+
+                          <div className="reviewDescription">
+                            <IonText>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</IonText>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="reviewFooter">
+                        <IonButton fill="clear" className='IconBtn' color="dark">
+                          <IonIcon icon={thumbsUp} size="small" />
+                        </IonButton>
+
+                        <IonButton fill="clear" color="dark">
+                          <IonIcon slot="start" icon={arrowUndo} size="small" />
+                          Reply
+                        </IonButton>
+                      </div>
+                    </IonCol>
+
+                    <IonCol size="12" className="ion-padding" >
+                      <IonButton expand="block" shape="round" fill="outline">
+                        View all Review
+                      </IonButton>
+                    </IonCol>
+
+                    <IonCol size="12" className="flex ion-justify-content-end" >
+                      <IonButton fill="clear" className={styles.report}>
+                        <IonIcon slot="start" icon={alertCircle} size="small" />
+                        Report a Issue
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              }
             </IonCol>
           </IonRow>
+        </IonGrid>
 
-          <IonRow className={styles.reviewcontainer}>
-            <IonCol size="12" className={styles.reviews}>
-              <div>
-                <IonRow className={styles.paymentrow}>
-                  <IonCol className={styles.paylogo}>
+        <IonGrid className="ion-no-padding px-6 ion-padding-bottom">
+          <IonHeader className='TitleHead'>
+            <IonTitle color="dark">User Recipe</IonTitle>
+          </IonHeader>
+
+          <IonRow>
+            <IonCol size="6">
+              <div className="recipeCard">
+                <div className="recipeHead">
+                  <div className="reviewThumb">
                     <img
-                      src="/assets/img/Amazon-pay.png"
+                      src="/assets/img/Screenshot_1.png"
                       alt="Images"
                     />
-                  </IonCol>
+                  </div>
 
-                  <IonCol className={styles.paycontent}>
-                    <IonText>Mayur Jha</IonText>
-                    <IonText>May 11 2022</IonText>
-                  </IonCol>
+                  <div className="reviewName-info">
+                    <IonText>Mansi</IonText>
+                    <span>GotoChef</span>
+                  </div>
+                </div>
 
-                  <IonCol className={styles.rating}>
-                    <IonIcon icon={star} color="warning" />
-                    <IonIcon icon={star} color="warning" />
-                    <IonIcon icon={star} color="warning" />
-                    <IonIcon icon={star} color="warning" />
-                    <IonIcon icon={starOutline} />
-                  </IonCol>
-                </IonRow>
-                <IonRow className="ion-justify-content-end">
-                  <IonCol size="10">
-                    <IonText>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                    </IonText>
-                  </IonCol>
-                </IonRow>
-                <IonRow className="ion-padding">
-                  <IonCol size="1">
-                    <IonIcon icon={thumbsUp} size="small" />
-                  </IonCol>
-                  <IonCol size="3" className={styles.reply}>
-                    <IonIcon icon={arrowUndo} size="small" />
-                    Reply
-                  </IonCol>
-                </IonRow>
+                <div className="recipeMainThumb">
+                  <img src="/assets/img/sandwich.png" alt="Images" />
+                </div>
+
+                <div className="recipeDetails">
+                  <IonText color="dark" className="title">Veg Sandwich Recipe</IonText>
+                  <IonText color="dark" className="description">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  </IonText>
+
+                  <div className="recipeLevelInfo">
+                    <IonText color="dark" className="LevelInfo">Level: <span>Moderate</span></IonText>
+                    <div className="lavelRating">
+                      <div className="ratingStar">
+                        <IonIcon icon={starOutline} />
+                        <IonIcon icon={starOutline} />
+                        <IonIcon icon={starOutline} />
+                        <IonIcon icon={starOutline} />
+                        <IonIcon icon={starOutline} />
+                      </div>
+
+                      <IonButton fill="clear" className='IconBtn'>
+                        <IonIcon icon={heartSharp} />
+                      </IonButton>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-
             </IonCol>
-            <IonCol size="12" className={styles.reviews}>
-              <div>
-                <IonRow className={styles.paymentrow}>
-                  <IonCol className={styles.paylogo}>
+
+            <IonCol size="6">
+              <div className="recipeCard">
+                <div className="recipeHead">
+                  <div className="reviewThumb">
                     <img
-                      src="/assets/img/Amazon-pay.png"
+                      src="/assets/img/Screenshot_1.png"
                       alt="Images"
                     />
-                  </IonCol>
+                  </div>
 
-                  <IonCol className={styles.paycontent}>
-                    <IonText>Mayur Jha</IonText>
-                    <IonText>May 11 2022</IonText>
-                  </IonCol>
+                  <div className="reviewName-info">
+                    <IonText>Simran</IonText>
+                    <span>GotoChef</span>
+                  </div>
+                </div>
 
-                  <IonCol className={styles.rating}>
-                    <IonIcon icon={star} color="warning" />
-                    <IonIcon icon={star} color="warning" />
-                    <IonIcon icon={star} color="warning" />
-                    <IonIcon icon={star} color="warning" />
-                    <IonIcon icon={starOutline} />
-                  </IonCol>
-                </IonRow>
-                <IonRow className="ion-justify-content-end">
-                  <IonCol size="10">
-                    <IonText>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                    </IonText>
-                  </IonCol>
-                </IonRow>
-                <IonRow className="ion-padding">
-                  <IonCol size="1">
-                    <IonIcon icon={thumbsUp} size="small" />
-                  </IonCol>
-                  <IonCol size="3" className={styles.reply}>
-                    <IonIcon icon={arrowUndo} size="small" />
-                    Reply
-                  </IonCol>
-                </IonRow>
+                <div className="recipeMainThumb">
+                  <img src="/assets/img/sandwich.png" alt="Images" />
+                </div>
+
+                <div className="recipeDetails">
+                  <IonText color="dark" className="title">Veg Sandwich Recipe</IonText>
+                  <IonText color="dark" className="description">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  </IonText>
+
+                  <div className="recipeLevelInfo">
+                    <IonText color="dark" className="LevelInfo">Level: <span>Moderate</span></IonText>
+                    <div className="lavelRating">
+                      <div className="ratingStar">
+                        <IonIcon icon={starOutline} />
+                        <IonIcon icon={starOutline} />
+                        <IonIcon icon={starOutline} />
+                        <IonIcon icon={starOutline} />
+                        <IonIcon icon={starOutline} />
+                      </div>
+
+                      <IonButton fill="clear" className='IconBtn'>
+                        <IonIcon icon={heartSharp} />
+                      </IonButton>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-
-            </IonCol>
-
-
-          </IonRow>
-
-          <IonRow className="ion-padding" >
-            <IonCol size="12" >
-              <IonButton expand="block" shape="round" fill="outline" className={styles.reviewbtn} >
-
-                View all Review
-
-              </IonButton>
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-end" >
-            <IonCol size="4" className={styles.report} >
-              <IonIcon icon={alertCircle} size="small" />
-              Report a Issue
             </IonCol>
           </IonRow>
         </IonGrid>
 
         <IonGrid className="ion-no-padding ion-padding-bottom">
-          <IonRow className="ion-text-start ion-padding">
-            <IonCol size="12">
-              <IonText className={styles.headingtext}>User Recipe</IonText>
-            </IonCol>
-          </IonRow>
-
-          <IonRow>
-            {category &&
-              category?.products &&
-              category?.products.map((similar, index) => {
-                if (similar.id !== product?.id && product?.image && index < 4) {
-                  return (
-                    <InnerCard
-                      key={`similar_product_${index}`}
-                      product={similar}
-                      index={index}
-                      isFavourite={false}
-                      cartRef={cartRef}
-                      category={category}
-                    />
-                  );
-                }
-              })}
-          </IonRow>
-
-          <IonRow className="ion-text-start ion-padding">
-            <IonCol size="12">
-              <IonText className={styles.headingtext}>Similar Product</IonText>
-            </IonCol>
-          </IonRow>
+          <IonHeader className='TitleHead'>
+            <IonTitle color="dark">Similar Product</IonTitle>
+          </IonHeader>
 
           <IonRow>
             {category &&
