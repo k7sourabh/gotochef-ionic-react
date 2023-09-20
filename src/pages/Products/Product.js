@@ -28,7 +28,8 @@ import {
   starOutline,
   alertCircle,
   createOutline,
-  heartSharp
+  heartSharp,
+  helpCircle
 } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
@@ -52,7 +53,7 @@ const Product = () => {
   const cartRef = useRef();
   const products = ProductStore.useState((s) => s.products);
   const favourites = FavouritesStore.useState((s) => s.product_ids);
-  const [isFavourite, setIsFavourite] = useState(false);
+  const [/* isFavourite */, setIsFavourite] = useState(false);
   // const shopCart = CartStore.useState((s) => s.product_ids);
   const [product, setProduct] = useState({});
   const [productsState, setProducts] = useState([]);
@@ -104,7 +105,7 @@ const Product = () => {
 
   // Tab 
 
-  const [selectedTab, setSelectedTab] = useState('reviews');
+  const [selectedTab, setSelectedTab] = useState('details');
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
   };
@@ -128,7 +129,7 @@ const Product = () => {
           <IonTitle color="dark">{product?.name}</IonTitle>
         </IonHeader>
 
-        <IonGrid className="ion-no-padding">
+        <IonGrid className="ion-no-padding ion-padding-bottom">
           <IonRow>
             <IonCol size="12">
               <IonCard className={styles.ProductCard}>
@@ -254,14 +255,168 @@ const Product = () => {
               </IonSegment>
 
               {selectedTab === 'details' &&
-                <div>
-                  Content for Tab 1
-                </div>
+
+                <IonGrid className="ion-no-padding ion-padding-vertical">
+                  <IonRow className={styles.TabContentCard}>
+                    <IonCol size="12">
+                      <IonHeader className='TitleHead'>
+                        <IonTitle>Ratings</IonTitle>
+                      </IonHeader>
+                    </IonCol>
+
+                    <IonCol size="6" className="ion-no-padding ion-padding-horizontal ion-padding-bottom">
+                      <IonText color="dark" className={styles.ratingTitle}>Overall Rating</IonText>
+                      <IonCol className="ratingStar">
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                      </IonCol>
+                    </IonCol>
+
+                    <IonCol size="6" className="ion-no-padding ion-padding-horizontal ion-padding-bottom">
+                      <IonText color="dark" className={styles.ratingTitle}>Teste & Texture</IonText>
+                      <IonCol className="ratingStar">
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={starOutline} />
+                      </IonCol>
+                    </IonCol>
+
+                    <IonCol size="6" className="ion-no-padding ion-padding-horizontal ion-padding-bottom">
+                      <IonText color="dark" className={styles.ratingTitle}>Value for money</IonText>
+                      <IonCol className="ratingStar">
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={starOutline} />
+                      </IonCol>
+                    </IonCol>
+
+                    <IonCol size="6" className="ion-no-padding ion-padding-horizontal ion-padding-bottom">
+                      <IonText color="dark" className={styles.ratingTitle}>Packaging</IonText>
+                      <IonCol className="ratingStar">
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                        <IonIcon icon={star} color="warning" />
+                      </IonCol>
+                    </IonCol>
+                  </IonRow>
+
+                  <IonRow className={styles.TabContentCard}>
+                    <IonCol size="12">
+                      <IonHeader className='TitleHead'>
+                        <IonTitle>More Information</IonTitle>
+                      </IonHeader>
+                    </IonCol>
+
+                    <IonCol size="12" className="ion-padding-horizontal ion-padding-bottom">
+                      <div className={styles.moreInfo}>
+                        <IonText color="dark" >Self Life :</IonText>
+                        <IonText color="dark" >6 months</IonText>
+                      </div>
+                      <div className={styles.moreInfo}>
+                        <IonText color="dark" >FSSAI Number :</IonText>
+                        <IonText color="dark" >10013022001897</IonText>
+                      </div>
+                    </IonCol>
+                  </IonRow>
+
+                  <IonRow className={styles.TabContentCard}>
+                    <IonCol size="12" className="ion-padding">
+                      <div className={styles.chipBadge}>
+                        <IonText>Tomato</IonText>
+                        <IonText>Ketchup</IonText>
+                        <IonText>Sauce</IonText>
+                        <IonText>Tangy</IonText>
+                        <IonText>Sweet</IonText>
+                        <IonText>Chilli</IonText>
+                      </div>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+
               }
               {selectedTab === 'nutrition' &&
-                <div>
-                  Content for Tab 2
-                </div>
+
+                <IonGrid className="ion-no-padding ion-padding-vertical">
+                  <IonRow className={styles.TabContentCard}>
+                    <IonCol size="12">
+                      <IonHeader className='TitleHead'>
+                        <IonTitle>List of Ingredients</IonTitle>
+                        <IonText>Tap On Ingredients to know more and mark your prefences</IonText>
+                      </IonHeader>
+                    </IonCol>
+
+                    <IonCol size="12" className={styles.nutritionListBlock}>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Water</IonText>
+                        <IonText color="dark" >15gm</IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Tomato Paste</IonText>
+                        <IonText color="dark" >20gm</IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Sugar</IonText>
+                        <IonText color="dark" >25gm</IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Salt</IonText>
+                        <IonText color="dark" >30gm</IonText>
+                      </div>
+                    </IonCol>
+                  </IonRow>
+
+                  <IonRow className={styles.TabContentCard}>
+                    <IonCol size="12">
+                      <IonHeader className='TitleHead'>
+                        <IonTitle>Nutrition Notes</IonTitle>
+                      </IonHeader>
+                    </IonCol>
+
+                    <IonCol size="12" className={styles.nutritionListBlock}>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Tomato Paste 28%</IonText>
+                      </div>
+                    </IonCol>
+                  </IonRow>
+
+                  <IonRow className={styles.TabContentCard}>
+                    <IonCol size="12">
+                      <IonHeader className='TitleHead'>
+                        <IonTitle>List of Ingredients</IonTitle>
+                        <IonText>Tap On Ingredients to know more and mark your prefences</IonText>
+                      </IonHeader>
+                    </IonCol>
+
+                    <IonCol size="12" className={styles.nutritionListBlock}>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Water</IonText>
+                        <IonIcon icon={helpCircle} size="large" color="warning" />
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Tomato Paste</IonText>
+                        <IonIcon icon={helpCircle} size="large" color="warning" />
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Sugar</IonText>
+                        <IonIcon icon={helpCircle} size="large" color="warning" />
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark" >Salt</IonText>
+                        <IonIcon icon={helpCircle} size="large" color="warning" />
+                      </div>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+
               }
               {selectedTab === 'reviews' &&
                 <IonGrid className="ion-padding">
