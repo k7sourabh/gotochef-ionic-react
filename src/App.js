@@ -33,6 +33,8 @@ import './theme/global.css'
 import { SplashScreen } from '@capacitor/splash-screen';
 import AddPayment from "./pages/Payment/AddPayment";
 import MainCategory from "./pages/Products/MainCategory";
+import AddAddress from "./pages/AddAddress/AddAddress";
+import HomeRecipe from "./pages/HomeRecipe/HomeRecipe";
 
 
 // Hide the splash (you should do this on app launch)
@@ -96,6 +98,12 @@ const App = () => {
             <Route path="/add-payment" exact>
               <AddPayment />
             </Route>
+            <Route path="/add-address" exact>
+              <AddAddress/>
+            </Route>
+            <Route path="/home-recipe" exact>
+              <HomeRecipe/>
+            </Route>
           </IonRouterOutlet>
 
           <IonTabBar slot="bottom" className="FooterTab">
@@ -114,7 +122,7 @@ const App = () => {
               <IonLabel>NutriBuddy</IonLabel>
             </IonTabButton>
 
-            <IonTabButton tab="search" href="/search">
+            <IonTabButton tab="search" href="/cart">
               <img src="/assets/img/Cart.png" alt="Images" className="TabIcon" />
               <IonLabel>Cart</IonLabel>
             </IonTabButton>

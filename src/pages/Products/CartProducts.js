@@ -15,15 +15,13 @@ import {
   IonLabel,
   IonPage,
   IonRow,
+  IonSkeletonText,
   IonText,
   IonTitle,
 } from "@ionic/react";
-import {
-  add,
-  remove,
-} from "ionicons/icons";
+import { add, remove, home } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { CartStore, } from "../../data/CartStore";
+import { CartStore } from "../../data/CartStore";
 import { ProductStore } from "../../data/ProductStore";
 import Header from "../../components/Header";
 import styles from "./CartProducts.module.css";
@@ -32,7 +30,7 @@ const CartProducts = () => {
   const products = ProductStore.useState((s) => s.products);
   const shopCart = CartStore.useState((s) => s.product_ids);
   const [cartProducts, setCartProducts] = useState([]);
-  const [/* total */, setTotal] = useState(0);
+  const [, /* total */ setTotal] = useState(0);
 
   useEffect(() => {
     console.log(cartProducts);
@@ -69,8 +67,6 @@ const CartProducts = () => {
     getCartProducts();
   }, [shopCart]);
 
-
-
   return (
     <IonPage id="category-page">
       <Header />
@@ -84,7 +80,7 @@ const CartProducts = () => {
         </IonHeader>
 
         <IonGrid className="ion-no-padding">
-          <IonRow>
+          <IonRow className="bottom-shadow">
             <IonCol size="12">
               <IonItemSliding className={styles.ItemSlide}>
                 <IonItem>
@@ -95,27 +91,37 @@ const CartProducts = () => {
                       </div>
 
                       <div className={styles.productInfo}>
-                        <IonText color="dark" className={styles.productTitle}>Kissan Fresh Tamato</IonText>
-                        <IonText color="dark" className={styles.productCate}>By Kissan</IonText>
-                        <IonText color="dark" className={styles.productQty}>500gms</IonText>
+                        <IonText color="dark" className={styles.productTitle}>
+                          Kissan Fresh Tamato
+                        </IonText>
+                        <IonText color="dark" className={styles.productCate}>
+                          By Kissan
+                        </IonText>
+                        <IonText color="dark" className={styles.productQty}>
+                          500gms
+                        </IonText>
                       </div>
                     </div>
 
                     <div className="QtyBlock">
-                      <IonButton fill="clear" className='IconBtn'>
+                      <IonButton fill="clear" className="IconBtn">
                         <IonIcon color="dark" size="large" icon={remove} />
                       </IonButton>
 
                       <IonInput value="1"></IonInput>
 
-                      <IonButton fill="clear" className='IconBtn'>
+                      <IonButton fill="clear" className="IconBtn">
                         <IonIcon color="dark" size="large" icon={add} />
                       </IonButton>
                     </div>
 
                     <div className={styles.priceInfo}>
-                      <IonText color="dark" className={styles.currentPrice}>₹110.00</IonText>
-                      <IonText color="dark" className={styles.oldPrice}>₹160.00</IonText>
+                      <IonText color="dark" className={styles.currentPrice}>
+                        ₹110.00
+                      </IonText>
+                      <IonText color="dark" className={styles.oldPrice}>
+                        ₹160.00
+                      </IonText>
                     </div>
                   </IonLabel>
                 </IonItem>
@@ -125,6 +131,139 @@ const CartProducts = () => {
                   <IonItemOption color="danger">Delete</IonItemOption>
                 </IonItemOptions>
               </IonItemSliding>
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding-top">
+            <IonCol>
+              <IonTitle color="dark">Saved For later</IonTitle>
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding-horizontal ion-padding-vertical bottom-shadow">
+            <IonCol size="4">
+              <IonSkeletonText
+                animated={true}
+                style={{ width: "100%", height: "150px" }}
+              ></IonSkeletonText>
+            </IonCol>
+            <IonCol size="4">
+              <IonSkeletonText
+                animated={true}
+                style={{ width: "100%", height: "150px" }}
+              ></IonSkeletonText>
+            </IonCol>
+            <IonCol size="4">
+              <IonSkeletonText
+                animated={true}
+                style={{ width: "100%", height: "150px" }}
+              ></IonSkeletonText>
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding bottom-shadow">
+            <IonCol size="12">
+              <IonTitle color="dark" className="ion-no-padding">
+                Apply Coupon
+              </IonTitle>
+              <IonText color="success">
+                Save more with coupons available for you
+              </IonText>
+            </IonCol>
+            <IonCol size="12" className="ion-padding-top">
+              <div className="CouponGroup">
+                <IonInput
+                  className="CouponInput"
+                  placeholder="Enter Coupon Code"
+                ></IonInput>
+                <IonButton className="ApplyBtn" fill="clear">
+                  Apply
+                </IonButton>
+              </div>
+            </IonCol>
+          </IonRow>
+          <IonRow className="BgColor ion-padding bottom-shadow">
+            <IonCol size="12">
+              <IonText>
+                Your Total Savings <span>$94.00</span>
+              </IonText>
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-padding">
+            <IonCol size="12">
+              <IonTitle color="dark" className="ion-no-padding">
+                Bill Details
+              </IonTitle>
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
+            <IonCol size="5">
+              <IonText>Subtotal</IonText>
+            </IonCol>
+            <IonCol size="3" className="ion-text-right">
+              <IonText>110.00</IonText>
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
+            <IonCol size="5">
+              <IonText>Delivery Fee</IonText>
+            </IonCol>
+            <IonCol size="3" className="ion-text-right">
+              <IonText>Free</IonText>
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
+            <IonCol size="5">
+              <IonText>Discount</IonText>
+            </IonCol>
+            <IonCol size="3" className="ion-text-right">
+              <IonText>11.00</IonText>
+            </IonCol>
+          </IonRow>
+          <div className="Divider"></div>
+          <IonRow className="ion-padding-horizontal ion-padding ion-justify-content-between bottom-shadow">
+            <IonCol size="5">
+              <IonText className="ToPay">
+                <strong>To Pay</strong>
+              </IonText>
+            </IonCol>
+            <IonCol size="3" className="ion-text-right">
+              <IonText>
+                <strong>99.00</strong>
+              </IonText>
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding bottom-shadow">
+            <IonCol size="12">
+              <IonTitle color="dark" className="ion-no-padding">
+                Cancellation Policy
+              </IonTitle>
+              <IonText>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry.
+              </IonText>
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding bottom-shadow">
+            <IonCol size="12">
+              <div className="AddressBlock">
+                <div className="IconHome">
+                  <IonIcon color="primary" size="large" icon={home} />
+                </div>
+                <div className="Address">
+                  <IonTitle color="dark" className="ion-no-padding">
+                    Delivering to <strong>Home</strong>
+                  </IonTitle>
+                  <IonText>
+                    10-3-85/4, Flat No 402, Pandit Rao Nilayam, Hyderabad
+                  </IonText>
+                </div>
+                <div className="AddressChangeBtn">
+                  <IonButton fill="clear">CHANGE</IonButton>
+                </div>
+              </div>
             </IonCol>
           </IonRow>
         </IonGrid>
