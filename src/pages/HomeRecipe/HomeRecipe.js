@@ -280,7 +280,7 @@ const HomeRecipe = () => {
           </IonCol>
         </IonRow>
 
-        <IonGrid className="ion-padding-vertical ion-padding-horizontal">
+        <IonGrid className="ion-padding-bottom">
           <IonRow>
             <IonCol size="4" className="CustomGaps">
               <div className="RecipiPros">
@@ -289,7 +289,7 @@ const HomeRecipe = () => {
                   alt=""
                 />
                 <div className="UserMetas">
-                  <IonTitle>Indonesian</IonTitle>
+                  <IonTitle className="ion-no-padding">Indonesian</IonTitle>
                   <IonLabel>By Adrianna curl</IonLabel>
                 </div>
               </div>
@@ -301,7 +301,7 @@ const HomeRecipe = () => {
                   alt=""
                 />
                 <div className="UserMetas">
-                  <IonTitle>Indonesian</IonTitle>
+                  <IonTitle className="ion-no-padding">Indonesian</IonTitle>
                   <IonLabel>By Adrianna curl</IonLabel>
                 </div>
               </div>
@@ -313,7 +313,7 @@ const HomeRecipe = () => {
                   alt=""
                 />
                 <div className="UserMetas">
-                  <IonTitle>Indonesian</IonTitle>
+                  <IonTitle className="ion-no-padding">Indonesian</IonTitle>
                   <IonLabel>By Adrianna curl</IonLabel>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "ionic-ecommerce-example",
+  "appId": "io.gotochef.app",
+  "appName": "gotochef",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

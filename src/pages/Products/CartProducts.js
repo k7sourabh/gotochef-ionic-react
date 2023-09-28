@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   IonButton,
+  IonChip,
   IonCol,
   IonContent,
   IonGrid,
@@ -68,12 +69,12 @@ const CartProducts = () => {
   }, [shopCart]);
 
   return (
-    <IonPage id="category-page">
+    <IonPage id="cart-page">
       <Header />
 
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="IconBtn" fill="clear">
+          <IonButton className="IconBtn" fill="clear" routerLink="/main-category">
             <i class="material-icons dark">west</i>
           </IonButton>
           <IonTitle color="dark">Review Cart</IonTitle>
@@ -103,18 +104,6 @@ const CartProducts = () => {
                       </div>
                     </div>
 
-                    <div className="QtyBlock">
-                      <IonButton fill="clear" className="IconBtn">
-                        <IonIcon color="dark" size="large" icon={remove} />
-                      </IonButton>
-
-                      <IonInput value="1"></IonInput>
-
-                      <IonButton fill="clear" className="IconBtn">
-                        <IonIcon color="dark" size="large" icon={add} />
-                      </IonButton>
-                    </div>
-
                     <div className={styles.priceInfo}>
                       <IonText color="dark" className={styles.currentPrice}>
                         ₹110.00
@@ -127,6 +116,20 @@ const CartProducts = () => {
                 </IonItem>
 
                 <IonItemOptions>
+                  <IonItemOption className="BgNone">
+                  <div className="QtyBlock">
+                      <IonButton fill="clear" className="IconBtn">
+                        <IonIcon color="dark" size="large" icon={remove} />
+                      </IonButton>
+
+                      <IonInput value="1"></IonInput>
+
+                      <IonButton fill="clear" className="IconBtn">
+                        <IonIcon color="dark" size="large" icon={add} />
+                      </IonButton>
+                    </div>
+                </IonItemOption>
+                
                   <IonItemOption color="secondary">Save</IonItemOption>
                   <IonItemOption color="danger">Delete</IonItemOption>
                 </IonItemOptions>
@@ -239,14 +242,14 @@ const CartProducts = () => {
               <IonTitle color="dark" className="ion-no-padding">
                 Cancellation Policy
               </IonTitle>
-              <IonText>
+              <IonText className="PolicyText">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry.
               </IonText>
             </IonCol>
           </IonRow>
 
-          <IonRow className="ion-padding bottom-shadow">
+          <IonRow className="ion-padding bottom-shadow padd-80">
             <IonCol size="12">
               <div className="AddressBlock">
                 <div className="IconHome">
@@ -256,7 +259,7 @@ const CartProducts = () => {
                   <IonTitle color="dark" className="ion-no-padding">
                     Delivering to <strong>Home</strong>
                   </IonTitle>
-                  <IonText>
+                  <IonText className="AddressText">
                     10-3-85/4, Flat No 402, Pandit Rao Nilayam, Hyderabad
                   </IonText>
                 </div>
@@ -267,6 +270,31 @@ const CartProducts = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+
+        <div className="BootomViewCart ion-padding">
+          <div className={styles.priceInfo}>
+            <div className="addButn">
+              <div className="OfferInfo FlexCols">
+                <div className="FlexPro">
+                  <IonText color="dark">485.00</IonText>
+                  <IonChip className="offerBedge">16 Saved</IonChip>
+                </div>
+              </div>
+              <IonButton
+                routerLink="/add-payment"
+                className="AddToCart"
+                size="default"
+                shape="round"
+                fill="solid"
+                color="warning"
+              >
+                <div className="flex ion-justify-content-between ion-align-items-center w-full">
+                  Place Order
+                </div>
+              </IonButton>
+            </div>
+          </div>
+        </div>
       </IonContent>
     </IonPage>
   );

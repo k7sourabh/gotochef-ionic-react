@@ -12,6 +12,9 @@ iframe {
    width: 100%;
 }
 
+:host(.button-solid) {
+   --box-shadow: none;
+}
 /* Header */
 
 .LogoGroup {
@@ -53,6 +56,7 @@ iframe {
 .FooterTab {
    --background: #f2f2f2;
    border: 0;
+   padding: 8px 0px;
 }
 
 .TabIcon {
@@ -756,6 +760,7 @@ ion-button {
 
 ion-button.button-default {
    min-height: auto;
+   --box-shadow: none;
 }
 
 /* ion-button img {
@@ -1026,8 +1031,9 @@ ion-button.button-outline {
 }
 .ApplyBtn {
    position: absolute;
-   right: 0;
-   top: 0;
+   right: 3px;
+   top: 3px;
+   z-index: 999;
 }
 .CouponGroup {
    display: flex;
@@ -1160,4 +1166,76 @@ ion-button.button-outline {
 }
 .TimeMeta ion-icon {
    color: green;
+}
+.CustomGaps {
+   margin: 0px;
+   box-shadow: none;
+   position: relative;
+   padding: 10px;
+   height: 100%;
+}
+.RecipiPros img {
+   border-radius: 10px;
+   width: 100%;
+   height: 100px;
+   object-fit: cover;
+}
+.UserMetas ion-title {
+   font-size: 14px;
+}
+.UserMetas ion-label {
+   font-size: 11px;
+}
+.BootomViewCart {
+   position: fixed;
+   bottom: 0px;
+   left: 0;
+   right: 0;
+   width: 100%;
+   background: #fff;
+   box-shadow: 0 0 10px #ccc;
+   z-index: 999;
+}
+.FlexCols {
+   flex-direction: column;
+   align-items: flex-start;
+}
+.FlexPro {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+.BootomViewCart .addButn {
+   align-items: center;
+}
+.addButn {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: flex-end;
+}
+.MenuMainLogo {
+   width: 50px;
+}
+.MenuHead ion-toolbar {
+   --background: #fff;
+   padding: 0;
+   box-shadow: 0 0 10px #ccc;
+   border-radius: 0px 0px 15px 15px;
+}
+.BgNone {
+   background: none;
+}
+#cart-page ion-title {
+   font-size: 16px;
+}
+.AddressText {
+   font-size: 12px
+}
+.PolicyText {
+   font-size: 14px;
+   margin-top: 5px;
+}
+.padd-80 {
+   padding-bottom: 80px;
 }
