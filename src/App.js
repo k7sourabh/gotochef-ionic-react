@@ -22,8 +22,6 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { useEffect } from "react";
-import { fetchData } from "./data/fetcher";
 import CategoryProducts from "./pages/Products/CategoryProducts";
 import Product from "./pages/Products/Product";
 import FavouriteProducts from "./pages/Products/FavouriteProducts";
@@ -35,6 +33,10 @@ import AddPayment from "./pages/Payment/AddPayment";
 import MainCategory from "./pages/Products/MainCategory";
 import AddAddress from "./pages/AddAddress/AddAddress";
 import HomeRecipe from "./pages/HomeRecipe/HomeRecipe";
+import { ApiProvider } from "./contexts/ApiProvider";
+import ViewExclusiveProduct from "./pages/ViewExclusiveProducts";
+import ViewTrendingProduct from "./pages/ViewTrendingProduct";
+import ProductCard from "./components/ProductCard";
 
 
 // Hide the splash (you should do this on app launch)
@@ -54,11 +56,11 @@ await SplashScreen.show({
 setupIonicReact({});
 
 const App = () => {
-  useEffect(() => {
-    fetchData();
-  }, []);
+  
+
 
   return (
+    <ApiProvider>
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
@@ -66,7 +68,9 @@ const App = () => {
             <Welcome />
           </Route>
         </IonRouterOutlet>
-        {window.location.pathname !== "/welcome" && <IonTabs>
+        {window.location.pathname !== "/welcome" &&
+
+         <IonTabs>
           <IonRouterOutlet>
             <Route path="/" exact={true}>
               <Redirect to="/home" />
@@ -87,7 +91,7 @@ const App = () => {
               <CategoryProducts />
             </Route>
 
-            <Route path="/category/:slug/:id" exact>
+            <Route path="/product-details/:id" exact>
               <Product />
             </Route>
 
@@ -103,6 +107,15 @@ const App = () => {
             </Route>
             <Route path="/home-recipe" exact>
               <HomeRecipe/>
+            </Route>
+            <Route path="/exclusive-products" exact>
+              <ViewExclusiveProduct />
+            </Route>
+            <Route path="/trending-products" exact>
+              <ViewTrendingProduct />
+            </Route>
+            <Route path="/category-detail/:slug/:name" exact>
+              <ProductCard />
             </Route>
           </IonRouterOutlet>
 
@@ -128,8 +141,10 @@ const App = () => {
             </IonTabButton>
           </IonTabBar>
         </IonTabs>}
+        
       </IonReactRouter>
     </IonApp >
+    </ApiProvider>
   );
 };
 

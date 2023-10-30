@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  IonButton,
   IonCard,
   IonCol,
   IonContent,
@@ -9,15 +10,33 @@ import {
   IonRow,
   IonText,
   IonTitle,
+  useIonLoading,
 } from "@ionic/react";
 import Header from "../../components/Header";
-import { ProductStore } from "../../data/ProductStore";
-import { useLocation } from "react-router-dom";
+import { getApiData } from "../../utils/Utils";
 
 const MainCategory = () => {
-  const location = useLocation();
-  console.log(location, "location");
-  const products = ProductStore.useState((s) => s.products);
+  const [productData, setProductData] = useState([]);
+  const [present, dismiss] = useIonLoading();
+
+
+  const categoryList = async () => {
+    try{
+      present();
+      const response = await getApiData("/category-list");
+      setProductData(response?.data?.data);
+      dismiss();
+    } catch(err) {
+      setProductData([])
+      console.log(err)
+      dismiss();
+    }
+  };
+
+  useEffect(() => {
+    categoryList();
+  }, []);
+
   return (
     <>
       <IonPage id="home-page">
@@ -32,18 +51,19 @@ const MainCategory = () => {
 
           <IonGrid className="ion-no-padding ion-padding-horizontal ion-padding-bottom">
             <IonRow>
-              {products.map((category, index) => (
+              {productData?.map((category, index) => (
                 <IonCol size="6" key={index}>
                   <IonCard
                     className="CategoryCard"
                     routerLink={`/category/${category.slug}`}
                   >
                     <div className="CategoryThumb">
-                      <img src={category.cover} alt="category cover" />
+                      <img src={category?.images} alt="category cover" />
                     </div>
-                    <IonText className="CategoryTitle">{category.name}</IonText>
+                    <IonText className="CategoryTitle">{category.category_name}</IonText>
                   </IonCard>
                 </IonCol>
+                
               ))}
             </IonRow>
           </IonGrid>
