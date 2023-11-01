@@ -11,7 +11,6 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
-  IonInput,
   IonLabel,
   IonPage,
   IonRow,
@@ -19,100 +18,76 @@ import {
   IonSegmentButton,
   IonText,
   IonTitle,
+  useIonLoading,
 } from "@ionic/react";
 import {
   closeCircle,
   star,
-  thumbsUp,
-  arrowUndo,
   bookmarkOutline,
   starOutline,
-  alertCircle,
-  createOutline,
   heartSharp,
   helpCircle,
-  remove,
-  add,
 } from "ionicons/icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ProductCard from "../../components/ProductCard";
-// import { addToCart, CartStore } from "../../data/CartStore";
-import { FavouritesStore } from "../../data/FavouritesStore";
-import { ProductStore } from "../../data/ProductStore";
 import styles from "./Product.module.css";
 import Header from "../../components/Header";
-// import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "@ionic/react/css/ionic-swiper.css";
+import { getApiData } from "../../utils/Utils";
 
 const Product = () => {
-  const params = useParams();
+  const { id, slug } = useParams();
   const history = useHistory();
-  const cartRef = useRef();
-  const products = ProductStore.useState((s) => s.products);
-  const favourites = FavouritesStore.useState((s) => s.product_ids);
-  const [, /* isFavourite */ setIsFavourite] = useState(false);
-  // const shopCart = CartStore.useState((s) => s.product_ids);
-  const [product, setProduct] = useState({});
-  const [productsState, setProducts] = useState([]);
-  const [category, setCategory] = useState({});
+  const [productData, setProductData] = useState({});
+  const [allProductData, setAllProductData] = useState({});
+  const [present, dismiss] = useIonLoading();
 
-  useEffect(() => {
-    setProducts(products);
-  }, [products]);
-
-  const getProductDetail = async () => {
-    const tempCategory = productsState.filter((p) => p.slug === params.slug)[0];
-    const tempProduct = tempCategory?.products.filter(
-      (p) => parseInt(p.id) === parseInt(params.id)
-    )[0];
-
-    const tempIsFavourite = favourites.find(
-      (f) => f === `${params.slug}/${params.id}`
-    );
-
-    setIsFavourite(tempIsFavourite);
-    setCategory(tempCategory);
-    setProduct(tempProduct);
+  const exclusiveProduct = async () => {
+    try {
+      present();
+      const response = await getApiData(`productdetails_json/${id}`);
+      dismiss();
+      console.log("response", response);
+      setProductData(response?.data?.data?.product_details);
+      setAllProductData(response);
+    } catch (e) {
+      console.log(e);
+      dismiss();
+    }
   };
 
   useEffect(() => {
-    getProductDetail();
-  }, [params.slug, params.id, productsState]);
+    exclusiveProduct();
+  }, [id]);
 
-  useEffect(() => {
-    const tempIsFavourite = favourites.find(
-      (f) => f === `${category.slug}/${product.id}`
-    );
-    setIsFavourite(tempIsFavourite ? true : false);
-  }, [favourites, product]);
-
-  // const addProductToFavourites = (e, categorySlug, productID) => {
-  //   e.preventDefault();
-  //   addToFavourites(categorySlug, productID);
-
-  //   document.getElementById(
-  //     `placeholder_favourite_product_${categorySlug}_${productID}`
-  //   ).style.display = "";
-  //   document
-  //     .getElementById(
-  //       `placeholder_favourite_product_${categorySlug}_${productID}`
-  //     )
-  //     .classList.add("animate__fadeOutTopRight");
-  // };
-
-  // Tab
+  function convertToOnlyDate(dateTimeString) {
+    const dateOnly = new Date(dateTimeString).toISOString().split("T")[0];
+    return dateOnly;
+  }
 
   const [selectedTab, setSelectedTab] = useState("details");
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
   };
 
+  function renderRatingStars(rating) {
+    const stars = [];
+    for (let i = 1; i <= rating; i++) {
+      stars.push(<IonIcon key={i} icon={star} color="warning" />);
+    }
+    for (let i = rating + 1; i <= 5; i++) {
+      stars.push(<IonIcon key={i} icon={starOutline} />);
+    }
+    return stars;
+  }
+
+  productData?.user_review?.map((review, index) => console.log(review));
   return (
     <IonPage id="productDetails-page">
       <Header />
@@ -122,12 +97,14 @@ const Product = () => {
           <IonButton
             className="IconBtn"
             fill="clear"
-            onClick={() => history.push(`/category/${params.slug}`)}
+            onClick={() => history.push(`/category/${slug}`)}
           >
             <i class="material-icons dark">west</i>
           </IonButton>
 
-          <IonTitle color="dark">{product?.name}</IonTitle>
+          <IonTitle color="dark">
+            {productData && productData?.productName}
+          </IonTitle>
         </IonHeader>
 
         <IonGrid className="ion-no-padding ion-padding-bottom">
@@ -144,7 +121,7 @@ const Product = () => {
                             alt="Images"
                             className="icon-img"
                           />
-                          <span>16</span>
+                          <span>{productData && productData?.imk_num}</span>
                         </div>
                       </IonButton>
 
@@ -160,7 +137,11 @@ const Product = () => {
                     <div className={styles.productCardActions}>
                       <IonButton fill="clear" className="IconBtn">
                         <img
-                          src="/assets/img/veg-icon.png"
+                          src={
+                            productData?.foodType === "non-vegetarian"
+                              ? "/assets/img/img-placeholder.jpg"
+                              : "/assets/img/veg-icon.png"
+                          }
                           alt="Images"
                           className={styles.chefhat}
                         />
@@ -182,34 +163,73 @@ const Product = () => {
                     pagination={{ clickable: true }}
                   >
                     <SwiperSlide>
-                      <img src={product?.image} alt="product pic" />
+                      <img
+                        src={productData && productData?.images}
+                        alt="product pic"
+                        onError={(e) => {
+                          e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+                          e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
+                        }}
+                      />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                      <img src={product?.image} alt="product pic" />
+                      <img
+                        src={productData && productData?.images}
+                        alt="product pic"
+                        onError={(e) => {
+                          e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+                          e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
+                        }}
+                      />
                     </SwiperSlide>
                   </Swiper>
 
                   <IonCardContent className={styles.ProductInfo}>
-                    <span className={styles.cateName}>Kissan</span>
+                    <span className={styles.cateName}>
+                      {productData && productData?.brand_name}
+                    </span>
                     <div className={styles.pTitle}>
-                      <IonText color="dark">{product?.name}</IonText>
+                      <IonText color="dark">
+                        {productData && productData?.name}
+                      </IonText>
 
                       <IonChip className={styles.RateDesignInner}>
-                        4.4
+                        {productData && productData?.total_rating}
                         <IonIcon color="light" size="small" icon={star} />
                       </IonChip>
                     </div>
-                    <span>Glass Bottle of 1 Gram</span>
+                    <span>{productData && productData?.slug}</span>
 
                     <div className={styles.priceInfo}>
-                      <IonText color="dark">352.00</IonText>
+                      {productData &&
+                        productData.product_variant_result &&
+                        productData.product_variant_result[0] &&
+                        productData?.product_variant_result[0]?.offer_price}
                       <div className="addButn">
                         <div className="OfferInfo">
                           <IonText color="dark" className="OldPrice">
-                            485.00
+                            {productData &&
+                              productData.product_variant_result &&
+                              productData.product_variant_result[0] &&
+                              productData?.product_variant_result[0]
+                                ?.main_price}
                           </IonText>
-                          <IonChip className="offerBedge">33% OFF</IonChip>
+                          <IonChip className="offerBedge">
+                            {productData &&
+                              productData.product_variant_result &&
+                              productData.product_variant_result[0] &&
+                              (
+                                ((productData?.product_variant_result[0]
+                                  ?.main_price -
+                                  productData?.product_variant_result[0]
+                                    ?.offer_price) /
+                                  productData?.product_variant_result[0]
+                                    ?.main_price) *
+                                100
+                              ).toFixed(0)}
+                            % OFF
+                          </IonChip>
                         </div>
                         <IonButton
                           className="AddToCart ion-hide"
@@ -225,7 +245,7 @@ const Product = () => {
 
                         {/* After add to card show tihs */}
 
-                        <div className="QtyBlock">
+                        {/* <div className="QtyBlock">
                           <IonButton fill="clear" className="IconBtn">
                             <IonIcon color="dark" size="large" icon={remove} />
                           </IonButton>
@@ -235,7 +255,7 @@ const Product = () => {
                           <IonButton fill="clear" className="IconBtn">
                             <IonIcon color="dark" size="large" icon={add} />
                           </IonButton>
-                        </div>
+                        </div> */}
                         {/* End */}
                       </div>
                     </div>
@@ -304,14 +324,26 @@ const Product = () => {
                       className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
                     >
                       <IonText color="dark" className={styles.ratingTitle}>
+                        Money Rating
+                      </IonText>
+                      <IonCol className="ratingStar">
+                        {renderRatingStars(
+                          allProductData?.data?.product_rating?.money_rating
+                        )}
+                      </IonCol>
+                    </IonCol>
+
+                    <IonCol
+                      size="6"
+                      className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
+                    >
+                      <IonText color="dark" className={styles.ratingTitle}>
                         Overall Rating
                       </IonText>
                       <IonCol className="ratingStar">
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
+                        {renderRatingStars(
+                          allProductData?.data?.product_rating?.overall_rating
+                        )}
                       </IonCol>
                     </IonCol>
 
@@ -320,14 +352,12 @@ const Product = () => {
                       className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
                     >
                       <IonText color="dark" className={styles.ratingTitle}>
-                        Teste & Texture
+                        Packaging Rating
                       </IonText>
                       <IonCol className="ratingStar">
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={starOutline} />
+                        {renderRatingStars(
+                          allProductData?.data?.product_rating?.packaging_rating
+                        )}
                       </IonCol>
                     </IonCol>
 
@@ -336,30 +366,12 @@ const Product = () => {
                       className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
                     >
                       <IonText color="dark" className={styles.ratingTitle}>
-                        Value for money
+                        Texture Rating
                       </IonText>
                       <IonCol className="ratingStar">
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={starOutline} />
-                      </IonCol>
-                    </IonCol>
-
-                    <IonCol
-                      size="6"
-                      className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
-                    >
-                      <IonText color="dark" className={styles.ratingTitle}>
-                        Packaging
-                      </IonText>
-                      <IonCol className="ratingStar">
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
-                        <IonIcon icon={star} color="warning" />
+                        {renderRatingStars(
+                          allProductData?.data?.product_rating?.texture_rating
+                        )}
                       </IonCol>
                     </IonCol>
                   </IonRow>
@@ -376,12 +388,23 @@ const Product = () => {
                       className="ion-padding-horizontal ion-padding-bottom"
                     >
                       <div className={styles.moreInfo}>
-                        <IonText color="dark">Self Life :</IonText>
-                        <IonText color="dark">6 months</IonText>
+                        <IonText color="dark">Shelf Life :</IonText>
+                        <IonText color="dark">
+                          {
+                            allProductData?.data?.data?.product_details
+                              ?.shelf_life
+                          }
+                        </IonText>
                       </div>
                       <div className={styles.moreInfo}>
                         <IonText color="dark">FSSAI Number :</IonText>
-                        <IonText color="dark">10013022001897</IonText>
+                        <IonText color="dark">
+                          {allProductData &&
+                            allProductData.data &&
+                            allProductData.data.data &&
+                            allProductData.data.data.product_details.length &&
+                            allProductData?.data?.data?.product_details?.fssai_number}
+                        </IonText>
                       </div>
                     </IonCol>
                   </IonRow>
@@ -389,12 +412,20 @@ const Product = () => {
                   <IonRow className={styles.TabContentCard}>
                     <IonCol size="12" className="ion-padding">
                       <div className={styles.chipBadge}>
-                        <IonText>Tomato</IonText>
-                        <IonText>Ketchup</IonText>
-                        <IonText>Sauce</IonText>
-                        <IonText>Tangy</IonText>
-                        <IonText>Sweet</IonText>
-                        <IonText>Chilli</IonText>
+                        {allProductData &&
+                        allProductData.data &&
+                        allProductData.data.data &&
+                        allProductData.data.data.product_details.tags &&
+                        allProductData?.data?.data?.product_details?.tags >
+                          0 ? (
+                          allProductData?.data?.data?.product_details?.tags
+                            .split(",")
+                            .map((tag, index) => (
+                              <IonText key={index}>{tag.trim()}</IonText>
+                            ))
+                        ) : (
+                          <IonText>No tags found</IonText>
+                        )}
                       </div>
                     </IonCol>
                   </IonRow>
@@ -405,30 +436,68 @@ const Product = () => {
                   <IonRow className={styles.TabContentCard}>
                     <IonCol size="12">
                       <IonHeader className="TitleHead">
-                        <IonTitle>List of Ingredients</IonTitle>
-                        <IonText>
-                          Tap On Ingredients to know more and mark your
-                          prefences
-                        </IonText>
+                        <IonTitle>Nutrition Grid</IonTitle>
                       </IonHeader>
                     </IonCol>
 
                     <IonCol size="12" className={styles.nutritionListBlock}>
                       <div className={styles.listIngredients}>
-                        <IonText color="dark">Water</IonText>
-                        <IonText color="dark">15gm</IonText>
+                        <IonText color="dark">Serving Size</IonText>
+                        <IonText color="dark">
+                          {productData?.servingSize}
+                        </IonText>
                       </div>
                       <div className={styles.listIngredients}>
-                        <IonText color="dark">Tomato Paste</IonText>
-                        <IonText color="dark">20gm</IonText>
+                        <IonText color="dark">Added Sugar</IonText>
+                        <IonText color="dark">
+                          {productData?.added_sugar}
+                        </IonText>
                       </div>
                       <div className={styles.listIngredients}>
-                        <IonText color="dark">Sugar</IonText>
-                        <IonText color="dark">25gm</IonText>
+                        <IonText color="dark">calcium</IonText>
+                        <IonText color="dark">{productData?.calcium}</IonText>
                       </div>
                       <div className={styles.listIngredients}>
-                        <IonText color="dark">Salt</IonText>
-                        <IonText color="dark">30gm</IonText>
+                        <IonText color="dark">Calories</IonText>
+                        <IonText color="dark">{productData?.calories}</IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark">Carbohydrates</IonText>
+                        <IonText color="dark">
+                          {productData?.carbohydrates}
+                        </IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark">Iron</IonText>
+                        <IonText color="dark">{productData?.iron}</IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark">Natural Sugar</IonText>
+                        <IonText color="dark">
+                          {productData?.natural_sugar}
+                        </IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark">Phosphorus</IonText>
+                        <IonText color="dark">
+                          {productData?.phosphorus}
+                        </IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark">Potassium</IonText>
+                        <IonText color="dark">{productData?.potassium}</IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark">Protein</IonText>
+                        <IonText color="dark">{productData?.protein}</IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark">Sodium</IonText>
+                        <IonText color="dark">{productData?.sodium}</IonText>
+                      </div>
+                      <div className={styles.listIngredients}>
+                        <IonText color="dark">Total Fat</IonText>
+                        <IonText color="dark">{productData?.total_fat}</IonText>
                       </div>
                     </IonCol>
                   </IonRow>
@@ -442,7 +511,7 @@ const Product = () => {
 
                     <IonCol size="12" className={styles.nutritionListBlock}>
                       <div className={styles.listIngredients}>
-                        <IonText color="dark">Tomato Paste 28%</IonText>
+                        <IonText color="dark">{productData?.nutrition}</IonText>
                       </div>
                     </IonCol>
                   </IonRow>
@@ -459,38 +528,21 @@ const Product = () => {
                     </IonCol>
 
                     <IonCol size="12" className={styles.nutritionListBlock}>
-                      <div className={styles.listIngredients}>
-                        <IonText color="dark">Water</IonText>
-                        <IonIcon
-                          icon={helpCircle}
-                          size="large"
-                          color="warning"
-                        />
-                      </div>
-                      <div className={styles.listIngredients}>
-                        <IonText color="dark">Tomato Paste</IonText>
-                        <IonIcon
-                          icon={helpCircle}
-                          size="large"
-                          color="warning"
-                        />
-                      </div>
-                      <div className={styles.listIngredients}>
-                        <IonText color="dark">Sugar</IonText>
-                        <IonIcon
-                          icon={helpCircle}
-                          size="large"
-                          color="warning"
-                        />
-                      </div>
-                      <div className={styles.listIngredients}>
-                        <IonText color="dark">Salt</IonText>
-                        <IonIcon
-                          icon={helpCircle}
-                          size="large"
-                          color="warning"
-                        />
-                      </div>
+                      {productData &&
+                        productData?.ingredient_data.map(
+                          (ingredients, index) => (
+                            <div className={styles.listIngredients} key={index}>
+                              <IonText color="dark">
+                                {ingredients?.ingredients_name}
+                              </IonText>
+                              <IonIcon
+                                icon={helpCircle}
+                                size="large"
+                                color="warning"
+                              />
+                            </div>
+                          )
+                        )}
                     </IonCol>
                   </IonRow>
                 </IonGrid>
@@ -502,130 +554,93 @@ const Product = () => {
                       size="12"
                       className="flex ion-justify-content-center ion-align-items-center"
                     >
-                      <IonButton color="medium">
+                      {/* <IonButton color="medium">
                         <IonIcon slot="start" icon={createOutline} />
                         Write a Review
-                      </IonButton>
+                      </IonButton> */}
                     </IonCol>
                   </IonRow>
 
                   <IonRow>
-                    <IonCol size="12" className="reviewsCard">
-                      <div className="reviewDetails">
-                        <div className="reviewThumb">
-                          <img
-                            src="/assets/img/Screenshot_1.png"
-                            alt="Images"
-                          />
-                        </div>
+                    {allProductData &&
+                    allProductData?.data?.user_review &&
+                    allProductData?.data?.user_review.length > 0 ? (
+                      allProductData?.data?.user_review
+                        ?.slice(0, 5)
+                        .map((review, index) => (
+                          <IonCol size="12" className="reviewsCard" key={index}>
+                            <div className="reviewDetails">
+                              <div className="reviewThumb">
+                                <img
+                                  src={review?.avatar}
+                                  alt="category cover"
+                                  className="MainProductThumb"
+                                  onError={(e) => {
+                                    e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+                                    e.target.src =
+                                      "/assets/img/img-placeholder.jpg"; // Placeholder image URL
+                                  }}
+                                />
+                              </div>
 
-                        <div className="reviewInfo">
-                          <div className="reviewTitle">
-                            <div className="reviewName-info">
-                              <IonText>Mayur Jha</IonText>
-                              <span>May 11 2022</span>
+                              <div className="reviewInfo">
+                                <div className="reviewTitle">
+                                  <div className="reviewName-info">
+                                    <IonText>{review?.user_name}</IonText>
+                                    <span>
+                                      {convertToOnlyDate(
+                                        review?.created_at?.date
+                                      )}
+                                    </span>
+                                  </div>
+
+                                  <div className="ratingStar">
+                                    {renderRatingStars(review?.rating)}
+                                  </div>
+                                </div>
+
+                                <div className="reviewDescription">
+                                  <IonText>{review?.review}</IonText>
+                                </div>
+                              </div>
                             </div>
 
-                            <div className="ratingStar">
-                              <IonIcon icon={star} color="warning" />
-                              <IonIcon icon={star} color="warning" />
-                              <IonIcon icon={star} color="warning" />
-                              <IonIcon icon={star} color="warning" />
-                              <IonIcon icon={starOutline} />
-                            </div>
-                          </div>
+                            {/* <div className="reviewFooter">
+                              <IonButton
+                                fill="clear"
+                                className="IconBtn"
+                                color="dark"
+                              >
+                                <IonIcon icon={thumbsUp} size="small" />
+                              </IonButton>
 
-                          <div className="reviewDescription">
-                            <IonText>
-                              Lorem Ipsum is simply dummy text of the printing
-                              and typesetting industry. Lorem Ipsum has been the
-                              industry's standard dummy text ever since the
-                              1500s
-                            </IonText>
-                          </div>
-                        </div>
-                      </div>
+                              <IonButton fill="clear" color="dark">
+                                <IonIcon
+                                  slot="start"
+                                  icon={arrowUndo}
+                                  size="small"
+                                />
+                                Reply
+                              </IonButton>
+                            </div> */}
+                          </IonCol>
+                        ))
+                    ) : (
+                      <IonText>No review found</IonText>
+                    )}
 
-                      <div className="reviewFooter">
-                        <IonButton
-                          fill="clear"
-                          className="IconBtn"
-                          color="dark"
-                        >
-                          <IonIcon icon={thumbsUp} size="small" />
-                        </IonButton>
-
-                        <IonButton fill="clear" color="dark">
-                          <IonIcon slot="start" icon={arrowUndo} size="small" />
-                          Reply
-                        </IonButton>
-                      </div>
-                    </IonCol>
-
-                    <IonCol size="12" className="reviewsCard">
-                      <div className="reviewDetails">
-                        <div className="reviewThumb">
-                          <img
-                            src="/assets/img/Screenshot_1.png"
-                            alt="Images"
-                          />
-                        </div>
-
-                        <div className="reviewInfo">
-                          <div className="reviewTitle">
-                            <div className="reviewName-info">
-                              <IonText>Mayur Jha</IonText>
-                              <span>May 11 2022</span>
-                            </div>
-
-                            <div className="ratingStar">
-                              <IonIcon icon={star} color="warning" />
-                              <IonIcon icon={star} color="warning" />
-                              <IonIcon icon={star} color="warning" />
-                              <IonIcon icon={star} color="warning" />
-                              <IonIcon icon={starOutline} />
-                            </div>
-                          </div>
-
-                          <div className="reviewDescription">
-                            <IonText>
-                              Lorem Ipsum is simply dummy text of the printing
-                              and typesetting industry. Lorem Ipsum has been the
-                              industry's standard dummy text ever since the
-                              1500s
-                            </IonText>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="reviewFooter">
-                        <IonButton
-                          fill="clear"
-                          className="IconBtn"
-                          color="dark"
-                        >
-                          <IonIcon icon={thumbsUp} size="small" />
-                        </IonButton>
-
-                        <IonButton fill="clear" color="dark">
-                          <IonIcon slot="start" icon={arrowUndo} size="small" />
-                          Reply
-                        </IonButton>
-                      </div>
-                    </IonCol>
-
-                    <IonCol size="12" className="ion-padding">
+                    {/* <IonCol size="12" className="ion-padding">
                       <IonButton expand="block" shape="round" fill="outline">
                         View all Review
                       </IonButton>
-                    </IonCol>
+                    </IonCol> */}
 
-                    <IonCol size="12" className="flex ion-justify-content-end">
+                    {/* <IonCol size="12" className="flex ion-justify-content-end">
                       <IonButton fill="clear" className={styles.report}>
                         <IonIcon slot="start" icon={alertCircle} size="small" />
                         Report a Issue
                       </IonButton>
-                    </IonCol>
+                    </IonCol>  */}
                   </IonRow>
                 </IonGrid>
               )}
@@ -639,100 +654,67 @@ const Product = () => {
           </IonHeader>
 
           <IonRow>
-            <IonCol size="6">
-              <div className="recipeCard">
-                <div className="recipeHead">
-                  <div className="reviewThumb">
-                    <img src="/assets/img/Screenshot_1.png" alt="Images" />
-                  </div>
+            <IonCol size="12" className="ion-padding">
+              {allProductData &&
+              allProductData.data &&
+              allProductData.data.data &&
+              allProductData?.data?.data?.user_recipes.length
+                ? allProductData?.data?.data?.user_recipes?.map(
+                    (user, index) => (
+                      <div className="recipeCard" key={index}>
+                        <div className="recipeHead">
+                          <div className="reviewThumb">
+                            <img src={user?.user_img} alt="Images" />
+                          </div>
 
-                  <div className="reviewName-info">
-                    <IonText>Mansi</IonText>
-                    <span>GotoChef</span>
-                  </div>
-                </div>
+                          <div className="reviewName-info">
+                            <IonText>{user?.user_name}</IonText>
 
-                <div className="recipeMainThumb">
-                  <img src="/assets/img/sandwich.png" alt="Images" />
-                </div>
+                            <span>GotoChef</span>
+                          </div>
+                        </div>
 
-                <div className="recipeDetails">
-                  <IonText color="dark" className="title">
-                    Veg Sandwich Recipe
-                  </IonText>
-                  <IonText color="dark" className="description">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </IonText>
+                        <div className="recipeMainThumb">
+                          <img
+                            src={user?.images}
+                            alt="category cover"
+                            className="MainProductThumb"
+                            onError={(e) => {
+                              e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+                              e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
+                            }}
+                          />
+                        </div>
 
-                  <div className="recipeLevelInfo">
-                    <IonText color="dark" className="LevelInfo">
-                      Level: <span>Moderate</span>
-                    </IonText>
-                    <div className="lavelRating">
-                      <div className="ratingStar">
-                        <IonIcon icon={starOutline} />
-                        <IonIcon icon={starOutline} />
-                        <IonIcon icon={starOutline} />
-                        <IonIcon icon={starOutline} />
-                        <IonIcon icon={starOutline} />
+                        <div className="recipeDetails">
+                          <IonText color="dark" className="title">
+                            {user?.recipesName}
+                          </IonText>
+                          <IonText color="dark" className="description">
+                            {user?.longDescription}
+                          </IonText>
+
+                          <div className="recipeLevelInfo">
+                            <IonText color="dark" className="LevelInfo">
+                              Level: <span>{user?.prep_level}</span>
+                            </IonText>
+                            <div className="lavelRating">
+                              <div className="ratingStar">
+                                {renderRatingStars(user?.star_rating)}
+                              </div>
+
+                              <IonButton fill="clear" className="IconBtn">
+                                <IonIcon icon={heartSharp} />
+                              </IonButton>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-
-                      <IonButton fill="clear" className="IconBtn">
-                        <IonIcon icon={heartSharp} />
-                      </IonButton>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </IonCol>
-
-            <IonCol size="6">
-              <div className="recipeCard">
-                <div className="recipeHead">
-                  <div className="reviewThumb">
-                    <img src="/assets/img/Screenshot_1.png" alt="Images" />
-                  </div>
-
-                  <div className="reviewName-info">
-                    <IonText>Simran</IonText>
-                    <span>GotoChef</span>
-                  </div>
-                </div>
-
-                <div className="recipeMainThumb">
-                  <img src="/assets/img/sandwich.png" alt="Images" />
-                </div>
-
-                <div className="recipeDetails">
-                  <IonText color="dark" className="title">
-                    Veg Sandwich Recipe
-                  </IonText>
-                  <IonText color="dark" className="description">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </IonText>
-
-                  <div className="recipeLevelInfo">
-                    <IonText color="dark" className="LevelInfo">
-                      Level: <span>Moderate</span>
-                    </IonText>
-                    <div className="lavelRating">
-                      <div className="ratingStar">
-                        <IonIcon icon={starOutline} />
-                        <IonIcon icon={starOutline} />
-                        <IonIcon icon={starOutline} />
-                        <IonIcon icon={starOutline} />
-                        <IonIcon icon={starOutline} />
-                      </div>
-
-                      <IonButton fill="clear" className="IconBtn">
-                        <IonIcon icon={heartSharp} />
-                      </IonButton>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    )
+                  )
+                : allProductData?.data?.data?.user_recipes.length === 0 && (
+                    <IonText>No recipes found</IonText>
+                  )}
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -743,48 +725,22 @@ const Product = () => {
           </IonHeader>
 
           <IonRow>
-            {category &&
-              category.products &&
-              category.products.map((similar, index) => {
-                if (similar.id !== product.id && product.image && index < 4) {
-                  return (
-                    <ProductCard
-                      key={`similar_product_${index}`}
-                      product={similar}
-                      index={index}
-                      isFavourite={false}
-                      cartRef={cartRef}
-                      category={category}
-                    />
-                  );
-                }
+            {allProductData &&
+              allProductData?.data &&
+              allProductData?.data?.data &&
+              allProductData?.data?.data?.likeproduct?.map((product, index) => {
+                return (
+                  <ProductCard
+                    key={`similar_product_${index}`}
+                    product={product}
+                    index={index}
+                    isFavourite={false}
+                    // category={category}
+                  />
+                );
               })}
           </IonRow>
         </IonGrid>
-        <div className="BootomViewCart ion-padding">
-          <div className={styles.priceInfo}>
-            <div className="addButn">
-              <div className="OfferInfo FlexCols">
-                <IonText color="dark">1 Item in cart</IonText>
-                <div className="FlexPro">
-                  <IonText color="dark">485.00</IonText>
-                  <IonChip className="offerBedge">16 Saved</IonChip>
-                </div>
-              </div>
-              <IonButton
-                className="AddToCart"
-                size="default"
-                shape="round"
-                fill="solid"
-                color="warning"
-              >
-                <div className="flex ion-justify-content-between ion-align-items-center w-full">
-                  View Cart
-                </div>
-              </IonButton>
-            </div>
-          </div>
-        </div>
       </IonContent>
     </IonPage>
   );

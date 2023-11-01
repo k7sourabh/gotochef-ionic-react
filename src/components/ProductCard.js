@@ -9,163 +9,84 @@ import {
   IonIcon,
   IonText,
 } from "@ionic/react";
-import {
-  add,
-  bookmarkOutline,
-  star,
-} from "ionicons/icons";
-import { useRef } from "react";
-import { addToCart } from "../data/CartStore";
-// import { addToFavourites, } from "../data/FavouritesStore";
-// import styles from "./ProductCard.module.css";
+import { add, bookmarkOutline, star } from "ionicons/icons";
 
 const ProductCard = (props) => {
-  const { product, category, index, cartRef } = props;
-  // const favourites = FavouritesStore.useState((s) => s.product_ids);
-
-  const productCartRef = useRef();
-  // const productFavouriteRef = useRef();
-  // const [isFavourite, setIsFavourite] = useState(false);
-
-  // useEffect(() => {
-  //   const tempIsFavourite = favourites.find(
-  //     (f) => f === `${category.slug}/${product.id}`
-  //   );
-  //   setIsFavourite(tempIsFavourite ? true : false);
-  // }, [props.product, favourites]);
-
-  // const addProductToFavourites = (e, categorySlug, productID) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   addToFavourites(categorySlug, productID);
-
-  //   productFavouriteRef.current.style.display = "";
-  //   productFavouriteRef.current.classList.add("animate__fadeOutTopRight");
-
-  //   setTimeout(() => {
-  //     if (productCartRef.current) {
-  //       productFavouriteRef.current.classList.remove(
-  //         "animate__fadeOutTopRight"
-  //       );
-  //       productFavouriteRef.current.style.display = "none";
-  //     }
-  //   }, 500);
-  // };
-
-  const addProductToCart = (e, categorySlug, productID) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    productCartRef.current.style.display = "";
-    productCartRef.current.classList.add("animate__fadeOutUp");
-
-    setTimeout(() => {
-      cartRef.current.classList.add("animate__tada");
-      addToCart(categorySlug, productID);
-
-      setTimeout(() => {
-        cartRef.current.classList.remove("animate__tada");
-        productCartRef.current.style.display = "none";
-      }, 500);
-    }, 500);
-  };
+  const { product, index } = props;
+  //  console.log("product",product)
 
   return (
     <IonCol size="6" key={`category_product_list_${index}`}>
       <IonCard
-        routerLink={`/category/${category.slug}/${product.id}`}
-        className="ProductCard">
-        {/* <IonCardHeader className={styles.productCardHeader}>
-          <div className={styles.productCardActions}>
-            <IonIcon
-              className={styles.productCardAction}
-              color={isFavourite ? "danger" : "medium"}
-              icon={isFavourite ? heart : heartOutline}
-              onClick={(e) =>
-                addProductToFavourites(e, category.slug, product.id)
-              }
-            />
-            <IonIcon
-              ref={productFavouriteRef}
-              style={{ position: "absolute", display: "none" }}
-              className={`${styles.productCardAction} animate__animated`}
-              color="danger"
-              icon={heart}
-            />
-            <IonIcon
-              className={styles.productCardAction}
-              size="medium"
-              icon={arrowRedoOutline}
-            />
-          </div>
-          <img src={product.image} alt="product pic" />
-        </IonCardHeader> */}
-
-        {/* <IonCardContent className={styles.categoryCardContent}>
-          <div className={styles.productPrice}>
-            <IonButton style={{ width: "100%" }} color="light">
-              {product.price}
-            </IonButton>
-            <IonButton
-              color="dark"
-              onClick={(e) => addProductToCart(e, category.slug, product.id)}
-            >
-              <IonIcon icon={cartOutline} />
-            </IonButton>
-
-            <IonIcon
-              ref={productCartRef}
-              icon={cart}
-              color="dark"
-              style={{
-                position: "absolute",
-                display: "none",
-                fontSize: "3rem",
-              }}
-              className="animate__animated"
-            />
-          </div>
-        </IonCardContent> */}
-
-        <IonCardHeader className="ProductThumb" >
+        routerLink={`/product-details/${product?.product_id}`}
+        className="ProductCard"
+      >
+        <IonCardHeader className="ProductThumb">
           <div className="SmartKitchen">
             <div className="counter">
-              <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
-              <span>16</span>
+              <img
+                src="/assets/img/Mysmart.png"
+                alt="Images"
+                className="icon-img"
+              />
+              <span>{product?.imk_num}</span>
             </div>
-            <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
           </div>
-
           <img
-            src={product.image}
+            src={product?.images}
             alt="category cover"
             className="MainProductThumb"
+            onError={(e) => {
+              e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+              e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
+            }}
           />
           <div className="BookMark">
-            <IonIcon
-              color="primary"
-              size="small"
-              icon={bookmarkOutline}
-            />
+            <IonIcon color="primary" size="small" icon={bookmarkOutline} />
           </div>
         </IonCardHeader>
 
         <IonCardContent className="ProductDetails">
-          <IonText className="ProductTitle">{product.name}</IonText>
+          <IonText className="ProductTitle">{product?.productName}</IonText>
           <div className="PriceRating">
-            <IonText color="dark" className="CurrentPrice">{product.price}</IonText>
+            <IonText color="dark" className="CurrentPrice">
+              {product &&
+                product.product_variant_result &&
+                product.product_variant_result[0] && product?.product_variant_result[0].offer_price}
+            </IonText>
             <IonChip className="RateDesign">
-              <span>3.2</span>
+              <span>{product?.total_rating}</span>
               <IonIcon color="light" size="small" icon={star} />
             </IonChip>
           </div>
 
           <div className="OfferInfo">
-            <IonText color="dark" className="OldPrice">485.00</IonText>
-            <IonChip className="offerBedge">33% OFF</IonChip>
+            <IonText color="dark" className="OldPrice">
+              {product &&
+                product.product_variant_result &&
+                product.product_variant_result[0] && product?.product_variant_result[0]?.main_price}
+            </IonText>
+            <IonChip className="offerBedge">
+              {product &&
+                product.product_variant_result &&
+                product.product_variant_result[0] &&
+                (
+                  ((product?.product_variant_result[0]?.main_price -
+                    product?.product_variant_result[0]?.offer_price) /
+                    product?.product_variant_result[0]?.main_price) *
+                  100
+                ).toFixed(0)}
+              % OFF
+            </IonChip>
           </div>
 
-          <IonButton className="AddToCartBtn" size="default" shape="round" fill="outline" onClick={(e) => addProductToCart(e, category.slug, product.id)}>
+          <IonButton
+            className="AddToCartBtn"
+            size="default"
+            shape="round"
+            fill="outline"
+            
+          >
             <div className="addText">
               Add
               <IonIcon slot="end" size="small" icon={add} />
@@ -173,7 +94,6 @@ const ProductCard = (props) => {
           </IonButton>
         </IonCardContent>
       </IonCard>
-
     </IonCol>
   );
 };
