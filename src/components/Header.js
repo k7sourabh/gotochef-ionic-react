@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonButton,
   IonButtons,
@@ -7,12 +7,14 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
+  IonImg,
   IonItem,
   IonLabel,
   IonList,
   IonMenu,
   IonMenuButton,
   IonRow,
+  IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -27,8 +29,10 @@ import {
   logOutOutline,
   personOutline,
 } from "ionicons/icons";
+import { useLogo } from "../contexts/ApiProvider";
 
 const Header = () => {
+  const { headerImage } = useLogo();
   const [isOpenOtp, setIsOpenOtp] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   return (
@@ -111,18 +115,25 @@ const Header = () => {
           <IonGrid className="ion-no-padding">
             <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
               <IonCol size="auto">
-                <div className="LogoGroup">
-                  <img
-                    src="/assets/img/MainLogo.png"
-                    alt="Images"
-                    className="mainLogo"
-                  />
-                  <img
-                    src="/assets/img/ScanIcon.png"
-                    alt="Images"
-                    className="logoTag"
-                  />
-                </div>
+                <IonButton
+                  fill="clear"
+                  routerLink="/home"
+                  className="text-button"
+                >
+                  <div className="LogoGroup">
+                    <IonImg
+                      src={headerImage?.header_logo}
+                      alt="Images"
+                      className="mainLogo"
+                    />
+                    <img
+                      src="/assets/img/ScanIcon.png"
+                      alt="Images"
+                      className="logoTag"
+                      routerLink="/home"
+                    />
+                  </div>
+                </IonButton>
               </IonCol>
 
               <IonCol size="auto" className="ion-justify-content-end">
@@ -135,9 +146,7 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonButton
-                    className="IconBtn"
-                  >
+                  <IonButton className="IconBtn">
                     <img
                       src="/assets/img/edit.png"
                       alt="Images"

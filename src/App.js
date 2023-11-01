@@ -22,8 +22,6 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { useEffect } from "react";
-import { fetchData } from "./data/fetcher";
 import CategoryProducts from "./pages/Products/CategoryProducts";
 import Product from "./pages/Products/Product";
 import FavouriteProducts from "./pages/Products/FavouriteProducts";
@@ -41,6 +39,10 @@ import WishList from "./pages/wishList/WishList";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import EditProfile from "./pages/EditProfile/EditProfile";
 
+import { ApiProvider } from "./contexts/ApiProvider";
+import ViewExclusiveProduct from "./pages/ViewExclusiveProducts";
+import ViewTrendingProduct from "./pages/ViewTrendingProduct";
+import ProductCard from "./components/ProductCard";
 
 
 // Hide the splash (you should do this on app launch)
@@ -60,98 +62,111 @@ await SplashScreen.show({
 setupIonicReact({});
 
 const App = () => {
-  useEffect(() => {
-    fetchData();
-  }, []);
+
+
 
   return (
-    <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route path="/welcome" exact>
-            <Welcome />
-          </Route>
-        </IonRouterOutlet>
-        {window.location.pathname !== "/welcome" && <IonTabs>
+    <ApiProvider>
+      <IonApp>
+        <IonReactRouter>
           <IonRouterOutlet>
-            <Route path="/" exact={true}>
-              <Redirect to="/home" />
+            <Route path="/welcome" exact>
+              <Welcome />
             </Route>
-            <Route path="/home" exact={true}>
-              <Home />
-            </Route>
-
-            <Route path="/favourites" exact>
-              <FavouriteProducts />
-            </Route>
-
-            <Route path="/cart" exact>
-              <CartProducts />
-            </Route>
-
-            <Route path="/category/:slug" exact>
-              <CategoryProducts />
-            </Route>
-
-            <Route path="/category/:slug/:id" exact>
-              <Product />
-            </Route>
-
-            <Route path="/main-category" exact>
-              <MainCategory />
-            </Route>
-
-            <Route path="/add-payment" exact>
-              <AddPayment />
-            </Route>
-            <Route path="/add-address" exact>
-              <AddAddress/>
-            </Route>
-            <Route path="/home-recipe" exact>
-              <HomeRecipe/>
-            </Route>
-            <Route path="/profile" exact> 
-               <Profile/>
-               </Route>
-             <Route path="/order-list" exact>
-              <OrderList/>
-             </Route>
-             <Route path="/wish-list" exact>
-              <WishList/>
-             </Route>
-             <Route path="/change-password" exact>
-              <ChangePassword/>
-             </Route>
-             <Route path="/edit-profile" exact>
-              <EditProfile/>
-             </Route>
           </IonRouterOutlet>
-          
+          {window.location.pathname !== "/welcome" &&
 
-          <IonTabBar slot="bottom" className="FooterTab">
-            <IonTabButton tab="home" href="/home">
-              <img src="/assets/img/Home.png" alt="Images" className="TabIcon" />
-              <IonLabel>Home</IonLabel>
-            </IonTabButton>
+            <IonTabs>
+              <IonRouterOutlet>
+                <Route path="/" exact={true}>
+                  <Redirect to="/home" />
+                </Route>
+                <Route path="/home" exact={true}>
+                  <Home />
+                </Route>
 
-            <IonTabButton tab="radio" href="/main-category">
-              <img src="/assets/img/Mysmart.png" alt="Images" className="TabIcon" />
-              <IonLabel>Category</IonLabel>
-            </IonTabButton>
+                <Route path="/favourites" exact>
+                  <FavouriteProducts />
+                </Route>
 
-            <IonTabButton tab="library" href="/library">
-              <img src="/assets/img/NutriBuddy.png" alt="Images" className="TabIcon" />
-              <IonLabel>NutriBuddy</IonLabel>
-            </IonTabButton>
+                <Route path="/cart" exact>
+                  <CartProducts />
+                </Route>
 
-            <IonTabButton tab="search" href="/cart">
-              <img src="/assets/img/Cart.png" alt="Images" className="TabIcon" />
-              <IonLabel>Cart</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>}
-      </IonReactRouter>
-    </IonApp >
+                <Route path="/category/:slug" exact>
+                  <CategoryProducts />
+                </Route>
+
+                <Route path="/product-details/:id" exact>
+                  <Product />
+                </Route>
+
+                <Route path="/main-category" exact>
+                  <MainCategory />
+                </Route>
+
+                <Route path="/add-payment" exact>
+                  <AddPayment />
+                </Route>
+                <Route path="/add-address" exact>
+                  <AddAddress />
+                </Route>
+                <Route path="/home-recipe" exact>
+                  <HomeRecipe />
+                </Route>
+                <Route path="/profile" exact>
+                  <Profile />
+                </Route>
+                <Route path="/order-list" exact>
+                  <OrderList />
+                </Route>
+                <Route path="/wish-list" exact>
+                  <WishList />
+                </Route>
+                <Route path="/change-password" exact>
+                  <ChangePassword />
+                </Route>
+                <Route path="/edit-profile" exact>
+                  <EditProfile />
+                </Route>
+                <Route path="/exclusive-products" exact>
+                  <ViewExclusiveProduct />
+                </Route>
+                <Route path="/trending-products" exact>
+                  <ViewTrendingProduct />
+                </Route>
+                <Route path="/category-detail/:slug/:name" exact>
+                  <ProductCard />
+                </Route>
+              </IonRouterOutlet>
+
+
+              <IonTabBar slot="bottom" className="FooterTab">
+                <IonTabButton tab="home" href="/home">
+                  <img src="/assets/img/Home.png" alt="Images" className="TabIcon" />
+                  <IonLabel>Home</IonLabel>
+                </IonTabButton>
+
+                <IonTabButton tab="radio" href="/main-category">
+                  <img src="/assets/img/Mysmart.png" alt="Images" className="TabIcon" />
+                  <IonLabel>Category</IonLabel>
+                </IonTabButton>
+
+                <IonTabButton tab="library" href="/library">
+                  <img src="/assets/img/NutriBuddy.png" alt="Images" className="TabIcon" />
+                  <IonLabel>NutriBuddy</IonLabel>
+                </IonTabButton>
+
+                <IonTabButton tab="search" href="/cart">
+                  <img src="/assets/img/Cart.png" alt="Images" className="TabIcon" />
+                  <IonLabel>Cart</IonLabel>
+                </IonTabButton>
+              </IonTabBar>
+            </IonTabs>}
+
+        </IonReactRouter>
+      </IonApp >
+    </ApiProvider>
   );
 };
 
