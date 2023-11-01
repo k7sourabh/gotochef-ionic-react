@@ -1239,6 +1239,254 @@ ion-button.button-outline {
   margin-top: 5px;
 }
 .padd-80 {
+   padding-bottom: 80px;
+}
+
+/* Profile */
+.profileImg{
+   display: flex;
+   justify-content: center;
+   position: relative;
+}
+.profileImg img{
+   width: 100%;
+   border-radius: 50%;
+   max-width: 100px;
+}
+.profile-content{
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   gap: 10px;
+   justify-content: center;
+   position: relative;
+   padding-top: 30px;
+}
+.profile-content h1{
+   font-size: 18px;
+    text-transform: capitalize;
+    text-align: center;
+    margin-top: 15px;
+
+}
+.profile-content  h5{
+    font-size: 14px;
+    font-weight: 400;
+    color: #bd130a;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.profile_test h1{
+   font-weight: bold;
+   letter-spacing: 1px;
+   font-size: 18px;
+}
+.profile_test h4{
+   text-align: center;
+   font-size: 16px;
+   margin-top: 10px;
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   gap: 10px;
+   justify-content: center;
+}
+.profile_test h4 span{
+   color: #bd130a;   
+}
+.profile_test h4 img{
+   max-width: 20px;
+   width: 100%;
+}
+.Profile-list{
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   border-bottom: 1px solid #ddd;
+   padding: 14px 0px;
+}
+.last-child{
+   border:none;
+}
+
+.Profile-list  p{
+   text-align: center;
+   color: #bd130a;   
+}
+.EditImg {
+   display: flex;
+   justify-content: flex-end;
+   margin-top: 11px;
+   position: absolute;
+   top: 49px;
+   right: 1px;
+   background: #ffffff;
+   padding: 8px;
+   border-radius: 50px;
+   border: 1px solid #ccc;
+}
+ion-label .EditImg img{
+   width: 12px;
+}
+.image-upload > input
+{
+   display: none;
+}
+/* Order-list */
+.order-list{
+   border: 1px solid #bd130a;
+   border-radius: 5px;
+}
+.order-address{
+   padding-right: 60px;
+}
+.order-btn{
+   display: flex;
+   gap: 10px;
+}
+.order-btn ion-button{
+   min-height: 35px !important;
+}
+/* wish-list */
+.wish-list{
+   display: flex;
+   flex-direction: column;
+}
+.wish-list h5{
+   color: #bd130a;
+}
+.wish-text{
+   padding: 0px 20px;
+}
+/* change password */
+.Chng-input ion-input{
+   border: 1px solid #efeff1;
+   border-radius: 5px;
+   margin: 20px 0px;
+ 
+}
+.Chng-input ion-input input{
+   padding-left: 20px !important;
+   
+}
+.Change-Password{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.PswdloginForm {
+   width: 100%;
+   margin: 0 0 20px;
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+.reset-btn{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+/* Edit Profile */
+.profile-upload > input
+{
+   display: none;
+}
+
+.profile-upload {
+   border: 1px solid #cccccc75;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   gap: 30px;
+   align-items: center;
+   margin: auto;
+   border-radius: 6px;
+}
+label.EditProfile img {
+   max-width: 28px;
+}
+.Profile-input{
+   border: 1px solid #ccc;
+   padding: 15px 10px;
+   border-radius: 5px;
+   margin-top: 15px;
+}
+.Profile-input ion-input{
+   border: 1px solid rgba(0, 0, 0, 0.12);
+   border-radius: 5px;
+   width: 100%;
+ margin-top: 10px;
+}
+.Profile-input ion-input input {
+   padding-left: 15px !important;
+   font-size: 12px !important;
+}
+.Profile-input ion-input input[type="date"]{
+   color: #00000069;
+}
+
+.Profile-input ion-label span{
+ color: #bd130a;
+ padding-left: 3px;
+ font-size: 18px;
+}
+.Profile-input ion-select{
+    border: 1px solid rgba(0, 0, 0, 0.12);
+   border-radius: 5px;
+   width: 100%;
+ margin-top: 10px;
+ font-size: 12px !important;
+}
+.UpdateBtn{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 10px 0px;
+}
+.Radio-box{
+   border-bottom: 1px solid #ccc;
+}
+.Radio-box h5{
+   padding-bottom: 10px;
+   font-size: 16px;
+}
+.textAreaField h5{
+   font-size:16px;
+}
+.RadioField{
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+.RadioBtn{
+   display: flex;
+   gap: 20px;
+   align-items: center;
+   flex-wrap: wrap;
+}
+.RadioBtn ion-radio{
+  height: 15px;
+    width: 15px;
+}
+.textAreaField ion-textarea{
+   border: 1px solid rgba(0, 0, 0, 0.12);
+   border-radius: 5px;
+   width: 100%;
+   min-height: 150px;
+}
+.Pofile-Accordian ion-icon{
+   font-size: 14px;
+}
+.Pofile-Accordian   ion-item button{
+   padding: 0;
+}
+.Pofile-Accordian{
+   border-bottom: 1px solid #cccccc96;
+}
+.edit-profile-box ion-label{
+   font-size: 17px;
   padding-bottom: 80px;
 }
 

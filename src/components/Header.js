@@ -51,7 +51,7 @@ const Header = () => {
         </IonHeader>
         <IonContent className="ion-padding">
           <IonList>
-            <IonItem lines="none">
+            <IonItem lines="none" routerLink="/profile">
               <IonIcon
                 aria-hidden="true"
                 icon={personOutline}
@@ -75,7 +75,7 @@ const Header = () => {
               ></IonIcon>
               <IonLabel>Category</IonLabel>
             </IonItem>
-            <IonItem lines="none">
+            <IonItem lines="none" routerLink="/order-list">
               <IonIcon
                 aria-hidden="true"
                 icon={basketOutline}
