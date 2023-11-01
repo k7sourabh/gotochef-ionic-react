@@ -35,6 +35,12 @@ import AddPayment from "./pages/Payment/AddPayment";
 import MainCategory from "./pages/Products/MainCategory";
 import AddAddress from "./pages/AddAddress/AddAddress";
 import HomeRecipe from "./pages/HomeRecipe/HomeRecipe";
+import Profile from "./pages/profile/Profile";
+import OrderList from "./pages/myorder/OrderList";
+import WishList from "./pages/wishList/WishList";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import EditProfile from "./pages/EditProfile/EditProfile";
+
 
 
 // Hide the splash (you should do this on app launch)
@@ -104,7 +110,23 @@ const App = () => {
             <Route path="/home-recipe" exact>
               <HomeRecipe/>
             </Route>
+            <Route path="/profile" exact> 
+               <Profile/>
+               </Route>
+             <Route path="/order-list" exact>
+              <OrderList/>
+             </Route>
+             <Route path="/wish-list" exact>
+              <WishList/>
+             </Route>
+             <Route path="/change-password" exact>
+              <ChangePassword/>
+             </Route>
+             <Route path="/edit-profile" exact>
+              <EditProfile/>
+             </Route>
           </IonRouterOutlet>
+          
 
           <IonTabBar slot="bottom" className="FooterTab">
             <IonTabButton tab="home" href="/home">
