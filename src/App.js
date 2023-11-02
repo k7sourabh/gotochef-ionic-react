@@ -43,6 +43,7 @@ import { ApiProvider } from "./contexts/ApiProvider";
 import ViewExclusiveProduct from "./pages/ViewExclusiveProducts";
 import ViewTrendingProduct from "./pages/ViewTrendingProduct";
 import ProductCard from "./components/ProductCard";
+import SearchProduct from "./pages/Products/SearchProduct";
 
 
 // Hide the splash (you should do this on app launch)
@@ -137,6 +138,10 @@ const App = () => {
                 </Route>
                 <Route path="/category-detail/:slug/:name" exact>
                   <ProductCard />
+                </Route>
+
+                <Route path="/search-product" exact>
+                  <SearchProduct />
                 </Route>
               </IonRouterOutlet>
 

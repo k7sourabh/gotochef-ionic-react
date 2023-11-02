@@ -66,7 +66,7 @@ const ViewExclusiveProduct = () => {
             <IonRow>
                 {exclusiveProductData?.map((data,index)=>(
               <IonCol size="6" key={index}>
-                <IonCard className="ProductCard">
+                <IonCard className="ProductCard" routerLink={`/product-details/${data ?.product_id}`}>
                   <IonCardHeader className="ProductThumb">
                     <div className="SmartKitchen">
                       <div className="counter">

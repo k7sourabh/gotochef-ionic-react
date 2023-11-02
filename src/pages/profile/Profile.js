@@ -4,8 +4,7 @@ const Profile = () => {
     return (
         <IonPage>
             <Header />
-            <IonContent >
-
+            <IonContent>
                 <IonGrid className="profile-content">
                     <IonRow>
                         <IonCol >
@@ -17,7 +16,6 @@ const Profile = () => {
                                 <label for="file-input" className="EditImg">
                                 <img src="./assets/img/edit.png" alt="" />
                                 </label>
-
                                 <input id="file-input" type="file" />
                             </div>
                             <IonLabel>

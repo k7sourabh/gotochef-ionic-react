@@ -1326,8 +1326,8 @@ ion-button.button-outline {
    border-radius: 50px;
    border: 1px solid #ccc;
 }
-ion-label .EditImg img{
-   width: 12px;
+label.EditImg img {
+  max-width: 12px;
 }
 .image-upload > input
 {
@@ -1487,7 +1487,7 @@ label.EditProfile img {
 }
 .edit-profile-box ion-label{
    font-size: 17px;
-  padding-bottom: 80px;
+  /* padding-bottom: 80px; */
 }
 
 .text-button::part(native) {

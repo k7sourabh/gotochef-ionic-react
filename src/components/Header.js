@@ -138,7 +138,7 @@ const Header = () => {
 
               <IonCol size="auto" className="ion-justify-content-end">
                 <IonButtons className="ion-justify-content-end">
-                  <IonButton className="IconBtn">
+                  <IonButton className="IconBtn" routerLink="/search-product">
                     <img
                       src="/assets/img/Search.png"
                       alt="Images"

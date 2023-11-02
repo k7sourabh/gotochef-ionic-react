@@ -97,7 +97,7 @@ const Home = () => {
             { exclusiveProductData?.map((category, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <IonCard className="ProductCard" routerLink={`/category/${category?.slug}/1`}>
+                  <IonCard className="ProductCard" routerLink={`/product-details/${category?.product_id}`}>
                     <IonCardHeader className="ProductThumb" >
                       <div className="SmartKitchen">
                         <div className="counter">
@@ -170,7 +170,7 @@ const Home = () => {
             {trendingProductsData?.map((category, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <IonCard className="ProductCard" routerLink={`/category/${category.slug}`}>
+                  <IonCard className="ProductCard" routerLink={`/product-details/${category?.product_id}`}>
                     <IonCardHeader className="ProductThumb">
                       <div className="SmartKitchen">
                         <div className="counter">

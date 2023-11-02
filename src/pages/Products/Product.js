@@ -97,7 +97,8 @@ const Product = () => {
           <IonButton
             className="IconBtn"
             fill="clear"
-            onClick={() => history.push(`/category/${slug}`)}
+            // onClick={() => history.push(`/category/${slug}`)}
+            
           >
             <i class="material-icons dark">west</i>
           </IonButton>

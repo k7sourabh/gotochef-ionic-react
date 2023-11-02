@@ -39,13 +39,13 @@ const EditProfile = () => {
                                     <IonLabel>Phone Number<span>*</span></IonLabel>
                                     <IonInput label="Default number" type="number" placeholder="Your Last Name" fill="outline"></IonInput>
                                 </div>
-                                <div className="Profile-input">
+                                {/* <div className="Profile-input">
                                     <IonLabel>I am<span>*</span></IonLabel>
                                     <IonSelect label="Please Select" fill="solid" placeholder="Please Select" >
                                         <IonSelectOption value="apple">Female</IonSelectOption>
                                         <IonSelectOption value="banana">Male</IonSelectOption>
                                     </IonSelect>
-                                </div>
+                                </div> */}
                                 <div className="Profile-input">
                                     <IonLabel>Date of Birth<span>*</span></IonLabel>
                                     <IonInput label="Default number" type="date" placeholder="DOB" fill="outline"></IonInput>
@@ -138,7 +138,7 @@ const EditProfile = () => {
                                         </div>
                                         <div className="ion-padding-bottom" >
                                             <div className="textAreaField">
-                                                <h5>How do you plan to use GoToChef ? How do you think GoTochef will help you in your daily life?</h5>
+                                                <h5>Brief About Myself</h5>
                                                 <IonTextarea
                                                     label="Outline textarea"
                                                     placeholder="I am food of cooking and love cooking so i am think this will help me a lot"
@@ -148,20 +148,6 @@ const EditProfile = () => {
                                         </div>
                                     </IonAccordion>
                                 </IonAccordionGroup>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                 <div className="UpdateBtn">
                                     <IonButton>Update</IonButton>

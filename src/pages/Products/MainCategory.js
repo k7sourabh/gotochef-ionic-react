@@ -12,8 +12,9 @@ import {
   IonTitle,
   useIonLoading,
 } from "@ionic/react";
-import Header from "../../components/Header";
+// import Header from "../../components/Header";
 import { getApiData } from "../../utils/Utils";
+import Header from "../../components/Header";
 
 const MainCategory = () => {
   const [productData, setProductData] = useState([]);

@@ -15,8 +15,7 @@ const WishList = () => {
                         </IonRow>
                     </IonGrid>
                     {WishListArray.map((val)=>(
-                    <IonGrid key={val} className="ion-padding-top">
-                       
+                    <IonGrid key={val} className="ion-padding-bottom">
                         <IonRow>
                             <IonCol>
                             <h4 className="ion-text-center">Grocery & Staples</h4>

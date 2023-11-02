@@ -15,14 +15,14 @@ export const getApiData = async (url) => {
   return res;
 };
 
-// export const postApiData = async (url, data) => {
-//   const res = await axiosInstance({
-//     url,
-//     method: "POST",
-//     data,
-//   });
-//   return res;
-// };
+export const postApiData = async (url, data) => {
+  const res = await axiosInstance({
+    url,
+    method: "POST",
+    data,
+  });
+  return res;
+};
 
 
 // export const logo = async ()=>{
