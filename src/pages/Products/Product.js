@@ -53,7 +53,6 @@ const Product = () => {
       present();
       const response = await getApiData(`productdetails_json/${id}`);
       dismiss();
-      console.log("response", response);
       setProductData(response?.data?.data?.product_details);
       setAllProductData(response);
     } catch (e) {
@@ -87,7 +86,9 @@ const Product = () => {
     return stars;
   }
 
-  productData?.user_review?.map((review, index) => console.log(review));
+  const goBack = () => {
+    history.goBack();
+  };
   return (
     <IonPage id="productDetails-page">
       <Header />
@@ -98,7 +99,7 @@ const Product = () => {
             className="IconBtn"
             fill="clear"
             // onClick={() => history.push(`/category/${slug}`)}
-            
+            onClick={goBack}
           >
             <i class="material-icons dark">west</i>
           </IonButton>
@@ -126,13 +127,13 @@ const Product = () => {
                         </div>
                       </IonButton>
 
-                      <IonButton fill="clear" className="IconBtn">
+                      {/* <IonButton fill="clear" className="IconBtn">
                         <IonIcon
                           size="large"
                           color="danger"
                           icon={closeCircle}
                         />
-                      </IonButton>
+                      </IonButton> */}
                     </div>
 
                     <div className={styles.productCardActions}>

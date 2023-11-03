@@ -22,6 +22,7 @@ import LoginPopup from "../modal/LoginPopup";
 import OTPPopup from "../modal/OTPPopup";
 import {
   basketOutline,
+  bookmarkOutline,
   fastFoodOutline,
   gridOutline,
   locationOutline,
@@ -82,6 +83,10 @@ const Header = () => {
                 slot="start"
               ></IonIcon>
               <IonLabel>My orders</IonLabel>
+            </IonItem>
+            <IonItem lines="none" routerLink="/wish-list">
+              <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
+              <IonLabel>WishList</IonLabel>
             </IonItem>
             <IonItem lines="none" routerLink="/add-address">
               <IonIcon
@@ -146,7 +151,7 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonButton className="IconBtn">
+                  <IonButton className="IconBtn" routerLink="/edit-profile">
                     <img
                       src="/assets/img/edit.png"
                       alt="Images"

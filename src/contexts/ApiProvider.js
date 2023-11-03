@@ -7,8 +7,12 @@ export function ApiProvider({ children }) {
   const [headerImage, setHeaderImage] = useState({});
 
   const headerImg = async () => {
-    const response = await getApiData("/header-logo");
-    setHeaderImage(response.data.data);
+    try{
+      const response = await getApiData("/header-logo");
+      setHeaderImage(response?.data?.data);
+    } catch(error){
+      console.log(error);
+    }
   };
   useEffect(() => {
     headerImg();

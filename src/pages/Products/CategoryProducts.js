@@ -21,65 +21,77 @@ import { getApiData } from "../../utils/Utils";
 
 const CategoryProducts = () => {
   const history = useHistory();
-  const {slug} = useParams();
+  const { slug } = useParams();
   const cartRef = useRef();
   const [categorydata, setCategorydata] = useState({});
   const [subcategory, setSubcategory] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
-  const [selectedSubCat, setSelectedSubCat] = useState('')
+  const [selectedSubCat, setSelectedSubCat] = useState("");
   const [present, dismiss] = useIonLoading();
 
   const getCategoryandSubCatData = async () => {
-    try{
-      present()
+    try {
       const response = await getApiData(`/subcategorylist/${slug}`);
-      if(response?.data?.data?.sucate_pro.length) {
-        setSelectedSubCat(response?.data?.data?.sucate_pro[0].slug)
+      if (response?.data?.data?.sucate_pro.length) {
+        setSelectedSubCat(response?.data?.data?.sucate_pro[0].slug);
       }
       setSubcategory(response?.data?.data?.sucate_pro);
-      dismiss();
-      setCategorydata(response?.data?.data?.categorylist)
-    }catch(e){
-      console.log(e)
-      dismiss();
+      setCategorydata(response?.data?.data?.categorylist);
+
+    } catch (e) {
+      console.error(e);
     }
   };
 
   useEffect(() => {
     getCategoryandSubCatData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
-  const getProductsForSubCat = async ()=> {
-    setAllProduct([])
-    try{
-      const response = await getApiData(`/getSubcatProduct/${selectedSubCat}`);
-      setAllProduct(response?.data?.subcatprod)
+  const getProductsForSubCat = async () => {
+    setAllProduct([]);
+    present();
+    try {
+      const response = await getApiData(`/getSubcatProduct/${selectedSubCat}/10/0`);
+      setAllProduct(response?.data?.subcatprod);
+      dismiss(); 
     } catch (e) {
-      console.log(e)
+      console.log(e);
+      dismiss(); 
     }
-  }
+  };
 
   useEffect(() => {
-    if(selectedSubCat!==''){
+    if (selectedSubCat !== "") {
       getProductsForSubCat();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSubCat]);
-
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
       <Header />
 
       <IonContent fullscreen>
-        <IonHeader className='TitleHead bottom-shadow'>
-          <IonButton className="IconBtn" fill="clear" onClick={() => history.push(`/main-category`)}>
+        <IonHeader className="TitleHead bottom-shadow">
+          <IonButton
+            className="IconBtn"
+            fill="clear"
+            onClick={() => history.push(`/main-category`)}
+          >
             <i class="material-icons dark">west</i>
           </IonButton>
           <div className="CategoryInfoTitle">
             <div className="subCate-thumb">
-              <img src={categorydata?.images} alt="category cover" />
+              <img
+                src={categorydata?.images}
+                alt="category cover"
+                className="MainProductThumb"
+                onError={(e) => {
+                  e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+                  e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
+                }}
+              />
             </div>
 
             <div className="subCate-details">
@@ -90,28 +102,35 @@ const CategoryProducts = () => {
           <IonButton className="IconBtn ml-auto" fill="clear">
             <img src="/assets/img/filter.svg" alt="Images" />
           </IonButton>
-
         </IonHeader>
 
-        <IonSegment
-          className="subCateTab"
-          value={slug}
-          scrollable={true}
-        >
+        <IonSegment className="subCateTab" value={slug} scrollable={true}>
           {subcategory?.map((category, index) => (
             <IonSegmentButton
-              className={category.slug === selectedSubCat ? "segment-button-checked" : ''}
+              className={
+                category.slug === selectedSubCat ? "segment-button-checked" : ""
+              }
               value={category.slug}
               key={index}
               onClick={(e) => {
-                setSelectedSubCat(category.slug)
+                setSelectedSubCat(category.slug);
               }}
             >
               <div className="subCategoryCard">
                 <div className="subCategoryThumb">
-                  <img src={category?.images} alt="category cover" />
+                  <img
+                    src={category?.images}
+                    alt="category cover"
+                    className="MainProductThumb"
+                    onError={(e) => {
+                      e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+                      e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
+                    }}
+                  />
                 </div>
-                <IonText className="subCategoryTitle">{category?.sub_category_name}</IonText>
+                <IonText className="subCategoryTitle">
+                  {category?.sub_category_name}
+                </IonText>
               </div>
             </IonSegmentButton>
           ))}
@@ -121,15 +140,15 @@ const CategoryProducts = () => {
           <IonRow>
             {allProduct &&
               allProduct.map((product, index) => {
-                  return (
-                    <ProductCard
-                      key={`category_product_${index}`}
-                      product={product}
-                      index={index}
-                      cartRef={cartRef}
-                      category={categorydata}
-                    />
-                  );
+                return (
+                  <ProductCard
+                    key={`category_product_${index}`}
+                    product={product}
+                    index={index}
+                    cartRef={cartRef}
+                    category={categorydata}
+                  />
+                );
               })}
           </IonRow>
         </IonGrid>

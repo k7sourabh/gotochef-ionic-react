@@ -39,6 +39,12 @@ iframe {
   height: 40px !important;
   min-height: auto;
   --overflow: visible;
+ 
+}
+.SerchBtn {
+  position: absolute;
+  top: 9px;
+  right: 15px;
 }
 
 .IconBtn::part(native) {
@@ -47,6 +53,9 @@ iframe {
 
 .IconBtn img {
   width: 24px;
+}
+.searchBar{
+  position: relative;
 }
 
 /* Header end */
@@ -534,6 +543,9 @@ iframe {
 .btnGroup {
   display: flex;
   gap: 15px;
+}
+.btnGroup img {
+  width: 17px;
 }
 
 .btnGroup ion-button {
@@ -1075,6 +1087,10 @@ ion-button.button-outline {
 .AddressSearch .searchbar-input-container {
   border: 1px solid #ccc;
   border-radius: 10px;
+}
+
+.searchbar-input-container ion-icon {
+  display: none;
 }
 .AddAddress {
   display: flex;

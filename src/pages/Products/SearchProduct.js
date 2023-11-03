@@ -1,43 +1,75 @@
-import React, { useState } from 'react'
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonChip, IonCol, IonContent, IonGrid, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent, IonPage, IonRow, IonSearchbar, IonText } from '@ionic/react'
-import Header from '../../components/Header'
-import { postApiData } from '../../utils/Utils';
-import { bookmarkOutline, star } from 'ionicons/icons';
-import { add } from 'lodash';
+import React, { useEffect, useState } from "react";
+import {
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonChip,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonIcon,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
+  IonPage,
+  IonRow,
+  IonSearchbar,
+  IonText,
+} from "@ionic/react";
+import Header from "../../components/Header";
+import { postApiData } from "../../utils/Utils";
+import { bookmarkOutline, star, SearchOutLine, searchOutline } from "ionicons/icons";
+import { add } from "lodash";
+import debounce from "lodash/debounce";
 
 const SearchProduct = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [searchData, setSearchProduct] = useState([]);
-  console.log(query);
 
-  const handleSubmitForm = async (values) => {
-    console.log(values);
+  const handleSubmit = async () => {
+    if (!query) {
+      return;
+    }
     const formdata = new FormData();
     formdata.append("keyword", query);
-    formdata.append("limit", "all");
+    formdata.append("limit", 50);
     formdata.append("pageno", 0);
-    const response = await postApiData("/product-search-suggestion?keyword=Magic&limit=all&pageno=0", formdata).catch(e => console.log(e));
-    console.log(response?.data?.subcatprod);
-    setSearchProduct(response?.data?.subcatprod)
+    const response = await postApiData(
+      "/product-search-suggestion?keyword=Magic&limit=all&pageno=0",
+      formdata
+    ).catch((e) => console.log(e));
+    setSearchProduct(response?.data?.subcatprod);
   };
+
+  const debouncedHandleSubmit = debounce(handleSubmit);
+
   return (
     <IonPage>
       <Header />
       <IonContent>
         <IonGrid className="ion-no-padding">
-          <IonSearchbar value={query} onIonChange={e => setQuery(e.detail.value)} />
-          <IonButton className="IconBtn" onClick={handleSubmitForm}>
-            <img
-              src="/assets/img/Search.png"
-              alt="Images"
-              className="TopBarIcons"
-            />
+          {/* <input onChange={(e) => setQuery(e.target.value)} /> */}
+          <IonSearchbar
+          className="searchBar"
+            value={query}
+            onIonChange={(e) => setQuery(e.detail.value)}
+          />
+          <IonButton
+            className="IconBtn SerchBtn"
+            fill="clear"
+            onClick={debouncedHandleSubmit}
+          >
+            <IonIcon color="primary" size="small" icon={searchOutline} />
           </IonButton>
+
           <IonGrid className="ion-no-padding">
             <IonRow>
               {searchData?.map((searchProductData, index) => (
                 <IonCol size="6" key={index}>
-                  <IonCard className="ProductCard" routerLink={`/product-details/${searchProductData?.product_id}`}>
+                  <IonCard
+                    className="ProductCard"
+                    routerLink={`/product-details/${searchProductData?.product_id}`}
+                  >
                     <IonCardHeader className="ProductThumb">
                       <div className="SmartKitchen">
                         <div className="counter">
@@ -74,12 +106,17 @@ const SearchProduct = () => {
                     </IonCardHeader>
 
                     <IonCardContent className="ProductDetails">
-                      <IonText className="ProductTitle">{searchProductData?.productName}</IonText>
+                      <IonText className="ProductTitle">
+                        {searchProductData?.productName}
+                      </IonText>
                       <div className="PriceRating">
                         <IonText color="dark" className="CurrentPrice">
-                          ₹ {searchProductData &&
+                          ₹{" "}
+                          {searchProductData &&
                             searchProductData.product_variant_result &&
-                            searchProductData.product_variant_result[0] && searchProductData?.product_variant_result[0]?.offer_price}
+                            searchProductData.product_variant_result[0] &&
+                            searchProductData?.product_variant_result[0]
+                              ?.offer_price}
                         </IonText>
                         <IonChip className="RateDesign">
                           <span>{searchProductData?.star_rating}</span>
@@ -91,11 +128,25 @@ const SearchProduct = () => {
                         <IonText color="dark" className="OldPrice">
                           {searchProductData &&
                             searchProductData.product_variant_result &&
-                            searchProductData.product_variant_result[0] && searchProductData?.product_variant_result[0]?.main_price}
+                            searchProductData.product_variant_result[0] &&
+                            searchProductData?.product_variant_result[0]
+                              ?.main_price}
                         </IonText>
-                        <IonChip className="offerBedge">{searchProductData &&
-                          searchProductData.product_variant_result &&
-                          searchProductData.product_variant_result[0] && ((searchProductData?.product_variant_result[0]?.main_price - searchProductData?.product_variant_result[0]?.offer_price) / searchProductData?.product_variant_result[0]?.main_price * 100).toFixed(0)}% OFF</IonChip>
+                        <IonChip className="offerBedge">
+                          {searchProductData &&
+                            searchProductData.product_variant_result &&
+                            searchProductData.product_variant_result[0] &&
+                            (
+                              ((searchProductData?.product_variant_result[0]
+                                ?.main_price -
+                                searchProductData?.product_variant_result[0]
+                                  ?.offer_price) /
+                                searchProductData?.product_variant_result[0]
+                                  ?.main_price) *
+                              100
+                            ).toFixed(0)}
+                          % OFF
+                        </IonChip>
                       </div>
 
                       <IonButton
@@ -116,10 +167,9 @@ const SearchProduct = () => {
             </IonRow>
           </IonGrid>
         </IonGrid>
-
       </IonContent>
     </IonPage>
-  )
-}
+  );
+};
 
-export default SearchProduct
+export default SearchProduct;

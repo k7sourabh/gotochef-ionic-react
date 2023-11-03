@@ -38,7 +38,6 @@ const ViewTrendingProduct = () => {
 
   const exclusiveProduct = async () => {
     const response = await getApiData("/getAllTrendingProducts");
-    console.log(response.data.data);
     setExclusiveProduct(response?.data?.data);
   };
   useEffect(() => {
