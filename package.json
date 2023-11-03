@@ -6,7 +6,7 @@
   "dependencies": {
     "@capacitor/android": "^5.4.0",
     "@capacitor/core": "^5.4.0",
-    "@capacitor/ios": "^4.8.1",
+    "@capacitor/ios": "^5.4.0",
     "@capacitor/splash-screen": "^5.0.6",
     "@ionic/react": "^6.2.4",
     "@ionic/react-router": "^6.2.4",

@@ -115,6 +115,7 @@ const Header = () => {
           </IonList>
         </IonContent>
       </IonMenu>
+
       <IonHeader id="main-content">
         <IonToolbar>
           <IonGrid className="ion-no-padding">
@@ -159,20 +160,13 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonButton className="IconBtn">
-                    {/* <img
-                                 src="/assets/img/menu.png"
-                                 alt="Images"
-                                 className="TopBarIcons"
-                              /> */}
-                    <IonMenuButton>
+                  <IonMenuButton>
                       <img
                         src="/assets/img/menu.png"
                         alt="Images"
                         className="TopBarIcons"
                       />
                     </IonMenuButton>
-                  </IonButton>
                 </IonButtons>
               </IonCol>
             </IonRow>
