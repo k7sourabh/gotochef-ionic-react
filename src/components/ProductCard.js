@@ -13,8 +13,7 @@ import { add, bookmarkOutline, star } from "ionicons/icons";
 
 const ProductCard = (props) => {
   const { product, index } = props;
-  //  console.log("product",product)
-
+  
   return (
     <IonCol size="6" key={`category_product_list_${index}`}>
       <IonCard

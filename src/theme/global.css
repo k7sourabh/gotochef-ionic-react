@@ -522,7 +522,15 @@ iframe {
 .OTPInput {
   display: flex;
   gap: 20px;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.OTPInput input {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border: 1px solid #ddd;
+  text-align: center;
 }
 
 .OTPInput ion-input {

@@ -13,6 +13,7 @@ import {
   IonList,
   IonMenu,
   IonMenuButton,
+  IonMenuToggle,
   IonRow,
   IonText,
   IonTitle,
@@ -96,14 +97,16 @@ const Header = () => {
               ></IonIcon>
               <IonLabel>Add Address</IonLabel>
             </IonItem>
-            <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
-              <IonIcon
-                aria-hidden="true"
-                icon={logInOutline}
-                slot="start"
-              ></IonIcon>
-              <IonLabel>Login</IonLabel>
-            </IonItem>
+            <IonMenuToggle>
+              <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
+                <IonIcon
+                  aria-hidden="true"
+                  icon={logInOutline}
+                  slot="start"
+                ></IonIcon>
+                <IonLabel>Login</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
             <IonItem lines="none">
               <IonIcon
                 aria-hidden="true"
@@ -161,12 +164,12 @@ const Header = () => {
                   </IonButton>
 
                   <IonMenuButton>
-                      <img
-                        src="/assets/img/menu.png"
-                        alt="Images"
-                        className="TopBarIcons"
-                      />
-                    </IonMenuButton>
+                    <img
+                      src="/assets/img/menu.png"
+                      alt="Images"
+                      className="TopBarIcons"
+                    />
+                  </IonMenuButton>
                 </IonButtons>
               </IonCol>
             </IonRow>

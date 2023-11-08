@@ -7,10 +7,12 @@ const axiosInstance = axios.create({
   baseURL: GOTO_CHEF_API_URL,
 });
 
+var token = localStorage.getItem("token");
+
 const axiosInstanceWithAuth = axios.create({
   baseURL: GOTO_CHEF_API_URL,
   headers: {
-    Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvdWF0Lmp1c3Rnb3RvY2hlZi5jb21cL2FwaVwvbG9naW4iLCJpYXQiOjE2OTY5MTkyMjQsImV4cCI6MTcyODQ1NTIyNCwibmJmIjoxNjk2OTE5MjI0LCJqdGkiOiJ3cU9DZDlpMnBEbEJ4OFptIiwic3ViIjo0Njg1LCJwcnYiOiJkZWM1ZjgxNzNkNTAwNTU0Y2NiOTNlZjgyMWE0NGRiMTdiMzJiYTMwIn0.QkizpkmsNx2txuNbhEAxjyiKGOgb2iCgEO2evd6Ex20`,
+    Authorization: `Bearer ${token}`,
    },
 });
 

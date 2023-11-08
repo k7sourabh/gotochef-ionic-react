@@ -5,16 +5,26 @@ import {
   IonFabButton,
   IonIcon,
   IonInput,
-  IonLabel,
   IonModal,
   IonText,
+  useIonToast,
 } from "@ionic/react";
 import { close } from "ionicons/icons";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import axios from "axios";
+import OTPInput from "react-otp-input";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const OTPPopup = (props) => {
+  const [otpButtonClicked, setOtpButtonClicked] = useState(true);
+  const [verifiedClicked, setVerifiedClicked] = useState(false);
+  const [resentOtpClicked, setResentOtpClicked] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [showOtpInputBox, setShowOtpInputBox] = useState(false);
+  const [present] = useIonToast();
+  const history = useHistory();
+  // console.log(showOtpInputBox);
   const validationSchema = Yup.object({
     number: Yup.string()
       .matches(/^[6-9]\d{9}$/, {
@@ -22,31 +32,83 @@ const OTPPopup = (props) => {
         excludeEmptyString: false,
       })
       .required("Phone number is required"),
-    otpDigit1: Yup.string().matches(/^\d$/, "Digit 1 must be a single digit"),
-    otpDigit2: Yup.string().matches(/^\d$/, "Digit 2 must be a single digit"),
-    otpDigit3: Yup.string().matches(/^\d$/, "Digit 3 must be a single digit"),
-    otpDigit4: Yup.string().matches(/^\d$/, "Digit 4 must be a single digit"),
   });
   const initialValues = {
     number: "",
-    otpDigit1: "",
-    otpDigit2: "",
-    otpDigit3: "",
-    otpDigit4: "",
   };
 
-  //   const handleSubmit = (values) => {
-  //    console.log("hi")
-  //     console.log(values)
-  //      console.log(values.otpDigit1+values.otpDigit2+values.otpDigit3+values.otpDigit4)
-  //      let formdata = new FormData();
-  //      formdata.append('otp', values.otpDigit1+values.otpDigit2+values.otpDigit3+values.otpDigit4);
-  //      formdata.append('mobile', values.number);
-  //      axios.post("https://uat.justgotochef.com/api/verify-otp",formdata).then((response)=>{
-  //         console.log(response)
-  //     })
-  //     // setSubmitting(false);
-  //   };
+  const handleOtpChange = (otp) => {
+    const numericOtp = otp.replace(/\D/g, "");
+    setOtp(numericOtp);
+  };
+
+  const SendOtpSubmit = (values) => {
+    setShowOtpInputBox(true);
+    let formdata = new FormData();
+    formdata.append("mobile", values.number);
+
+    axios
+      .post("https://uat.justgotochef.com/api/send-otp", formdata)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setVerifiedClicked(true);
+    setOtpButtonClicked(false);
+  };
+
+  const verifyOtpSubmit = (values) => {
+    // console.log(values.optNumber);
+    console.log("varify otp");
+    let formdata = new FormData();
+    formdata.append("otp", otp);
+    formdata.append("mobile", values.number);
+    axios
+      .post("https://uat.justgotochef.com/api/verify-otp", formdata)
+      .then((response) => {
+        console.log("verify", response?.data);
+        if (response?.data?.status === 200) {
+          presentToast("Top", response?.data?.message);
+          setTimeout(() => {
+            props.setIsOpen(false);
+            history.push("/home");
+          }, 2000);
+        } else {
+          presentToast("Top", response?.data?.message);
+        }
+        setResentOtpClicked(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const reSendOTP = (values) => {
+    console.log(values.number);
+    let formdata = new FormData();
+    formdata.append("mobile", values.number);
+
+    axios
+      .post("https://uat.justgotochef.com/api/resend-otp", formdata)
+      .then((response) => {
+        console.log(response);
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const presentToast = (position, message) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
+  };
 
   return (
     <>
@@ -65,31 +127,13 @@ const OTPPopup = (props) => {
           <Formik
             initialValues={initialValues}
             onSubmit={(values, { setSubmitting }) => {
-              // console.log(values);
-              let formdata = new FormData();
-              formdata.append("mobile", values.number);
-
-              axios
-                .post("https://uat.justgotochef.com/api/send-otp", formdata)
-                .then((response) => {
-                  console.log(response);
-                });
+              if (otpButtonClicked && !verifiedClicked) {
+                SendOtpSubmit(values);
+              }
+              if (verifiedClicked) {
+                verifyOtpSubmit(values);
+              }
               setSubmitting(false);
-
-              // let formdata1 = new FormData();
-              // formdata1.append(
-              //   "otp",
-              //   values.otpDigit1 +
-              //     values.otpDigit2 +
-              //     values.otpDigit3 +
-              //     values.otpDigit4
-              // );
-              // formdata1.append("mobile", values.number);
-              // axios
-              //   .post("https://uat.justgotochef.com/api/verify-otp", formdata1)
-              //   .then((response) => {
-              //     console.log(response);
-              //   });
             }}
             validationSchema={validationSchema}
           >
@@ -116,78 +160,53 @@ const OTPPopup = (props) => {
 
                 <div className="OTPGroup">
                   <div className="OTPInput">
-                    <Field
-                      name="otpDigit1"
-                      type="text"
-                      maxLength="1"
-                      as={IonInput}
-                      onIonChange={handleChange}
-                    ></Field>
-                    <Field
-                      name="otpDigit2"
-                      type="text"
-                      maxLength="1"
-                      as={IonInput}
-                      onIonChange={handleChange}
-                    ></Field>
-                    <Field
-                      name="otpDigit3"
-                      type="text"
-                      maxLength="1"
-                      as={IonInput}
-                      onIonChange={handleChange}
-                    ></Field>
-                    <Field
-                      name="otpDigit4"
-                      type="text"
-                      maxLength="1"
-                      as={IonInput}
-                      onIonChange={handleChange}
-                    ></Field>
-                    <ErrorMessage
-                      className="error-text"
-                      name="otpDigit1"
-                      component={IonText}
-                    />
-                    <ErrorMessage
-                      className="error-text"
-                      name="otpDigit2"
-                      component={IonText}
-                    />
-                    <ErrorMessage
-                      className="error-text"
-                      name="otpDigit3"
-                      component={IonText}
-                    />
-                    <ErrorMessage
-                      className="error-text"
-                      name="otpDigit4"
-                      component={IonText}
-                    />
+                    {showOtpInputBox && (
+                      <OTPInput
+                        value={otp}
+                        name="optNumber"
+                        onChange={handleOtpChange}
+                        numInputs={4}
+                        renderSeparator={<span>&nbsp;&nbsp;&nbsp;</span>}
+                        renderInput={(props) => (
+                          <input className="otp-inputChild" type="number" {...props} />
+                        )}
+                      />
+                    )}
                   </div>
 
                   <div className="btnGroup">
                     <IonButton
                       className="yallow-btn"
                       type="submit"
-                      disabled={!isValid || isSubmitting}
+                      onClick={() => setOtpButtonClicked(true)}
+                      disabled={verifiedClicked}
                     >
                       Send OTP
                     </IonButton>
                     <IonButton
                       type="submit"
-                      //   onClick={()=>handleSubmit(values)}
+                      onClick={() => setVerifiedClicked(true)}
+                      disabled={!verifiedClicked}
                     >
                       Verify
                     </IonButton>
                   </div>
                   <IonText color="dark" className="resendCode">
-                    Didn't receive the code? <IonText>Resend</IonText>
+                    Didn't receive the code?{" "}
+                    <IonButton
+                      fill="clear"
+                      onClick={() => reSendOTP(values)}
+                      // onClick={() => setResentOtpClicked(true)}
+                      disabled={!resentOtpClicked}
+                    >
+                      Resend
+                    </IonButton>
                   </IonText>
                 </div>
               </Form>
             )}
           </Formik>
+
           <div className="orDivider">
             <span>OR</span>
           </div>

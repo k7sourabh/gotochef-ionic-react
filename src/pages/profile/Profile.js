@@ -16,7 +16,7 @@ const Profile = () => {
   const userProfile = async () => {
     try{
         const response = await getApiDataWithAuth("/user-dashboard");
-        console.log(response)
+        console.log("userDash",response)
         setUserProfileData(response?.data);
     }catch (e) {
         console.log(e)
