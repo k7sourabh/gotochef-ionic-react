@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // const host = window.location.origin;
-export const GOTO_CHEF_API_URL = "https://uat.justgotochef.com/api"
+export const GOTO_CHEF_API_URL = "http://20.207.207.62/api"
 const axiosInstance = axios.create({
   baseURL: GOTO_CHEF_API_URL,
 });

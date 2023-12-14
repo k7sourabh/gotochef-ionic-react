@@ -39,6 +39,7 @@ const Home = () => {
       console.log(err)
     }
    }
+   console.log(exclusiveProductData)
 
    useEffect(()=>{
     exclusiveProduct();
@@ -84,7 +85,7 @@ const Home = () => {
         </Swiper>
 
 
-        <IonGrid className="ion-no-padding">
+        <IonGrid className="ion-no-padding manage-product">
           <IonHeader className='TitleHead'>
             <IonTitle>
               Exclusive Product Stores
@@ -93,7 +94,7 @@ const Home = () => {
               <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
             </IonButton>
           </IonHeader>
-          <Swiper slidesPerView={2} >
+          <Swiper slidesPerView={2}>
             { exclusiveProductData?.map((category, index) => {
               return (
                 <SwiperSlide key={index}>
@@ -123,6 +124,7 @@ const Home = () => {
 
                     <IonCardContent className="ProductDetails">
                       <IonText className="ProductTitle">{category?.productName}</IonText>
+                      <IonText className="ProductBrandname">{category?.brand_name}</IonText>
                       <div className="PriceRating">
                         <IonText color="dark" className="CurrentPrice">₹ {category?.product_variant[0]?.offer_price}</IonText>
                         <IonChip className="RateDesign">
@@ -150,7 +152,7 @@ const Home = () => {
             })}
           </Swiper>
 
-          <IonRow className="ion-padding-bottom ion-padding-horizontal">
+          <IonRow className="ion-padding">
             <IonCol size="12" className="flex ion-justify-content-center">
               <IonButton size="default" fill="outline" routerLink="/exclusive-products">View More</IonButton>
             </IonCol>
@@ -158,7 +160,7 @@ const Home = () => {
         </IonGrid>
 
 
-        <IonGrid className="ion-no-padding">
+        <IonGrid className="ion-no-padding manage-product">
           <IonHeader className='TitleHead'>
             <IonTitle>See What’s Trending</IonTitle>
             <IonButton fill="clear" className='IconBtn' routerLink="/trending-products">
@@ -166,7 +168,7 @@ const Home = () => {
             </IonButton>
           </IonHeader>
 
-          <Swiper slidesPerView={2} className={styles.swipertab}>
+          <Swiper slidesPerView={2} className={styles.swipertab} >
             {trendingProductsData?.map((category, index) => {
               return (
                 <SwiperSlide key={index}>
@@ -196,6 +198,7 @@ const Home = () => {
 
                     <IonCardContent className="ProductDetails">
                       <IonText className="ProductTitle">{category?.productName}</IonText>
+                      <IonText className="ProductBrandname">{category?.brand_name}</IonText>
                       <div className="PriceRating">
                         <IonText color="dark" className="CurrentPrice">₹ {category?.product_variant[0].offer_price}</IonText>
                         <IonChip className="RateDesign">
@@ -222,7 +225,7 @@ const Home = () => {
             })}
           </Swiper>
 
-          <IonRow className="ion-padding-bottom ion-padding-horizontal">
+          <IonRow className="ion-padding">
             <IonCol size="12" className="flex ion-justify-content-center">
               <IonButton size="default" fill="outline" routerLink="/trending-products">View More</IonButton>
             </IonCol>

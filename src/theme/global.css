@@ -253,6 +253,16 @@ iframe {
   top: 5px;
 }
 
+.manage-product .swiper  {
+  padding-right: 20%;
+}
+
+@media (max-width: 320px) {
+  .manage-product .swiper  {
+    padding-right: 0;
+  }
+}
+
 .ProductDetails {
   padding: 0;
   display: flex;
@@ -272,6 +282,14 @@ iframe {
   min-height: 36px;
 }
 
+.ProductBrandname {
+  font-size: 14px;
+  text-align: left;
+  font-weight: 600;
+  display: block;
+  color: #111;
+}
+
 .PriceRating {
   display: flex;
   align-items: center;
@@ -280,7 +298,7 @@ iframe {
 
 .CurrentPrice {
   line-height: normal;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -312,7 +330,7 @@ iframe {
 }
 
 .OldPrice {
-  font-size: 16px;
+  font-size: 14px;
   color: #999;
   text-decoration: line-through;
   font-weight: 600;
@@ -326,7 +344,7 @@ iframe {
   height: auto;
   color: #00a94f;
   background: #e6f6f1;
-  font-size: 12px;
+  font-size: 10px;
   line-height: normal;
 }
 
