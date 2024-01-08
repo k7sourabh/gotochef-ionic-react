@@ -81,6 +81,7 @@ const Header = () => {
                 aria-hidden="true"
                 icon={basketOutline}
                 slot="start"
+                color="danger"
               ></IonIcon>
               <IonLabel>My orders</IonLabel>
             </IonItem>
@@ -151,7 +152,7 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonButton className="IconBtn" routerLink="/edit-profile">
+                  <IonButton className="IconBtn" routerLink="/home-recipe">
                     <img
                       src="/assets/img/edit.png"
                       alt="Images"
