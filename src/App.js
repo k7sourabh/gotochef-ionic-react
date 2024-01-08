@@ -44,6 +44,8 @@ import ViewExclusiveProduct from "./pages/ViewExclusiveProducts";
 import ViewTrendingProduct from "./pages/ViewTrendingProduct";
 import ProductCard from "./components/ProductCard";
 import SearchProduct from "./pages/Products/SearchProduct";
+import Dashboard from "./pages/profile/DashBoard";
+import RecipePage from "./pages/HomeRecipe/RecipePage";
 
 
 // Hide the splash (you should do this on app launch)
@@ -115,8 +117,14 @@ const App = () => {
                 <Route path="/home-recipe" exact>
                   <HomeRecipe />
                 </Route>
+                <Route path="/recipe-page" exact>
+                  <RecipePage />
+                </Route>
                 <Route path="/profile" exact>
                   <Profile />
+                </Route>
+                <Route path="/dashboard" exact>
+                  <Dashboard/>
                 </Route>
                 <Route path="/order-list" exact>
                   <OrderList />

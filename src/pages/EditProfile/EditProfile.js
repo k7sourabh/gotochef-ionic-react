@@ -13,14 +13,16 @@ const EditProfile = () => {
                         <IonRow>
                             <IonCol >
                                 <div className="EditprofileImg">
-                                    <img src="./assets/img/img-person.jpg" alt="" />
-                                </div>
+                                    <img src="./assets/img/img-person.jpg" alt="" className="ProfileImg"/>
+                               
                                 <div class="image-upload">
                                     <label for="file-input" className="EditProfile">
                                         <img src="./assets/img/edit.png" alt="" />
                                     </label>
                                     <input id="file-input" type="file" />
                                 </div>
+                                </div>
+                               
                             </IonCol>
                         </IonRow>
                     </IonGrid>
