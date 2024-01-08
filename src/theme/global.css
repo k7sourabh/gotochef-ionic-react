@@ -283,6 +283,12 @@ iframe {
   font-size: 18px;
   font-weight: 600;
 }
+.PriceText{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 7px;
+}
 
 .RateDesign {
   font-weight: 600;
@@ -306,9 +312,9 @@ iframe {
 
 .OfferInfo {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  /* align-items: center;
+  justify-content: space-between; */
+  gap: 6px;
 }
 
 .OldPrice {
@@ -1428,46 +1434,46 @@ label.EditImg img {
    margin: auto;
    border-radius: 6px;
 }
+.EditprofileImg img {
+  max-width: 170px;
+  width: 100%;
+  border-radius: 87px;
+}
+.EditprofileImg{
+  display: flex;
+   justify-content: center;
+   position: relative;
+}
+.EditProfile {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 11px;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+}
 label.EditProfile img {
-   max-width: 28px;
+  max-width: 15px;
 }
-.Profile-input{
-   border: 1px solid #ccc;
-   padding: 15px 10px;
-   border-radius: 5px;
-   margin-top: 15px;
+.Edit-input ion-label{
+  color: #00000082 !important;
 }
-.Profile-input ion-input{
-   border: 1px solid rgba(0, 0, 0, 0.12);
-   border-radius: 5px;
-   width: 100%;
- margin-top: 10px;
-}
-.Profile-input ion-input input {
-   padding-left: 15px !important;
-   font-size: 12px !important;
-}
-.Profile-input ion-input input[type="date"]{
-   color: #00000069;
+.Edit-input ion-input{
+    color: #00000094;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
 
-.Profile-input ion-label span{
- color: #bd130a;
- padding-left: 3px;
- font-size: 18px;
+.Pofile-Accordian ion-text{
+  color: #00000082;
 }
-.Profile-input ion-select{
-    border: 1px solid rgba(0, 0, 0, 0.12);
-   border-radius: 5px;
-   width: 100%;
- margin-top: 10px;
- font-size: 12px !important;
+
+.edit-profile-box ion-label{
+  font-size: 15px ;
 }
 .UpdateBtn{
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 10px 0px;
+   padding: 30px 0px;
 }
 .Radio-box{
    border-bottom: 1px solid #ccc;
@@ -1509,11 +1515,20 @@ label.EditProfile img {
 .Pofile-Accordian{
    border-bottom: 1px solid #cccccc96;
 }
-.edit-profile-box ion-label{
-   font-size: 17px;
-  /* padding-bottom: 80px; */
-}
 
+.image-upload{
+  position: absolute;
+  top: 94px;
+  margin-left: 143px;
+}
 .text-button::part(native) {
   padding: 0;
+}
+
+.datetime-wrapper .picker-toolbar-button {
+  display: none !important;
+}
+.FillSegment ion-label{
+  white-space: normal;
+  margin: 0px;
 }

@@ -305,7 +305,7 @@ const Product = () => {
                   <IonLabel>Details</IonLabel>
                 </IonSegmentButton>
                 <IonSegmentButton value="nutrition">
-                  <IonLabel>Nutrition</IonLabel>
+                  <IonLabel>Nutrition & Ingredients</IonLabel>
                 </IonSegmentButton>
                 <IonSegmentButton value="reviews">
                   <IonLabel>Reviews</IonLabel>
