@@ -201,7 +201,7 @@ const Product = () => {
                         <IonIcon color="light" size="small" icon={star} />
                       </IonChip>
                     </div>
-                    <span>{productData && productData?.slug}</span>
+                    <span className="productName">{productData && productData?.slug}</span>
 
                     <div className={styles.priceInfo}>
                       {productData &&
@@ -234,7 +234,7 @@ const Product = () => {
                           </IonChip>
                         </div>
                         <IonButton
-                          className="AddToCart ion-hide"
+                          className="AddToCart"
                           size="default"
                           shape="round"
                           fill="outline"
@@ -305,7 +305,7 @@ const Product = () => {
                   <IonLabel>Details</IonLabel>
                 </IonSegmentButton>
                 <IonSegmentButton value="nutrition">
-                  <IonLabel>Nutrition</IonLabel>
+                  <IonLabel>Nutrition & Ingredients</IonLabel>
                 </IonSegmentButton>
                 <IonSegmentButton value="reviews">
                   <IonLabel>Reviews</IonLabel>

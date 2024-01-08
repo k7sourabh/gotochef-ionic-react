@@ -165,15 +165,15 @@ const CartProducts = () => {
           </IonRow>
 
           <IonRow className="ion-padding bottom-shadow">
-            <IonCol size="12">
+            <IonCol size="6" className="ion-padding-top">
               <IonTitle color="dark" className="ion-no-padding">
                 Apply Coupon
               </IonTitle>
-              <IonText color="success">
+              <IonText color="success" className="SaveMoreText">
                 Save more with coupons available for you
               </IonText>
             </IonCol>
-            <IonCol size="12" className="ion-padding-top">
+            <IonCol size="6" className="">
               <div className="CouponGroup">
                 <IonInput
                   className="CouponInput"
