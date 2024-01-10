@@ -33,6 +33,7 @@ const Home = () => {
   const exclusiveProduct = async ()=> {
     try {
       const response = await getApiData("/getExclusiveProducts")
+      console.log('exclu...', response?.data?.data)
       setExclusiveProduct(response?.data?.data)
     } catch(err) {
       setExclusiveProduct([])
@@ -48,6 +49,7 @@ const Home = () => {
    const trendingProducts = async ()=> {
     try {
     const response = await getApiData("/getTrendingProducts/5/0")
+    console.log('trend...', response?.data?.data)
     setTrendingProductsData(response?.data?.data)
     } catch(err) {
       setTrendingProductsData([])
@@ -105,7 +107,7 @@ const Home = () => {
                           <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
                           <span>{category?.imk_num}</span>
                         </div>
-                        {/* <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" /> */}
+                        <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
                       </div>
 
                       <img
@@ -126,19 +128,23 @@ const Home = () => {
                       <IonText className="ProductTitle">{category?.productName}</IonText>
                       <IonText className="ProductBrandname">{category?.brand_name}</IonText>
                       <div className="PriceRating">
+                        <div className='PriceText'>
                         <IonText color="dark" className="CurrentPrice">₹ {category?.product_variant[0]?.offer_price}</IonText>
+                        <div className="OfferInfo">
+                        <IonText color="dark" className="OldPrice">{category?.product_variant[0]?.main_price}</IonText>
+                        
+                        <IonChip className="offerBedge">{((category?.product_variant[0]?.main_price-category?.product_variant[0]?.offer_price)/category?.product_variant[0]?.main_price * 100).toFixed(0)}% OFF</IonChip>
+                      </div>
+
+                        </div>
+                       
                         <IonChip className="RateDesign">
                           <span>{category?.star_rating}</span>
                           <IonIcon color="light" size="small" icon={star} />
                         </IonChip>
                       </div>
 
-                      <div className="OfferInfo">
-                        <IonText color="dark" className="OldPrice">{category?.product_variant[0]?.main_price}</IonText>
-                        
-                        <IonChip className="offerBedge">{((category?.product_variant[0]?.main_price-category?.product_variant[0]?.offer_price)/category?.product_variant[0]?.main_price * 100).toFixed(0)}% OFF</IonChip>
-                      </div>
-
+                     
                       <IonButton className="AddToCartBtn" size="default" shape="round" fill="outline">
                         <div className="addText">
                           Add
@@ -179,7 +185,7 @@ const Home = () => {
                           <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
                           <span>{category?.imk_num}</span>
                         </div>
-                        {/* <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" /> */}
+                        <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
                       </div>
 
                       <img
@@ -200,17 +206,20 @@ const Home = () => {
                       <IonText className="ProductTitle">{category?.productName}</IonText>
                       <IonText className="ProductBrandname">{category?.brand_name}</IonText>
                       <div className="PriceRating">
+                        <div className='PriceText'>
                         <IonText color="dark" className="CurrentPrice">₹ {category?.product_variant[0].offer_price}</IonText>
+                        <div className="OfferInfo">
+                        <IonText color="dark" className="OldPrice">{category?.product_variant[0]?.main_price}</IonText>
+                        <IonChip className="offerBedge">{((category?.product_variant[0]?.main_price-category?.product_variant[0]?.offer_price)/category?.product_variant[0]?.main_price * 100).toFixed(0)}% OFF</IonChip>
+                      </div>
+                        </div>
                         <IonChip className="RateDesign">
                           <span>{category?.star_rating}</span>
                           <IonIcon color="light" size="small" icon={star} />
                         </IonChip>
                       </div>
 
-                      <div className="OfferInfo">
-                        <IonText color="dark" className="OldPrice">{category?.product_variant[0]?.main_price}</IonText>
-                        <IonChip className="offerBedge">{((category?.product_variant[0]?.main_price-category?.product_variant[0]?.offer_price)/category?.product_variant[0]?.main_price * 100).toFixed(0)}% OFF</IonChip>
-                      </div>
+                      
 
                       <IonButton className="AddToCartBtn" size="default" shape="round" fill="outline">
                         <div className="addText">

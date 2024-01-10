@@ -7,6 +7,15 @@ const axiosInstance = axios.create({
   baseURL: GOTO_CHEF_API_URL,
 });
 
+var token = localStorage.getItem("token");
+
+const axiosInstanceWithAuth = axios.create({
+  baseURL: GOTO_CHEF_API_URL,
+  headers: {
+    Authorization: `Bearer ${token}`,
+   },
+});
+
 export const getApiData = async (url) => {
   const res = await axiosInstance({
     url,
@@ -15,8 +24,25 @@ export const getApiData = async (url) => {
   return res;
 };
 
+export const getApiDataWithAuth = async (url) => {
+  const res = await axiosInstanceWithAuth({
+    url,
+    method: "GET",
+  });
+  return res;
+};
+
 export const postApiData = async (url, data) => {
   const res = await axiosInstance({
+    url,
+    method: "POST",
+    data,
+  });
+  return res;
+};
+
+export const postApiDataWithAuth = async (url, data) => {
+  const res = await axiosInstanceWithAuth({
     url,
     method: "POST",
     data,

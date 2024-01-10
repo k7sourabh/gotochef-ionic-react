@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   IonButton,
+  IonButtons,
   IonChip,
   IonCol,
   IonContent,
@@ -14,11 +15,13 @@ import {
   IonItemOptions,
   IonItemSliding,
   IonLabel,
+  IonModal,
   IonPage,
   IonRow,
   IonSkeletonText,
   IonText,
   IonTitle,
+  IonToolbar,
 } from "@ionic/react";
 import { add, remove, home } from "ionicons/icons";
 import { useEffect, useState } from "react";
@@ -32,6 +35,7 @@ const CartProducts = () => {
   const shopCart = CartStore.useState((s) => s.product_ids);
   const [cartProducts, setCartProducts] = useState([]);
   const [, /* total */ setTotal] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     console.log(cartProducts);
@@ -117,7 +121,7 @@ const CartProducts = () => {
 
                 <IonItemOptions>
                   <IonItemOption className="BgNone">
-                  <div className="QtyBlock">
+                    <div className="QtyBlock">
                       <IonButton fill="clear" className="IconBtn">
                         <IonIcon color="dark" size="large" icon={remove} />
                       </IonButton>
@@ -128,8 +132,8 @@ const CartProducts = () => {
                         <IonIcon color="dark" size="large" icon={add} />
                       </IonButton>
                     </div>
-                </IonItemOption>
-                
+                  </IonItemOption>
+
                   <IonItemOption color="secondary">Save</IonItemOption>
                   <IonItemOption color="danger">Delete</IonItemOption>
                 </IonItemOptions>
@@ -165,15 +169,15 @@ const CartProducts = () => {
           </IonRow>
 
           <IonRow className="ion-padding bottom-shadow">
-            <IonCol size="12">
+            <IonCol size="6" className="ion-padding-top">
               <IonTitle color="dark" className="ion-no-padding">
                 Apply Coupon
               </IonTitle>
-              <IonText color="success">
+              <IonText color="success" className="SaveMoreText">
                 Save more with coupons available for you
               </IonText>
             </IonCol>
-            <IonCol size="12" className="ion-padding-top">
+            <IonCol size="6" className="">
               <div className="CouponGroup">
                 <IonInput
                   className="CouponInput"
@@ -223,6 +227,14 @@ const CartProducts = () => {
               <IonText>11.00</IonText>
             </IonCol>
           </IonRow>
+          <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
+            <IonCol size="5">
+              <IonText>Coupan</IonText>
+            </IonCol>
+            <IonCol size="3" className="ion-text-right">
+              <IonText>11.00</IonText>
+            </IonCol>
+          </IonRow>
           <div className="Divider"></div>
           <IonRow className="ion-padding-horizontal ion-padding ion-justify-content-between bottom-shadow">
             <IonCol size="5">
@@ -264,7 +276,7 @@ const CartProducts = () => {
                   </IonText>
                 </div>
                 <div className="AddressChangeBtn">
-                  <IonButton fill="clear">CHANGE</IonButton>
+                  <IonButton fill="clear" expand="block" onClick={() => setIsOpen(true)}>CHANGE</IonButton>
                 </div>
               </div>
             </IonCol>
@@ -295,6 +307,65 @@ const CartProducts = () => {
             </div>
           </div>
         </div>
+
+
+
+        
+          <IonModal isOpen={isOpen} size="small"  className="myModel">
+            <IonHeader>
+              <IonToolbar>
+                <IonTitle>Address</IonTitle>
+                <IonButtons slot="end">
+                  <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
+                </IonButtons>
+              </IonToolbar>
+            </IonHeader>
+            <IonContent className="ion-padding">
+
+             <div className="flex flex ion-padding-vertical">
+             <div className="IconHome">
+                <IonIcon color="primary" size="large" icon={home} />
+              </div>
+              <div className="Address ion-padding-horizontal">
+                <IonTitle color="dark" className="ion-no-padding">
+                  Delivering to <strong>Home</strong>
+                </IonTitle>
+                <IonText className="AddressText">
+                  10-3-85/4, Flat No 402, Pandit Rao Nilayam, Hyderabad
+                </IonText>
+
+              </div>
+             </div>
+             <div className="flex flex ion-padding-vertical">
+             <div className="IconHome">
+                <IonIcon color="primary" size="large" icon={home} />
+              </div>
+              <div className="Address ion-padding-horizontal">
+                <IonTitle color="dark" className="ion-no-padding">
+                  Delivering to <strong>Home</strong>
+                </IonTitle>
+                <IonText className="AddressText">
+                  10-3-85/4, Flat No 402, Pandit Rao Nilayam, Hyderabad
+                </IonText>
+
+              </div>
+             </div>
+             <div className="flex ion-padding-vertical">
+             <div className="IconHome">
+                <IonIcon color="primary" size="large" icon={home} />
+              </div>
+              <div className="Address ion-padding-horizontal">
+                <IonTitle color="dark" className="ion-no-padding">
+                  Delivering to <strong>Home</strong>
+                </IonTitle>
+                <IonText className="AddressText">
+                  10-3-85/4, Flat No 402, Pandit Rao Nilayam, Hyderabad
+                </IonText>
+
+              </div>
+             </div>
+            </IonContent>
+          </IonModal>
       </IonContent>
     </IonPage>
   );

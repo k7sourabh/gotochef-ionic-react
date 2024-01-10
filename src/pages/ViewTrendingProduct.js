@@ -77,11 +77,11 @@ const ViewTrendingProduct = () => {
                         />
                         <span>{data?.imk_num}</span>
                       </div>
-                      {/* <img
+                     <img
                         src="/assets/img/veg-icon.svg"
                         alt="Images"
                         className="icon-img"
-                      /> */}
+                      />
                     </div>
 
                     <img
@@ -101,21 +101,24 @@ const ViewTrendingProduct = () => {
                   <IonCardContent className="ProductDetails">
                     <IonText className="ProductTitle">{data?.productName}</IonText>
                     <div className="PriceRating">
+                      <div className="PriceText">
                       <IonText color="dark" className="CurrentPrice">
                       ₹ {data?.product_variant[0]?.offer_price}
                       </IonText>
+                      <div className="OfferInfo">
+                      <IonText color="dark" className="OldPrice">
+                      {data?.product_variant[0]?.main_price}
+                      </IonText>
+                      <IonChip className="offerBedge">{((data?.product_variant[0]?.main_price-data?.product_variant[0]?.offer_price)/data?.product_variant[0]?.main_price * 100).toFixed(0)}% OFF</IonChip>
+                    </div>
+                      </div>
                       <IonChip className="RateDesign">
                         <span>{data?.star_rating}</span>
                         <IonIcon color="light" size="small" icon={star} />
                       </IonChip>
                     </div>
 
-                    <div className="OfferInfo">
-                      <IonText color="dark" className="OldPrice">
-                      {data?.product_variant[0]?.main_price}
-                      </IonText>
-                      <IonChip className="offerBedge">{((data?.product_variant[0]?.main_price-data?.product_variant[0]?.offer_price)/data?.product_variant[0]?.main_price * 100).toFixed(0)}% OFF</IonChip>
-                    </div>
+                  
 
                     <IonButton
                       className="AddToCartBtn"

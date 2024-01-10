@@ -13,8 +13,7 @@ import { add, bookmarkOutline, star } from "ionicons/icons";
 
 const ProductCard = (props) => {
   const { product, index } = props;
-  //  console.log("product",product)
-
+  
   return (
     <IonCol size="6" key={`category_product_list_${index}`}>
       <IonCard
@@ -49,18 +48,13 @@ const ProductCard = (props) => {
         <IonCardContent className="ProductDetails">
           <IonText className="ProductTitle">{product?.productName}</IonText>
           <div className="PriceRating">
+            <div className="PriceText"> 
             <IonText color="dark" className="CurrentPrice">
               {product &&
                 product.product_variant_result &&
                 product.product_variant_result[0] && product?.product_variant_result[0].offer_price}
             </IonText>
-            <IonChip className="RateDesign">
-              <span>{product?.total_rating}</span>
-              <IonIcon color="light" size="small" icon={star} />
-            </IonChip>
-          </div>
-
-          <div className="OfferInfo">
+            <div className="OfferInfo">
             <IonText color="dark" className="OldPrice">
               {product &&
                 product.product_variant_result &&
@@ -77,6 +71,13 @@ const ProductCard = (props) => {
                   100
                 ).toFixed(0)}
               % OFF
+            </IonChip>
+          </div>
+            </div>
+           
+            <IonChip className="RateDesign">
+              <span>{product?.total_rating}</span>
+              <IonIcon color="light" size="small" icon={star} />
             </IonChip>
           </div>
 

@@ -13,6 +13,7 @@ import {
   IonList,
   IonMenu,
   IonMenuButton,
+  IonMenuToggle,
   IonRow,
   IonText,
   IonTitle,
@@ -81,6 +82,7 @@ const Header = () => {
                 aria-hidden="true"
                 icon={basketOutline}
                 slot="start"
+                color="danger"
               ></IonIcon>
               <IonLabel>My orders</IonLabel>
             </IonItem>
@@ -96,14 +98,16 @@ const Header = () => {
               ></IonIcon>
               <IonLabel>Add Address</IonLabel>
             </IonItem>
-            <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
-              <IonIcon
-                aria-hidden="true"
-                icon={logInOutline}
-                slot="start"
-              ></IonIcon>
-              <IonLabel>Login</IonLabel>
-            </IonItem>
+            <IonMenuToggle>
+              <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
+                <IonIcon
+                  aria-hidden="true"
+                  icon={logInOutline}
+                  slot="start"
+                ></IonIcon>
+                <IonLabel>Login</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
             <IonItem lines="none">
               <IonIcon
                 aria-hidden="true"
@@ -115,6 +119,7 @@ const Header = () => {
           </IonList>
         </IonContent>
       </IonMenu>
+
       <IonHeader id="main-content">
         <IonToolbar>
           <IonGrid className="ion-no-padding">
@@ -151,7 +156,7 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonButton className="IconBtn" routerLink="/edit-profile">
+                  <IonButton className="IconBtn" routerLink="/home-recipe">
                     <img
                       src="/assets/img/edit.png"
                       alt="Images"
@@ -159,20 +164,13 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonButton className="IconBtn">
-                    {/* <img
-                                 src="/assets/img/menu.png"
-                                 alt="Images"
-                                 className="TopBarIcons"
-                              /> */}
-                    <IonMenuButton>
-                      <img
-                        src="/assets/img/menu.png"
-                        alt="Images"
-                        className="TopBarIcons"
-                      />
-                    </IonMenuButton>
-                  </IonButton>
+                  <IonMenuButton>
+                    <img
+                      src="/assets/img/menu.png"
+                      alt="Images"
+                      className="TopBarIcons"
+                    />
+                  </IonMenuButton>
                 </IonButtons>
               </IonCol>
             </IonRow>
