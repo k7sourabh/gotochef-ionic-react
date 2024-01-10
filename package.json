@@ -10,6 +10,7 @@
     "@capacitor/splash-screen": "^5.0.6",
     "@ionic/react": "^6.2.4",
     "@ionic/react-router": "^6.2.4",
+    "@ionic/storage": "^4.0.0",
     "@reduxjs/toolkit": "^2.0.1",
     "animate.css": "^4.1.1",
     "axios": "^1.5.1",

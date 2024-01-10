@@ -50,7 +50,7 @@ import VeganRecipe from "./pages/HomeRecipe/VeganRecipe";
 import NutriBudy from "./pages/Products/NutriBudy";
 import MyProfile from "./pages/EditProfile/MyProfile";
 import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
-
+import { createStore } from "./services/Storage";
 
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
@@ -70,7 +70,12 @@ setupIonicReact({});
 
 const App = () => {
 
-
+  useEffect(() => {
+		const setupStore = async () => {
+			await createStore("go-to-chef-storage");
+		}
+		setupStore();
+	}, []);
 
   return (
     <ApiProvider>
