@@ -12,9 +12,9 @@ import {
 import { close } from "ionicons/icons";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import axios from "axios";
 import OTPInput from "react-otp-input";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { postApiData } from "../utils/Utils";
 
 const OTPPopup = (props) => {
   const [otpButtonClicked, setOtpButtonClicked] = useState(true);
@@ -37,69 +37,58 @@ const OTPPopup = (props) => {
     number: "",
   };
 
+  const SendOtpSubmit = async (values) => {
+    try {
+      setShowOtpInputBox(true);
+      let formdata = new FormData();
+      formdata.append("mobile", values.number);
+      const response = await postApiData("/send-otp", formdata);
+    } catch (e) {
+      console.log(e);
+    }
+    setVerifiedClicked(true);
+    setOtpButtonClicked(false);
+  };
+
   const handleOtpChange = (otp) => {
     const numericOtp = otp.replace(/\D/g, "");
     setOtp(numericOtp);
   };
 
-  const SendOtpSubmit = (values) => {
-    setShowOtpInputBox(true);
-    let formdata = new FormData();
-    formdata.append("mobile", values.number);
-
-    axios
-      .post("https://uat.justgotochef.com/api/send-otp", formdata)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    setVerifiedClicked(true);
-    setOtpButtonClicked(false);
-  };
-
-  const verifyOtpSubmit = (values) => {
-    // console.log(values.optNumber);
-    console.log("varify otp");
-    let formdata = new FormData();
-    formdata.append("otp", otp);
-    formdata.append("mobile", values.number);
-    axios
-      .post("https://uat.justgotochef.com/api/verify-otp", formdata)
-      .then((response) => {
-        console.log("verify", response?.data);
-        if (response?.data?.status === 200) {
-          presentToast("Top", response?.data?.message);
-          setTimeout(() => {
-            props.setIsOpen(false);
-            history.push("/home");
-          }, 2000);
-        } else {
-          presentToast("Top", response?.data?.message);
-        }
+  const verifyOtpSubmit = async (values) => {
+    try {
+      let formdata = new FormData();
+      formdata.append("otp", otp);
+      formdata.append("mobile", values.number);
+      const response = await postApiData("/verify-otp", formdata);
+      if (response?.data?.status === true) {
+        presentToast("Top", response?.data?.message);
+        localStorage.setItem("token", response?.data?.token?.original?.access_token);
+        localStorage.setItem("userId", response?.data?.user_data?.id);
+        setTimeout(() => {
+          props.setIsOpen(false);
+          history.push("/home");
+        }, 2000);
+      } else {
+        presentToast("Top", response?.data?.message);
         setResentOtpClicked(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    } catch (e) {
+      setResentOtpClicked(true);
+      presentToast("Top", e?.response?.data?.message);
+      console.log(e);
+    }
   };
 
-  const reSendOTP = (values) => {
-    console.log(values.number);
-    let formdata = new FormData();
+  const reSendOTP = async(values) => {
+    alert('hi')
+    try {
+      let formdata = new FormData();
     formdata.append("mobile", values.number);
-
-    axios
-      .post("https://uat.justgotochef.com/api/resend-otp", formdata)
-      .then((response) => {
-        console.log(response);
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
+    const response = await postApiData("/resend-otp", formdata);
+    }catch (e) {
+      console.log(e);
+    }
   };
 
   const presentToast = (position, message) => {
@@ -168,7 +157,11 @@ const OTPPopup = (props) => {
                         numInputs={4}
                         renderSeparator={<span>&nbsp;&nbsp;&nbsp;</span>}
                         renderInput={(props) => (
-                          <input className="otp-inputChild" type="number" {...props} />
+                          <input
+                            className="otp-inputChild"
+                            type="number"
+                            {...props}
+                          />
                         )}
                       />
                     )}

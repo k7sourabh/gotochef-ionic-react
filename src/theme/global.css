@@ -1135,6 +1135,7 @@ ion-button.button-outline {
   padding: 5px;
   border-radius: 5px;
 }
+
 .myModel::part(content) {
   height: 500px;
   margin-top: auto;
@@ -1142,6 +1143,7 @@ ion-button.button-outline {
   overflow: visible;
   background: #efeff1;
 }
+
 .AddressSearch {
   --box-shadow: none;
   --border-radius: 10px;
@@ -1442,97 +1444,6 @@ ion-button.button-outline {
   padding-bottom: 80px;
 }
 
-/* Profile
-.profileImg{
-   display: flex;
-   justify-content: center;
-   position: relative;
-}
-.profileImg img{
-   width: 100%;
-   border-radius: 50%;
-   max-width: 100px;
-}
-.profile-content{
-   display: flex;
-   align-items: center;
-   flex-direction: column;
-   gap: 10px;
-   justify-content: center;
-   position: relative;
-   padding-top: 30px;
-}
-.profile-content h1{
-   font-size: 18px;
-    text-transform: capitalize;
-    text-align: center;
-    margin-top: 15px;
-
-}
-.profile-content  h5{
-    font-size: 14px;
-    font-weight: 400;
-    color: #bd130a;
-    line-height: 1.5;
-    letter-spacing: 1px;
-    text-align: center;
-}
-.profile_test h1{
-   font-weight: bold;
-   letter-spacing: 1px;
-   font-size: 18px;
-}
-.profile_test h4{
-   text-align: center;
-   font-size: 16px;
-   margin-top: 10px;
-   display: flex;
-   align-items: center;
-   flex-direction: row;
-   gap: 10px;
-   justify-content: center;
-}
-.profile_test h4 span{
-   color: #bd130a;   
-}
-.profile_test h4 img{
-   max-width: 20px;
-   width: 100%;
-}
-.Profile-list{
-   display: flex;
-   align-items: center;
-   justify-content: space-around;
-   border-bottom: 1px solid #ddd;
-   padding: 14px 0px;
-}
-.last-child{
-   border:none;
-}
-
-.Profile-list  p{
-   text-align: center;
-   color: #bd130a;   
-}
-.EditImg {
-   display: flex;
-   justify-content: flex-end;
-   margin-top: 11px;
-   position: absolute;
-   top: 49px;
-   right: 1px;
-   background: #ffffff;
-   padding: 8px;
-   border-radius: 50px;
-   border: 1px solid #ccc;
-}
-label.EditImg img {
-  max-width: 12px;
-}
-.image-upload > input
-{
-   display: none;
-} */
 /* Order-list */
 .order-list {
   border: 1px solid #bd130a;
@@ -1735,6 +1646,11 @@ label.EditProfile img {
 }
 
 /* profile */
+
+.personalTab ion-segment-button::part(native) {
+  margin: 0;
+}
+
 .profile-content {
   display: flex;
   align-items: center;
@@ -1742,8 +1658,11 @@ label.EditProfile img {
   gap: 10px;
   justify-content: center;
   position: relative;
-  padding-bottom: 21px;
+  padding-bottom: 20px;
   margin-top: -60px;
+  background-color: #ffffff;
+  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 15%);
+  border-radius: 10px;
 }
 
 .profileImg img {
@@ -1768,8 +1687,6 @@ label.EditProfile img {
 }
 
 .profileSpace {
-  margin-left: 20px;
-  margin-right: 20px;
   background-color: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0%), 0 6px 20px 0 rgba(0, 0, 0, 12%);
 }
@@ -1791,11 +1708,9 @@ label.EditProfile img {
 
 .Profile-bio {
   padding: 20px 15px;
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
   background-color: #ffffff;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0%), 0 6px 20px 0 rgba(0, 0, 0, 12%);
+  box-shadow: 0 2px 15px -5px rgba(0, 0, 0, 15%);
+  border-radius: 10px;
 
 }
 
@@ -1814,13 +1729,6 @@ label.EditProfile img {
 
 .profileBioText ion-text:first-child {
   color: #9a1504;
-}
-
-.Profile-tab {
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  background-color: whitesmoke;
 }
 
 .personalTab {
@@ -1867,6 +1775,15 @@ label.EditProfile img {
   color: #000;
 }
 
+.CardBtn {
+  height: auto;
+  width: 100%;
+}
+
+.CardBtn::part(native) {
+  padding: 5px;
+}
+
 .DashBoardImg {
   display: flex;
   flex-direction: column;
@@ -1875,26 +1792,23 @@ label.EditProfile img {
   gap: 5px;
   width: 100%;
   height: 100%;
-  padding: 20px 0px;
+  padding: 10px;
   transition: linear 0.5s;
 }
 
 .personalimages {
   border-radius: 10px;
   background-color: #fff;
-  max-width: 68px;
+  max-width: 60px;
   padding: 10px;
-}
-
-.DashBoardImg:hover .personalimages {
-  background-color: #eeeeee;
+  aspect-ratio: 1;
+  object-fit: contain;
 }
 
 .DashBoardImg ion-text {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
 }
-
 
 /* Dashboard */
 
@@ -1904,7 +1818,7 @@ label.EditProfile img {
   gap: 13px;
   position: relative;
   padding-bottom: 55px;
- 
+
 }
 
 .passionateText img {
@@ -1925,7 +1839,7 @@ label.EditProfile img {
   background: #00000047;
   position: absolute;
   top: 61px;
-    left: 26px;
+  left: 26px;
 }
 
 .prohomeText {
@@ -2007,6 +1921,7 @@ ul.ProHomeList li::before {
   width: 100%;
   max-width: 18px;
 }
+
 .RecipeContent {
   display: flex;
   align-items: center;
@@ -2120,6 +2035,7 @@ ul.ProHomeList li::before {
   margin-left: 138px;
   top: 89px;
 }
+
 /* Nutribuddy */
 
 .NutribuddyText {
@@ -2130,12 +2046,14 @@ ul.ProHomeList li::before {
   gap: 16px;
   height: 600px;
 }
+
 .NutribuddyText ion-text {
   font-size: 45px;
   font-weight: bold;
 }
-.NutribuddyText ion-img{
-  width:100%;
+
+.NutribuddyText ion-img {
+  width: 100%;
   max-width: 130px;
 }
 
@@ -2444,35 +2362,39 @@ ul.Recipe-Star li {
 }
 
 .PriviousHead {
-  padding:0px !important;
+  padding: 0px !important;
   font-size: 20px;
   color: #9a1a0a;
 }
 
 .SubmittedPrivious {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-    gap: 5px;
-    padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 5px;
+  padding-top: 5px;
 
 }
+
 .PriviousImg img {
   border: 1px solid #000;
   border-radius: 12px;
   max-width: 120px;
   width: 100%;
 }
+
 .datePrivious {
   color: #9a1a0a;
   font-size: 12px;
   padding-top: 4px;
 }
+
 .SubmittedPrivious ion-text {
   color: #9a1a0a;
   font-size: 15px;
 }
+
 .SubmittedPrivious ion-button {
   color: #fff;
   font-size: 15px;
@@ -2481,21 +2403,25 @@ ul.Recipe-Star li {
   border-radius: 8px;
   min-height: 12px;
 }
-.priviousColorChange ion-button{
+
+.priviousColorChange ion-button {
   background-color: #ea861e !important;
 }
-.RecipeDate{
+
+.RecipeDate {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
+
 .RecipeDate .SwiperHead {
   padding: 0px;
   font-size: 18px;
 }
+
 .RecipeDate ion-text {
- color: #9a1a0a;
+  color: #9a1a0a;
   font-size: 16px;
 }
 
@@ -2511,7 +2437,8 @@ ul.Recipe-Star li {
 .RecipeDateRecipe {
   font-size: 15px;
 }
-.RecipeDateText .datePrivious{
+
+.RecipeDateText .datePrivious {
   font-size: 12px;
   padding: 0px;
   color: #000;
@@ -2531,15 +2458,18 @@ ul.Recipe-Star li {
   flex-direction: column;
   align-items: center;
 }
+
 .ProfileData {
   display: flex;
   margin-bottom: 36px;
   align-items: center;
   justify-content: center;
 }
+
 .MyProfileImg img {
   border-radius: 80px;
 }
+
 .ProfileFollowers {
   border-right: 1px solid #000;
   padding: 4px;
@@ -2549,16 +2479,20 @@ ul.Recipe-Star li {
   justify-content: center;
   height: 65px;
 }
-.ProfileFollowers ion-text{
+
+.ProfileFollowers ion-text {
   height: 30px;
   font-size: 13px;
 }
-.ProfileFollowers:last-child{
+
+.ProfileFollowers:last-child {
   border-right: none;
 }
+
 .MyProfileImg ion-text {
   color: #9a1a0a;
 }
+
 .MyprofileReview img {
   width: 27px;
 }
@@ -2569,6 +2503,7 @@ ul.Recipe-Star li {
   justify-content: flex-end;
   gap: 10px;
 }
+
 .MyprofileReview .GreenDesign {
   padding: 6px 11px;
 }
