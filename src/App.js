@@ -51,7 +51,7 @@ import NutriBudy from "./pages/Products/NutriBudy";
 import MyProfile from "./pages/EditProfile/MyProfile";
 import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
 import { createStore } from "./services/Storage";
-
+import { useEffect } from "react";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
