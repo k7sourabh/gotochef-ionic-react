@@ -42,6 +42,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "@ionic/react/css/ionic-swiper.css";
 import { getApiData } from "../../utils/Utils";
+import { useCart } from "../../contexts/CartProvider";
 
 const Product = () => {
   const { id } = useParams();
@@ -50,7 +51,7 @@ const Product = () => {
   const [allProductData, setAllProductData] = useState({});
   const [present, dismiss] = useIonLoading();
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
-
+  const {addToCart, cartItems} = useCart();
   const exclusiveProduct = async () => {
     present();
     try {
@@ -68,6 +69,23 @@ const Product = () => {
   useEffect(() => {
     exclusiveProduct();
   }, [id]);
+
+  const handleAddToCart = () => {
+    let obj = {
+      product_id: productData.id,
+      pro_variant_id: productData.product_variant_result[selectedVariantIndex].pro_variant_id,
+      variant: productData.product_variant_result[selectedVariantIndex].weight+""+productData.product_variant_result[selectedVariantIndex].weight_type,
+      quantity: 1,
+      prod_details: {
+        name: productData.slug,
+        image: productData.images,
+        brand_name: productData.brand_name,
+        main_price: productData.product_variant_result[selectedVariantIndex].main_price,
+        offer_price: productData.product_variant_result[selectedVariantIndex].offer_price
+      }
+    }
+    addToCart(obj);
+  }
 
   function convertToOnlyDate(dateTimeString) {
     const dateOnly = new Date(dateTimeString).toISOString().split("T")[0];
@@ -245,6 +263,7 @@ const Product = () => {
                           shape="round"
                           fill="outline"
                           color="warning"
+                          onClick={() => handleAddToCart()}
                         >
                           <div className="flex ion-justify-content-between ion-align-items-center w-full">
                             Add

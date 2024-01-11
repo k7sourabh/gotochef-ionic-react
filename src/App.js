@@ -52,6 +52,7 @@ import MyProfile from "./pages/EditProfile/MyProfile";
 import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
 import { createStore } from "./services/Storage";
 import { useEffect } from "react";
+import { CartProvider } from "./contexts/CartProvider";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -78,6 +79,7 @@ const App = () => {
 	}, []);
 
   return (
+    <CartProvider>
     <ApiProvider>
       <IonApp>
         <IonReactRouter>
@@ -201,6 +203,7 @@ const App = () => {
         </IonReactRouter>
       </IonApp >
     </ApiProvider>
+    </CartProvider>
   );
 };
 

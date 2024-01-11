@@ -1078,6 +1078,7 @@ ion-button.button-outline {
   min-height: 20px;
   font-size: 12px;
   width: 30px;
+  color: #111;
 }
 
 .QtyBlock ion-input input {
