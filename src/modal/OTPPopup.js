@@ -15,6 +15,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import OTPInput from "react-otp-input";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { postApiData } from "../utils/Utils";
+import { useAuth } from "../context/AuthContext";
 
 const OTPPopup = (props) => {
   const [otpButtonClicked, setOtpButtonClicked] = useState(true);
@@ -24,6 +25,7 @@ const OTPPopup = (props) => {
   const [showOtpInputBox, setShowOtpInputBox] = useState(false);
   const [present] = useIonToast();
   const history = useHistory();
+  const { login } = useAuth();
   // console.log(showOtpInputBox);
   const validationSchema = Yup.object({
     number: Yup.string()
@@ -63,8 +65,13 @@ const OTPPopup = (props) => {
       const response = await postApiData("/verify-otp", formdata);
       if (response?.data?.status === true) {
         presentToast("Top", response?.data?.message);
-        localStorage.setItem("token", response?.data?.token?.original?.access_token);
+        localStorage.setItem(
+          "token",
+          response?.data?.token?.original?.access_token
+        );
         localStorage.setItem("userId", response?.data?.user_data?.id);
+        login();
+        localStorage.setItem("auth", "true");
         setTimeout(() => {
           props.setIsOpen(false);
           history.push("/home");
@@ -80,13 +87,12 @@ const OTPPopup = (props) => {
     }
   };
 
-  const reSendOTP = async(values) => {
-    alert('hi')
+  const reSendOTP = async (values) => {
     try {
       let formdata = new FormData();
-    formdata.append("mobile", values.number);
-    const response = await postApiData("/resend-otp", formdata);
-    }catch (e) {
+      formdata.append("mobile", values.number);
+      const response = await postApiData("/resend-otp", formdata);
+    } catch (e) {
       console.log(e);
     }
   };

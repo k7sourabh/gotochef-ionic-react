@@ -23,7 +23,7 @@ const AddPayment = () => {
 
         <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="IconBtn" fill="clear" routerLink="/cart">
+          <IonButton className="backBtn" fill="clear" routerLink="/cart">
             <i class="material-icons dark">west</i>
           </IonButton>
           <IonTitle color="dark">Checkout</IonTitle>

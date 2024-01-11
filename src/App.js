@@ -1,5 +1,12 @@
 import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonLabel, } from "@ionic/react";
+import {
+  IonApp,
+  IonRouterOutlet,
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonLabel,
+} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { setupIonicReact } from "@ionic/react";
 import Home from "./pages/Home";
@@ -24,14 +31,12 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import CategoryProducts from "./pages/Products/CategoryProducts";
 import Product from "./pages/Products/Product";
-import FavouriteProducts from "./pages/Products/FavouriteProducts";
 import CartProducts from "./pages/Products/CartProducts";
-import Welcome from './pages/Welcome/Welcome';
-import './theme/global.css'
-import { SplashScreen } from '@capacitor/splash-screen';
+import Welcome from "./pages/Welcome/Welcome";
+import "./theme/global.css";
+import { SplashScreen } from "@capacitor/splash-screen";
 import AddPayment from "./pages/Payment/AddPayment";
 import MainCategory from "./pages/Products/MainCategory";
-import AddAddress from "./pages/AddAddress/AddAddress";
 import HomeRecipe from "./pages/HomeRecipe/HomeRecipe";
 import Profile from "./pages/profile/Profile";
 import OrderList from "./pages/myorder/OrderList";
@@ -45,7 +50,6 @@ import ViewTrendingProduct from "./pages/ViewTrendingProduct";
 import ProductCard from "./components/ProductCard";
 import SearchProduct from "./pages/Products/SearchProduct";
 import Dashboard from "./pages/profile/DashBoard";
-import RecipePage from "./pages/HomeRecipe/RecipePage";
 import VeganRecipe from "./pages/HomeRecipe/VeganRecipe";
 import NutriBudy from "./pages/Products/NutriBudy";
 import MyProfile from "./pages/EditProfile/MyProfile";
@@ -53,6 +57,13 @@ import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
 import { createStore } from "./services/Storage";
 import { useEffect } from "react";
 import { CartProvider } from "./contexts/CartProvider";
+import Articals from "./pages/HomeRecipe/Articals";
+import OrderDetails from "./pages/myorder/OrderDetails";
+import OrderConfirm from "./pages/Products/OrderConfirm";
+import PrivateRoute from "./context/PrivateRoute";
+import RecipeDetails from "./pages/HomeRecipe/RecipeDetails";
+import MyRecipe from "./pages/HomeRecipe/MyRecipe";
+import AddIngredient from "./pages/Ingredient/AddIngredient";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -70,13 +81,12 @@ await SplashScreen.show({
 setupIonicReact({});
 
 const App = () => {
-
   useEffect(() => {
-		const setupStore = async () => {
-			await createStore("go-to-chef-storage");
-		}
-		setupStore();
-	}, []);
+    const setupStore = async () => {
+      await createStore("go-to-chef-storage");
+    };
+    setupStore();
+  }, []);
 
   return (
     <CartProvider>
@@ -88,19 +98,40 @@ const App = () => {
               <Welcome />
             </Route>
           </IonRouterOutlet>
-          {window.location.pathname !== "/welcome" &&
-
+          {window.location.pathname !== "/welcome" && (
             <IonTabs>
               <IonRouterOutlet>
+                <PrivateRoute path="/add-payment" component={AddPayment} />
+                <PrivateRoute path="/vegan-recipe" component={VeganRecipe} />
+                <PrivateRoute path="/submit-recipe" component={SubmitRecipe} />
+                <PrivateRoute
+                  path="/order-details/:id"
+                  component={OrderDetails}
+                />
+                <PrivateRoute path="/articles" component={Articals} />
+                <PrivateRoute path="/profile" component={Profile} />
+                <PrivateRoute path="/my-profile" component={MyProfile} />
+                <PrivateRoute path="/dashboard" component={Dashboard} />
+                <PrivateRoute path="/order-list" component={OrderList} />
+                <PrivateRoute path="/wish-list" component={WishList} />
+                <PrivateRoute
+                  path="/change-password"
+                  component={ChangePassword}
+                />
+                <PrivateRoute path="/edit-profile" component={EditProfile} />
+                <PrivateRoute path="/order-confirm" component={OrderConfirm} />
+                <PrivateRoute
+                  path="/add-ingredient"
+                  component={AddIngredient}
+                />
+                <PrivateRoute path="/my-recipe" component={MyRecipe} />
+
                 <Route path="/" exact={true}>
                   <Redirect to="/home" />
                 </Route>
+
                 <Route path="/home" exact={true}>
                   <Home />
-                </Route>
-
-                <Route path="/favourites" exact>
-                  <FavouriteProducts />
                 </Route>
 
                 <Route path="/cart" exact>
@@ -118,55 +149,26 @@ const App = () => {
                 <Route path="/main-category" exact>
                   <MainCategory />
                 </Route>
+
                 <Route path="/nutry-budy" exact>
                   <NutriBudy />
-                </Route>
-
-                <Route path="/add-payment" exact>
-                  <AddPayment />
-                </Route>
-                <Route path="/add-address" exact>
-                  <AddAddress />
                 </Route>
                 <Route path="/home-recipe" exact>
                   <HomeRecipe />
                 </Route>
-                <Route path="/recipe-page" exact>
-                  <RecipePage />
+
+                <Route path="/recipe-details" exact>
+                  <RecipeDetails />
                 </Route>
-               <Route path="/vegan-recipe" exact>
-                <VeganRecipe />
-               </Route>
-               <Route path="/submit-recipe" exact>
-                <SubmitRecipe />
-               </Route>
-                <Route path="/profile" exact>
-                  <Profile />
-                </Route>
-                <Route path="/my-profile" exact>
-                  <MyProfile />
-                </Route>
-                <Route path="/dashboard" exact>
-                  <Dashboard/>
-                </Route>
-                <Route path="/order-list" exact>
-                  <OrderList />
-                </Route>
-                <Route path="/wish-list" exact>
-                  <WishList />
-                </Route>
-                <Route path="/change-password" exact>
-                  <ChangePassword />
-                </Route>
-                <Route path="/edit-profile" exact>
-                  <EditProfile />
-                </Route>
+
                 <Route path="/exclusive-products" exact>
                   <ViewExclusiveProduct />
                 </Route>
+
                 <Route path="/trending-products" exact>
                   <ViewTrendingProduct />
                 </Route>
+
                 <Route path="/category-detail/:slug/:name" exact>
                   <ProductCard />
                 </Route>
@@ -176,32 +178,47 @@ const App = () => {
                 </Route>
               </IonRouterOutlet>
 
-
               <IonTabBar slot="bottom" className="FooterTab">
                 <IonTabButton tab="home" href="/home">
-                  <img src="/assets/img/Home.png" alt="Images" className="TabIcon" />
+                  <img
+                    src="/assets/img/Home.png"
+                    alt="Images"
+                    className="TabIcon"
+                  />
                   <IonLabel>Home</IonLabel>
                 </IonTabButton>
 
                 <IonTabButton tab="radio" href="/main-category">
-                  <img src="/assets/img/Mysmart.png" alt="Images" className="TabIcon" />
+                  <img
+                    src="/assets/img/Mysmart.png"
+                    alt="Images"
+                    className="TabIcon"
+                  />
                   <IonLabel>Category</IonLabel>
                 </IonTabButton>
 
                 <IonTabButton tab="library" href="/nutry-budy">
-                  <img src="/assets/img/NutriBuddy.png" alt="Images" className="TabIcon" />
+                  <img
+                    src="/assets/img/NutriBuddy.png"
+                    alt="Images"
+                    className="TabIcon"
+                  />
                   <IonLabel>NutriBuddy</IonLabel>
                 </IonTabButton>
 
                 <IonTabButton tab="search" href="/cart">
-                  <img src="/assets/img/Cart.png" alt="Images" className="TabIcon" />
+                  <img
+                    src="/assets/img/Cart.png"
+                    alt="Images"
+                    className="TabIcon"
+                  />
                   <IonLabel>Cart</IonLabel>
                 </IonTabButton>
               </IonTabBar>
-            </IonTabs>}
-
+            </IonTabs>
+          )}
         </IonReactRouter>
-      </IonApp >
+      </IonApp>
     </ApiProvider>
     </CartProvider>
   );

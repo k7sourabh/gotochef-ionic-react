@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonLabel, IonPage, IonProgressBar, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from "@ionic/react"
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonProgressBar, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from "@ionic/react"
 import { useEffect, useState } from "react";
 import Header from "../../components/Header"
 
@@ -27,7 +27,13 @@ const VeganRecipe = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid className="ion-padding-horizontal">
+            <IonHeader className="TitleHead bottom-shadow">
+                  <IonButton className="backBtn" fill="clear" routerLink="/home">
+                     <i class="material-icons dark">west</i>
+                  </IonButton>
+                  <IonTitle color="dark">GoToChef Contests</IonTitle>
+               </IonHeader>
+                <IonGrid className="ion-padding-horizontal ion-padding-top">
                     <IonRow className="ion-justify-content-center">
                         <IonCol>
                             <img
@@ -92,7 +98,7 @@ const VeganRecipe = () => {
                                     </IonRow>
                                     <IonRow>
                                         <IonCol>
-                                            <div className="flex ion-padding-vertical">
+                                            <div className="flex ion-padding-top">
                                                 <div className="VeganContentImg">
                                                     <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                                                 </div>
@@ -101,7 +107,7 @@ const VeganRecipe = () => {
                                                     <IonText>Milton Pro Lunch Tiffin</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-padding-vertical">
+                                            <div className="flex ion-padding-top">
                                                 <div className="VeganContentImg">
                                                     <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                                                 </div>
@@ -110,7 +116,7 @@ const VeganRecipe = () => {
                                                     <IonText>Home Puff Japanese Technology Rechargeable Wireless Electric Chopper</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-padding-vertical">
+                                            <div className="flex ion-padding-top">
                                                 <div className="VeganContentImg">
                                                     <img src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg" alt="" />
                                                 </div>
@@ -119,7 +125,7 @@ const VeganRecipe = () => {
                                                     <IonText>Kitchen Clue Stainless Steel Fridge Containers</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-padding-vertical">
+                                            <div className="flex ion-padding-top">
                                                 <div className="VeganContentImg">
                                                     <img src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg" alt="" />
                                                 </div>
@@ -128,7 +134,7 @@ const VeganRecipe = () => {
                                                     <IonText>Yera Glass Mug with Handle-250ml</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-padding-vertical">
+                                            <div className="flex ion-padding-top">
                                                 <div className="VeganContentImg">
                                                     <img src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg" alt="" />
                                                 </div>
@@ -137,7 +143,7 @@ const VeganRecipe = () => {
                                                     <IonText>Kitchen Clue Stainless Steel Fridge Containers</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-justify-content-center ion-align-items-center">
+                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-vertical">
                                                 <IonButton className="ParticipateBtn" fill="clear">Participate Now</IonButton>
                                             </div>
                                         </IonCol>
@@ -150,7 +156,7 @@ const VeganRecipe = () => {
                                         <IonGrid>
                                             <IonRow>
                                                 <IonCol>
-                                                    <div className="flex ion-padding-vertical ion-align-items-center">
+                                                    <div className="flex ion-padding-top ion-align-items-center">
                                                         <div className="PriviousImg">
                                                             <img src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg" alt="" />
                                                         </div>
@@ -169,7 +175,7 @@ const VeganRecipe = () => {
                                             </IonRow>
                                             <IonRow>
                                                 <IonCol>
-                                                    <div className="flex ion-padding-vertical">
+                                                    <div className="flex ion-padding-top ion-align-items-center">
                                                         <div className="PriviousImg">
                                                             <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                                                         </div>
@@ -188,7 +194,7 @@ const VeganRecipe = () => {
                                             </IonRow>
                                             <IonRow>
                                                 <IonCol>
-                                                    <div className="flex ion-padding-vertical">
+                                                    <div className="flex ion-padding-top ion-align-items-center">
                                                         <div className="PriviousImg">
                                                             <img src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg" alt="" />
                                                         </div>
@@ -207,7 +213,7 @@ const VeganRecipe = () => {
                                             </IonRow>
                                             <IonRow>
                                                 <IonCol>
-                                                    <div className="flex ion-padding-vertical">
+                                                    <div className="flex ion-padding-top ion-align-items-center">
                                                         <div className="PriviousImg">
                                                             <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                                                         </div>
@@ -226,7 +232,7 @@ const VeganRecipe = () => {
                                             </IonRow>
                                             <IonRow>
                                                 <IonCol>
-                                                    <div className="flex ion-padding-vertical">
+                                                    <div className="flex ion-padding-top ion-align-items-center">
                                                         <div className="PriviousImg">
                                                             <img src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg" alt="" />
                                                         </div>
@@ -246,13 +252,13 @@ const VeganRecipe = () => {
                                         </IonGrid>
                                     </IonRow>
                                     <IonRow>
-                                        <IonRow className="ion-padding-vertical">
+                                        <IonRow className="ion-padding-top">
                                             <IonCol className="RecipeDate">
                                                 <IonTitle className="SwiperHead">Vegan Recipe Contest</IonTitle>
                                                 <IonText>27th July to 24 th Aug</IonText>
                                             </IonCol>
 
-                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-vertical ">
+                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-top ">
                                                 <div className="PriviousImg">
                                                     <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                                                 </div>
@@ -263,7 +269,7 @@ const VeganRecipe = () => {
                                                     <IonText className="datePrivious">Perfect recipe to make momhappy on her special day</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-vertical ">
+                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-top">
                                                 <div className="PriviousImg">
                                                     <img src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg" alt="" />
                                                 </div>
@@ -274,7 +280,7 @@ const VeganRecipe = () => {
                                                     <IonText className="datePrivious">Perfect recipe to make momhappy on her special day</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-vertical ">
+                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-top ">
                                                 <div className="PriviousImg">
                                                     <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                                                 </div>
@@ -285,7 +291,7 @@ const VeganRecipe = () => {
                                                     <IonText className="datePrivious">Perfect recipe to make momhappy on her special day</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-vertical ">
+                                            <div className="flex ion-justify-content-center ion-align-items-center  ion-padding-top">
                                                 <div className="PriviousImg">
                                                     <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                                                 </div>
@@ -296,7 +302,7 @@ const VeganRecipe = () => {
                                                     <IonText className="datePrivious">Perfect recipe to make momhappy on her special day</IonText>
                                                 </div>
                                             </div>
-                                            <div className="flex ion-justify-content-center ion-align-items-center ion-padding-vertical ">
+                                            <div className="flex ion-justify-content-center ion-align-items-center  ion-padding-top">
                                                 <div className="PriviousImg">
                                                     <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                                                 </div>

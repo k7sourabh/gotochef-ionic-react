@@ -33,14 +33,12 @@ const Home = () => {
   const exclusiveProduct = async ()=> {
     try {
       const response = await getApiData("/getExclusiveProducts")
-      console.log('exclu...', response?.data?.data)
       setExclusiveProduct(response?.data?.data)
     } catch(err) {
       setExclusiveProduct([])
       console.log(err)
     }
    }
-   console.log(exclusiveProductData)
 
    useEffect(()=>{
     exclusiveProduct();
@@ -49,7 +47,6 @@ const Home = () => {
    const trendingProducts = async ()=> {
     try {
     const response = await getApiData("/getTrendingProducts/5/0")
-    console.log('trend...', response?.data?.data)
     setTrendingProductsData(response?.data?.data)
     } catch(err) {
       setTrendingProductsData([])
@@ -92,7 +89,7 @@ const Home = () => {
             <IonTitle>
               Exclusive Product Stores
             </IonTitle>
-            <IonButton fill="clear" className='IconBtn' routerLink="/exclusive-products">
+            <IonButton fill="clear" className='IconBtn' size='small' routerLink="/exclusive-products">
               <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
             </IonButton>
           </IonHeader>
@@ -107,7 +104,8 @@ const Home = () => {
                           <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
                           <span>{category?.imk_num}</span>
                         </div>
-                        <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+                        {category?.foodtype === 'vegetarian' ? <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" /> : <img src="/assets/img/non-veg-icon.svg" alt="Images" className="icon-img" />}
+                        
                       </div>
 
                       <img
@@ -169,7 +167,7 @@ const Home = () => {
         <IonGrid className="ion-no-padding manage-product">
           <IonHeader className='TitleHead'>
             <IonTitle>See What’s Trending</IonTitle>
-            <IonButton fill="clear" className='IconBtn' routerLink="/trending-products">
+            <IonButton fill="clear" className='IconBtn' size='small' routerLink="/trending-products">
               <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
             </IonButton>
           </IonHeader>
@@ -185,7 +183,7 @@ const Home = () => {
                           <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
                           <span>{category?.imk_num}</span>
                         </div>
-                        <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+                        {category?.foodtype === 'vegetarian' ? <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" /> : <img src="/assets/img/non-veg-icon.svg" alt="Images" className="icon-img" />}
                       </div>
 
                       <img

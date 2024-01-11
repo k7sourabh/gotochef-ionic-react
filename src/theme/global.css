@@ -41,13 +41,6 @@ iframe {
   height: 40px !important;
   min-height: auto;
   --overflow: visible;
-
-}
-
-.SerchBtn {
-  position: absolute;
-  top: 9px;
-  right: 15px;
 }
 
 .IconBtn::part(native) {
@@ -58,8 +51,42 @@ iframe {
   width: 24px;
 }
 
+.IconBtn.button-small {
+  width: 30px;
+  min-width: 30px;
+  height: 30px !important;
+}
+
+.SerchBox {
+  position: relative;
+}
+
 .searchBar {
   position: relative;
+  padding: 0;
+  --box-shadow: none;
+  --border-radius: 10px;
+}
+
+.searchBar input {
+  border: 1px solid #ccc !important;
+  padding: 8px 65px 8px 50px !important;
+}
+
+.searchBar .searchbar-clear-button {
+  right: 40px;
+}
+
+.searchBar .searchbar-search-icon {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.SerchBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
 }
 
 /* Header end */
@@ -82,7 +109,7 @@ iframe {
 /* Titles */
 
 .TitleHead {
-  padding: 16px 16px 0px 16px;
+  padding: 16px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -106,6 +133,7 @@ iframe {
   white-space: nowrap;
   padding: 0;
   letter-spacing: 0;
+  text-transform: capitalize;
 }
 
 .TitleHead ion-title.ion-color-dark {
@@ -116,6 +144,16 @@ iframe {
   font-size: 14px;
   white-space: normal;
   line-height: 20px;
+}
+
+.TitleHead .backBtn {
+  width: 40px;
+  min-height: 40px;
+  margin-left: -6px;
+}
+
+.backBtn::part(native) {
+  padding: 0;
 }
 
 /* Sub Category Title */
@@ -263,7 +301,7 @@ iframe {
 }
 
 .manage-product .swiper {
-  padding-right: 20%;
+  padding-right: 18%;
 }
 
 @media (max-width: 320px) {
@@ -303,7 +341,6 @@ iframe {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 50px;
 }
 
 .CurrentPrice {
@@ -326,8 +363,10 @@ iframe {
   height: auto;
   color: #fff;
   background: #ffc10e;
-  font-size: 12px;
+  font-size: 10px;
   line-height: normal;
+  gap: 5px;
+  align-items: center;
 }
 
 .RateDesign span {
@@ -335,8 +374,9 @@ iframe {
 }
 
 .RateDesign ion-icon {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
+  margin: 0;
 }
 
 .OfferInfo {
@@ -347,7 +387,7 @@ iframe {
 }
 
 .OldPrice {
-  font-size: 14px;
+  font-size: 13px;
   color: #999;
   text-decoration: line-through;
   font-weight: 600;
@@ -794,7 +834,7 @@ iframe {
 /* globle */
 
 .bottom-shadow {
-  box-shadow: 0 5px 0 #f2f2f2;
+  box-shadow: 0 -5px 0 inset #f2f2f2;
 }
 
 .bottom-shadow .SaveMoreText {
@@ -862,6 +902,45 @@ ion-button.button-outline {
 
 .mb-1 {
   margin-bottom: 10px;
+}
+
+.FormGroup {
+  margin-bottom: 20px;
+}
+
+.FormGroup ion-text {
+  display: block;
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+.fillInput {
+  background: #f1f1f1;
+  border-radius: 5px;
+  font-size: 14px;
+  min-height: 40px;
+  padding: 10px 15px;
+}
+
+.fillTextarea {
+  min-height: 80px;
+  padding: 5px;
+}
+
+.FormGroup .extraInfo {
+  font-size: 12px;
+  color: #999;
+  margin: 10px 0 0;
+  display: block;
+}
+
+.BtnGroup {
+  display: flex;
+  gap: 15px;
+}
+
+.BtnGroup ion-button {
+  width: 100%;
 }
 
 /* globle end */
@@ -1191,11 +1270,12 @@ ion-button.button-outline {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .productRecipe span {
-  font-size: 8px;
-  font-weight: bold;
+  font-size: 10px;
+  font-weight: 600;
 }
 
 .productRecipe ion-label {
@@ -1277,6 +1357,13 @@ ion-button.button-outline {
 /* .CustomGap {
    gap: 10px;
 } */
+
+.RecipePro {
+  aspect-ratio: 1;
+  width: 100%;
+  position: relative;
+}
+
 .RecipePro img {
   width: 100%;
   height: 100%;
@@ -1285,23 +1372,20 @@ ion-button.button-outline {
   position: relative;
 }
 
-.RecipePro {
-  height: 100%;
-  width: 100%;
-}
+
 
 .TimeingBar {
   position: absolute;
-  bottom: 55px;
+  bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  left: 20px;
-  right: 20px;
+  left: 10px;
+  right: 10px;
   background: var(--ion-color-primary);
   padding: 5px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 10px;
   color: #fff;
 }
 
@@ -1458,6 +1542,7 @@ ion-button.button-outline {
 .order-btn {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .order-btn ion-button {
@@ -1632,8 +1717,14 @@ label.EditProfile img {
   margin-left: 143px;
 }
 
+.text-button {
+  font-size: 16px;
+  height: auto;
+  min-height: auto;
+}
+
 .text-button::part(native) {
-  padding: 0;
+  padding: 5px;
 }
 
 .datetime-wrapper .picker-toolbar-button {
@@ -1816,15 +1907,16 @@ label.EditProfile img {
 .passionateText {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 15px;
   position: relative;
-  padding-bottom: 55px;
+  padding-bottom: 50px;
 
 }
 
 .passionateText img {
-  width: 100%;
-  object-fit: cover;
+  max-width: 40px;
+  aspect-ratio: 1;
+  object-fit: contain;
 }
 
 .passionateText ion-text {
@@ -1836,27 +1928,30 @@ label.EditProfile img {
 .passionateText::after {
   content: '';
   width: 2px;
-  height: 50px;
+  height: 40px;
   background: #00000047;
   position: absolute;
-  top: 61px;
-  left: 26px;
+  top: 45px;
+  left: 20px;
 }
 
 .prohomeText {
   display: flex;
   align-items: flex-start;
-  gap: 13px;
+  gap: 15px;
   position: relative;
 }
 
-.prohomeText img {
-  width: 100%;
-  max-width: 50px;
-  min-height: auto;
-  border-radius: 50px;
-  padding: 0px;
+.profileLock {
+  position: relative;
+}
+
+.profileLock img {
+  max-width: 40px;
+  aspect-ratio: 1;
+  object-fit: contain;
   border: 2px solid #0000003f;
+  border-radius: 100%;
 }
 
 ul.ProHomeList {
@@ -1872,11 +1967,6 @@ ul.ProHomeList li {
   color: #0000007a;
 }
 
-.DashBoard-tab {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
 ul.ProHomeList li::before {
   content: "-";
   padding: 3px;
@@ -1889,10 +1979,10 @@ ul.ProHomeList li::before {
 
 .prohomeText ion-icon {
   position: absolute;
-  left: 39px;
-  font-size: 12px;
+  left: 30px;
   width: 14px;
-  top: -4px;
+  top: 0px;
+  height: 14px;
 }
 
 .LadderContent {
@@ -1960,9 +2050,13 @@ ul.ProHomeList li::before {
 .MorefoodBox {
   display: flex;
   align-items: center;
-  justify-content: left !important;
   gap: 20px;
-  margin: 12px 0px;
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.MorefoodBox .TabIcon {
+  margin: 0;
 }
 
 .MorefoodBox:hover.MorefoodBox ion-label {
@@ -2473,7 +2567,7 @@ ul.Recipe-Star li {
 
 .ProfileFollowers {
   border-right: 1px solid #000;
-  padding: 4px;
+  padding: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2507,4 +2601,252 @@ ul.Recipe-Star li {
 
 .MyprofileReview .GreenDesign {
   padding: 6px 11px;
+}
+
+/* SubmitRecipe */
+
+.RecipeInput {
+  background: #f1f1f1;
+  border-radius: 8px;
+  margin-top: 7px;
+}
+
+.SubmitInput ion-text {
+  font-weight: bold;
+}
+
+.RecipeTextArea {
+  background: #f1f1f1;
+  border-radius: 8px;
+  min-height: 126px;
+  height: auto;
+}
+
+.OuantityBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.ountityBtn {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.ountityBtn ion-button {
+  font-size: 24px;
+  width: 50px;
+}
+
+.OuantityContent {
+  background-color: #f1f1f1;
+  padding: 15px 10px;
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.ReciRow ion-icon {
+  color: #9a1a0a;
+}
+
+.SelectInput {
+  margin-right: 5px;
+}
+
+.SelectInput ion-icon {
+  color: #9a1a0a !important;
+}
+
+.ProBtn {
+  background-color: #ffffff;
+  max-width: 158px;
+  padding: 11px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.RecipeTextArea ion-icon {
+  color: red;
+}
+
+.Recipebox {
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.MainSubmitRow {
+  display: flex;
+  gap: 15px;
+}
+
+.ActionInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+}
+
+.ActionInfo ion-icon {
+  color: #9a1a0a;
+}
+
+.IngredientsInfo {
+  min-width: 50%;
+  width: 50%;
+}
+
+.QuantityInfo {
+  width: 40%;
+}
+
+.IngredientsInfo ion-text,
+.QuantityInfo ion-text {
+  font-weight: bold;
+}
+
+/* ProductNameDetails */
+.ProductNameDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.Detailslast-child {
+  border-bottom: none !important;
+}
+
+.cancelBtn ion-button {
+  background: red;
+  border-radius: 50px;
+  color: #fff;
+  padding: 4px 5px;
+  min-height: 8px;
+}
+
+.OrderDetailsProduct {
+  padding: 12px 15px;
+  box-shadow: none;
+  border: 1px dashed #9a1a0a;
+}
+
+.PriceTextDetails {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.ProductDetailImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro-name {
+  margin-bottom: 10px;
+}
+
+.pro-name ion-text {
+  color: #9a1a0a;
+}
+
+.qwt-select {
+  width: fit-content;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: 10px 20px;
+}
+
+/* Thank you */
+
+.OrderConfirm {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+}
+
+.OrderConfirm img {
+  width: 50%;
+  margin: 0 0 20px;
+}
+
+.OrderConfirm .Title {
+  font-size: 40px;
+  margin: 0 0 10px;
+}
+
+.OrderConfirm .subTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 15px;
+}
+
+.OrderConfirm .description {
+  font-size: 16px;
+  display: block;
+  line-height: 24px;
+  margin: 0 0 20px;
+}
+
+/* Thank you end */
+
+/* ArticalCard */
+.ArticalCard {
+  box-shadow: none;
+}
+
+.bottomArtical ion-text {
+  font-size: 9px;
+}
+
+.Articalpera ion-text {
+  font-size: 6px;
+}
+
+.bottomArtical .productRecipe {
+  padding-top: 3px;
+}
+
+.ArticalTextName {
+  font-size: 10px;
+  color: #9a1a0a;
+  font-weight: bold;
+}
+
+.ArticalTextDate {
+  font-size: 10px;
+  font-weight: bold;
+  color: #000;
+}
+
+.NoSubmitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  padding: 10px;
+  border-radius: 20px;
+
+}
+
+.NoSubmitBtn ion-button {
+  color: #9a1a0a;
+  font-size: 20px;
 }

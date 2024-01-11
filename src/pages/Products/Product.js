@@ -57,7 +57,6 @@ const Product = () => {
     try {
       const response = await getApiData(`productdetails_json/${id}`);
       dismiss();
-      console.log(response?.data?.data?.product_details.product_variant_result)
       setProductData(response?.data?.data?.product_details);
       setAllProductData(response);
     } catch (e) {
@@ -118,7 +117,7 @@ const Product = () => {
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
           <IonButton
-            className="IconBtn"
+            className="backBtn"
             fill="clear"
             // onClick={() => history.push(`/category/${slug}`)}
             onClick={goBack}
@@ -224,7 +223,7 @@ const Product = () => {
                       </IonChip>
                     </div>
                     <span className="productName">{productData && productData?.slug}</span>
-                    <IonSelect onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
+                    <IonSelect className="qwt-select" onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
                       {productData.product_variant_result && productData.product_variant_result.map((item, index)=><IonSelectOption value={index}>{item.weight} {item.weight_type}</IonSelectOption>)}
                     </IonSelect>
                     <div className={styles.priceInfo}>

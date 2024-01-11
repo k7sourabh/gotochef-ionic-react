@@ -15,11 +15,13 @@ import { postApiData } from "../utils/Utils";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useAuth } from "../context/AuthContext";
 
 const LoginPopup = (props) => {
   const [isOpenFgp, setIsOpenFgp] = useState(false);
   const [present] = useIonToast();
   const history = useHistory();
+  const { login } = useAuth();
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -27,19 +29,18 @@ const LoginPopup = (props) => {
   });
 
   const loginSubmit = async (values) => {
-    console.log("dxgvsfd", values);
     try {
       const formdata = new FormData();
       formdata.append("email", values.email);
       formdata.append("password", values.password);
       const response = await postApiData("/login", formdata);
-      console.log(response);
       if (response?.data?.status === 200) {
-        // console.log(response?.data?.token?.original?.access_token)
         localStorage.setItem("token", response?.data?.token?.original?.access_token);
+        localStorage.setItem('auth', 'true')
         presentToast("Top", response?.data?.message_response);
         setTimeout(() => {
           props.setIsOpen(false);
+          login(response?.data?.user_data);
           history.push("/home");
         }, 2000);
       } else {
@@ -47,6 +48,7 @@ const LoginPopup = (props) => {
       }
     } catch (e) {
       console.log(e);
+      presentToast("Top", e.data.message_response);
     }
   };
 
@@ -107,6 +109,7 @@ const LoginPopup = (props) => {
                     />
                     <IonInput
                       name="password"
+                      type="password"
                       onIonChange={(e) =>
                         setFieldValue("password", e.target.value)
                       }

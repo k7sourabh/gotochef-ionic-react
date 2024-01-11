@@ -41,7 +41,6 @@ const CartProducts = () => {
   const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
-    console.log(cartProducts);
     const getCartProducts = () => {
       setCartProducts([]);
       setTotal(0);
@@ -99,7 +98,7 @@ const CartProducts = () => {
 
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="IconBtn" fill="clear" routerLink="/main-category">
+          <IonButton className="backBtn" fill="clear" routerLink="/main-category">
             <i class="material-icons dark">west</i>
           </IonButton>
           <IonTitle color="dark">Review Cart</IonTitle>

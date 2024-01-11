@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonChip, IonCol, IonContent, IonGrid, IonIcon, IonLabel, IonPage, IonRow, IonText, IonTitle } from "@ionic/react"
+import { IonButton, IonCard, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonPage, IonRow, IonText, IonTitle } from "@ionic/react"
 import { atCircleOutline, bookmarkOutline, person, pint, star, timeOutline } from "ionicons/icons"
 import Header from "../../components/Header"
 
@@ -7,6 +7,12 @@ const MyProfile = () => {
         <IonPage>
             <Header />
             <IonContent fullscreen={true}>
+            <IonHeader className="TitleHead bottom-shadow">
+                  <IonButton className="backBtn" fill="clear" routerLink="/home">
+                     <i class="material-icons dark">west</i>
+                  </IonButton>
+                  <IonTitle color="dark">My Profile</IonTitle>
+               </IonHeader>
                 <IonGrid className="ion-padding-horizontal">
                     <IonRow>
                         <IonCol>

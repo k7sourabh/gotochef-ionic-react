@@ -53,7 +53,6 @@ const CategoryProducts = () => {
     present();
     try {
       const response = await getApiData(`/getSubcatProduct/${selectedSubCat}/10/0`);
-      console.log('subCAt', response?.data?.subcatprod)
       setAllProduct(response?.data?.subcatprod);
       dismiss(); 
     } catch (e) {
@@ -76,7 +75,7 @@ const CategoryProducts = () => {
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
           <IonButton
-            className="IconBtn"
+            className="backBtn"
             fill="clear"
             onClick={() => history.push(`/main-category`)}
           >

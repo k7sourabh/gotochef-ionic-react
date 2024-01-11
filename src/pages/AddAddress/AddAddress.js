@@ -26,7 +26,7 @@ const AddAddress = () => {
       <Header />
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="IconBtn" fill="clear" routerLink="/home">
+          <IonButton className="backBtn" fill="clear" routerLink="/home">
             <i class="material-icons dark">west</i>
           </IonButton>
           <IonTitle color="dark">Enter Address Details</IonTitle>

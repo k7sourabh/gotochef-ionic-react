@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IonButton,
   IonButtons,
@@ -14,8 +14,8 @@ import {
   IonMenu,
   IonMenuButton,
   IonMenuToggle,
+  IonPage,
   IonRow,
-  IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -26,100 +26,29 @@ import {
   bookmarkOutline,
   fastFoodOutline,
   gridOutline,
-  locationOutline,
   logInOutline,
   logOutOutline,
   personOutline,
 } from "ionicons/icons";
 import { useLogo } from "../contexts/ApiProvider";
+import { useAuth } from "../context/AuthContext";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Header = () => {
   const { headerImage } = useLogo();
   const [isOpenOtp, setIsOpenOtp] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
+  const { authenticated, logout } = useAuth();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    // Add logout logic here
+    logout();
+    localStorage.setItem('auth', 'false')
+    history.push("/"); // Redirect to the login page after logout
+  };
   return (
     <>
-      <IonMenu side="end" contentId="main-content">
-        <IonHeader className="MenuHead">
-          <IonToolbar className="ion-padding">
-            <IonTitle className="ion-no-padding">
-              <img
-                src="/assets/img/MainLogo.png"
-                alt="Images"
-                className="MenuMainLogo"
-              />
-            </IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent className="ion-padding">
-          <IonList>
-            <IonItem lines="none" routerLink="/profile">
-              <IonIcon
-                aria-hidden="true"
-                icon={personOutline}
-                slot="start"
-              ></IonIcon>
-              <IonLabel>Profile</IonLabel>
-            </IonItem>
-            <IonItem lines="none" routerLink="/home-recipe">
-              <IonIcon
-                aria-hidden="true"
-                icon={fastFoodOutline}
-                slot="start"
-              ></IonIcon>
-              <IonLabel>Recipe</IonLabel>
-            </IonItem>
-            <IonItem lines="none" routerLink="/main-category">
-              <IonIcon
-                aria-hidden="true"
-                icon={gridOutline}
-                slot="start"
-              ></IonIcon>
-              <IonLabel>Category</IonLabel>
-            </IonItem>
-            <IonItem lines="none" routerLink="/order-list">
-              <IonIcon
-                aria-hidden="true"
-                icon={basketOutline}
-                slot="start"
-                color="danger"
-              ></IonIcon>
-              <IonLabel>My orders</IonLabel>
-            </IonItem>
-            <IonItem lines="none" routerLink="/wish-list">
-              <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
-              <IonLabel>WishList</IonLabel>
-            </IonItem>
-            <IonItem lines="none" routerLink="/add-address">
-              <IonIcon
-                aria-hidden="true"
-                icon={locationOutline}
-                slot="start"
-              ></IonIcon>
-              <IonLabel>Add Address</IonLabel>
-            </IonItem>
-            <IonMenuToggle>
-              <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
-                <IonIcon
-                  aria-hidden="true"
-                  icon={logInOutline}
-                  slot="start"
-                ></IonIcon>
-                <IonLabel>Login</IonLabel>
-              </IonItem>
-            </IonMenuToggle>
-            <IonItem lines="none">
-              <IonIcon
-                aria-hidden="true"
-                icon={logOutOutline}
-                slot="start"
-              ></IonIcon>
-              <IonLabel>Sign out</IonLabel>
-            </IonItem>
-          </IonList>
-        </IonContent>
-      </IonMenu>
-
       <IonHeader id="main-content">
         <IonToolbar>
           <IonGrid className="ion-no-padding">
@@ -156,7 +85,7 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonButton className="IconBtn" routerLink="/home-recipe">
+                  <IonButton className="IconBtn" routerLink="/submit-recipe">
                     <img
                       src="/assets/img/edit.png"
                       alt="Images"
@@ -164,19 +93,125 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonMenuButton>
-                    <img
+                  <IonButtons slot="end">
+                    <IonMenuButton><img
                       src="/assets/img/menu.png"
                       alt="Images"
                       className="TopBarIcons"
-                    />
-                  </IonMenuButton>
+                    /></IonMenuButton>
+                  </IonButtons>
                 </IonButtons>
               </IonCol>
             </IonRow>
           </IonGrid>
         </IonToolbar>
       </IonHeader>
+
+      <IonMenu side="end" contentId="main-content">
+        <IonHeader className="MenuHead">
+          <IonToolbar className="ion-padding">
+            <IonTitle className="ion-no-padding">
+              <img
+                src="/assets/img/MainLogo.png"
+                alt="Images"
+                className="MenuMainLogo"
+              />
+            </IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        <IonContent className="ion-padding">
+          <IonList>
+            {authenticated ? (
+              <>
+                <IonItem lines="none" routerLink="/profile">
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={personOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel>Profile</IonLabel>
+                </IonItem>
+
+                <IonItem lines="none" routerLink="/home-recipe">
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={fastFoodOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel>Recipe</IonLabel>
+                </IonItem>
+
+                <IonItem lines="none" routerLink="/main-category">
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={gridOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel>Category</IonLabel>
+                </IonItem>
+
+                <IonItem lines="none" routerLink="/order-list">
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={basketOutline}
+                    slot="start"
+                    color="danger"
+                  ></IonIcon>
+                  <IonLabel>My orders</IonLabel>
+                </IonItem>
+
+                <IonItem lines="none" routerLink="/wish-list">
+                  <IonIcon
+                    aria-hidden="true"
+                    slot="start"
+                    icon={bookmarkOutline}
+                  />
+                  <IonLabel>WishList</IonLabel>
+                </IonItem>
+
+                <IonItem lines="none" onClick={handleLogout}>
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={logOutOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel>Sign out</IonLabel>
+                </IonItem>
+              </>
+            ) : (
+              <>
+                <IonItem lines="none" routerLink="/home-recipe">
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={fastFoodOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel>Recipe</IonLabel>
+                </IonItem>
+                <IonItem lines="none" routerLink="/main-category">
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={gridOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel>Category</IonLabel>
+                </IonItem>
+                <IonMenuToggle>
+                  <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
+                    <IonIcon
+                      aria-hidden="true"
+                      icon={logInOutline}
+                      slot="start"
+                    ></IonIcon>
+                    <IonLabel>Login</IonLabel>
+                  </IonItem>
+                </IonMenuToggle>
+              </>
+            )}
+          </IonList>
+        </IonContent>
+      </IonMenu>
 
       <LoginPopup
         isOpen={isOpenLogin}
