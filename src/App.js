@@ -46,6 +46,10 @@ import ProductCard from "./components/ProductCard";
 import SearchProduct from "./pages/Products/SearchProduct";
 import Dashboard from "./pages/profile/DashBoard";
 import RecipePage from "./pages/HomeRecipe/RecipePage";
+import VeganRecipe from "./pages/HomeRecipe/VeganRecipe";
+import NutriBudy from "./pages/Products/NutriBudy";
+import MyProfile from "./pages/EditProfile/MyProfile";
+import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
 
 
 // Hide the splash (you should do this on app launch)
@@ -107,6 +111,9 @@ const App = () => {
                 <Route path="/main-category" exact>
                   <MainCategory />
                 </Route>
+                <Route path="/nutry-budy" exact>
+                  <NutriBudy />
+                </Route>
 
                 <Route path="/add-payment" exact>
                   <AddPayment />
@@ -120,8 +127,17 @@ const App = () => {
                 <Route path="/recipe-page" exact>
                   <RecipePage />
                 </Route>
+               <Route path="/vegan-recipe" exact>
+                <VeganRecipe />
+               </Route>
+               <Route path="/submit-recipe" exact>
+                <SubmitRecipe />
+               </Route>
                 <Route path="/profile" exact>
                   <Profile />
+                </Route>
+                <Route path="/my-profile" exact>
+                  <MyProfile />
                 </Route>
                 <Route path="/dashboard" exact>
                   <Dashboard/>
@@ -165,7 +181,7 @@ const App = () => {
                   <IonLabel>Category</IonLabel>
                 </IonTabButton>
 
-                <IonTabButton tab="library" href="/library">
+                <IonTabButton tab="library" href="/nutry-budy">
                   <img src="/assets/img/NutriBuddy.png" alt="Images" className="TabIcon" />
                   <IonLabel>NutriBuddy</IonLabel>
                 </IonTabButton>

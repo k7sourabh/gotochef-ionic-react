@@ -14,7 +14,7 @@ const Profile = () => {
     return (
         <IonPage>
             <Header />
-            <IonContent>
+            <IonContent className="profilepage">
                 <IonGrid>
                     <IonRow className="profile-top-bg">
 
@@ -79,19 +79,19 @@ const Profile = () => {
                               <IonRow className="">
                               <IonCol>
                                   <div className="DashBoardImg"  routerLink="/exclusive-products">
-                                  <img src="/assets/img/Mysmart.png" alt="Images"  className="personalimages" />
+                                  <img src="/assets/img/dashbord.png" alt="Images"  className="personalimages" />
                                   <IonText>Dashboard</IonText>
                                   </div>
                               </IonCol>
-                              <IonCol>
+                              <IonCol >
                               <div className="DashBoardImg">
-                              <img src="/assets/img/Home.png" alt="Images"  className="personalimages"/>
+                              <img src="/assets/img/addproduct.png" alt="Images"  className="personalimages"/>
                                   <IonText>Dashboard</IonText>
                                   </div>
                               </IonCol>
-                              <IonCol>
+                              <IonCol > 
                               <div className="DashBoardImg">
-                              <img src="/assets/img/Cart.png" alt="Images"   className="personalimages"/>
+                              <img src="/assets/img/ingrediant.png" alt="Images"   className="personalimages"/>
                                   <IonText>Dashboard</IonText>
                                   </div>
                               </IonCol>
@@ -100,19 +100,39 @@ const Profile = () => {
                               <IonRow className="">
                               <IonCol>
                                   <div className="DashBoardImg">
-                                  <img src="/assets/img/Mysmart.png" alt="Images" className="personalimages" />
+                                  <img src="/assets/img/Recipes.png" alt="Images" className="personalimages" />
                                   <IonText>Dashboard</IonText>
                                   </div>
                               </IonCol>
                               <IonCol>
                               <div className="DashBoardImg">
-                              <img src="/assets/img/Home.png" alt="Images" className="personalimages" />
+                              <img src="/assets/img/Articles.png" alt="Images" className="personalimages" />
                                   <IonText>Dashboard</IonText>
                                   </div>
                               </IonCol>
                               <IonCol>
                               <div className="DashBoardImg">
-                              <img src="/assets/img/Cart.png" alt="Images" className="personalimages" />
+                              <img src="/assets/img/ProfileSettings.png" alt="Images" className="personalimages" />
+                                  <IonText>Dashboard</IonText>
+                                  </div>
+                              </IonCol>
+                            </IonRow>
+                              <IonRow className="">
+                              <IonCol>
+                                  <div className="DashBoardImg">
+                                  <img src="/assets/img/PasswordImg.png" alt="Images" className="personalimages" />
+                                  <IonText>Dashboard</IonText>
+                                  </div>
+                              </IonCol>
+                              <IonCol>
+                              <div className="DashBoardImg">
+                              <img src="/assets/img/Food.png" alt="Images" className="personalimages" />
+                                  <IonText>Dashboard</IonText>
+                                  </div>
+                              </IonCol>
+                              <IonCol>
+                              <div className="DashBoardImg">
+                              <img src="/assets/img/Lifestyle.png" alt="Images" className="personalimages" />
                                   <IonText>Dashboard</IonText>
                                   </div>
                               </IonCol>

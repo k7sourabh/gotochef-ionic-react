@@ -37,7 +37,7 @@ const Dashboard = () => {
                               <IonRow className="LadderContent">
                                 <IonCol>
                                   <div className="passionateText">
-                                  <img src="/assets/img/Mysmart.png" alt="Images"   className="personalimages" />
+                                  <img src="/assets/img/dash-img.png" alt="Images"   className="personalimages" />
                                   <IonText>Passionate level(3)</IonText>
                                   </div>
                                   <div className="prohomeText">
@@ -73,11 +73,7 @@ const Dashboard = () => {
                                 <IonRow className="ion-padding-vertical">
                                     <IonCol size="4">
                                    <div className="RecipeContent">
-                                   <IonIcon
-                                        aria-hidden="true"
-                                        icon={fastFoodOutline}
-                                        slot="start"
-                                    ></IonIcon>
+                                   <img src="/assets/img/review.png" alt="" />
                                         <IonText>Reviews</IonText>
                                         </div>
                                     </IonCol>
@@ -112,11 +108,7 @@ const Dashboard = () => {
                                 <IonRow className="ion-padding-vertical">
                                     <IonCol size="4">
                                    <div className="RecipeContent">
-                                        <IonIcon
-                                            aria-hidden="true"
-                                            icon={fastFoodOutline}
-                                            slot="start"
-                                        ></IonIcon>
+                                   <img src="/assets/img/Recipes.png" alt="" />
                                         <IonText>Recipe</IonText>
                                         </div>
                                     </IonCol>
@@ -157,7 +149,7 @@ const Dashboard = () => {
                                         <IonLabel>Food Enthusiast</IonLabel>
                                     </div>
                                     <div className="MorefoodBox">
-                                    <img src="/assets/img/NutriBuddy.png" alt="Images" class="TabIcon" />
+                                    <img src="/assets/img/Recipes.png" alt="Images" class="TabIcon" />
                                         <IonLabel>More than 7 times</IonLabel>
                                     </div>
                                     <div className="MorefoodBox">
