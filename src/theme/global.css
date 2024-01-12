@@ -2684,3 +2684,40 @@ ul.Recipe-Star li {
 .pro-name ion-text {
   color: #9a1a0a;
 }
+
+/* Thank you */
+
+.OrderConfirm {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+}
+
+.OrderConfirm img {
+  width: 50%;
+  margin: 0 0 20px;
+}
+
+.OrderConfirm .Title {
+  font-size: 40px;
+  margin: 0 0 10px;
+}
+
+.OrderConfirm .subTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 15px;
+}
+
+.OrderConfirm .description {
+  font-size: 16px;
+  display: block;
+  line-height: 24px;
+  margin: 0 0 20px;
+}
+
+/* Thank you end */

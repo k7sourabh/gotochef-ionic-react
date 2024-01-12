@@ -54,8 +54,7 @@ import { createStore } from "./services/Storage";
 import { useEffect } from "react";
 import Articals from "./pages/HomeRecipe/Articals";
 import OrderDetails from "./pages/myorder/OrderDetails";
-import { createStore } from "./services/Storage";
-import { useEffect } from "react";
+import OrderConfirm from "./pages/Products/OrderConfirm";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -75,11 +74,11 @@ setupIonicReact({});
 const App = () => {
 
   useEffect(() => {
-		const setupStore = async () => {
-			await createStore("go-to-chef-storage");
-		}
-		setupStore();
-	}, []);
+    const setupStore = async () => {
+      await createStore("go-to-chef-storage");
+    }
+    setupStore();
+  }, []);
 
   return (
     <ApiProvider>
@@ -91,7 +90,6 @@ const App = () => {
             </Route>
           </IonRouterOutlet>
           {window.location.pathname !== "/welcome" &&
-
             <IonTabs>
               <IonRouterOutlet>
                 <Route path="/" exact={true}>
@@ -136,18 +134,18 @@ const App = () => {
                 <Route path="/recipe-page" exact>
                   <RecipePage />
                 </Route>
-               <Route path="/vegan-recipe" exact>
-                <VeganRecipe />
-               </Route>
-               <Route path="/submit-recipe" exact>
-                <SubmitRecipe />
-               </Route>
-               <Route path="/order-details" exact>
-                <OrderDetails />
-               </Route>
-               <Route path="/articals" exact>
-                <Articals />
-               </Route>
+                <Route path="/vegan-recipe" exact>
+                  <VeganRecipe />
+                </Route>
+                <Route path="/submit-recipe" exact>
+                  <SubmitRecipe />
+                </Route>
+                <Route path="/order-details" exact>
+                  <OrderDetails />
+                </Route>
+                <Route path="/articals" exact>
+                  <Articals />
+                </Route>
                 <Route path="/profile" exact>
                   <Profile />
                 </Route>
@@ -155,7 +153,7 @@ const App = () => {
                   <MyProfile />
                 </Route>
                 <Route path="/dashboard" exact>
-                  <Dashboard/>
+                  <Dashboard />
                 </Route>
                 <Route path="/order-list" exact>
                   <OrderList />
@@ -178,9 +176,11 @@ const App = () => {
                 <Route path="/category-detail/:slug/:name" exact>
                   <ProductCard />
                 </Route>
-
                 <Route path="/search-product" exact>
                   <SearchProduct />
+                </Route>
+                <Route path="/order-confirm" exact>
+                  <OrderConfirm />
                 </Route>
               </IonRouterOutlet>
 
@@ -207,7 +207,6 @@ const App = () => {
                 </IonTabButton>
               </IonTabBar>
             </IonTabs>}
-
         </IonReactRouter>
       </IonApp >
     </ApiProvider>

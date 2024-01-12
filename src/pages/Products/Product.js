@@ -100,7 +100,7 @@ const Product = () => {
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
           <IonButton
-            className="IconBtn"
+            className="backBtn"
             fill="clear"
             // onClick={() => history.push(`/category/${slug}`)}
             onClick={goBack}
