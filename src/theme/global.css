@@ -1470,6 +1470,7 @@ ion-button.button-outline {
 .order-btn {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .order-btn ion-button {
@@ -2524,3 +2525,149 @@ ul.Recipe-Star li {
   padding: 6px 11px;
 }
 
+/* SubmitRecipe */
+
+.RecipeInput {
+  background: #f1f1f1;
+  border-radius: 8px;
+  margin-top: 7px;
+}
+
+.SubmitInput ion-text {
+  font-weight: bold;
+}
+
+.RecipeTextArea {
+  background: #f1f1f1;
+  border-radius: 8px;
+  min-height: 126px;
+  height: auto;
+}
+
+.OuantityBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.ountityBtn {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.ountityBtn ion-button {
+  font-size: 24px;
+  width: 50px;
+}
+
+.OuantityContent {
+  background-color: #f1f1f1;
+  padding: 15px 10px;
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.ReciRow ion-icon {
+  color: #9a1a0a;
+}
+
+.SelectInput {
+  margin-right: 5px;
+}
+
+.SelectInput ion-icon {
+  color: #9a1a0a !important;
+}
+
+.ProBtn {
+  background-color: #ffffff;
+  max-width: 158px;
+  padding: 11px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.RecipeTextArea ion-icon {
+  color: red;
+}
+
+.Recipebox {
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.MainSubmitRow {
+  display: flex;
+  gap: 15px;
+}
+
+.ActionInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+}
+
+.ActionInfo ion-icon {
+  color: #9a1a0a;
+}
+
+.IngredientsInfo {
+  min-width: 50%;
+  width: 50%;
+}
+
+.QuantityInfo {
+  width: 40%;
+}
+
+.IngredientsInfo ion-text,
+.QuantityInfo ion-text {
+  font-weight: bold;
+}
+
+/* ProductNameDetails */
+.ProductNameDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ProductNameDetails ion-button {
+  background: red;
+  border-radius: 50px;
+  color: #fff;
+  padding: 4px 5px;
+  min-height: 8px;
+}
+
+.OrderDetailsProduct {
+  padding: 12px 15px;
+  box-shadow: none;
+  border: 1px dashed #9a1a0a;
+}
+
+.PriceTextDetails {
+  border-bottom: 1px solid #9a1a0a;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.ProductDetailImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
