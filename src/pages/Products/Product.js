@@ -206,7 +206,7 @@ const Product = () => {
                       </IonChip>
                     </div>
                     <span className="productName">{productData && productData?.slug}</span>
-                    <IonSelect onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
+                    <IonSelect className="qwt-select" onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
                       {productData.product_variant_result && productData.product_variant_result.map((item, index)=><IonSelectOption value={index}>{item.weight} {item.weight_type}</IonSelectOption>)}
                     </IonSelect>
                     <div className={styles.priceInfo}>

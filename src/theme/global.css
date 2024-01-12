@@ -2685,6 +2685,13 @@ ul.Recipe-Star li {
   color: #9a1a0a;
 }
 
+.qwt-select {
+  width: fit-content;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: 10px 20px;
+}
+
 /* Thank you */
 
 .OrderConfirm {

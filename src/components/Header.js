@@ -90,14 +90,16 @@ const Header = () => {
               <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
               <IonLabel>WishList</IonLabel>
             </IonItem>
-            <IonItem lines="none" routerLink="/add-address">
+
+            {/* <IonItem lines="none" routerLink="/add-address">
               <IonIcon
                 aria-hidden="true"
                 icon={locationOutline}
                 slot="start"
               ></IonIcon>
               <IonLabel>Add Address</IonLabel>
-            </IonItem>
+            </IonItem> */}
+
             <IonMenuToggle>
               <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
                 <IonIcon

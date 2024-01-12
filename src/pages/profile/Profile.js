@@ -131,7 +131,7 @@ const Profile = () => {
                       </IonButton>
                     </IonCol>
 
-                    <IonCol size="4">
+                    {/* <IonCol size="4">
                       <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
                           <img
@@ -142,7 +142,8 @@ const Profile = () => {
                           <IonText>Add Product</IonText>
                         </div>
                       </IonButton>
-                    </IonCol>
+                    </IonCol> */}
+
                     <IonCol size="4">
                       <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
@@ -212,7 +213,7 @@ const Profile = () => {
                       </IonButton>
                     </IonCol>
 
-                    <IonCol size="4">
+                    {/* <IonCol size="4">
                       <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
                           <img
@@ -236,7 +237,7 @@ const Profile = () => {
                           <IonText>Lifestyle Settings</IonText>
                         </div>
                       </IonButton>
-                    </IonCol>
+                    </IonCol> */}
                   </IonRow>
                 </IonGrid>
               )}
