@@ -52,7 +52,12 @@ import MyProfile from "./pages/EditProfile/MyProfile";
 import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
 import { createStore } from "./services/Storage";
 import { useEffect } from "react";
+import Articals from "./pages/HomeRecipe/Articals";
+import OrderDetails from "./pages/myorder/OrderDetails";
 
+
+import { createStore } from "./services/Storage";
+import { useEffect } from "react";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -138,6 +143,12 @@ const App = () => {
                </Route>
                <Route path="/submit-recipe" exact>
                 <SubmitRecipe />
+               </Route>
+               <Route path="/order-details" exact>
+                <OrderDetails />
+               </Route>
+               <Route path="/articals" exact>
+                <Articals />
                </Route>
                 <Route path="/profile" exact>
                   <Profile />
