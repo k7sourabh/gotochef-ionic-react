@@ -20,7 +20,7 @@ import {
   IonText,
   IonTitle,
 } from "@ionic/react";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import {
   arrowForwardCircle,
@@ -35,13 +35,30 @@ import {
   timeOutline,
 } from "ionicons/icons";
 import { useState } from "react";
+import { getApiData } from "../../utils/Utils";
 
 const HomeRecipe = () => {
   const [selectedTab, setSelectedTab] = useState("Vegan");
-  console.log("selectedTab", selectedTab)
+  const [popularData, setPopularData] = useState([]);
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
   };
+
+  const homeRecipeApi = async () => {
+    try {
+      const response = await getApiData(`/getAllRecipes`);
+      console.log("orde", response?.data);
+      console.log("popular", response?.data?.data?.popular);
+      setPopularData(response?.data?.data?.popular);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    homeRecipeApi();
+  }, []);
+
   return (
     <IonPage>
       <Header />
@@ -55,8 +72,7 @@ const HomeRecipe = () => {
             <IonSearchbar
               className="AddressSearch"
               placeholder="Search food"
-            >
-            </IonSearchbar>
+            ></IonSearchbar>
           </IonCol>
         </IonRow>
 
@@ -89,133 +105,77 @@ const HomeRecipe = () => {
         </IonRow>
 
         <IonRow className=" CustomGap">
-          <IonCol size="6">
-            <div className="ProductCard">
-              <div className="vegIcon">
-                <img src="/assets/img/icon-veg.svg" alt=""/>
-                <IonButton fill="clear" className="saveIcon">
-                  <IonIcon
-                    size="large"
-                    color="danger"
-                    icon={bookmarkOutline}
-                  />
-                </IonButton>
-              </div>
-              <div className="RecipePro">
-                <img
-                  src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
-                  alt=""
-                  routerLink="/recipe-page"
-                />
-                <div className="TimeingBar">
-                  <div className="ReciRow">
-                    <IonIcon icon={atCircleOutline}></IonIcon>
-                    <IonLabel>Medium</IonLabel>
+          {popularData &&
+            popularData?.map((data, i) => (
+              <IonCol size="6" key={i}>
+                <div className="ProductCard">
+                  <div className="vegIcon">
+                   {data?.foodtype === "vegetarian" ? <img src="/assets/img/icon-veg.svg" alt="" /> :<img src="/assets/img/non-veg-icon.svg" alt="" /> } 
+                    <IonButton fill="clear" className="saveIcon">
+                      <IonIcon
+                        size="large"
+                        color="danger"
+                        icon={bookmarkOutline}
+                      />
+                    </IonButton>
                   </div>
-                  <div className="ReciRow">
-                    <IonIcon icon={timeOutline}></IonIcon>
-                    <IonLabel>30 min</IonLabel>
+                  <div className="RecipePro">
+                    <img
+                      src={data?.images2}
+                      alt=""
+                      // routerLink="/recipe-page"
+                      onError={(e) => {
+                        e.target.onerror = null; 
+                        e.target.src = "/assets/img/img-placeholder.jpg";
+                      }}
+                    />
+                    <div className="TimeingBar">
+                      <div className="ReciRow">
+                        <IonIcon icon={atCircleOutline}></IonIcon>
+                        <IonLabel>Medium</IonLabel>
+                      </div>
+                      <div className="ReciRow">
+                        <IonIcon icon={timeOutline}></IonIcon>
+                        <IonLabel>{data?.cook_time.split('')[0]} {data?.cook_time.split(' ')[1] === 'minutes' ? 'min' : data?.cook_time.split(' ')[1] === 'Hours' ? 'hrs': 'sec'}</IonLabel>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="bottomRecipe">
-                <div className="productRecipe">
-                  <span>Chicken Caesar Salad</span>
-                  <div className="productRecipe">
-                    <IonIcon
-                      size="medium"
-                      aria-hidden="true"
-                      icon={pint}
-                      slot="start"
-                    ></IonIcon>
-                    <IonLabel>Breakfast</IonLabel>
-                  </div>
-                </div>
-                <div className="productRecipe">
-                  <div className="ProfileRecipe">
-                    <img src="/assets/img/profile.jpg" alt="Images" />
-                    <IonLabel>Deepanjali</IonLabel>
-                  </div>
-                  <div className="ProfileRecipe">
-                    <IonIcon
-                      size="medium"
-                      aria-hidden="true"
-                      icon={person}
-                      slot="start"
-                    >
-                    </IonIcon>
-                    <span>2</span>
-                    <IonChip className="GreenDesign">
-                      <span>0</span>
-                      <IonIcon color="light" size="small" icon={star} />
-                    </IonChip>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </IonCol>
-          <IonCol size="6">
-            <div className="ProductCard">
-              <div className="vegIcon">
-                <img src="/assets/img/icon-veg.svg" alt="" />
-                <IonButton fill="clear" className="saveIcon">
-                  <IonIcon
-                    size="large"
-                    color="danger"
-                    icon={bookmarkOutline}
-                  />
-                </IonButton>
-              </div>
-              <div className="RecipePro">
-                <img src="/assets/img/1525870462-Listing.jpg" alt="" />
-                <div className="TimeingBar">
-                  <div className="ReciRow">
-                    <IonIcon icon={atCircleOutline}></IonIcon>
-                    <IonLabel>Medium</IonLabel>
-                  </div>
-                  <div className="ReciRow">
-                    <IonIcon icon={timeOutline}></IonIcon>
-                    <IonLabel>30 min</IonLabel>
+                  <div className="bottomRecipe">
+                    <div className="productRecipe">
+                      <span>{data?.recipesName}</span>
+                      <div className="productRecipe">
+                        <IonIcon
+                          size="medium"
+                          aria-hidden="true"
+                          icon={pint}
+                          slot="start"
+                        ></IonIcon>
+                        <IonLabel>Breakfast</IonLabel>
+                      </div>
+                    </div>
+                    <div className="productRecipe">
+                      <div className="ProfileRecipe">
+                        <img src="/assets/img/profile.jpg" alt="Images" />
+                        <IonLabel>Deepanjali</IonLabel>
+                      </div>
+                      <div className="ProfileRecipe">
+                        <IonIcon
+                          size="medium"
+                          aria-hidden="true"
+                          icon={person}
+                          slot="start"
+                        ></IonIcon>
+                        <span>2</span>
+                        <IonChip className="GreenDesign">
+                          <span>0</span>
+                          <IonIcon color="light" size="small" icon={star} />
+                        </IonChip>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="bottomRecipe">
-                <div className="productRecipe">
-                  <span>Chicken Caesar Salad</span>
-                  <div className="productRecipe">
-                    <IonIcon
-                      size="medium"
-                      aria-hidden="true"
-                      icon={pint}
-                      slot="start"
-                    ></IonIcon>
-                    <IonLabel>Breakfast</IonLabel>
-                  </div>
-                </div>
-                <div className="productRecipe">
-                  <div className="ProfileRecipe">
-                    <img src="/assets/img/profile.jpg" alt="Images" />
-                    <IonLabel>Deepanjali</IonLabel>
-                  </div>
-                  <div className="ProfileRecipe">
-                    <IonIcon
-                      size="medium"
-                      aria-hidden="true"
-                      icon={person}
-                      slot="start"
-                    >
-                    </IonIcon>
-                    <span>2</span>
-                    <IonChip className="GreenDesign">
-                      <span>0</span>
-                      <IonIcon color="light" size="small" icon={star} />
-                    </IonChip>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </IonCol>
+              </IonCol>
+            ))}
         </IonRow>
 
         <IonRow className="ion-padding-vertical ion-padding-horizontal ion-align-items-center">
@@ -235,11 +195,7 @@ const HomeRecipe = () => {
               <div className="vegIcon">
                 <img src="/assets/img/icon-veg.svg" alt="" />
                 <IonButton fill="clear" className="saveIcon">
-                  <IonIcon
-                    size="large"
-                    color="danger"
-                    icon={bookmarkOutline}
-                  />
+                  <IonIcon size="large" color="danger" icon={bookmarkOutline} />
                 </IonButton>
               </div>
               <div className="RecentProducts">
@@ -283,8 +239,7 @@ const HomeRecipe = () => {
                         aria-hidden="true"
                         icon={person}
                         slot="start"
-                      >
-                      </IonIcon>
+                      ></IonIcon>
                       <span>2</span>
                       <IonChip className="GreenDesign">
                         <span>0</span>
@@ -301,11 +256,7 @@ const HomeRecipe = () => {
               <div className="vegIcon">
                 <img src="/assets/img/icon-veg.svg" alt="" />
                 <IonButton fill="clear" className="saveIcon">
-                  <IonIcon
-                    size="large"
-                    color="danger"
-                    icon={bookmarkOutline}
-                  />
+                  <IonIcon size="large" color="danger" icon={bookmarkOutline} />
                 </IonButton>
               </div>
               <div className="RecentProducts">
@@ -349,8 +300,7 @@ const HomeRecipe = () => {
                         aria-hidden="true"
                         icon={person}
                         slot="start"
-                      >
-                      </IonIcon>
+                      ></IonIcon>
                       <span>2</span>
                       <IonChip className="GreenDesign">
                         <span>0</span>
@@ -380,11 +330,7 @@ const HomeRecipe = () => {
               <div className="vegIcon">
                 <img src="/assets/img/icon-veg.svg" alt="" />
                 <IonButton fill="clear" className="saveIcon">
-                  <IonIcon
-                    size="large"
-                    color="danger"
-                    icon={bookmarkOutline}
-                  />
+                  <IonIcon size="large" color="danger" icon={bookmarkOutline} />
                 </IonButton>
               </div>
               <div className="RecentProducts">
@@ -428,8 +374,7 @@ const HomeRecipe = () => {
                         aria-hidden="true"
                         icon={person}
                         slot="start"
-                      >
-                      </IonIcon>
+                      ></IonIcon>
                       <span>2</span>
                       <IonChip className="GreenDesign">
                         <span>0</span>
@@ -446,11 +391,7 @@ const HomeRecipe = () => {
               <div className="vegIcon">
                 <img src="/assets/img/icon-veg.svg" alt="" />
                 <IonButton fill="clear" className="saveIcon">
-                  <IonIcon
-                    size="large"
-                    color="danger"
-                    icon={bookmarkOutline}
-                  />
+                  <IonIcon size="large" color="danger" icon={bookmarkOutline} />
                 </IonButton>
               </div>
               <div className="RecentProducts">
@@ -494,8 +435,7 @@ const HomeRecipe = () => {
                         aria-hidden="true"
                         icon={person}
                         slot="start"
-                      >
-                      </IonIcon>
+                      ></IonIcon>
                       <span>2</span>
                       <IonChip className="GreenDesign">
                         <span>0</span>
@@ -540,7 +480,9 @@ const HomeRecipe = () => {
                           alt=""
                         />
                         <div className="UserMetas">
-                          <IonTitle className="ion-no-padding">Indonesian</IonTitle>
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
                           <IonLabel>By Adrianna curl</IonLabel>
                         </div>
                       </div>
@@ -552,7 +494,9 @@ const HomeRecipe = () => {
                           alt=""
                         />
                         <div className="UserMetas">
-                          <IonTitle className="ion-no-padding">Indonesian</IonTitle>
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
                           <IonLabel>By Adrianna curl</IonLabel>
                         </div>
                       </div>
@@ -564,7 +508,9 @@ const HomeRecipe = () => {
                           alt=""
                         />
                         <div className="UserMetas">
-                          <IonTitle className="ion-no-padding">Indonesian</IonTitle>
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
                           <IonLabel>By Adrianna curl</IonLabel>
                         </div>
                       </div>
@@ -577,36 +523,33 @@ const HomeRecipe = () => {
                   <IonRow>
                     <IonCol size="4" className="CustomGaps">
                       <div className="RecipiPros">
-                        <img
-                          src="/assets/img/1525870462-Listing.jpg"
-                          alt=""
-                        />
+                        <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                         <div className="UserMetas">
-                          <IonTitle className="ion-no-padding">Indonesian</IonTitle>
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
                           <IonLabel>By Adrianna curl</IonLabel>
                         </div>
                       </div>
                     </IonCol>
                     <IonCol size="4" className="CustomGaps">
                       <div className="RecipiPros">
-                        <img
-                          src="/assets/img/1525870462-Listing.jpg"
-                          alt=""
-                        />
+                        <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                         <div className="UserMetas">
-                          <IonTitle className="ion-no-padding">Indonesian</IonTitle>
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
                           <IonLabel>By Adrianna curl</IonLabel>
                         </div>
                       </div>
                     </IonCol>
                     <IonCol size="4" className="CustomGaps">
                       <div className="RecipiPros">
-                        <img
-                          src="/assets/img/1525870462-Listing.jpg"
-                          alt=""
-                        />
+                        <img src="/assets/img/1525870462-Listing.jpg" alt="" />
                         <div className="UserMetas">
-                          <IonTitle className="ion-no-padding">Indonesian</IonTitle>
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
                           <IonLabel>By Adrianna curl</IonLabel>
                         </div>
                       </div>
@@ -615,93 +558,95 @@ const HomeRecipe = () => {
                 </IonGrid>
               )}
               {selectedTab === "Fasting" && (
-                 <IonGrid className="ion-padding-bottom">
-                 <IonRow>
-                   <IonCol size="4" className="CustomGaps">
-                     <div className="RecipiPros">
-                       <img
+                <IonGrid className="ion-padding-bottom">
+                  <IonRow>
+                    <IonCol size="4" className="CustomGaps">
+                      <div className="RecipiPros">
+                        <img
                           src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
-                         alt=""
-                       />
-                       <div className="UserMetas">
-                         <IonTitle className="ion-no-padding">Indonesian</IonTitle>
-                         <IonLabel>By Adrianna curl</IonLabel>
-                       </div>
-                     </div>
-                   </IonCol>
-                   <IonCol size="4" className="CustomGaps">
-                     <div className="RecipiPros">
-                       <img
-                           src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
-                         alt=""
-                       />
-                       <div className="UserMetas">
-                         <IonTitle className="ion-no-padding">Indonesian</IonTitle>
-                         <IonLabel>By Adrianna curl</IonLabel>
-                       </div>
-                     </div>
-                   </IonCol>
-                   <IonCol size="4" className="CustomGaps">
-                     <div className="RecipiPros">
-                       <img
-                           src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
-                         alt=""
-                       />
-                       <div className="UserMetas">
-                         <IonTitle className="ion-no-padding">Indonesian</IonTitle>
-                         <IonLabel>By Adrianna curl</IonLabel>
-                       </div>
-                     </div>
-                   </IonCol>
-                 </IonRow>
-               </IonGrid>
+                          alt=""
+                        />
+                        <div className="UserMetas">
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
+                          <IonLabel>By Adrianna curl</IonLabel>
+                        </div>
+                      </div>
+                    </IonCol>
+                    <IonCol size="4" className="CustomGaps">
+                      <div className="RecipiPros">
+                        <img
+                          src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
+                          alt=""
+                        />
+                        <div className="UserMetas">
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
+                          <IonLabel>By Adrianna curl</IonLabel>
+                        </div>
+                      </div>
+                    </IonCol>
+                    <IonCol size="4" className="CustomGaps">
+                      <div className="RecipiPros">
+                        <img
+                          src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
+                          alt=""
+                        />
+                        <div className="UserMetas">
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
+                          <IonLabel>By Adrianna curl</IonLabel>
+                        </div>
+                      </div>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
               )}
               {selectedTab === "Noodle" && (
-               <IonGrid className="ion-padding-bottom">
-               <IonRow>
-                 <IonCol size="4" className="CustomGaps">
-                   <div className="RecipiPros">
-                     <img
-                        src="/assets/img/1525870462-Listing.jpg"
-                       alt=""
-                     />
-                     <div className="UserMetas">
-                       <IonTitle className="ion-no-padding">Indonesian</IonTitle>
-                       <IonLabel>By Adrianna curl</IonLabel>
-                     </div>
-                   </div>
-                 </IonCol>
-                 <IonCol size="4" className="CustomGaps">
-                   <div className="RecipiPros">
-                     <img
-                         src="/assets/img/1525870462-Listing.jpg"
-                       alt=""
-                     />
-                     <div className="UserMetas">
-                       <IonTitle className="ion-no-padding">Indonesian</IonTitle>
-                       <IonLabel>By Adrianna curl</IonLabel>
-                     </div>
-                   </div>
-                 </IonCol>
-                 <IonCol size="4" className="CustomGaps">
-                   <div className="RecipiPros">
-                     <img
-                         src="/assets/img/1525870462-Listing.jpg"
-                       alt=""
-                     />
-                     <div className="UserMetas">
-                       <IonTitle className="ion-no-padding">Indonesian</IonTitle>
-                       <IonLabel>By Adrianna curl</IonLabel>
-                     </div>
-                   </div>
-                 </IonCol>
-               </IonRow>
-             </IonGrid>
+                <IonGrid className="ion-padding-bottom">
+                  <IonRow>
+                    <IonCol size="4" className="CustomGaps">
+                      <div className="RecipiPros">
+                        <img src="/assets/img/1525870462-Listing.jpg" alt="" />
+                        <div className="UserMetas">
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
+                          <IonLabel>By Adrianna curl</IonLabel>
+                        </div>
+                      </div>
+                    </IonCol>
+                    <IonCol size="4" className="CustomGaps">
+                      <div className="RecipiPros">
+                        <img src="/assets/img/1525870462-Listing.jpg" alt="" />
+                        <div className="UserMetas">
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
+                          <IonLabel>By Adrianna curl</IonLabel>
+                        </div>
+                      </div>
+                    </IonCol>
+                    <IonCol size="4" className="CustomGaps">
+                      <div className="RecipiPros">
+                        <img src="/assets/img/1525870462-Listing.jpg" alt="" />
+                        <div className="UserMetas">
+                          <IonTitle className="ion-no-padding">
+                            Indonesian
+                          </IonTitle>
+                          <IonLabel>By Adrianna curl</IonLabel>
+                        </div>
+                      </div>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
               )}
             </IonCol>
           </IonRow>
         </IonGrid>
-
 
         {/* <IonRow className="ion-padding-vertical ion-padding-horizontal">
           <IonCol size="12">
