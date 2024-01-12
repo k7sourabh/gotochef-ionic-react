@@ -33,14 +33,12 @@ const Home = () => {
   const exclusiveProduct = async ()=> {
     try {
       const response = await getApiData("/getExclusiveProducts")
-      console.log('exclu...', response?.data?.data)
       setExclusiveProduct(response?.data?.data)
     } catch(err) {
       setExclusiveProduct([])
       console.log(err)
     }
    }
-   console.log(exclusiveProductData)
 
    useEffect(()=>{
     exclusiveProduct();
@@ -49,7 +47,6 @@ const Home = () => {
    const trendingProducts = async ()=> {
     try {
     const response = await getApiData("/getTrendingProducts/5/0")
-    console.log('trend...', response?.data?.data)
     setTrendingProductsData(response?.data?.data)
     } catch(err) {
       setTrendingProductsData([])

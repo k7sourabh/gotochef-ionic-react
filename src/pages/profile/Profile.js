@@ -1,16 +1,43 @@
-import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonList, IonLabel, IonItem, IonButton, IonIcon } from "@ionic/react";
+import {
+  IonSegment,
+  IonSegmentButton,
+  IonCol,
+  IonGrid,
+  IonPage,
+  IonContent,
+  IonRow,
+  IonText,
+  IonList,
+  IonLabel,
+  IonItem,
+  IonButton,
+  IonIcon,
+} from "@ionic/react";
 import Header from "../../components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { arrowBack } from "ionicons/icons";
-
-
+import { getApiData } from "../../utils/Utils";
 
 const Profile = () => {
   const [selectedTab, setSelectedTab] = useState("Personal");
-  console.log("selectedTab", selectedTab)
+  const [userProfileData, setUserProfileData] = useState({});
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
   };
+
+  const userProfile = async () => {
+    try {
+      const response = await getApiData(`/user-dashboard`);
+      console.log("pro", response?.data?.user_dashboard?.user_form_data);
+      setUserProfileData(response?.data?.user_dashboard?.user_form_data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    userProfile();
+  }, []);
 
   return (
     <IonPage>
@@ -33,23 +60,35 @@ const Profile = () => {
           <IonRow className="profile-top-bg"></IonRow>
           <IonRow className="profile-content ion-margin-horizontal">
             <div className="profileImg">
-              <img src="/assets/img/profile.jpg" alt="Images"></img>
+              <img
+                src={userProfileData?.avatar}
+                alt="Images"
+                onError={(e) => {
+                  e.target.onerror = null; 
+                  e.target.src = "/assets/img/img-placeholder.jpg";
+                }}
+              ></img>
             </div>
-            <IonLabel >
-              <h1>Chiara Bivitagirni</h1>
+            <IonLabel>
+              <h1>
+                {userProfileData?.first_name} {userProfileData?.last_name}
+              </h1>
               <h5>Passionate</h5>
             </IonLabel>
           </IonRow>
           <IonRow className="Profile-bio ion-margin-top ion-margin-horizontal">
             <IonCol>
               <div className="profileBioText">
-                <IonText>Oct 13,2020</IonText>
+                <IonText>
+                  {userProfileData &&
+                    userProfileData?.created_at?.split(" ")[0]}
+                </IonText>
                 <IonText>joinered</IonText>
               </div>
             </IonCol>
             <IonCol>
               <div className="profileBioText">
-                <IonText>95</IonText>
+                <IonText>{userProfileData?.total_points}</IonText>
                 <IonText>Points</IonText>
               </div>
             </IonCol>
@@ -84,100 +123,139 @@ const Profile = () => {
                 <IonGrid>
                   <IonRow className="">
                     <IonCol size="4">
-                      <IonButton fill="clear" routerLink="/dashboard" className='CardBtn'>
+                      <IonButton
+                        fill="clear"
+                        routerLink="/dashboard"
+                        className="CardBtn"
+                      >
                         <div className="DashBoardImg">
-                          <img src="/assets/img/dashbord.png" alt="Images" className="personalimages" />
+                          <img
+                            src="/assets/img/dashbord.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>Dashboard</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className='CardBtn'>
+                      <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
-                          <img src="/assets/img/addproduct.png" alt="Images" className="personalimages" />
+                          <img
+                            src="/assets/img/addproduct.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>Add Product</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
                     <IonCol size="4">
-                      <IonButton fill="clear" className='CardBtn'>
+                      <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
-                          <img src="/assets/img/ingrediant.png" alt="Images" className="personalimages" />
+                          <img
+                            src="/assets/img/ingrediant.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>Add Ingredient</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" routerLink="/recipe-page" className='CardBtn'>
-                        <div className="DashBoardImg" >
-                          <img src="/assets/img/Recipes.png" alt="Images" className="personalimages" />
+                      <IonButton
+                        fill="clear"
+                        routerLink="/recipe-page"
+                        className="CardBtn"
+                      >
+                        <div className="DashBoardImg">
+                          <img
+                            src="/assets/img/Recipes.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>My Recipes</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className='CardBtn'>
+                      <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
-                          <img src="/assets/img/Articles.png" alt="Images" className="personalimages" />
+                          <img
+                            src="/assets/img/Articles.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>My Articles</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className='CardBtn'>
+                      <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
-                          <img src="/assets/img/ProfileSettings.png" alt="Images" className="personalimages" />
+                          <img
+                            src="/assets/img/ProfileSettings.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>Profile Settings</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className='CardBtn'>
+                      <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
-                          <img src="/assets/img/PasswordImg.png" alt="Images" className="personalimages" />
+                          <img
+                            src="/assets/img/PasswordImg.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>Change Password</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className='CardBtn'>
+                      <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
-                          <img src="/assets/img/Food.png" alt="Images" className="personalimages" />
+                          <img
+                            src="/assets/img/Food.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>Food Settings</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className='CardBtn'>
+                      <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
-                          <img src="/assets/img/Lifestyle.png" alt="Images" className="personalimages" />
+                          <img
+                            src="/assets/img/Lifestyle.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
                           <IonText>Lifestyle Settings</IonText>
                         </div>
                       </IonButton>
                     </IonCol>
                   </IonRow>
                 </IonGrid>
-
               )}
-              {selectedTab === "SavedContent" && (
-                <div>sss</div>
-              )}
-              {selectedTab === "Leaderboard" && (
-                <div>jfjfkfjjfj</div>
-              )}
+              {selectedTab === "SavedContent" && <div>sss</div>}
+              {selectedTab === "Leaderboard" && <div>jfjfkfjjfj</div>}
             </IonCol>
           </IonRow>
         </IonGrid>
       </IonContent>
-    </IonPage >
-  )
-}
+    </IonPage>
+  );
+};
 
 export default Profile;
