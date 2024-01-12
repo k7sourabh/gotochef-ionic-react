@@ -2607,8 +2607,13 @@ width: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
 }
-.ProductNameDetails ion-button{
+.Detailslast-child{
+  border-bottom: none!important;
+}
+.cancelBtn ion-button{
   background: red;
   border-radius: 50px;
   color: #fff;
@@ -2622,7 +2627,6 @@ width: 10%;
   border: 1px dashed #9a1a0a;
 }
 .PriceTextDetails {
-  border-bottom: 1px solid #9a1a0a;
   font-size: 17px;
   font-weight: bold;
 }
@@ -2630,4 +2634,10 @@ width: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.pro-name{
+margin-bottom: 10px;
+}
+.pro-name ion-text{
+ color: #9a1a0a;
 }
