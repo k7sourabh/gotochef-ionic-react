@@ -37,24 +37,28 @@ const OrderDetails = ()=> {
                     </IonCardHeader>
 
                     <IonCardContent className="ion-no-padding">
-                      <div className="">
+                      <div className="pro-name">
                        <IonTitle className="ion-no-padding">Blueberries</IonTitle>
                         <IonText>Rostaa</IonText>
                       </div>
-                      <div className="ProductNameDetails ion-padding-top">
+                      <div className="ProductNameDetails ">
                         <IonText className="PriceTextDetails">Price</IonText>
                         <IonText>₹ 100</IonText>
                       </div>
-                      <div className="ProductNameDetails ion-padding-top">
+                      <div className="ProductNameDetails ">
                       <IonText className="PriceTextDetails">Total Price</IonText>
                         <IonText>₹ 100</IonText>
                       </div>
-                      <div className="ProductNameDetails ion-padding-top">
-                      <IonText>Qty:<span>2</span></IonText>
+                      <div className="ProductNameDetails ">
+                      <IonText>Qty:</IonText>
+                      <IonText>2</IonText>
+                      </div>
+                      <div className="ProductNameDetails Detailslast-child">
+                      <IonText>Status:</IonText>
                       <IonText>pending</IonText>
                       </div>
-                      <div className="ProductNameDetails ion-padding-top ion-justify-content-center">
-                        <IonButton fill="clear">Cancel</IonButton>
+                      <div className="flex ion-justify-content-center cancelBtn">
+                        <IonButton fill="clear" >Cancel</IonButton>
                       </div>
                     </IonCardContent>
                   </IonCard>
