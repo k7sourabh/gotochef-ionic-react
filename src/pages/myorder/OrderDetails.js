@@ -1,7 +1,25 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonChip, IonCol, IonContent, IonGrid, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonText, IonTitle } from "@ionic/react"
 import Header from "../../components/Header"
+import { getApiData } from "../../utils/Utils";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect } from "react";
 
-const OrderDetails=()=>{
+const OrderDetails = ()=> {
+ const { id } = useParams()
+
+  const orderDetailsApi = async () => {
+    try {
+      const response = await getApiData(`/order-details/${id}`);
+      console.log("pro", response?.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    orderDetailsApi();
+  }, []);
+
     return(
         <IonPage>
             <Header/>

@@ -140,7 +140,7 @@ const App = () => {
                <Route path="/submit-recipe" exact>
                 <SubmitRecipe />
                </Route>
-               <Route path="/order-details" exact>
+               <Route path="/order-details/:id" exact>
                 <OrderDetails />
                </Route>
                <Route path="/articals" exact>
