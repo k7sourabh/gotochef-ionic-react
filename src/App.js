@@ -54,8 +54,6 @@ import { createStore } from "./services/Storage";
 import { useEffect } from "react";
 import Articals from "./pages/HomeRecipe/Articals";
 import OrderDetails from "./pages/myorder/OrderDetails";
-import { createStore } from "./services/Storage";
-import { useEffect } from "react";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 

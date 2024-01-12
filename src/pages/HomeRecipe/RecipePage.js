@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Header";
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonChip, IonCol, IonContent, IonGrid, IonIcon, IonImg, IonItem, IonLabel, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
 import { arrowForward,heartCircleOutline,starOutline, createOutline, readerOutline, arrowForwardOutline, atCircleOutline, bookmarkOutline, fastFood, person, star, timeOutline } from "ionicons/icons";
 import { IonAccordion, IonAccordionGroup } from '@ionic/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -22,7 +22,13 @@ const RecipePage = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid className="ion-padding-horizontal">
+            <IonHeader className="TitleHead bottom-shadow">
+                  <IonButton className="backBtn" fill="clear" routerLink="/home">
+                     <i class="material-icons dark">west</i>
+                  </IonButton>
+                  <IonTitle color="dark">Chicken Caesar Salad</IonTitle>
+               </IonHeader>
+                <IonGrid className="ion-padding-horizontal ion-padding-vertical">
                     <IonRow className="ion-justify-content-center">
                         <IonCol>
                             <img

@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTextarea, IonTitle } from "@ionic/react"
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTextarea, IonTitle } from "@ionic/react"
 import { person, timeOutline, close, closeCircle, closeOutline, trashOutline } from "ionicons/icons"
 import Header from "../../components/Header"
 
@@ -8,7 +8,13 @@ const SubmitRecipe = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid className="ion-padding-horizontal">
+            <IonHeader className="TitleHead bottom-shadow">
+                  <IonButton className="backBtn" fill="clear" routerLink="/home">
+                     <i class="material-icons dark">west</i>
+                  </IonButton>
+                  <IonTitle color="dark">Submit Your Tasty Recipe</IonTitle>
+               </IonHeader>
+                <IonGrid className="ion-padding-horizontal ion-padding-top">
                     <IonRow className="ion-justify-content-center">
                         <IonCol>
                             <img
@@ -16,7 +22,6 @@ const SubmitRecipe = () => {
                                 alt=""
                                 className="RecipeImage"
                             />
-
                         </IonCol>
                     </IonRow>
                 </IonGrid>
