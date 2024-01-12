@@ -84,7 +84,7 @@ const OrderList = () => {
                   <IonButton
                     expand="full"
                     shape="round"
-                    routerLink={`/product-details/${data?.id}`}
+                    routerLink={`/order-details/${data?.id}`}
                   >
                     View
                   </IonButton>

@@ -54,10 +54,6 @@ import { createStore } from "./services/Storage";
 import { useEffect } from "react";
 import Articals from "./pages/HomeRecipe/Articals";
 import OrderDetails from "./pages/myorder/OrderDetails";
-
-
-import { createStore } from "./services/Storage";
-import { useEffect } from "react";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -144,7 +140,7 @@ const App = () => {
                <Route path="/submit-recipe" exact>
                 <SubmitRecipe />
                </Route>
-               <Route path="/order-details" exact>
+               <Route path="/order-details/:id" exact>
                 <OrderDetails />
                </Route>
                <Route path="/articals" exact>
