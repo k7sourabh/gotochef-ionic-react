@@ -78,7 +78,7 @@ const CartProducts = () => {
 
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="IconBtn" fill="clear" routerLink="/main-category">
+          <IonButton className="backBtn" fill="clear" routerLink="/main-category">
             <i class="material-icons dark">west</i>
           </IonButton>
           <IonTitle color="dark">Review Cart</IonTitle>

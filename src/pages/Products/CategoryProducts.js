@@ -76,7 +76,7 @@ const CategoryProducts = () => {
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
           <IonButton
-            className="IconBtn"
+            className="backBtn"
             fill="clear"
             onClick={() => history.push(`/main-category`)}
           >
