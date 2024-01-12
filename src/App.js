@@ -50,6 +50,8 @@ import VeganRecipe from "./pages/HomeRecipe/VeganRecipe";
 import NutriBudy from "./pages/Products/NutriBudy";
 import MyProfile from "./pages/EditProfile/MyProfile";
 import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
+import Articals from "./pages/HomeRecipe/Articals";
+import OrderDetails from "./pages/myorder/OrderDetails";
 
 
 // Hide the splash (you should do this on app launch)
@@ -132,6 +134,12 @@ const App = () => {
                </Route>
                <Route path="/submit-recipe" exact>
                 <SubmitRecipe />
+               </Route>
+               <Route path="/order-details" exact>
+                <OrderDetails />
+               </Route>
+               <Route path="/articals" exact>
+                <Articals />
                </Route>
                 <Route path="/profile" exact>
                   <Profile />
