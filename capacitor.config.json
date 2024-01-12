@@ -13,5 +13,8 @@
       "backgroundColor": "#ffffff"
     }
   },
+  "server": {
+    "cleartext": true
+  },
   "cordova": {}
 }
