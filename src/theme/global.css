@@ -82,7 +82,7 @@ iframe {
 /* Titles */
 
 .TitleHead {
-  padding: 16px 16px 0px 16px;
+  padding: 10px 16px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -106,6 +106,7 @@ iframe {
   white-space: nowrap;
   padding: 0;
   letter-spacing: 0;
+  text-transform: capitalize;
 }
 
 .TitleHead ion-title.ion-color-dark {
@@ -116,6 +117,16 @@ iframe {
   font-size: 14px;
   white-space: normal;
   line-height: 20px;
+}
+
+.TitleHead .backBtn {
+  width: 40px;
+  min-height: 40px;
+  margin-left: -6px;
+}
+
+.backBtn::part(native) {
+  padding: 0;
 }
 
 /* Sub Category Title */
@@ -263,7 +274,7 @@ iframe {
 }
 
 .manage-product .swiper {
-  padding-right: 20%;
+  padding-right: 18%;
 }
 
 @media (max-width: 320px) {
@@ -303,7 +314,6 @@ iframe {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 50px;
 }
 
 .CurrentPrice {
@@ -326,8 +336,10 @@ iframe {
   height: auto;
   color: #fff;
   background: #ffc10e;
-  font-size: 12px;
+  font-size: 10px;
   line-height: normal;
+  gap: 5px;
+  align-items: center;
 }
 
 .RateDesign span {
@@ -335,8 +347,9 @@ iframe {
 }
 
 .RateDesign ion-icon {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
+  margin: 0;
 }
 
 .OfferInfo {
@@ -347,7 +360,7 @@ iframe {
 }
 
 .OldPrice {
-  font-size: 14px;
+  font-size: 13px;
   color: #999;
   text-decoration: line-through;
   font-weight: 600;
@@ -1815,15 +1828,16 @@ label.EditProfile img {
 .passionateText {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 15px;
   position: relative;
-  padding-bottom: 55px;
+  padding-bottom: 50px;
 
 }
 
 .passionateText img {
-  width: 100%;
-  object-fit: cover;
+  max-width: 40px;
+  aspect-ratio: 1;
+  object-fit: contain;
 }
 
 .passionateText ion-text {
@@ -1835,27 +1849,30 @@ label.EditProfile img {
 .passionateText::after {
   content: '';
   width: 2px;
-  height: 50px;
+  height: 40px;
   background: #00000047;
   position: absolute;
-  top: 61px;
-  left: 26px;
+  top: 45px;
+  left: 20px;
 }
 
 .prohomeText {
   display: flex;
   align-items: flex-start;
-  gap: 13px;
+  gap: 15px;
   position: relative;
 }
 
-.prohomeText img {
-  width: 100%;
-  max-width: 50px;
-  min-height: auto;
-  border-radius: 50px;
-  padding: 0px;
+.profileLock {
+  position: relative;
+}
+
+.profileLock img {
+  max-width: 40px;
+  aspect-ratio: 1;
+  object-fit: contain;
   border: 2px solid #0000003f;
+  border-radius: 100%;
 }
 
 ul.ProHomeList {
@@ -1871,11 +1888,6 @@ ul.ProHomeList li {
   color: #0000007a;
 }
 
-.DashBoard-tab {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
 ul.ProHomeList li::before {
   content: "-";
   padding: 3px;
@@ -1888,10 +1900,10 @@ ul.ProHomeList li::before {
 
 .prohomeText ion-icon {
   position: absolute;
-  left: 39px;
-  font-size: 12px;
+  left: 30px;
   width: 14px;
-  top: -4px;
+  top: 0px;
+  height: 14px;
 }
 
 .LadderContent {
@@ -1959,9 +1971,13 @@ ul.ProHomeList li::before {
 .MorefoodBox {
   display: flex;
   align-items: center;
-  justify-content: left !important;
   gap: 20px;
-  margin: 12px 0px;
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.MorefoodBox .TabIcon {
+  margin: 0;
 }
 
 .MorefoodBox:hover.MorefoodBox ion-label {
@@ -2507,3 +2523,4 @@ ul.Recipe-Star li {
 .MyprofileReview .GreenDesign {
   padding: 6px 11px;
 }
+

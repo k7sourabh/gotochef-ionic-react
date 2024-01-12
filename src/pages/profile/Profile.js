@@ -1,4 +1,4 @@
-import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonList, IonLabel, IonItem, IonButton, IonIcon } from "@ionic/react";
+import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonList, IonLabel, IonItem, IonButton, IonIcon, IonHeader, IonTitle } from "@ionic/react";
 import Header from "../../components/Header";
 import { useState } from "react";
 import { arrowBack } from "ionicons/icons";
@@ -16,18 +16,12 @@ const Profile = () => {
     <IonPage>
       <Header />
       <IonContent className="profilepage">
-        <IonGrid class="ion-no-padding">
-          <IonRow className="">
-            <IonCol size="12">
-              <div className="PageTitle">
-                <IonButton fill="clear" routerLink="/" class="backBtn">
-                  <IonIcon icon={arrowBack}></IonIcon>
-                </IonButton>
-                <IonText>My Profile</IonText>
-              </div>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+        <IonHeader className="TitleHead">
+          <IonButton className="backBtn" fill="clear" routerLink="/home">
+            <i class="material-icons dark">west</i>
+          </IonButton>
+          <IonTitle color="dark">My Profile</IonTitle>
+        </IonHeader>
 
         <IonGrid class="ion-no-padding">
           <IonRow className="profile-top-bg"></IonRow>
