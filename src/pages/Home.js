@@ -104,7 +104,8 @@ const Home = () => {
                           <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
                           <span>{category?.imk_num}</span>
                         </div>
-                        <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+                        {category?.foodtype === 'vegetarian' ? <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" /> : <img src="/assets/img/non-veg-icon.svg" alt="Images" className="icon-img" />}
+                        
                       </div>
 
                       <img
@@ -182,7 +183,7 @@ const Home = () => {
                           <img src="/assets/img/Mysmart.png" alt="Images" className="icon-img" />
                           <span>{category?.imk_num}</span>
                         </div>
-                        <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" />
+                        {category?.foodtype === 'vegetarian' ? <img src="/assets/img/veg-icon.svg" alt="Images" className="icon-img" /> : <img src="/assets/img/non-veg-icon.svg" alt="Images" className="icon-img" />}
                       </div>
 
                       <img
