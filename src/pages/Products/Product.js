@@ -14,6 +14,8 @@ import {
   IonLabel,
   IonPage,
   IonRow,
+  IonSelect,
+  IonSelectOption,
   IonSegment,
   IonSegmentButton,
   IonText,
@@ -42,17 +44,19 @@ import "@ionic/react/css/ionic-swiper.css";
 import { getApiData } from "../../utils/Utils";
 
 const Product = () => {
-  const { id, slug } = useParams();
+  const { id } = useParams();
   const history = useHistory();
   const [productData, setProductData] = useState({});
   const [allProductData, setAllProductData] = useState({});
   const [present, dismiss] = useIonLoading();
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
 
   const exclusiveProduct = async () => {
+    present();
     try {
-      present();
       const response = await getApiData(`productdetails_json/${id}`);
       dismiss();
+      console.log(response?.data?.data?.product_details.product_variant_result)
       setProductData(response?.data?.data?.product_details);
       setAllProductData(response);
     } catch (e) {
@@ -202,31 +206,33 @@ const Product = () => {
                       </IonChip>
                     </div>
                     <span className="productName">{productData && productData?.slug}</span>
-
+                    <IonSelect onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
+                      {productData.product_variant_result && productData.product_variant_result.map((item, index)=><IonSelectOption value={index}>{item.weight} {item.weight_type}</IonSelectOption>)}
+                    </IonSelect>
                     <div className={styles.priceInfo}>
                       {productData &&
                         productData.product_variant_result &&
-                        productData.product_variant_result[0] &&
-                        productData?.product_variant_result[0]?.offer_price}
+                        productData.product_variant_result[selectedVariantIndex] &&
+                        productData?.product_variant_result[selectedVariantIndex]?.offer_price}
                       <div className="addButn">
                         <div className="OfferInfo">
                           <IonText color="dark" className="OldPrice">
                             {productData &&
                               productData.product_variant_result &&
-                              productData.product_variant_result[0] &&
-                              productData?.product_variant_result[0]
+                              productData.product_variant_result[selectedVariantIndex] &&
+                              productData?.product_variant_result[selectedVariantIndex]
                                 ?.main_price}
                           </IonText>
                           <IonChip className="offerBedge">
                             {productData &&
                               productData.product_variant_result &&
-                              productData.product_variant_result[0] &&
+                              productData.product_variant_result[selectedVariantIndex] &&
                               (
-                                ((productData?.product_variant_result[0]
+                                ((productData?.product_variant_result[selectedVariantIndex]
                                   ?.main_price -
-                                  productData?.product_variant_result[0]
+                                  productData?.product_variant_result[selectedVariantIndex]
                                     ?.offer_price) /
-                                  productData?.product_variant_result[0]
+                                  productData?.product_variant_result[selectedVariantIndex]
                                     ?.main_price) *
                                 100
                               ).toFixed(0)}
