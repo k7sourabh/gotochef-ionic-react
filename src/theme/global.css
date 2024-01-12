@@ -2489,7 +2489,7 @@ ul.Recipe-Star li {
 
 .ProfileFollowers {
   border-right: 1px solid #000;
-  padding: 4px;
+  padding: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2721,3 +2721,40 @@ ul.Recipe-Star li {
 }
 
 /* Thank you end */
+
+/* ArticalCard */
+.ArticalCard{
+  box-shadow: none;
+}
+.bottomArtical ion-text{
+  font-size: 9px;
+}
+.Articalpera ion-text{
+  font-size: 6px;
+}
+.bottomArtical .productRecipe{
+  padding-top: 3px;
+}
+.ArticalTextName{
+  font-size: 10px;
+  color: #9a1a0a;
+  font-weight: bold;
+}
+.ArticalTextDate{
+  font-size: 10px;
+  font-weight: bold;
+  color: #000;
+}
+.NoSubmitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  padding: 10px;
+  border-radius: 20px;
+  
+}
+.NoSubmitBtn ion-button{
+  color: #9a1a0a;
+  font-size: 20px;
+}

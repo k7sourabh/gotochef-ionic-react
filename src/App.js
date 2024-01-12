@@ -95,6 +95,7 @@ const App = () => {
                 <Route path="/" exact={true}>
                   <Redirect to="/home" />
                 </Route>
+
                 <Route path="/home" exact={true}>
                   <Home />
                 </Route>
@@ -118,6 +119,7 @@ const App = () => {
                 <Route path="/main-category" exact>
                   <MainCategory />
                 </Route>
+
                 <Route path="/nutry-budy" exact>
                   <NutriBudy />
                 </Route>
@@ -125,60 +127,85 @@ const App = () => {
                 <Route path="/add-payment" exact>
                   <AddPayment />
                 </Route>
+
                 <Route path="/add-address" exact>
                   <AddAddress />
                 </Route>
+
                 <Route path="/home-recipe" exact>
                   <HomeRecipe />
                 </Route>
+
                 <Route path="/recipe-page" exact>
                   <RecipePage />
                 </Route>
+
                 <Route path="/vegan-recipe" exact>
                   <VeganRecipe />
                 </Route>
+
                 <Route path="/submit-recipe" exact>
                   <SubmitRecipe />
                 </Route>
+
                 <Route path="/order-details" exact>
                   <OrderDetails />
                 </Route>
+
                 <Route path="/articals" exact>
                   <Articals />
                 </Route>
+                
+                <Route path="/order-details/:id" exact>
+                  <OrderDetails />
+                </Route>
+
+                <Route path="/articals" exact>
+                  <Articals />
+                </Route>
+
                 <Route path="/profile" exact>
                   <Profile />
                 </Route>
+
                 <Route path="/my-profile" exact>
                   <MyProfile />
                 </Route>
+
                 <Route path="/dashboard" exact>
                   <Dashboard />
                 </Route>
+
                 <Route path="/order-list" exact>
                   <OrderList />
                 </Route>
                 <Route path="/wish-list" exact>
                   <WishList />
                 </Route>
+
                 <Route path="/change-password" exact>
                   <ChangePassword />
                 </Route>
                 <Route path="/edit-profile" exact>
                   <EditProfile />
                 </Route>
+
                 <Route path="/exclusive-products" exact>
                   <ViewExclusiveProduct />
                 </Route>
+
                 <Route path="/trending-products" exact>
                   <ViewTrendingProduct />
                 </Route>
+
                 <Route path="/category-detail/:slug/:name" exact>
                   <ProductCard />
                 </Route>
+
                 <Route path="/search-product" exact>
                   <SearchProduct />
                 </Route>
+                
                 <Route path="/order-confirm" exact>
                   <OrderConfirm />
                 </Route>

@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonLabel, IonPage, IonProgressBar, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from "@ionic/react"
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonProgressBar, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from "@ionic/react"
 import { useEffect, useState } from "react";
 import Header from "../../components/Header"
 
@@ -27,7 +27,13 @@ const VeganRecipe = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid className="ion-padding-horizontal">
+            <IonHeader className="TitleHead bottom-shadow">
+                  <IonButton className="backBtn" fill="clear" routerLink="/home">
+                     <i class="material-icons dark">west</i>
+                  </IonButton>
+                  <IonTitle color="dark">GoToChef Contests</IonTitle>
+               </IonHeader>
+                <IonGrid className="ion-padding-horizontal ion-padding-top">
                     <IonRow className="ion-justify-content-center">
                         <IonCol>
                             <img
