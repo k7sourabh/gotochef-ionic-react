@@ -82,7 +82,7 @@ iframe {
 /* Titles */
 
 .TitleHead {
-  padding: 16px 16px 0px 16px;
+  padding: 10px 16px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -106,6 +106,7 @@ iframe {
   white-space: nowrap;
   padding: 0;
   letter-spacing: 0;
+  text-transform: capitalize;
 }
 
 .TitleHead ion-title.ion-color-dark {
@@ -116,6 +117,16 @@ iframe {
   font-size: 14px;
   white-space: normal;
   line-height: 20px;
+}
+
+.TitleHead .backBtn {
+  width: 40px;
+  min-height: 40px;
+  margin-left: -6px;
+}
+
+.backBtn::part(native) {
+  padding: 0;
 }
 
 /* Sub Category Title */
@@ -263,7 +274,7 @@ iframe {
 }
 
 .manage-product .swiper {
-  padding-right: 20%;
+  padding-right: 18%;
 }
 
 @media (max-width: 320px) {
@@ -303,7 +314,6 @@ iframe {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 50px;
 }
 
 .CurrentPrice {
@@ -326,8 +336,10 @@ iframe {
   height: auto;
   color: #fff;
   background: #ffc10e;
-  font-size: 12px;
+  font-size: 10px;
   line-height: normal;
+  gap: 5px;
+  align-items: center;
 }
 
 .RateDesign span {
@@ -335,8 +347,9 @@ iframe {
 }
 
 .RateDesign ion-icon {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
+  margin: 0;
 }
 
 .OfferInfo {
@@ -347,7 +360,7 @@ iframe {
 }
 
 .OldPrice {
-  font-size: 14px;
+  font-size: 13px;
   color: #999;
   text-decoration: line-through;
   font-weight: 600;
@@ -1816,15 +1829,16 @@ label.EditProfile img {
 .passionateText {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 15px;
   position: relative;
-  padding-bottom: 55px;
+  padding-bottom: 50px;
 
 }
 
 .passionateText img {
-  width: 100%;
-  object-fit: cover;
+  max-width: 40px;
+  aspect-ratio: 1;
+  object-fit: contain;
 }
 
 .passionateText ion-text {
@@ -1836,27 +1850,30 @@ label.EditProfile img {
 .passionateText::after {
   content: '';
   width: 2px;
-  height: 50px;
+  height: 40px;
   background: #00000047;
   position: absolute;
-  top: 61px;
-  left: 26px;
+  top: 45px;
+  left: 20px;
 }
 
 .prohomeText {
   display: flex;
   align-items: flex-start;
-  gap: 13px;
+  gap: 15px;
   position: relative;
 }
 
-.prohomeText img {
-  width: 100%;
-  max-width: 50px;
-  min-height: auto;
-  border-radius: 50px;
-  padding: 0px;
+.profileLock {
+  position: relative;
+}
+
+.profileLock img {
+  max-width: 40px;
+  aspect-ratio: 1;
+  object-fit: contain;
   border: 2px solid #0000003f;
+  border-radius: 100%;
 }
 
 ul.ProHomeList {
@@ -1872,11 +1889,6 @@ ul.ProHomeList li {
   color: #0000007a;
 }
 
-.DashBoard-tab {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
 ul.ProHomeList li::before {
   content: "-";
   padding: 3px;
@@ -1889,10 +1901,10 @@ ul.ProHomeList li::before {
 
 .prohomeText ion-icon {
   position: absolute;
-  left: 39px;
-  font-size: 12px;
+  left: 30px;
   width: 14px;
-  top: -4px;
+  top: 0px;
+  height: 14px;
 }
 
 .LadderContent {
@@ -1960,9 +1972,13 @@ ul.ProHomeList li::before {
 .MorefoodBox {
   display: flex;
   align-items: center;
-  justify-content: left !important;
   gap: 20px;
-  margin: 12px 0px;
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.MorefoodBox .TabIcon {
+  margin: 0;
 }
 
 .MorefoodBox:hover.MorefoodBox ion-label {
@@ -2508,21 +2524,26 @@ ul.Recipe-Star li {
 .MyprofileReview .GreenDesign {
   padding: 6px 11px;
 }
+
 /* SubmitRecipe */
+
 .RecipeInput {
   background: #f1f1f1;
   border-radius: 8px;
   margin-top: 7px;
 }
-.SubmitInput ion-text{
+
+.SubmitInput ion-text {
   font-weight: bold;
 }
+
 .RecipeTextArea {
-  background:#f1f1f1 ;
+  background: #f1f1f1;
   border-radius: 8px;
-    min-height: 126px;
-    height: auto;
+  min-height: 126px;
+  height: auto;
 }
+
 .OuantityBox {
   display: flex;
   flex-direction: column;
@@ -2530,6 +2551,7 @@ ul.Recipe-Star li {
   align-items: center;
   gap: 5px;
 }
+
 .ountityBtn {
   display: flex;
   border: 1px solid #ccc;
@@ -2538,6 +2560,7 @@ ul.Recipe-Star li {
   justify-content: center;
   gap: 5px;
 }
+
 .ountityBtn ion-button {
   font-size: 24px;
   width: 50px;
@@ -2553,13 +2576,16 @@ ul.Recipe-Star li {
   justify-content: center;
   border-radius: 10px;
 }
-.ReciRow ion-icon{
+
+.ReciRow ion-icon {
   color: #9a1a0a;
 }
-.SelectInput{
+
+.SelectInput {
   margin-right: 5px;
 }
-.SelectInput ion-icon{
+
+.SelectInput ion-icon {
   color: #9a1a0a !important;
 }
 
@@ -2573,36 +2599,46 @@ ul.Recipe-Star li {
   justify-content: center;
   gap: 10px;
 }
+
 .RecipeTextArea ion-icon {
   color: red;
 }
-.Recipebox{
+
+.Recipebox {
   padding: 10px;
   margin-top: 5px;
 }
-.MainSubmitRow{
+
+.MainSubmitRow {
   display: flex;
   gap: 15px;
 }
-.ActionInfo{
-display: flex;
-align-items: center;
-justify-content: center;
-width: 10%;
+
+.ActionInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
 }
-.ActionInfo ion-icon{
+
+.ActionInfo ion-icon {
   color: #9a1a0a;
 }
+
 .IngredientsInfo {
   min-width: 50%;
   width: 50%;
 }
+
 .QuantityInfo {
   width: 40%;
 }
-.IngredientsInfo ion-text,.QuantityInfo ion-text{
+
+.IngredientsInfo ion-text,
+.QuantityInfo ion-text {
   font-weight: bold;
 }
+
 /* ProductNameDetails */
 .ProductNameDetails {
   display: flex;
@@ -2611,10 +2647,12 @@ width: 10%;
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
 }
-.Detailslast-child{
-  border-bottom: none!important;
+
+.Detailslast-child {
+  border-bottom: none !important;
 }
-.cancelBtn ion-button{
+
+.cancelBtn ion-button {
   background: red;
   border-radius: 50px;
   color: #fff;
@@ -2627,18 +2665,22 @@ width: 10%;
   box-shadow: none;
   border: 1px dashed #9a1a0a;
 }
+
 .PriceTextDetails {
   font-size: 17px;
   font-weight: bold;
 }
-.ProductDetailImg{
+
+.ProductDetailImg {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.pro-name{
-margin-bottom: 10px;
+
+.pro-name {
+  margin-bottom: 10px;
 }
-.pro-name ion-text{
- color: #9a1a0a;
+
+.pro-name ion-text {
+  color: #9a1a0a;
 }
