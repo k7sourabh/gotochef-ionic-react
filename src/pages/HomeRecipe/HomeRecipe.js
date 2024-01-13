@@ -135,6 +135,7 @@ const HomeRecipe = () => {
                   </div>
                   <div className="RecipePro">
                     <img
+                      // routerLink={`/recipe-details`}
                       src={data?.images}
                       alt=""
                       // routerLink="/recipe-page"
@@ -200,7 +201,7 @@ const HomeRecipe = () => {
                         ></IonIcon>
                         <span>2</span> */}
                         <IonChip className="GreenDesign">
-                          <span>0</span>
+                          <span>{data?.ratings}</span>
                           <IonIcon color="light" size="small" icon={star} />
                         </IonChip>
                       </div>
@@ -311,7 +312,7 @@ const HomeRecipe = () => {
                           ></IonIcon>
                           <span>2</span> */}
                           <IonChip className="GreenDesign">
-                            <span>0</span>
+                            <span>{data?.ratings}</span>
                             <IonIcon color="light" size="small" icon={star} />
                           </IonChip>
                         </div>

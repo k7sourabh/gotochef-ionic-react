@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
 import { heartCircleOutline, starOutline, createOutline, readerOutline, arrowForwardOutline, atCircleOutline, bookmarkOutline, fastFood, person, star, timeOutline } from "ionicons/icons";
@@ -6,14 +6,29 @@ import { IonAccordion, IonAccordionGroup } from '@ionic/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import '@ionic/react/css/ionic-swiper.css';
+import { getApiData } from "../../utils/Utils";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const RecipeDetails = () => {
   const [isReadMore, setIsReadMore] = useState(false);
+  const { slug } = useParams()
   console.log("isReadMore", isReadMore);
   const text = () => {
     setIsReadMore(true)
-
   }
+  // const recipeDetails = async () => {
+  //   try {
+  //     const response = await getApiData(`/getRecipeDetail/${slug}`);
+  //     console.log('jdjkdf', response)
+  //     // setUserProfileData(response?.data?.user_dashboard?.user_form_data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   recipeDetails();
+  // }, []);
   return (
     <IonPage>
       <Header />
