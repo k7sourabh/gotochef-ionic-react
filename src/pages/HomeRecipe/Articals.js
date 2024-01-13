@@ -17,7 +17,7 @@ const Articals = () => {
                   <IonButton className="backBtn" fill="clear" routerLink="/home">
                      <i class="material-icons dark">west</i>
                   </IonButton>
-                  <IonTitle color="dark">My Artical</IonTitle>
+                  <IonTitle color="dark">My Articles</IonTitle>
                </IonHeader>
                <IonGrid className="ion-no-padding">
                   <IonRow className="ion-padding-horizontal">
