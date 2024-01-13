@@ -6,17 +6,11 @@ import {
   IonChip,
   IonCol,
   IonContent,
-  IonGrid,
   IonHeader,
   IonIcon,
   IonLabel,
   IonPage,
   IonRow,
-  IonSearchbar,
-  IonSegment,
-  IonSegmentButton,
-  IonSlide,
-  IonSlides,
   IonTitle,
 } from "@ionic/react";
 import {
@@ -35,7 +29,7 @@ const MyRecipe = () => {
       <Header />
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="backBtn" fill="clear" routerLink="/home">
+          <IonButton className="backBtn" fill="clear" routerLink="/profile">
             <i class="material-icons dark">west</i>
           </IonButton>
           <IonTitle color="dark">My Recipe</IonTitle>

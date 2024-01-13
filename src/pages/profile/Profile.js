@@ -174,7 +174,7 @@ const Profile = () => {
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className="CardBtn" routerLink="/articals">
+                      <IonButton fill="clear" className="CardBtn" routerLink="/articles">
                         <div className="DashBoardImg">
                           <img
                             src="/assets/img/Articles.png"
