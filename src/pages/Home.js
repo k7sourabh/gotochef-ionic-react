@@ -89,7 +89,7 @@ const Home = () => {
             <IonTitle>
               Exclusive Product Stores
             </IonTitle>
-            <IonButton fill="clear" className='IconBtn' routerLink="/exclusive-products">
+            <IonButton fill="clear" className='IconBtn' size='small' routerLink="/exclusive-products">
               <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
             </IonButton>
           </IonHeader>
@@ -167,7 +167,7 @@ const Home = () => {
         <IonGrid className="ion-no-padding manage-product">
           <IonHeader className='TitleHead'>
             <IonTitle>See What’s Trending</IonTitle>
-            <IonButton fill="clear" className='IconBtn' routerLink="/trending-products">
+            <IonButton fill="clear" className='IconBtn' size='small' routerLink="/trending-products">
               <IonIcon color="dark" size="large" icon={chevronForwardCircleSharp} />
             </IonButton>
           </IonHeader>

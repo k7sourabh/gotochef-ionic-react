@@ -130,7 +130,7 @@ const Profile = () => {
                       </IonButton>
                     </IonCol>
 
-                    <IonCol size="4">
+                    {/* <IonCol size="4">
                       <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
                           <img
@@ -141,9 +141,10 @@ const Profile = () => {
                           <IonText>Add Product</IonText>
                         </div>
                       </IonButton>
-                    </IonCol>
+                    </IonCol> */}
+
                     <IonCol size="4">
-                      <IonButton fill="clear" className="CardBtn">
+                      <IonButton fill="clear" className="CardBtn" routerLink="/add-ingredient">
                         <div className="DashBoardImg">
                           <img
                             src="/assets/img/ingrediant.png"
@@ -158,7 +159,7 @@ const Profile = () => {
                     <IonCol size="4">
                       <IonButton
                         fill="clear"
-                        routerLink="/recipe-page"
+                        routerLink="/my-recipe"
                         className="CardBtn"
                       >
                         <div className="DashBoardImg">
@@ -173,7 +174,7 @@ const Profile = () => {
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className="CardBtn">
+                      <IonButton fill="clear" className="CardBtn" routerLink="/articals">
                         <div className="DashBoardImg">
                           <img
                             src="/assets/img/Articles.png"
@@ -186,7 +187,7 @@ const Profile = () => {
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className="CardBtn">
+                      <IonButton fill="clear" className="CardBtn" routerLink="/edit-profile">
                         <div className="DashBoardImg">
                           <img
                             src="/assets/img/ProfileSettings.png"
@@ -199,7 +200,7 @@ const Profile = () => {
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className="CardBtn">
+                      <IonButton fill="clear" className="CardBtn" routerLink="/change-password">
                         <div className="DashBoardImg">
                           <img
                             src="/assets/img/PasswordImg.png"
@@ -211,7 +212,7 @@ const Profile = () => {
                       </IonButton>
                     </IonCol>
 
-                    <IonCol size="4">
+                    {/* <IonCol size="4">
                       <IonButton fill="clear" className="CardBtn">
                         <div className="DashBoardImg">
                           <img
@@ -235,12 +236,12 @@ const Profile = () => {
                           <IonText>Lifestyle Settings</IonText>
                         </div>
                       </IonButton>
-                    </IonCol>
+                    </IonCol> */}
                   </IonRow>
                 </IonGrid>
               )}
-              {selectedTab === "SavedContent" && <div>sss</div>}
-              {selectedTab === "Leaderboard" && <div>jfjfkfjjfj</div>}
+              {selectedTab === "SavedContent" && <div className="ion-padding">Coming Soon</div>}
+              {selectedTab === "Leaderboard" && <div className="ion-padding">Coming Soon</div>}
             </IonCol>
           </IonRow>
         </IonGrid>

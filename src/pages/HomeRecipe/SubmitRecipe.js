@@ -1,5 +1,5 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTextarea, IonTitle } from "@ionic/react"
-import { person, timeOutline, close, closeCircle, closeOutline, trashOutline } from "ionicons/icons"
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTextarea, IonTitle } from "@ionic/react"
+import { person, timeOutline, closeOutline, trashOutline } from "ionicons/icons"
 import Header from "../../components/Header"
 
 const SubmitRecipe = () => {

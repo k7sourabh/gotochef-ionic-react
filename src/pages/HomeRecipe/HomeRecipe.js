@@ -108,7 +108,7 @@ const HomeRecipe = () => {
           </IonCol>
         </IonRow>
 
-        <IonRow className="ion-padding-vertical">
+        <IonRow className="ion-padding-top">
           <IonCol>
             <IonTitle color="dark">Popular Today</IonTitle>
           </IonCol>
@@ -211,7 +211,7 @@ const HomeRecipe = () => {
             ))}
         </IonRow>
 
-        <IonRow className="ion-padding-vertical ion-padding-horizontal ion-align-items-center">
+        <IonRow className="ion-padding-top ion-padding-horizontal ion-align-items-center">
           <IonCol size="6">
             <IonTitle color="dark" class="ion-no-padding">
               Recent
@@ -242,6 +242,7 @@ const HomeRecipe = () => {
                     </IonButton>
                   </div>
                   <div className="RecentProducts">
+                  <div className="RecipePro">
                     <img
                       className="RecentUserImg"
                       src={data?.images}
@@ -269,6 +270,8 @@ const HomeRecipe = () => {
                         </IonLabel>
                       </div>
                     </div>
+
+                  </div>
 
                     <div className="bottomRecipe">
                       <div className="productRecipe">
@@ -320,14 +323,14 @@ const HomeRecipe = () => {
             ))}
         </IonRow>
 
-        <IonRow className="ion-padding-vertical ion-padding-horizontal ion-align-items-center">
+        <IonRow className="ion-padding-top ion-padding-horizontal ion-align-items-center">
           <IonCol size="6">
             <IonTitle color="dark" class="ion-no-padding">
               My Recipes
             </IonTitle>
           </IonCol>
           <IonCol size="6" className="ion-text-right">
-            <IonLabel>See All</IonLabel>
+            <IonButton fill="clear" routerLink="/my-recipe" className="text-button">See All</IonButton>
           </IonCol>
         </IonRow>
         <IonRow>
@@ -340,20 +343,23 @@ const HomeRecipe = () => {
                 </IonButton>
               </div>
               <div className="RecentProducts">
-                <img
-                  className="RecentUserImg"
-                  src="/assets/img/1525870462-Listing.jpg"
-                  alt=""
-                />
-                <div className="TimeingBar">
-                  <div className="ReciRow">
-                    <IonIcon icon={atCircleOutline}></IonIcon>
-                    <IonLabel>Medium</IonLabel>
+                <div className="RecipePro">
+                  <img
+                    className="RecentUserImg"
+                    src="/assets/img/1525870462-Listing.jpg"
+                    alt=""
+                  />
+                  <div className="TimeingBar">
+                    <div className="ReciRow">
+                      <IonIcon icon={atCircleOutline}></IonIcon>
+                      <IonLabel>Medium</IonLabel>
+                    </div>
+                    <div className="ReciRow">
+                      <IonIcon icon={timeOutline}></IonIcon>
+                      <IonLabel>30 min</IonLabel>
+                    </div>
                   </div>
-                  <div className="ReciRow">
-                    <IonIcon icon={timeOutline}></IonIcon>
-                    <IonLabel>30 min</IonLabel>
-                  </div>
+
                 </div>
 
                 <div className="bottomRecipe">
@@ -401,20 +407,23 @@ const HomeRecipe = () => {
                 </IonButton>
               </div>
               <div className="RecentProducts">
-                <img
-                  className="RecentUserImg"
-                  src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
-                  alt=""
-                />
-                <div className="TimeingBar">
-                  <div className="ReciRow">
-                    <IonIcon icon={atCircleOutline}></IonIcon>
-                    <IonLabel>Medium</IonLabel>
+                <div className="RecipePro">
+                  <img
+                    className="RecentUserImg"
+                    src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
+                    alt=""
+                  />
+                  <div className="TimeingBar">
+                    <div className="ReciRow">
+                      <IonIcon icon={atCircleOutline}></IonIcon>
+                      <IonLabel>Medium</IonLabel>
+                    </div>
+                    <div className="ReciRow">
+                      <IonIcon icon={timeOutline}></IonIcon>
+                      <IonLabel>30 min</IonLabel>
+                    </div>
                   </div>
-                  <div className="ReciRow">
-                    <IonIcon icon={timeOutline}></IonIcon>
-                    <IonLabel>30 min</IonLabel>
-                  </div>
+
                 </div>
 
                 <div className="bottomRecipe">

@@ -31,14 +31,12 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import CategoryProducts from "./pages/Products/CategoryProducts";
 import Product from "./pages/Products/Product";
-import FavouriteProducts from "./pages/Products/FavouriteProducts";
 import CartProducts from "./pages/Products/CartProducts";
 import Welcome from "./pages/Welcome/Welcome";
 import "./theme/global.css";
 import { SplashScreen } from "@capacitor/splash-screen";
 import AddPayment from "./pages/Payment/AddPayment";
 import MainCategory from "./pages/Products/MainCategory";
-import AddAddress from "./pages/AddAddress/AddAddress";
 import HomeRecipe from "./pages/HomeRecipe/HomeRecipe";
 import Profile from "./pages/profile/Profile";
 import OrderList from "./pages/myorder/OrderList";
@@ -52,7 +50,6 @@ import ViewTrendingProduct from "./pages/ViewTrendingProduct";
 import ProductCard from "./components/ProductCard";
 import SearchProduct from "./pages/Products/SearchProduct";
 import Dashboard from "./pages/profile/DashBoard";
-import RecipePage from "./pages/HomeRecipe/RecipePage";
 import VeganRecipe from "./pages/HomeRecipe/VeganRecipe";
 import NutriBudy from "./pages/Products/NutriBudy";
 import MyProfile from "./pages/EditProfile/MyProfile";
@@ -62,8 +59,10 @@ import { useEffect } from "react";
 import Articals from "./pages/HomeRecipe/Articals";
 import OrderDetails from "./pages/myorder/OrderDetails";
 import OrderConfirm from "./pages/Products/OrderConfirm";
-import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./context/PrivateRoute";
+import RecipeDetails from "./pages/HomeRecipe/RecipeDetails";
+import MyRecipe from "./pages/HomeRecipe/MyRecipe";
+import AddIngredient from "./pages/Ingredient/AddIngredient";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -100,31 +99,30 @@ const App = () => {
           {window.location.pathname !== "/welcome" && (
             <IonTabs>
               <IonRouterOutlet>
-                  <PrivateRoute path="/add-payment" component={AddPayment} />
-                  <PrivateRoute path="/vegan-recipe" component={VeganRecipe} />
-                  <PrivateRoute
-                    path="/submit-recipe"
-                    component={SubmitRecipe}
-                  />
-                  <PrivateRoute
-                    path="/order-details/:id"
-                    component={OrderDetails}
-                  />
-                  <PrivateRoute path="/articals" component={Articals} />
-                  <PrivateRoute path="/profile" component={Profile} />
-                  <PrivateRoute path="/my-profile" component={MyProfile} />
-                  <PrivateRoute path="/dashboard" component={Dashboard} />
-                  <PrivateRoute path="/order-list" component={OrderList} />
-                  <PrivateRoute path="/wish-list" component={WishList} />
-                  <PrivateRoute
-                    path="/change-password"
-                    component={ChangePassword}
-                  />
-                  <PrivateRoute path="/edit-profile" component={EditProfile} />
-                  <PrivateRoute
-                    path="/order-confirm"
-                    component={OrderConfirm}
-                  />
+                <PrivateRoute path="/add-payment" component={AddPayment} />
+                <PrivateRoute path="/vegan-recipe" component={VeganRecipe} />
+                <PrivateRoute path="/submit-recipe" component={SubmitRecipe} />
+                <PrivateRoute
+                  path="/order-details/:id"
+                  component={OrderDetails}
+                />
+                <PrivateRoute path="/articles" component={Articals} />
+                <PrivateRoute path="/profile" component={Profile} />
+                <PrivateRoute path="/my-profile" component={MyProfile} />
+                <PrivateRoute path="/dashboard" component={Dashboard} />
+                <PrivateRoute path="/order-list" component={OrderList} />
+                <PrivateRoute path="/wish-list" component={WishList} />
+                <PrivateRoute
+                  path="/change-password"
+                  component={ChangePassword}
+                />
+                <PrivateRoute path="/edit-profile" component={EditProfile} />
+                <PrivateRoute path="/order-confirm" component={OrderConfirm} />
+                <PrivateRoute
+                  path="/add-ingredient"
+                  component={AddIngredient}
+                />
+                <PrivateRoute path="/my-recipe" component={MyRecipe} />
 
                 <Route path="/" exact={true}>
                   <Redirect to="/home" />
@@ -133,6 +131,7 @@ const App = () => {
                 <Route path="/home" exact={true}>
                   <Home />
                 </Route>
+
                 <Route path="/cart" exact>
                   <CartProducts />
                 </Route>
@@ -155,9 +154,11 @@ const App = () => {
                 <Route path="/home-recipe" exact>
                   <HomeRecipe />
                 </Route>
-                <Route path="/recipe-detail" exact>
-                  <RecipePage />
+
+                <Route path="/recipe-details" exact>
+                  <RecipeDetails />
                 </Route>
+
                 <Route path="/exclusive-products" exact>
                   <ViewExclusiveProduct />
                 </Route>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IonButton,
   IonCard,
@@ -9,8 +9,6 @@ import {
   IonContent,
   IonGrid,
   IonIcon,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
   IonPage,
   IonRow,
   IonSearchbar,
@@ -18,7 +16,7 @@ import {
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { postApiData } from "../../utils/Utils";
-import { bookmarkOutline, star, SearchOutLine, searchOutline } from "ionicons/icons";
+import { bookmarkOutline, star, searchOutline } from "ionicons/icons";
 import { add } from "lodash";
 import debounce from "lodash/debounce";
 
@@ -48,19 +46,24 @@ const SearchProduct = () => {
       <Header />
       <IonContent>
         <IonGrid className="ion-no-padding">
-          {/* <input onChange={(e) => setQuery(e.target.value)} /> */}
-          <IonSearchbar
-          className="searchBar"
-            value={query}
-            onIonChange={(e) => setQuery(e.detail.value)}
-          />
-          <IonButton
-            className="IconBtn SerchBtn"
-            fill="clear"
-            onClick={debouncedHandleSubmit}
-          >
-            <IonIcon color="primary" size="small" icon={searchOutline} />
-          </IonButton>
+          <IonRow>
+            <IonCol size="12" className="ion-padding">
+              <div className="SerchBox">
+                <IonSearchbar
+                  className="searchBar"
+                  value={query}
+                  onIonChange={(e) => setQuery(e.detail.value)}
+                />
+                <IonButton
+                  className="IconBtn SerchBtn"
+                  fill="clear"
+                  onClick={debouncedHandleSubmit}
+                >
+                  <IonIcon color="primary" size="small" icon={searchOutline} />
+                </IonButton>
+              </div>
+            </IonCol>
+          </IonRow>
 
           <IonGrid className="ion-no-padding">
             <IonRow>

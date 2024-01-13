@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IonButton,
   IonButtons,
@@ -15,7 +15,6 @@ import {
   IonMenuButton,
   IonMenuToggle,
   IonRow,
-  IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -26,7 +25,6 @@ import {
   bookmarkOutline,
   fastFoodOutline,
   gridOutline,
-  locationOutline,
   logInOutline,
   logOutOutline,
   personOutline,
@@ -50,6 +48,64 @@ const Header = () => {
   };
   return (
     <>
+      <IonHeader id="main-content">
+        <IonToolbar>
+          <IonGrid className="ion-no-padding">
+            <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
+              <IonCol size="auto">
+                <IonButton
+                  fill="clear"
+                  routerLink="/home"
+                  className="text-button"
+                >
+                  <div className="LogoGroup">
+                    <IonImg
+                      src={headerImage?.header_logo}
+                      alt="Images"
+                      className="mainLogo"
+                    />
+                    <img
+                      src="/assets/img/ScanIcon.png"
+                      alt="Images"
+                      className="logoTag"
+                      routerLink="/home"
+                    />
+                  </div>
+                </IonButton>
+              </IonCol>
+
+              <IonCol size="auto" className="ion-justify-content-end">
+                <IonButtons className="ion-justify-content-end">
+                  <IonButton className="IconBtn" routerLink="/search-product">
+                    <img
+                      src="/assets/img/Search.png"
+                      alt="Images"
+                      className="TopBarIcons"
+                    />
+                  </IonButton>
+
+                  <IonButton className="IconBtn" routerLink="/submit-recipe">
+                    <img
+                      src="/assets/img/edit.png"
+                      alt="Images"
+                      className="TopBarIcons"
+                    />
+                  </IonButton>
+
+                  <IonMenuButton>
+                    <img
+                      src="/assets/img/menu.png"
+                      alt="Images"
+                      className="TopBarIcons"
+                    />
+                  </IonMenuButton>
+                </IonButtons>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonToolbar>
+      </IonHeader>
+
       <IonMenu side="end" contentId="main-content">
         <IonHeader className="MenuHead">
           <IonToolbar className="ion-padding">
@@ -154,64 +210,6 @@ const Header = () => {
           </IonList>
         </IonContent>
       </IonMenu>
-
-      <IonHeader id="main-content">
-        <IonToolbar>
-          <IonGrid className="ion-no-padding">
-            <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
-              <IonCol size="auto">
-                <IonButton
-                  fill="clear"
-                  routerLink="/home"
-                  className="text-button"
-                >
-                  <div className="LogoGroup">
-                    <IonImg
-                      src={headerImage?.header_logo}
-                      alt="Images"
-                      className="mainLogo"
-                    />
-                    <img
-                      src="/assets/img/ScanIcon.png"
-                      alt="Images"
-                      className="logoTag"
-                      routerLink="/home"
-                    />
-                  </div>
-                </IonButton>
-              </IonCol>
-
-              <IonCol size="auto" className="ion-justify-content-end">
-                <IonButtons className="ion-justify-content-end">
-                  <IonButton className="IconBtn" routerLink="/search-product">
-                    <img
-                      src="/assets/img/Search.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
-
-                  <IonButton className="IconBtn" routerLink="/home-recipe">
-                    <img
-                      src="/assets/img/edit.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
-
-                  <IonMenuButton>
-                    <img
-                      src="/assets/img/menu.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonMenuButton>
-                </IonButtons>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonToolbar>
-      </IonHeader>
 
       <LoginPopup
         isOpen={isOpenLogin}
