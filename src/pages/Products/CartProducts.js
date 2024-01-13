@@ -29,13 +29,16 @@ import { CartStore } from "../../data/CartStore";
 import { ProductStore } from "../../data/ProductStore";
 import Header from "../../components/Header";
 import styles from "./CartProducts.module.css";
-
+import { useCart } from "../../contexts/CartProvider";
+import { set } from "./../../services/Storage";
 const CartProducts = () => {
   const products = ProductStore.useState((s) => s.products);
   const shopCart = CartStore.useState((s) => s.product_ids);
   const [cartProducts, setCartProducts] = useState([]);
   const [, /* total */ setTotal] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const {cartItems, setCartItems, removeFromCart} = useCart();
+  const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
     const getCartProducts = () => {
@@ -71,6 +74,24 @@ const CartProducts = () => {
     getCartProducts();
   }, [shopCart]);
 
+  useEffect(()=> {
+    setCartTotal(cartItems.reduce((total, item) => total + item.quantity * parseInt(item.prod_details.offer_price), 0));
+  }, [cartItems])
+
+  const handleQuantityChange = (product, quantity) => {
+    if(quantity === 0) {
+      removeFromCart(product);
+      return;
+    }
+    let cart = [...cartItems];
+    let index = cartItems.findIndex(
+      (cartItem) => cartItem.product_id === product.product_id && cartItem.pro_variant_id === product.pro_variant_id
+    );
+    cart[index].quantity = quantity;
+    setCartItems(cart);
+    set("cartItems",cart);
+  }
+
   return (
     <IonPage id="cart-page">
       <Header />
@@ -86,7 +107,7 @@ const CartProducts = () => {
         <IonGrid className="ion-no-padding">
           <IonRow className="bottom-shadow">
             <IonCol size="12">
-              <IonItemSliding className={styles.ItemSlide}>
+              {cartItems && cartItems.map((item, index) => <IonItemSliding key={index} className={styles.ItemSlide}>
                 <IonItem>
                   <IonLabel>
                     <div className={styles.productDetails}>
@@ -96,23 +117,23 @@ const CartProducts = () => {
 
                       <div className={styles.productInfo}>
                         <IonText color="dark" className={styles.productTitle}>
-                          Kissan Fresh Tamato
+                          {item.prod_details.name}
                         </IonText>
                         <IonText color="dark" className={styles.productCate}>
-                          By Kissan
+                          By {item.prod_details.brand_name}
                         </IonText>
                         <IonText color="dark" className={styles.productQty}>
-                          500gms
+                          {item.variant}
                         </IonText>
                       </div>
                     </div>
 
                     <div className={styles.priceInfo}>
                       <IonText color="dark" className={styles.currentPrice}>
-                        ₹110.00
+                        ₹{item.prod_details.offer_price*item.quantity}
                       </IonText>
                       <IonText color="dark" className={styles.oldPrice}>
-                        ₹160.00
+                        ₹{item.prod_details.main_price}
                       </IonText>
                     </div>
                   </IonLabel>
@@ -121,22 +142,20 @@ const CartProducts = () => {
                 <IonItemOptions>
                   <IonItemOption className="BgNone">
                     <div className="QtyBlock">
-                      <IonButton fill="clear" className="IconBtn">
+                      <IonButton onClick={()=>handleQuantityChange(item, item.quantity - 1)} fill="clear" className="IconBtn">
                         <IonIcon color="dark" size="large" icon={remove} />
                       </IonButton>
 
-                      <IonInput value="1"></IonInput>
+                      <IonInput readonly value={item.quantity}></IonInput>
 
-                      <IonButton fill="clear" className="IconBtn">
+                      <IonButton onClick={()=>handleQuantityChange(item, item.quantity + 1)} fill="clear" className="IconBtn">
                         <IonIcon color="dark" size="large" icon={add} />
                       </IonButton>
                     </div>
                   </IonItemOption>
-
-                  <IonItemOption color="secondary">Save</IonItemOption>
-                  <IonItemOption color="danger">Delete</IonItemOption>
+                  <IonItemOption onClick={() => removeFromCart(item)} color="danger">Delete</IonItemOption>
                 </IonItemOptions>
-              </IonItemSliding>
+              </IonItemSliding>)}
             </IonCol>
           </IonRow>
 
@@ -207,7 +226,7 @@ const CartProducts = () => {
               <IonText>Subtotal</IonText>
             </IonCol>
             <IonCol size="3" className="ion-text-right">
-              <IonText>110.00</IonText>
+              <IonText>{cartTotal}</IonText>
             </IonCol>
           </IonRow>
           <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
@@ -218,7 +237,7 @@ const CartProducts = () => {
               <IonText>Free</IonText>
             </IonCol>
           </IonRow>
-          <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
+          {/* <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
             <IonCol size="5">
               <IonText>Discount</IonText>
             </IonCol>
@@ -233,7 +252,7 @@ const CartProducts = () => {
             <IonCol size="3" className="ion-text-right">
               <IonText>11.00</IonText>
             </IonCol>
-          </IonRow>
+          </IonRow> */}
           <div className="Divider"></div>
           <IonRow className="ion-padding-horizontal ion-padding ion-justify-content-between bottom-shadow">
             <IonCol size="5">
@@ -243,7 +262,7 @@ const CartProducts = () => {
             </IonCol>
             <IonCol size="3" className="ion-text-right">
               <IonText>
-                <strong>99.00</strong>
+                <strong>{cartTotal}</strong>
               </IonText>
             </IonCol>
           </IonRow>

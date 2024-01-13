@@ -48,7 +48,7 @@ const Header = () => {
   };
   return (
     <>
-      <IonHeader id="main-content">
+    <IonHeader id="main-content">
         <IonToolbar>
           <IonGrid className="ion-no-padding">
             <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
@@ -119,6 +119,7 @@ const Header = () => {
             </IonTitle>
           </IonToolbar>
         </IonHeader>
+
         <IonContent className="ion-padding">
           <IonList>
             {authenticated ? (

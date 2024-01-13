@@ -56,6 +56,7 @@ import MyProfile from "./pages/EditProfile/MyProfile";
 import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
 import { createStore } from "./services/Storage";
 import { useEffect } from "react";
+import { CartProvider } from "./contexts/CartProvider";
 import Articals from "./pages/HomeRecipe/Articals";
 import OrderDetails from "./pages/myorder/OrderDetails";
 import OrderConfirm from "./pages/Products/OrderConfirm";
@@ -88,6 +89,7 @@ const App = () => {
   }, []);
 
   return (
+    <CartProvider>
     <ApiProvider>
       <IonApp>
         <IonReactRouter>
@@ -218,6 +220,7 @@ const App = () => {
         </IonReactRouter>
       </IonApp>
     </ApiProvider>
+    </CartProvider>
   );
 };
 
