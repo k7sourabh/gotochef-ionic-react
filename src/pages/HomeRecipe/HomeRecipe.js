@@ -7,8 +7,6 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
-  IonInput,
-  IonItem,
   IonLabel,
   IonPage,
   IonRow,
@@ -17,20 +15,15 @@ import {
   IonSegmentButton,
   IonSlide,
   IonSlides,
-  IonText,
   IonTitle,
 } from "@ionic/react";
 import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import {
-  arrowForwardCircle,
   atCircleOutline,
   bookmarkOutline,
-  bookmarkSharp,
-  flameOutline,
   person,
   pint,
-  search,
   star,
   timeOutline,
 } from "ionicons/icons";

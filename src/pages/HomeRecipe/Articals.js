@@ -1,7 +1,6 @@
-import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonList, IonLabel, IonItem, IonIcon, IonImg, IonHeader, IonButton, IonTitle, IonChip, IonCard } from "@ionic/react";
+import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonLabel, IonHeader, IonButton, IonTitle,  IonCard } from "@ionic/react";
 import Header from "../../components/Header";
 import { useState } from "react";
-import { atCircleOutline, bookmarkOutline, lockClosed, person, pint, refreshCircleOutline, star, timeOutline } from "ionicons/icons";
 
 const Articals = () => {
    const [selectedTabladder, setSelectedTabladder] = useState("Submitted");
@@ -14,7 +13,7 @@ const Articals = () => {
             <Header />
             <IonContent>
                <IonHeader className="TitleHead bottom-shadow">
-                  <IonButton className="backBtn" fill="clear" routerLink="/home">
+                  <IonButton className="backBtn" fill="clear" routerLink="/profile">
                      <i class="material-icons dark">west</i>
                   </IonButton>
                   <IonTitle color="dark">My Articles</IonTitle>
@@ -51,9 +50,9 @@ const Articals = () => {
                                              alt=""
                                           />
                                           <div className="bottomArtical">
-                                                <IonText>
-                                                   Margerrita Pizza: A classic food to relish
-                                                </IonText>
+                                             <IonText>
+                                                Margerrita Pizza: A classic food to relish
+                                             </IonText>
                                              <div className="productRecipe">
                                                 <IonText className="ArticalTextName">By Chiara</IonText>
                                                 <IonText className="ArticalTextDate">15 Oct, 2020</IonText>
@@ -82,9 +81,9 @@ const Articals = () => {
                                              alt=""
                                           />
                                           <div className="bottomArtical">
-                                                <IonText>
-                                                   Margerrita Pizza: A classic food to relish
-                                                </IonText>
+                                             <IonText>
+                                                Margerrita Pizza: A classic food to relish
+                                             </IonText>
                                              <div className="productRecipe">
                                                 <IonText className="ArticalTextName">By Chiara</IonText>
                                                 <IonText className="ArticalTextDate">15 Oct, 2020</IonText>
@@ -110,7 +109,7 @@ const Articals = () => {
                                  <IonCol>
                                     <div className="NoSubmitBtn">
                                        <IonButton fill="clear">
-                                             No Submitted Recipes
+                                          No Submitted Recipes
                                        </IonButton>
                                     </div>
                                  </IonCol>
