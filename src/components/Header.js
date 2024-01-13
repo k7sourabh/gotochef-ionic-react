@@ -43,7 +43,7 @@ const Header = () => {
   const handleLogout = () => {
     // Add logout logic here
     logout();
-    localStorage.setItem('auth', 'false')
+    localStorage.setItem("auth", "false");
     history.push("/"); // Redirect to the login page after logout
   };
   return (
@@ -83,14 +83,15 @@ const Header = () => {
                       className="TopBarIcons"
                     />
                   </IonButton>
-
-                  <IonButton className="IconBtn" routerLink="/submit-recipe">
-                    <img
-                      src="/assets/img/edit.png"
-                      alt="Images"
-                      className="TopBarIcons"
-                    />
-                  </IonButton>
+                  {authenticated && (
+                    <IonButton className="IconBtn" routerLink="/submit-recipe">
+                      <img
+                        src="/assets/img/edit.png"
+                        alt="Images"
+                        className="TopBarIcons"
+                      />
+                    </IonButton>
+                  )}
 
                   <IonMenuButton>
                     <img
