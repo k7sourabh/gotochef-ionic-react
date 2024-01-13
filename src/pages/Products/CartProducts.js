@@ -38,7 +38,6 @@ const CartProducts = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    console.log(cartProducts);
     const getCartProducts = () => {
       setCartProducts([]);
       setTotal(0);

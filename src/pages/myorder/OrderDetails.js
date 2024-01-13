@@ -11,7 +11,6 @@ const OrderDetails = ()=> {
   const orderDetailsApi = async () => {
     try {
       const response = await getApiData(`/order-details/${id}`);
-      console.log("orderDetailsApi", response?.data?.product_data);
       setProductData(response?.data?.product_data)
     } catch (e) {
       console.log(e);

@@ -26,7 +26,6 @@ const Profile = () => {
   const userProfile = async () => {
     try {
       const response = await getApiData(`/user-dashboard`);
-      console.log("pro", response?.data?.user_dashboard?.user_form_data);
       setUserProfileData(response?.data?.user_dashboard?.user_form_data);
     } catch (e) {
       console.log(e);
@@ -84,12 +83,12 @@ const Profile = () => {
                 <IonText>Points</IonText>
               </div>
             </IonCol>
-            <IonCol>
+            {/* <IonCol>
               <div className="profileBioText">
                 <IonText>1.2k</IonText>
                 <IonText>Followers</IonText>
               </div>
-            </IonCol>
+            </IonCol> */}
           </IonRow>
         </IonGrid>
         <IonGrid className="ion-no-padding">

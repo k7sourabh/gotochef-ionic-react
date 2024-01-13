@@ -13,10 +13,8 @@ import '@ionic/react/css/ionic-swiper.css';
 
 const RecipePage = () => {
     const [isReadMore, setIsReadMore] = useState(false);
-    console.log("isReadMore", isReadMore);
     const text = () => {
         setIsReadMore(true)
-
     }
     return (
         <IonPage>

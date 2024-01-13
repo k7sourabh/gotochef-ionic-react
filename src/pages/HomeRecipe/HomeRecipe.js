@@ -40,6 +40,8 @@ import { getApiData } from "../../utils/Utils";
 const HomeRecipe = () => {
   const [selectedTab, setSelectedTab] = useState("Vegan");
   const [popularData, setPopularData] = useState([]);
+  const [recentlyAdded, setRecentlyAdded] = useState([]);
+  const [allRecentData, setAllRecent] = useState(true)
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
   };
@@ -47,9 +49,8 @@ const HomeRecipe = () => {
   const homeRecipeApi = async () => {
     try {
       const response = await getApiData(`/getAllRecipes`);
-      console.log("orde", response?.data);
-      console.log("popular", response?.data?.data?.popular);
       setPopularData(response?.data?.data?.popular);
+      setRecentlyAdded(response?.data?.data?.recentlyAdded); 
     } catch (e) {
       console.log(e);
     }
@@ -58,6 +59,15 @@ const HomeRecipe = () => {
   useEffect(() => {
     homeRecipeApi();
   }, []);
+
+  const seeAllRecent = () => {
+    // setAllRecent(false)
+    // if(!allRecentData){
+    //   setRecentlyAdded(allRecentData);
+    // }else{
+    //   setRecentlyAdded(allRecentData.slice(0,2));
+    // }
+  }
 
   return (
     <IonPage>
@@ -110,7 +120,11 @@ const HomeRecipe = () => {
               <IonCol size="6" key={i}>
                 <div className="ProductCard">
                   <div className="vegIcon">
-                   {data?.foodtype === "vegetarian" ? <img src="/assets/img/icon-veg.svg" alt="" /> :<img src="/assets/img/non-veg-icon.svg" alt="" /> } 
+                    {data?.foodtype === "vegetarian" ? (
+                      <img src="/assets/img/icon-veg.svg" alt="" />
+                    ) : (
+                      <img src="/assets/img/non-veg-icon.svg" alt="" />
+                    )}
                     <IonButton fill="clear" className="saveIcon">
                       <IonIcon
                         size="large"
@@ -121,11 +135,11 @@ const HomeRecipe = () => {
                   </div>
                   <div className="RecipePro">
                     <img
-                      src={data?.images2}
+                      src={data?.images}
                       alt=""
                       // routerLink="/recipe-page"
                       onError={(e) => {
-                        e.target.onerror = null; 
+                        e.target.onerror = null;
                         e.target.src = "/assets/img/img-placeholder.jpg";
                       }}
                     />
@@ -136,7 +150,15 @@ const HomeRecipe = () => {
                       </div>
                       <div className="ReciRow">
                         <IonIcon icon={timeOutline}></IonIcon>
-                        <IonLabel>{data?.cook_time.split('')[0]} {data?.cook_time.split(' ')[1] === 'minutes' ? 'min' : data?.cook_time.split(' ')[1] === 'Hours' ? 'hrs': 'sec'}</IonLabel>
+                        <IonLabel>
+                          {data?.cook_time}
+                          {/* {data?.cook_time.split("")[0]}{" "}
+                          {data?.cook_time.split(" ")[1] === "minutes" || data?.cook_time.split("")[1] === "minutes"
+                            ? "min"
+                            : data?.cook_time.split(" ")[1] || data?.cook_time.split("")[1]=== "Hours"
+                            ? "hrs"
+                            : "sec"} */}
+                        </IonLabel>
                       </div>
                     </div>
                   </div>
@@ -155,17 +177,28 @@ const HomeRecipe = () => {
                     </div>
                     <div className="productRecipe">
                       <div className="ProfileRecipe">
-                        <img src="/assets/img/profile.jpg" alt="Images" />
-                        <IonLabel>Deepanjali</IonLabel>
+                        <img
+                          src={
+                            !data?.userDetail?.avatar
+                              ? "/assets/img/img-placeholder.jpg"
+                              : data?.userDetail?.avatar
+                          }
+                          alt="Images"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/assets/img/img-placeholder.jpg";
+                          }}
+                        />
+                        <IonLabel>{data?.userDetail?.first_name}</IonLabel>
                       </div>
                       <div className="ProfileRecipe">
-                        <IonIcon
+                        {/* <IonIcon
                           size="medium"
                           aria-hidden="true"
                           icon={person}
                           slot="start"
                         ></IonIcon>
-                        <span>2</span>
+                        <span>2</span> */}
                         <IonChip className="GreenDesign">
                           <span>0</span>
                           <IonIcon color="light" size="small" icon={star} />
@@ -185,133 +218,106 @@ const HomeRecipe = () => {
             </IonTitle>
           </IonCol>
           <IonCol size="6" className="ion-text-right">
-            <IonLabel>See All</IonLabel>
+            <IonLabel onClick={seeAllRecent}>See All</IonLabel>
           </IonCol>
         </IonRow>
 
         <IonRow>
-          <IonCol size="6">
-            <IonCard className="ProductCard">
-              <div className="vegIcon">
-                <img src="/assets/img/icon-veg.svg" alt="" />
-                <IonButton fill="clear" className="saveIcon">
-                  <IonIcon size="large" color="danger" icon={bookmarkOutline} />
-                </IonButton>
-              </div>
-              <div className="RecentProducts">
-                <img
-                  className="RecentUserImg"
-                  src="/assets/img/1525870462-Listing.jpg"
-                  alt=""
-                />
-                <div className="TimeingBar">
-                  <div className="ReciRow">
-                    <IonIcon icon={atCircleOutline}></IonIcon>
-                    <IonLabel>Medium</IonLabel>
+          {recentlyAdded &&
+            recentlyAdded.slice(0,2).map((data, i) => (
+              <IonCol size="6" key={i}>
+                <IonCard className="ProductCard">
+                  <div className="vegIcon">
+                    {data?.foodtype === "vegetarian" ? (
+                      <img src="/assets/img/icon-veg.svg" alt="" />
+                    ) : (
+                      <img src="/assets/img/non-veg-icon.svg" alt="" />
+                    )}
+                    <IonButton fill="clear" className="saveIcon">
+                      <IonIcon
+                        size="large"
+                        color="danger"
+                        icon={bookmarkOutline}
+                      />
+                    </IonButton>
                   </div>
-                  <div className="ReciRow">
-                    <IonIcon icon={timeOutline}></IonIcon>
-                    <IonLabel>30 min</IonLabel>
-                  </div>
-                </div>
+                  <div className="RecentProducts">
+                    <img
+                      className="RecentUserImg"
+                      src={data?.images}
+                      alt=""
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/assets/img/img-placeholder.jpg";
+                      }}
+                    />
+                    <div className="TimeingBar">
+                      <div className="ReciRow">
+                        <IonIcon icon={atCircleOutline}></IonIcon>
+                        <IonLabel>Medium</IonLabel>
+                      </div>
+                      <div className="ReciRow">
+                        <IonIcon icon={timeOutline}></IonIcon>
+                        <IonLabel>
+                          {data?.cook_time}
+                          {/* {data?.cook_time.split("")[0]}{" "}
+                          {data?.cook_time.split(" ")[1] === "minutes"
+                            ? "min"
+                            : data?.cook_time.split(" ")[1] === "Hours"
+                            ? "hrs"
+                            : "sec"} */}
+                        </IonLabel>
+                      </div>
+                    </div>
 
-                <div className="bottomRecipe">
-                  <div className="productRecipe">
-                    <span>Chicken Caesar Salad</span>
-                    <div className="productRecipe">
-                      <IonIcon
-                        size="medium"
-                        aria-hidden="true"
-                        icon={pint}
-                        slot="start"
-                      ></IonIcon>
-                      <IonLabel>Breakfast</IonLabel>
+                    <div className="bottomRecipe">
+                      <div className="productRecipe">
+                        <span>{data?.recipesName}</span>
+                        <div className="productRecipe">
+                          <IonIcon
+                            size="medium"
+                            aria-hidden="true"
+                            icon={pint}
+                            slot="start"
+                          ></IonIcon>
+                          <IonLabel>Breakfast</IonLabel>
+                        </div>
+                      </div>
+                      <div className="productRecipe">
+                        <div className="ProfileRecipe">
+                          <img
+                            src={
+                              !data?.userDetail?.avatar
+                                ? "/assets/img/img-placeholder.jpg"
+                                : data?.userDetail?.avatar
+                            }
+                            alt="Images"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "/assets/img/img-placeholder.jpg";
+                            }}
+                          />
+                          <IonLabel>{data?.userDetail?.first_name}</IonLabel>
+                        </div>
+                        <div className="ProfileRecipe">
+                          {/* <IonIcon
+                            size="medium"
+                            aria-hidden="true"
+                            icon={person}
+                            slot="start"
+                          ></IonIcon>
+                          <span>2</span> */}
+                          <IonChip className="GreenDesign">
+                            <span>0</span>
+                            <IonIcon color="light" size="small" icon={star} />
+                          </IonChip>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="productRecipe">
-                    <div className="ProfileRecipe">
-                      <img src="/assets/img/profile.jpg" alt="Images" />
-                      <IonLabel>Deepanjali</IonLabel>
-                    </div>
-                    <div className="ProfileRecipe">
-                      <IonIcon
-                        size="medium"
-                        aria-hidden="true"
-                        icon={person}
-                        slot="start"
-                      ></IonIcon>
-                      <span>2</span>
-                      <IonChip className="GreenDesign">
-                        <span>0</span>
-                        <IonIcon color="light" size="small" icon={star} />
-                      </IonChip>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </IonCard>
-          </IonCol>
-          <IonCol size="6">
-            <IonCard className="ProductCard">
-              <div className="vegIcon">
-                <img src="/assets/img/icon-veg.svg" alt="" />
-                <IonButton fill="clear" className="saveIcon">
-                  <IonIcon size="large" color="danger" icon={bookmarkOutline} />
-                </IonButton>
-              </div>
-              <div className="RecentProducts">
-                <img
-                  className="RecentUserImg"
-                  src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
-                  alt=""
-                />
-                <div className="TimeingBar">
-                  <div className="ReciRow">
-                    <IonIcon icon={atCircleOutline}></IonIcon>
-                    <IonLabel>Medium</IonLabel>
-                  </div>
-                  <div className="ReciRow">
-                    <IonIcon icon={timeOutline}></IonIcon>
-                    <IonLabel>30 min</IonLabel>
-                  </div>
-                </div>
-
-                <div className="bottomRecipe">
-                  <div className="productRecipe">
-                    <span>Chicken Caesar Salad</span>
-                    <div className="productRecipe">
-                      <IonIcon
-                        size="medium"
-                        aria-hidden="true"
-                        icon={pint}
-                        slot="start"
-                      ></IonIcon>
-                      <IonLabel>Breakfast</IonLabel>
-                    </div>
-                  </div>
-                  <div className="productRecipe">
-                    <div className="ProfileRecipe">
-                      <img src="/assets/img/profile.jpg" alt="Images" />
-                      <IonLabel>Deepanjali</IonLabel>
-                    </div>
-                    <div className="ProfileRecipe">
-                      <IonIcon
-                        size="medium"
-                        aria-hidden="true"
-                        icon={person}
-                        slot="start"
-                      ></IonIcon>
-                      <span>2</span>
-                      <IonChip className="GreenDesign">
-                        <span>0</span>
-                        <IonIcon color="light" size="small" icon={star} />
-                      </IonChip>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </IonCard>
-          </IonCol>
+                </IonCard>
+              </IonCol>
+            ))}
         </IonRow>
 
         <IonRow className="ion-padding-vertical ion-padding-horizontal ion-align-items-center">

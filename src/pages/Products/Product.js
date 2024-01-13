@@ -56,7 +56,6 @@ const Product = () => {
     try {
       const response = await getApiData(`productdetails_json/${id}`);
       dismiss();
-      console.log(response?.data?.data?.product_details.product_variant_result)
       setProductData(response?.data?.data?.product_details);
       setAllProductData(response);
     } catch (e) {

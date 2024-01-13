@@ -16,7 +16,6 @@ const OrderList = () => {
   const orderList = async () => {
     try {
       const response = await getApiData(`/order-list`);
-      console.log("orde", response?.data?.order_list);
       setOrderListData(response?.data?.order_list);
     } catch (e) {
       console.log(e);
