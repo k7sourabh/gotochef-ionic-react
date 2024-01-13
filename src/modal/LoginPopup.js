@@ -96,10 +96,10 @@ const LoginPopup = (props) => {
                       label="Default input"
                       placeholder="Enter your username/email"
                     ></IonInput>
-                    {errors.email && touched.email ? (
-                      <div>{errors.email}</div>
-                    ) : null}
                   </div>
+                  {errors.email && touched.email ? (
+                    <span className="error-text">{errors.email}</span>
+                  ) : null}
 
                   <div className="loginInput">
                     <img
@@ -116,10 +116,10 @@ const LoginPopup = (props) => {
                       label="Default input"
                       placeholder="Enter your password"
                     ></IonInput>
-                    {errors.password && touched.password ? (
-                      <div>{errors.password}</div>
-                    ) : null}
                   </div>
+                    {errors.password && touched.password ? (
+                      <span className="error-text">{errors.password}</span>
+                    ) : null}
                   <IonText
                     color="dark"
                     className="forgotPass"

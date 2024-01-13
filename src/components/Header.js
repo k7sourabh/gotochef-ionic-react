@@ -14,7 +14,6 @@ import {
   IonMenu,
   IonMenuButton,
   IonMenuToggle,
-  IonPage,
   IonRow,
   IonTitle,
   IonToolbar,
@@ -49,7 +48,7 @@ const Header = () => {
   };
   return (
     <>
-      <IonHeader id="main-content">
+    <IonHeader id="main-content">
         <IonToolbar>
           <IonGrid className="ion-no-padding">
             <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
@@ -93,13 +92,13 @@ const Header = () => {
                     />
                   </IonButton>
 
-                  <IonButtons slot="end">
-                    <IonMenuButton><img
+                  <IonMenuButton>
+                    <img
                       src="/assets/img/menu.png"
                       alt="Images"
                       className="TopBarIcons"
-                    /></IonMenuButton>
-                  </IonButtons>
+                    />
+                  </IonMenuButton>
                 </IonButtons>
               </IonCol>
             </IonRow>
