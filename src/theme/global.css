@@ -41,13 +41,6 @@ iframe {
   height: 40px !important;
   min-height: auto;
   --overflow: visible;
-
-}
-
-.SerchBtn {
-  position: absolute;
-  top: 9px;
-  right: 15px;
 }
 
 .IconBtn::part(native) {
@@ -58,8 +51,42 @@ iframe {
   width: 24px;
 }
 
+.IconBtn.button-small {
+  width: 30px;
+  min-width: 30px;
+  height: 30px !important;
+}
+
+.SerchBox {
+  position: relative;
+}
+
 .searchBar {
   position: relative;
+  padding: 0;
+  --box-shadow: none;
+  --border-radius: 10px;
+}
+
+.searchBar input {
+  border: 1px solid #ccc !important;
+  padding: 8px 65px 8px 50px !important;
+}
+
+.searchBar .searchbar-clear-button {
+  right: 40px;
+}
+
+.searchBar .searchbar-search-icon {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.SerchBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
 }
 
 /* Header end */
@@ -82,7 +109,7 @@ iframe {
 /* Titles */
 
 .TitleHead {
-  padding: 10px 16px;
+  padding: 16px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -807,7 +834,7 @@ iframe {
 /* globle */
 
 .bottom-shadow {
-  box-shadow: 0 5px 0 #f2f2f2;
+  box-shadow: 0 -5px 0 inset #f2f2f2;
 }
 
 .bottom-shadow .SaveMoreText {
@@ -875,6 +902,45 @@ ion-button.button-outline {
 
 .mb-1 {
   margin-bottom: 10px;
+}
+
+.FormGroup {
+  margin-bottom: 20px;
+}
+
+.FormGroup ion-text {
+  display: block;
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+.fillInput {
+  background: #f1f1f1;
+  border-radius: 5px;
+  font-size: 14px;
+  min-height: 40px;
+  padding: 10px 15px;
+}
+
+.fillTextarea {
+  min-height: 80px;
+  padding: 5px;
+}
+
+.FormGroup .extraInfo {
+  font-size: 12px;
+  color: #999;
+  margin: 10px 0 0;
+  display: block;
+}
+
+.BtnGroup {
+  display: flex;
+  gap: 15px;
+}
+
+.BtnGroup ion-button {
+  width: 100%;
 }
 
 /* globle end */
@@ -1203,11 +1269,12 @@ ion-button.button-outline {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .productRecipe span {
-  font-size: 8px;
-  font-weight: bold;
+  font-size: 10px;
+  font-weight: 600;
 }
 
 .productRecipe ion-label {
@@ -1289,6 +1356,13 @@ ion-button.button-outline {
 /* .CustomGap {
    gap: 10px;
 } */
+
+.RecipePro {
+  aspect-ratio: 1;
+  width: 100%;
+  position: relative;
+}
+
 .RecipePro img {
   width: 100%;
   height: 100%;
@@ -1297,23 +1371,20 @@ ion-button.button-outline {
   position: relative;
 }
 
-.RecipePro {
-  height: 100%;
-  width: 100%;
-}
+
 
 .TimeingBar {
   position: absolute;
-  bottom: 55px;
+  bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  left: 20px;
-  right: 20px;
+  left: 10px;
+  right: 10px;
   background: var(--ion-color-primary);
   padding: 5px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 10px;
   color: #fff;
 }
 
@@ -1645,8 +1716,14 @@ label.EditProfile img {
   margin-left: 143px;
 }
 
+.text-button {
+  font-size: 16px;
+  height: auto;
+  min-height: auto;
+}
+
 .text-button::part(native) {
-  padding: 0;
+  padding: 5px;
 }
 
 .datetime-wrapper .picker-toolbar-button {
@@ -2730,28 +2807,34 @@ ul.Recipe-Star li {
 /* Thank you end */
 
 /* ArticalCard */
-.ArticalCard{
+.ArticalCard {
   box-shadow: none;
 }
-.bottomArtical ion-text{
+
+.bottomArtical ion-text {
   font-size: 9px;
 }
-.Articalpera ion-text{
+
+.Articalpera ion-text {
   font-size: 6px;
 }
-.bottomArtical .productRecipe{
+
+.bottomArtical .productRecipe {
   padding-top: 3px;
 }
-.ArticalTextName{
+
+.ArticalTextName {
   font-size: 10px;
   color: #9a1a0a;
   font-weight: bold;
 }
-.ArticalTextDate{
+
+.ArticalTextDate {
   font-size: 10px;
   font-weight: bold;
   color: #000;
 }
+
 .NoSubmitBtn {
   display: flex;
   align-items: center;
@@ -2759,9 +2842,10 @@ ul.Recipe-Star li {
   background: #eee;
   padding: 10px;
   border-radius: 20px;
-  
+
 }
-.NoSubmitBtn ion-button{
+
+.NoSubmitBtn ion-button {
   color: #9a1a0a;
   font-size: 20px;
 }

@@ -1,6 +1,6 @@
-import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonList, IonLabel, IonItem, IonIcon, IonImg, IonHeader, IonButton, IonTitle } from "@ionic/react";
+import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonLabel, IonIcon, IonHeader, IonButton, IonTitle } from "@ionic/react";
 import Header from "../../components/Header";
-import { fastFoodOutline, lockClosed, refreshCircleOutline, refreshOutline } from "ionicons/icons";
+import { lockClosed, refreshCircleOutline } from "ionicons/icons";
 import { useState } from "react";
 
 

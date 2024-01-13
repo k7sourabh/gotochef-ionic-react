@@ -24,7 +24,6 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import CategoryProducts from "./pages/Products/CategoryProducts";
 import Product from "./pages/Products/Product";
-import FavouriteProducts from "./pages/Products/FavouriteProducts";
 import CartProducts from "./pages/Products/CartProducts";
 import Welcome from './pages/Welcome/Welcome';
 import './theme/global.css'
@@ -45,7 +44,6 @@ import ViewTrendingProduct from "./pages/ViewTrendingProduct";
 import ProductCard from "./components/ProductCard";
 import SearchProduct from "./pages/Products/SearchProduct";
 import Dashboard from "./pages/profile/DashBoard";
-import RecipePage from "./pages/HomeRecipe/RecipePage";
 import VeganRecipe from "./pages/HomeRecipe/VeganRecipe";
 import NutriBudy from "./pages/Products/NutriBudy";
 import MyProfile from "./pages/EditProfile/MyProfile";
@@ -55,6 +53,9 @@ import { useEffect } from "react";
 import Articals from "./pages/HomeRecipe/Articals";
 import OrderDetails from "./pages/myorder/OrderDetails";
 import OrderConfirm from "./pages/Products/OrderConfirm";
+import RecipeDetails from "./pages/HomeRecipe/RecipeDetails";
+import MyRecipe from "./pages/HomeRecipe/MyRecipe";
+import AddIngredient from "./pages/Ingredient/AddIngredient";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -89,6 +90,7 @@ const App = () => {
               <Welcome />
             </Route>
           </IonRouterOutlet>
+
           {window.location.pathname !== "/welcome" &&
             <IonTabs>
               <IonRouterOutlet>
@@ -98,10 +100,6 @@ const App = () => {
 
                 <Route path="/home" exact={true}>
                   <Home />
-                </Route>
-
-                <Route path="/favourites" exact>
-                  <FavouriteProducts />
                 </Route>
 
                 <Route path="/cart" exact>
@@ -136,8 +134,12 @@ const App = () => {
                   <HomeRecipe />
                 </Route>
 
-                <Route path="/recipe-page" exact>
-                  <RecipePage />
+                <Route path="/recipe-details" exact>
+                  <RecipeDetails />
+                </Route>
+
+                <Route path="/my-recipe" exact>
+                  <MyRecipe />
                 </Route>
 
                 <Route path="/vegan-recipe" exact>
@@ -158,10 +160,6 @@ const App = () => {
                 
                 <Route path="/order-details/:id" exact>
                   <OrderDetails />
-                </Route>
-
-                <Route path="/articals" exact>
-                  <Articals />
                 </Route>
 
                 <Route path="/profile" exact>
@@ -186,6 +184,7 @@ const App = () => {
                 <Route path="/change-password" exact>
                   <ChangePassword />
                 </Route>
+
                 <Route path="/edit-profile" exact>
                   <EditProfile />
                 </Route>
@@ -208,6 +207,10 @@ const App = () => {
                 
                 <Route path="/order-confirm" exact>
                   <OrderConfirm />
+                </Route>
+
+                <Route path="/add-ingredient" exact>
+                  <AddIngredient />
                 </Route>
               </IonRouterOutlet>
 
