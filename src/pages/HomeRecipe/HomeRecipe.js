@@ -111,7 +111,7 @@ const HomeRecipe = () => {
           {popularData &&
             popularData?.map((data, i) => (
               <IonCol size="6" key={i}>
-                <div className="ProductCard">
+                <IonButton className="ProductCard" routerLink={`/recipe-details/${data?.slug}`}>
                   <div className="vegIcon">
                     {data?.foodtype === "vegetarian" ? (
                       <img src="/assets/img/icon-veg.svg" alt="" />
@@ -200,7 +200,7 @@ const HomeRecipe = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </IonButton>
               </IonCol>
             ))}
         </IonRow>
