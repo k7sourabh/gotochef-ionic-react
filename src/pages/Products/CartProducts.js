@@ -31,14 +31,24 @@ import Header from "../../components/Header";
 import styles from "./CartProducts.module.css";
 import { useCart } from "../../contexts/CartProvider";
 import { set } from "./../../services/Storage";
+import LoginPopup from "../../modal/LoginPopup";
+import OTPPopup from "../../modal/OTPPopup";
+import { useAuth } from "../../context/AuthContext";
+import { postApiData } from "../../utils/Utils";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 const CartProducts = () => {
   const products = ProductStore.useState((s) => s.products);
   const shopCart = CartStore.useState((s) => s.product_ids);
+  const [isOpenOtp, setIsOpenOtp] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
   const [, /* total */ setTotal] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const {cartItems, setCartItems, removeFromCart} = useCart();
   const [cartTotal, setCartTotal] = useState(0);
+  const {authenticated} = useAuth();
+  const history = useHistory();
 
   useEffect(() => {
     const getCartProducts = () => {
@@ -92,6 +102,10 @@ const CartProducts = () => {
     set("cartItems",cart);
   }
 
+  const handleCheckout = () => {
+    history.push("/order-confirm");
+  }
+
   return (
     <IonPage id="cart-page">
       <Header />
@@ -112,7 +126,7 @@ const CartProducts = () => {
                   <IonLabel>
                     <div className={styles.productDetails}>
                       <div className={styles.productThumb}>
-                        <img src="/assets/img/product-img.png" alt="Images" />
+                        <img src={item.prod_details.image || "/assets/img/product-img.png"} alt="Images" />
                       </div>
 
                       <div className={styles.productInfo}>
@@ -311,7 +325,7 @@ const CartProducts = () => {
                 </div>
               </div>
               <IonButton
-                routerLink="/add-payment"
+                onClick={() => {authenticated? handleCheckout() :setIsOpenLogin(true)}}
                 className="AddToCart"
                 size="default"
                 shape="round"
@@ -385,6 +399,14 @@ const CartProducts = () => {
             </IonContent>
           </IonModal>
       </IonContent>
+
+      <LoginPopup
+        isOpen={isOpenLogin}
+        setIsOpen={setIsOpenLogin}
+        isOtpOpen={isOpenOtp}
+        setIsOtpOpen={setIsOpenOtp}
+      />
+      <OTPPopup isOpen={isOpenOtp} setIsOpen={setIsOpenOtp} />
     </IonPage>
   );
 };
