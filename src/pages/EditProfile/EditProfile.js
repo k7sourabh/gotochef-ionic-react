@@ -1,6 +1,6 @@
 import {
   IonCol, IonGrid, IonPage, IonContent, IonRow, IonSelect, IonSelectOption, IonAccordionGroup, IonDatetime,
-  IonAccordion, IonTextarea, IonText, IonLabel, IonItem, IonInput, IonButton, IonRadioGroup, IonRadio, IonPopover
+  IonAccordion, IonTextarea, IonText, IonLabel, IonItem, IonInput, IonButton, IonRadioGroup, IonRadio, IonPopover, IonHeader, IonTitle
 } from "@ionic/react";
 import Header from "../../components/Header";
 const EditProfile = () => {
@@ -9,9 +9,15 @@ const EditProfile = () => {
       <IonPage>
         <Header />
         <IonContent >
+          <IonHeader className="TitleHead bottom-shadow">
+            <IonButton className="backBtn" fill="clear" routerLink="/profile">
+              <i class="material-icons dark">west</i>
+            </IonButton>
+            <IonTitle color="dark">Edit Profile</IonTitle>
+          </IonHeader>
           <IonGrid>
             <IonRow>
-              <IonCol >
+              <IonCol className="ion-padding-top" >
                 <div className="EditprofileImg">
                   <img src="./assets/img/img-person.jpg" alt="" className="ProfileImg" />
 

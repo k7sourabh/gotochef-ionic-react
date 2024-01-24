@@ -7,8 +7,6 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
-  IonInput,
-  IonItem,
   IonLabel,
   IonPage,
   IonRow,
@@ -17,20 +15,15 @@ import {
   IonSegmentButton,
   IonSlide,
   IonSlides,
-  IonText,
   IonTitle,
 } from "@ionic/react";
 import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import {
-  arrowForwardCircle,
   atCircleOutline,
   bookmarkOutline,
-  bookmarkSharp,
-  flameOutline,
   person,
   pint,
-  search,
   star,
   timeOutline,
 } from "ionicons/icons";
@@ -135,6 +128,7 @@ const HomeRecipe = () => {
                   </div>
                   <div className="RecipePro">
                     <img
+                      // routerLink={`/recipe-details`}
                       src={data?.images}
                       alt=""
                       // routerLink="/recipe-page"
@@ -200,7 +194,7 @@ const HomeRecipe = () => {
                         ></IonIcon>
                         <span>2</span> */}
                         <IonChip className="GreenDesign">
-                          <span>0</span>
+                          <span>{data?.ratings}</span>
                           <IonIcon color="light" size="small" icon={star} />
                         </IonChip>
                       </div>
@@ -311,7 +305,7 @@ const HomeRecipe = () => {
                           ></IonIcon>
                           <span>2</span> */}
                           <IonChip className="GreenDesign">
-                            <span>0</span>
+                            <span>{data?.ratings}</span>
                             <IonIcon color="light" size="small" icon={star} />
                           </IonChip>
                         </div>
