@@ -84,6 +84,11 @@ const Product = () => {
       }
     }
     addToCart(obj);
+    present({
+      message: "Product added to cart successfully!",
+      duration: 1500,
+      position: "bottom",
+    });
   }
 
   function convertToOnlyDate(dateTimeString) {
