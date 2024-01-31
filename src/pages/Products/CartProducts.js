@@ -15,15 +15,18 @@ import {
   IonItemOptions,
   IonItemSliding,
   IonLabel,
+  IonList,
   IonModal,
   IonPage,
   IonRow,
+  IonSelect,
+  IonSelectOption,
   IonSkeletonText,
   IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { add, remove, home } from "ionicons/icons";
+import { add, remove, home, closeCircle, closeCircleOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { CartStore } from "../../data/CartStore";
 import { ProductStore } from "../../data/ProductStore";
@@ -36,6 +39,7 @@ import OTPPopup from "../../modal/OTPPopup";
 import { useAuth } from "../../context/AuthContext";
 import { postApiData } from "../../utils/Utils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Form } from "formik";
 
 const CartProducts = () => {
   const products = ProductStore.useState((s) => s.products);
@@ -44,7 +48,9 @@ const CartProducts = () => {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
   const [, /* total */ setTotal] = useState(0);
+  const [isOpenChange, setIsOpenChange] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenAdd, setIsOpenAdd] = useState(false);
   const {cartItems, setCartItems, removeFromCart} = useCart();
   const [cartTotal, setCartTotal] = useState(0);
   const {authenticated} = useAuth();
@@ -133,28 +139,17 @@ const CartProducts = () => {
                         <IonText color="dark" className={styles.productTitle}>
                           {item.prod_details.name}
                         </IonText>
-                        <IonText color="dark" className={styles.productCate}>
+                        <div className="BrandQnty">
+                          <div className="BrandName">
+                          <IonText color="dark" className={styles.productCate}>
                           By {item.prod_details.brand_name}
                         </IonText>
                         <IonText color="dark" className={styles.productQty}>
                           {item.variant}
                         </IonText>
-                      </div>
-                    </div>
-
-                    <div className={styles.priceInfo}>
-                      <IonText color="dark" className={styles.currentPrice}>
-                        ₹{item.prod_details.offer_price*item.quantity}
-                      </IonText>
-                      <IonText color="dark" className={styles.oldPrice}>
-                        ₹{item.prod_details.main_price}
-                      </IonText>
-                    </div>
-                  </IonLabel>
-                </IonItem>
-
-                <IonItemOptions>
-                  <IonItemOption className="BgNone">
+                          </div>
+                          <div>
+                          <IonItemOption className="BgNone">
                     <div className="QtyBlock">
                       <IonButton onClick={()=>handleQuantityChange(item, item.quantity - 1)} fill="clear" className="IconBtn">
                         <IonIcon color="dark" size="large" icon={remove} />
@@ -167,6 +162,39 @@ const CartProducts = () => {
                       </IonButton>
                     </div>
                   </IonItemOption>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={styles.priceInfo}>
+                      <IonText color="dark" className={styles.currentPrice}>
+                        ₹{item.prod_details.offer_price*item.quantity}
+                      </IonText>
+                      <IonText color="dark" className={styles.oldPrice}>
+                        ₹{item.prod_details.main_price}
+                      </IonText>
+                    </div>
+
+                   
+                  </IonLabel>
+                </IonItem>
+
+                <IonItemOptions>
+                  {/* <IonItemOption className="BgNone">
+                    <div className="QtyBlock">
+                      <IonButton onClick={()=>handleQuantityChange(item, item.quantity - 1)} fill="clear" className="IconBtn">
+                        <IonIcon color="dark" size="large" icon={remove} />
+                      </IonButton>
+
+                      <IonInput readonly value={item.quantity}></IonInput>
+
+                      <IonButton onClick={()=>handleQuantityChange(item, item.quantity + 1)} fill="clear" className="IconBtn">
+                        <IonIcon color="dark" size="large" icon={add} />
+                      </IonButton>
+                    </div>
+                  </IonItemOption> */}
                   <IonItemOption onClick={() => removeFromCart(item)} color="danger">Delete</IonItemOption>
                 </IonItemOptions>
               </IonItemSliding>)}
@@ -251,6 +279,14 @@ const CartProducts = () => {
               <IonText>Free</IonText>
             </IonCol>
           </IonRow>
+          <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
+            <IonCol size="5">
+              <IonText>Quantity</IonText>
+            </IonCol>
+            <IonCol size="3" className="ion-text-right">
+              <IonText>0</IonText>
+            </IonCol>
+          </IonRow>
           {/* <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
             <IonCol size="5">
               <IonText>Discount</IonText>
@@ -308,7 +344,7 @@ const CartProducts = () => {
                   </IonText>
                 </div>
                 <div className="AddressChangeBtn">
-                  <IonButton fill="clear" expand="block" onClick={() => setIsOpen(true)}>CHANGE</IonButton>
+                  <IonButton fill="clear" expand="block" onClick={() => setIsOpenChange(true)}>CHANGE</IonButton>
                 </div>
               </div>
             </IonCol>
@@ -340,21 +376,20 @@ const CartProducts = () => {
           </div>
         </div>
 
-
-
-        
-          <IonModal isOpen={isOpen} size="small"  className="myModel">
+        <IonModal isOpen={isOpenChange} size="small"  className="myModel">
             <IonHeader>
               <IonToolbar>
                 <IonTitle>Address</IonTitle>
                 <IonButtons slot="end">
-                  <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
+                  <IonButton onClick={() => setIsOpenChange(false)}>
+                  <IonIcon color="dark" size="large" icon={closeCircleOutline} />
+                  </IonButton>
                 </IonButtons>
               </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
 
-             <div className="flex flex ion-padding-vertical">
+             <IonButton fill="clear" >
              <div className="IconHome">
                 <IonIcon color="primary" size="large" icon={home} />
               </div>
@@ -367,8 +402,8 @@ const CartProducts = () => {
                 </IonText>
 
               </div>
-             </div>
-             <div className="flex flex ion-padding-vertical">
+             </IonButton>
+             <IonButton fill="clear">
              <div className="IconHome">
                 <IonIcon color="primary" size="large" icon={home} />
               </div>
@@ -381,23 +416,64 @@ const CartProducts = () => {
                 </IonText>
 
               </div>
-             </div>
-             <div className="flex ion-padding-vertical">
-             <div className="IconHome">
-                <IonIcon color="primary" size="large" icon={home} />
+             </IonButton>
+             <IonItem className="ion-margin-vertical" lines="none">
+             <IonButton className="AddToCartBtn" size="small" shape="round" fill="outline" expand="block"
+             onClick={() => setIsOpen(true)}>
+              <div className="addText">
+                Add Address
+                <IonIcon slot="end" size="small" icon={add}/>
               </div>
-              <div className="Address ion-padding-horizontal">
-                <IonTitle color="dark" className="ion-no-padding">
-                  Delivering to <strong>Home</strong>
-                </IonTitle>
-                <IonText className="AddressText">
-                  10-3-85/4, Flat No 402, Pandit Rao Nilayam, Hyderabad
-                </IonText>
-
-              </div>
-             </div>
+              </IonButton>
+             </IonItem>
             </IonContent>
           </IonModal>
+          <IonModal isOpen={isOpen} size="small"  className="myModel">
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Edit new address</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setIsOpen(false)}>
+                <IonIcon color="dark" size="large" icon={closeCircleOutline} />
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <IonList>
+            <IonItem>
+               <IonInput type="text" label="Text input" placeholder="Select Your Address"></IonInput>
+              </IonItem>
+              <IonItem className="ion-padding-top">
+                <IonSelect label="Default label" placeholder="Select Your City">
+                  <IonSelectOption value="apple">Indore</IonSelectOption>
+                  <IonSelectOption value="banana">Bhopal</IonSelectOption>
+                  <IonSelectOption value="orange">Mumbai</IonSelectOption>
+                  <IonSelectOption value="orange">Delhi</IonSelectOption>
+                  <IonSelectOption value="orange">Dhar</IonSelectOption>
+                </IonSelect>
+              </IonItem>
+              <IonItem className="ion-padding-top">
+              <IonInput type="number" label="Text input" placeholder="Select Your PIN Code"></IonInput>
+              </IonItem>
+              <IonItem className="ion-padding-top">
+              <IonInput type="text" label="Text input" placeholder="Select Your State"></IonInput>
+              </IonItem>
+              <IonItem  className="ion-padding-top">
+              <IonInput type="text" label="Text input" placeholder="Select Your Country"></IonInput>
+              </IonItem>
+              <IonItem lines="none" className="ion-padding-top">
+              <IonButton size="large">
+                Submit
+              </IonButton>
+              </IonItem>
+             
+              
+              
+            </IonList>
+          </IonContent>
+        </IonModal>
+        
       </IonContent>
 
       <LoginPopup
