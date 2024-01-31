@@ -29,6 +29,8 @@ import {
   starOutline,
   heartSharp,
   helpCircle,
+  heart,
+  heartOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -153,13 +155,13 @@ const Product = () => {
                         </div>
                       </IonButton>
 
-                      {/* <IonButton fill="clear" className="IconBtn">
-                        <IonIcon
-                          size="large"
-                          color="danger"
-                          icon={closeCircle}
+                      <IonButton fill="clear" className="IconBtn">
+                      <IonIcon
+                          color="primary"
+                          size="large"  
+                          icon={heartOutline}
                         />
-                      </IonButton> */}
+                      </IonButton>
                     </div>
 
                     <div className={styles.productCardActions}>

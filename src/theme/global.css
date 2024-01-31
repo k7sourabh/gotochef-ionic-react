@@ -298,6 +298,9 @@ iframe {
   position: absolute;
   right: 0;
   top: 5px;
+  display: flex;
+    flex-direction: column;
+    row-gap: 21px;
 }
 
 .manage-product .swiper {
@@ -445,19 +448,20 @@ iframe {
   gap: 10px;
 }
 
-.CategoryThumb {
+/* .CategoryThumb {
   padding: 25px;
   aspect-ratio: 1;
   width: 100%;
   border-radius: 100%;
   background: #f2f2f2;
   overflow: hidden;
-}
+} */
 
 .CategoryThumb img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  border-radius: 50%;
 }
 
 .CategoryTitle {
@@ -841,7 +845,16 @@ iframe {
   font-size: 8px;
   background-color: #cccccc36;
 }
-
+.BrandQnty{
+  display: flex;
+  align-items: start;
+  gap: 30px;
+}
+.BrandName{
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
 .mr-auto {
   margin-right: auto;
 }
@@ -1212,7 +1225,7 @@ ion-button.button-outline {
   display: flex;
   gap: 10px;
   border: 1px solid #ccc;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
 }
 
@@ -1343,7 +1356,13 @@ ion-button.button-outline {
   box-shadow: 0px -19px 10px #ccc;
   border-radius: 15px;
 }
-
+.Address{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: start;
+  color: #000;
+}
 .FlexCol {
   flex-direction: column;
   justify-content: flex-start;
@@ -2854,4 +2873,126 @@ ul.Recipe-Star li {
 .error-text {
   font-size: 12px;
   color: #ff0000;
+}
+/* NutribuddyStart */
+.ProgressBar{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 3px;
+}
+.N-profileInput ion-input{
+  border: 1px solid #ccc;
+ 
+}
+.N-profileInput ion-select{
+  border: 1px solid #ccc;
+}
+.N-profileInput ion-button{
+  background-color: #f0ad4e;
+  color: #fff;
+  margin: auto;
+  width: 100%;
+}
+.OTPverify {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 12px;
+}
+.OTPverify ion-input{
+  border: 1px solid #ccc;
+  
+  text-align: center;
+}
+.OTPverify input{
+  padding: 10px !important;
+}
+label.N-EditProfile {
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.N-EditProfile .ProfileImg{
+  border-radius: 50% !important;
+}
+ .N-ProfileEdit img{
+  max-width: 13px;
+  width: 100%;
+}
+
+.N-ProfileEdit .image-upload {
+  position: absolute;
+  margin-left: 138px;
+  top: 89px;
+}
+.N-VegNon ion-label{
+  padding-right: 10px;
+}
+.N-profileInput{
+  margin: 10px 0px;
+}
+.N-profileInput ion-label{
+  padding: 10px 0px;
+}
+.N-profileInput ion-input{
+  margin-top: 10px;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.FabBtn {
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+}
+.FabBtn ion-button {
+  background-color: #e7e6e8 !important;
+  border-radius: 55%;
+  padding: 17px -6px;
+  width: 50px;
+}
+.FabBtn ion-button ion-icon{
+  color: #000;
+}
+
+.AddToFoodSetting ion-icon{
+  background: #ccc;
+  border-radius: 50%;
+  padding: 5px;
+  color: #fff;
+}
+.AllergyBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.ImgIcon ion-button{
+    width: 96px;
+    height: 80px;
+    background-color: #9a1504;
+    border-radius: 10px;
+}
+.ImgIcon{
+  text-align: center;
+}
+.ImgIcon ion-button ion-icon{
+   font-size: 40px !important;
+}
+.ImgIcon ion-title{
+  white-space: normal;
+  font-size: 14px;
+  padding-top: 5px;
+}
+.Orangebtn{
+  background-color: #ffa500 !important;
 }

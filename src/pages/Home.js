@@ -17,7 +17,7 @@ import {
 } from "@ionic/react";
 import styles from "./Home.module.css";
 import "./Home.css";
-import { star, add, bookmarkOutline, chevronForwardCircleSharp } from "ionicons/icons";
+import { star, add, bookmarkOutline, chevronForwardCircleSharp, heartCircleOutline, heartCircle, heart, heartOutline } from "ionicons/icons";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import '@ionic/react/css/ionic-swiper.css';
@@ -119,6 +119,11 @@ const Home = () => {
                           size="small"  
                           icon={bookmarkOutline}
                         />
+                        <IonIcon
+                          color="primary"
+                          size="small"  
+                          icon={heartOutline}
+                        />
                       </div>
                     </IonCardHeader>
 
@@ -196,6 +201,11 @@ const Home = () => {
                           color="primary"
                           size="small"
                           icon={bookmarkOutline}
+                        />
+                        <IonIcon
+                          color="primary"
+                          size="small"  
+                          icon={heartOutline}
                         />
                       </div>
                     </IonCardHeader>
