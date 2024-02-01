@@ -8,18 +8,39 @@ import {
   IonCol,
   IonIcon,
   IonText,
+  useIonLoading,
+  useIonModal,
 } from "@ionic/react";
 import { add, bookmarkOutline, star } from "ionicons/icons";
+import { useState } from "react";
+import VariantModal from "../pages/VariantModal";
 
 const ProductCard = (props) => {
   const { product, index } = props;
-  
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const [present, dismiss] = useIonModal(VariantModal, {
+    customProp: selectedProduct,
+    onDismiss: (data, role) => dismiss(data, role),
+  });
+  const [presentLoading] = useIonLoading();
+  function openModal(item) {
+    setSelectedProduct(item);
+    present({
+      onWillDismiss: (ev) => {
+        if (ev.detail.role === "confirm") {
+          presentLoading({
+            message: "Product added to cart successfully!",
+            duration: 1500,
+            position: "bottom",
+          });
+        }
+      },
+    });
+  }
+
   return (
     <IonCol size="6" key={`category_product_list_${index}`}>
-      <IonCard
-        routerLink={`/product-details/${product?.product_id}`}
-        className="ProductCard"
-      >
+      <IonCard className="ProductCard">
         <IonCardHeader className="ProductThumb">
           <div className="SmartKitchen">
             <div className="counter">
@@ -31,15 +52,21 @@ const ProductCard = (props) => {
               <span>{product?.imk_num}</span>
             </div>
           </div>
-          <img
-            src={product?.images}
-            alt="category cover"
-            className="MainProductThumb"
-            onError={(e) => {
-              e.target.onerror = null; // Remove the event handler to prevent an infinite loop
-              e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
-            }}
-          />
+          <IonButton
+            fill="clear"
+            className="blank-btn"
+            routerLink={`/product-details/${product?.product_id}`}
+          >
+            <img
+              src={product?.images}
+              alt="category cover"
+              className="MainProductThumb"
+              onError={(e) => {
+                e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+                e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
+              }}
+            />
+          </IonButton>
           <div className="BookMark">
             <IonIcon color="primary" size="small" icon={bookmarkOutline} />
           </div>
@@ -48,33 +75,35 @@ const ProductCard = (props) => {
         <IonCardContent className="ProductDetails">
           <IonText className="ProductTitle">{product?.productName}</IonText>
           <div className="PriceRating">
-            <div className="PriceText"> 
-            <IonText color="dark" className="CurrentPrice">
-              {product &&
-                product.product_variant_result &&
-                product.product_variant_result[0] && product?.product_variant_result[0].offer_price}
-            </IonText>
-            <div className="OfferInfo">
-            <IonText color="dark" className="OldPrice">
-              {product &&
-                product.product_variant_result &&
-                product.product_variant_result[0] && product?.product_variant_result[0]?.main_price}
-            </IonText>
-            <IonChip className="offerBedge">
-              {product &&
-                product.product_variant_result &&
-                product.product_variant_result[0] &&
-                (
-                  ((product?.product_variant_result[0]?.main_price -
-                    product?.product_variant_result[0]?.offer_price) /
-                    product?.product_variant_result[0]?.main_price) *
-                  100
-                ).toFixed(0)}
-              % OFF
-            </IonChip>
-          </div>
+            <div className="PriceText">
+              <IonText color="dark" className="CurrentPrice">
+                {product &&
+                  product.product_variant &&
+                  product.product_variant[0] &&
+                  product?.product_variant[0].offer_price}
+              </IonText>
+              <div className="OfferInfo">
+                <IonText color="dark" className="OldPrice">
+                  {product &&
+                    product.product_variant &&
+                    product.product_variant[0] &&
+                    product?.product_variant[0]?.main_price}
+                </IonText>
+                <IonChip className="offerBedge">
+                  {product &&
+                    product.product_variant &&
+                    product.product_variant[0] &&
+                    (
+                      ((product?.product_variant[0]?.main_price -
+                        product?.product_variant[0]?.offer_price) /
+                        product?.product_variant[0]?.main_price) *
+                      100
+                    ).toFixed(0)}
+                  % OFF
+                </IonChip>
+              </div>
             </div>
-           
+
             <IonChip className="RateDesign">
               <span>{product?.total_rating}</span>
               <IonIcon color="light" size="small" icon={star} />
@@ -86,7 +115,7 @@ const ProductCard = (props) => {
             size="default"
             shape="round"
             fill="outline"
-            
+            onClick={() => openModal(product)}
           >
             <div className="addText">
               Add

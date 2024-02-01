@@ -61,7 +61,6 @@ const SearchProduct = () => {
       "/product-search-suggestion?keyword=Magic&limit=all&pageno=0",
       formdata
     ).catch((e) => console.log(e));
-    console.log(response)
     setSearchProduct(response?.data?.subcatprod);
   };
 
@@ -97,7 +96,6 @@ const SearchProduct = () => {
                 <IonCol size="6" key={index}>
                   <IonCard
                     className="ProductCard"
-                    routerLink={`/product-details/${searchProductData?.product_id}`}
                   >
                     <IonCardHeader className="ProductThumb">
                       <div className="SmartKitchen">
@@ -116,6 +114,11 @@ const SearchProduct = () => {
                       /> */}
                       </div>
 
+                      <IonButton
+                        fill="clear"
+                        className="blank-btn"
+                        routerLink={`/product-details/${searchProductData?.product_id}`}
+                      >
                       <img
                         src={searchProductData?.images}
                         alt="category cover"
@@ -125,6 +128,7 @@ const SearchProduct = () => {
                           e.target.src = "/assets/img/img-placeholder.jpg"; // Placeholder image URL
                         }}
                       />
+                      </IonButton>
                       <div className="BookMark">
                         <IonIcon
                           color="primary"
@@ -142,9 +146,9 @@ const SearchProduct = () => {
                         <IonText color="dark" className="CurrentPrice">
                           ₹{" "}
                           {searchProductData &&
-                            searchProductData.product_variant_result &&
-                            searchProductData.product_variant_result[0] &&
-                            searchProductData?.product_variant_result[0]
+                            searchProductData.product_variant &&
+                            searchProductData.product_variant[0] &&
+                            searchProductData?.product_variant[0]
                               ?.offer_price}
                         </IonText>
                         <IonChip className="RateDesign">
@@ -156,9 +160,9 @@ const SearchProduct = () => {
                       <div className="OfferInfo">
                         <IonText color="dark" className="OldPrice">
                           {searchProductData &&
-                            searchProductData.product_variant_result &&
-                            searchProductData.product_variant_result[0] &&
-                            searchProductData?.product_variant_result[0]
+                            searchProductData.product_variant &&
+                            searchProductData.product_variant[0] &&
+                            searchProductData?.product_variant[0]
                               ?.main_price}
                         </IonText>
                         <IonChip className="offerBedge">
@@ -166,11 +170,11 @@ const SearchProduct = () => {
                             searchProductData.product_variant_result &&
                             searchProductData.product_variant_result[0] &&
                             (
-                              ((searchProductData?.product_variant_result[0]
+                              ((searchProductData?.product_variant[0]
                                 ?.main_price -
-                                searchProductData?.product_variant_result[0]
+                                searchProductData?.product_variant[0]
                                   ?.offer_price) /
-                                searchProductData?.product_variant_result[0]
+                                searchProductData?.product_variant[0]
                                   ?.main_price) *
                               100
                             ).toFixed(0)}
