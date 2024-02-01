@@ -9,8 +9,11 @@ import {
     IonSelect,
     IonSelectOption,
     IonToolbar,
+    IonIcon,
+    IonItem,
   } from "@ionic/react";
 import {useCart} from './../contexts/CartProvider';
+import { add, closeOutline } from 'ionicons/icons';
 const VariantModal = ({
     onDismiss,
     customProp
@@ -42,17 +45,21 @@ const VariantModal = ({
           <IonToolbar>
             <IonButtons slot="start">
               <IonButton color="medium" onClick={() => onDismiss(null, 'cancel')}>
-                Cancel
+              <IonIcon color="Light" size="large" fill="clear" icon={closeOutline} />
               </IonButton>
             </IonButtons>
             <IonTitle>Add To Cart</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-        <IonSelect className="qwt-select" onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
+        <div className='AddVariant' lines='none'>
+        <IonSelect className="qwt-select" fill="clear" onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
           {customProp.product_variant && customProp.product_variant.map((item, index)=><IonSelectOption value={index}>{item.weight} {item.weight_type}</IonSelectOption>)}
         </IonSelect>
-        <IonButton onClick={handleAddToCart}>Add</IonButton>
+        <IonButton onClick={handleAddToCart}>
+        <IonIcon color="Light" size="large" fill="clear" icon={add} /> 
+        </IonButton>
+        </div>
         </IonContent>
       </IonPage>
     );
