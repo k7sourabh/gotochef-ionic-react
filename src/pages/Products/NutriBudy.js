@@ -56,22 +56,13 @@ const NutriBudy = () => {
                                                 <IonLabel>Advanced Food Setting</IonLabel>
                                             </IonSegmentButton>
                                             <IonSegmentButton value="step4">
-                                                <IonLabel>Taste Preferences</IonLabel>
-                                            </IonSegmentButton>
-                                            <IonSegmentButton value="step5">
-                                                <IonLabel>Diet Preferences</IonLabel>
-                                            </IonSegmentButton>
-                                            <IonSegmentButton value="step6">
-                                                <IonLabel>food products</IonLabel>
-                                            </IonSegmentButton>
-                                            <IonSegmentButton value="step7">
                                                 <IonLabel>Health</IonLabel>
                                             </IonSegmentButton>
-                                            <IonSegmentButton value="step8">
+                                            <IonSegmentButton value="step5">
                                                 <IonLabel>Activity</IonLabel>
                                             </IonSegmentButton>
-                                            <IonSegmentButton value="step9">
-                                                <IonLabel>statements</IonLabel>
+                                            <IonSegmentButton value="step6">
+                                                <IonLabel>Statements</IonLabel>
                                             </IonSegmentButton>
 
                                         </IonSegment>
@@ -180,10 +171,8 @@ const NutriBudy = () => {
                                                         </div>
                                                     </IonCol>
                                                     <IonCol size="12" className="flex flex-column  ion-align-items-center ion-justify-content-center">
-
                                                         <div className="EditprofileImg N-ProfileEdit">
                                                             <img src="./assets/img/img-person.jpg" alt="" className="ProfileImg" />
-
                                                             <div class="image-upload">
                                                                 <label for="file-input" className="N-EditProfile">
                                                                     <img src="./assets/img/edit.png" alt="" />
@@ -382,13 +371,13 @@ const NutriBudy = () => {
                                                                 <IonButton>
                                                                     <IonIcon color="Light" size="large" fill="clear" icon={sunnyOutline} />
                                                                 </IonButton>
-                                                                <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                                                                <span className="ion-no-padding">Lactose</span>
                                                             </div>
                                                             <div className="ImgIcon">
                                                                 <IonButton class="Orangebtn" fill="clear">
                                                                     <IonIcon color="Light" size="large" fill="clear" icon={add} />
                                                                 </IonButton>
-                                                                <IonTitle className="ion-no-padding">Garlic</IonTitle>
+                                                                <span className="ion-no-padding">Garlic</span>
                                                             </div>
                                                         </div>
                                                     </IonCol>
@@ -404,20 +393,72 @@ const NutriBudy = () => {
                                         {selectedTab === "step4" && (
                                             <IonGrid className="ion-padding-bottom">
                                                 <IonRow>
-                                                    <IonCol size="4" className="CustomGaps">
-                                                        rrrr
+                                                    <IonCol>
+                                                        <h3>Health</h3>
+                                                        <div className="flex DietPreFerns">
+                                                            <div className="FillCheckBox">
+                                                                <img src="./assets/img/glucose-meter.png" alt="" className="ProfileImg" />
+                                                                <IonText>Keto</IonText>
+                                                            </div>
+                                                            <div className="FillCheckBox">
+                                                                <img src="./assets/img/kidney.png" alt="" className="ProfileImg" />
+                                                                <IonText>Gluten Free</IonText>
+                                                            </div>
+                                                            <div className="FillCheckBox">
+                                                                <img src="./assets/img/Cholesterol.png" alt="" className="ProfileImg" />
+                                                                <IonText>Gluten Free</IonText>
+                                                            </div>
+                                                            <div className="FillCheckBox">
+                                                                <img src="./assets/img/Liver.png" alt="" className="ProfileImg" />
+                                                                <IonText>Gluten Free</IonText>
+                                                            </div>
+                                                            <div className="FillCheckBox">
+                                                                <img src="./assets/img/Obese.png" alt="" className="ProfileImg" />
+                                                                <IonText>Gluten Free</IonText>
+                                                            </div>
+                                                            <div className="FillCheckBox">
+                                                                <img src="./assets/img/heart.png" alt="" className="ProfileImg" />
+                                                                <IonText>Gluten Free</IonText>
+                                                            </div>
+                                                        </div>
                                                     </IonCol>
                                                 </IonRow>
                                             </IonGrid>
                                         )}
                                         {selectedTab === "step5" && (
                                             <IonGrid className="ion-padding-bottom">
-                                                <IonRow>
-                                                    <IonCol size="4" className="CustomGaps">
-                                                        rrrr
-                                                    </IonCol>
-                                                </IonRow>
-                                            </IonGrid>
+                                            <IonRow>
+                                                <IonCol>
+                                                    <h3>Activity</h3>
+                                                    <div className="flex DietPreFerns">
+                                                        <div className="FillCheckBox">
+                                                            <img src="./assets/img/strength-icon.webp" alt="" className="ProfileImg" />
+                                                            <IonText>Keto</IonText>
+                                                        </div>
+                                                        <div className="FillCheckBox">
+                                                            <img src="./assets/img/runing.png" alt="" className="ProfileImg" />
+                                                            <IonText>Gluten Free</IonText>
+                                                        </div>
+                                                        <div className="FillCheckBox">
+                                                            <img src="./assets/img/system.png" alt="" className="ProfileImg" />
+                                                            <IonText>Gluten Free</IonText>
+                                                        </div>
+                                                        <div className="FillCheckBox">
+                                                            <img src="./assets/img/shoping.png" alt="" className="ProfileImg" />
+                                                            <IonText>Gluten Free</IonText>
+                                                        </div>
+                                                        <div className="FillCheckBox">
+                                                            <img src="./assets/img/profession-working.webp" alt="" className="ProfileImg" />
+                                                            <IonText>Gluten Free</IonText>
+                                                        </div>
+                                                        <div className="FillCheckBox">
+                                                            <img src="./assets/img/lawyer.png" alt="" className="ProfileImg" />
+                                                            <IonText>Gluten Free</IonText>
+                                                        </div>
+                                                    </div>
+                                                </IonCol>
+                                            </IonRow>
+                                        </IonGrid>
                                         )}
                                         {selectedTab === "step6" && (
                                             <IonGrid className="ion-padding-bottom">

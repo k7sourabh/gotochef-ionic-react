@@ -103,7 +103,15 @@ iframe {
   width: 25px;
   margin-bottom: 5px;
 }
-
+.NewAdd{
+  position: relative;
+}
+.NewAdd span {
+  position: absolute;
+  top: -9px;
+  left: 27px;
+  color: #9a1a0a;
+}
 /* Footer end */
 
 /* Titles */
@@ -299,8 +307,8 @@ iframe {
   right: 0;
   top: 5px;
   display: flex;
-    flex-direction: column;
-    row-gap: 21px;
+  flex-direction: column;
+  row-gap: 21px;
 }
 
 .manage-product .swiper {
@@ -845,16 +853,19 @@ iframe {
   font-size: 8px;
   background-color: #cccccc36;
 }
-.BrandQnty{
+
+.BrandQnty {
   display: flex;
   align-items: start;
   gap: 30px;
 }
-.BrandName{
+
+.BrandName {
   display: flex;
   flex-direction: column;
   row-gap: 5px;
 }
+
 .mr-auto {
   margin-right: auto;
 }
@@ -1356,13 +1367,15 @@ ion-button.button-outline {
   box-shadow: 0px -19px 10px #ccc;
   border-radius: 15px;
 }
-.Address{
+
+.Address {
   display: flex;
   flex-direction: column;
   gap: 3px;
   align-items: start;
   color: #000;
 }
+
 .FlexCol {
   flex-direction: column;
   justify-content: flex-start;
@@ -2874,40 +2887,48 @@ ul.Recipe-Star li {
   font-size: 12px;
   color: #ff0000;
 }
+
 /* NutribuddyStart */
-.ProgressBar{
+.ProgressBar {
   display: flex;
   flex-direction: column;
   align-items: end;
   gap: 3px;
 }
-.N-profileInput ion-input{
+
+.N-profileInput ion-input {
   border: 1px solid #ccc;
- 
+
 }
-.N-profileInput ion-select{
+
+.N-profileInput ion-select {
   border: 1px solid #ccc;
 }
-.N-profileInput ion-button{
+
+.N-profileInput ion-button {
   background-color: #f0ad4e;
   color: #fff;
   margin: auto;
   width: 100%;
 }
+
 .OTPverify {
   display: flex;
   align-items: center;
   justify-content: left;
   gap: 12px;
 }
-.OTPverify ion-input{
+
+.OTPverify ion-input {
   border: 1px solid #ccc;
-  
+
   text-align: center;
 }
-.OTPverify input{
+
+.OTPverify input {
   padding: 10px !important;
 }
+
 label.N-EditProfile {
   width: 30px;
   height: 30px;
@@ -2918,10 +2939,12 @@ label.N-EditProfile {
   align-items: center;
   justify-content: center;
 }
-.N-EditProfile .ProfileImg{
+
+.N-EditProfile .ProfileImg {
   border-radius: 50% !important;
 }
- .N-ProfileEdit img{
+
+.N-ProfileEdit img {
   max-width: 13px;
   width: 100%;
 }
@@ -2931,21 +2954,27 @@ label.N-EditProfile {
   margin-left: 138px;
   top: 89px;
 }
-.N-VegNon ion-label{
+
+.N-VegNon ion-label {
   padding-right: 10px;
 }
-.N-profileInput{
+
+.N-profileInput {
   margin: 10px 0px;
 }
-.N-profileInput ion-label{
+
+.N-profileInput ion-label {
   padding: 10px 0px;
 }
-.N-profileInput ion-input{
+
+.N-profileInput ion-input {
   margin-top: 10px;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
+
 .FabBtn {
   border: 1px solid #ccc;
   display: flex;
@@ -2953,96 +2982,149 @@ label.N-EditProfile {
   justify-content: center;
   padding: 7px;
 }
+
 .FabBtn ion-button {
   background-color: #e7e6e8 !important;
   border-radius: 55%;
   padding: 17px -6px;
   width: 50px;
 }
-.FabBtn ion-button ion-icon{
+
+.FabBtn ion-button ion-icon {
   color: #000;
 }
 
-.AddToFoodSetting ion-icon{
+.AddToFoodSetting ion-icon {
   background: #ccc;
   border-radius: 50%;
   padding: 5px;
   color: #fff;
 }
+
 .AllergyBox {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 4px;
   align-items: center;
 }
-.ImgIcon ion-button{
-    width: 80px;
-    height: 70px;
-    background-color: #9a1504;
-    border-radius: 10px;
+
+.ImgIcon ion-button {
+  width: 80px;
+  height: 70px;
+  background-color: #9a1504;
+  border-radius: 10px;
 }
-.ImgIcon{
+
+.ImgIcon {
   text-align: center;
   max-width: 100px;
+  min-height: 120px;
 }
-.ImgIcon ion-button ion-icon{
-   font-size: 40px !important;
+
+.ImgIcon ion-button ion-icon {
+  font-size: 40px !important;
 }
-.ImgIcon ion-title{
+
+.ImgIcon ion-title {
   white-space: normal;
   font-size: 14px;
   padding-top: 5px;
 }
-.Orangebtn{
+
+.Orangebtn {
   background-color: #ffa500 !important;
   color: #fff;
 }
-.SkipBtn{
+
+.SkipBtn {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.bottomText span{
-  font-size:12px;
+
+.bottomText span {
+  font-size: 12px;
   padding-top: 3px;
 }
-.FillCheckBox input[type="checkbox"]{
-   display: none;
+
+.FillCheckBox input[type="checkbox"] {
+  display: none;
 }
-.FillCheckBox input[type="checkbox"]:focus{
+
+.FillCheckBox input[type="checkbox"]:focus {
   border: 2px solid red;
 }
+
 .DietPreFerns {
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
   align-items: center;
-  gap: 20px;
+  justify-content: space-between;
   width: 100%;
 }
-.FillCheckBox{
+
+.FillCheckBox {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 5px;
-  
+
 }
-.FillCheckBox img{
+
+.FillCheckBox img {
   width: 90px;
   object-fit: cover;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-.qwt-select{
-  width: 100%;
-  border-radius: 0px;
-}
-.AddVariant{
-  display: flex;
-  gap: 10px !important;
-  align-items: center;
-}
-.CardAdd{
+
+.CardAdd {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding-bottom: 10px;
 }
+
+
+
+/* Add product Modal start */
+
+.add-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.add-modal-head {
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qwt-select {
+  width: 100%;
+  border-radius: 0px;
+}
+
+.AddVariant {
+  display: flex;
+  gap: 10px !important;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.custom-modal-class {
+  --ion-background-color: transparent;
+  background: transparent;
+  --ion-backdrop-filter: blur(10px);
+}
+.add-bg {
+  background: #fff;
+  padding: 28px 17px;
+  border-radius: 10px;
+}
+/* Add product Modal end */

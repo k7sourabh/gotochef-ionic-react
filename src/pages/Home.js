@@ -48,6 +48,8 @@ const Home = () => {
       customProp: {
         name: 'World',
       },
+
+      cssClass: 'custom-modal-class',
       onWillDismiss: (ev) => {
         if (ev.detail.role === 'confirm') {
           presentLoading({
