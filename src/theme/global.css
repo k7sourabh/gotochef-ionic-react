@@ -2972,18 +2972,18 @@ label.N-EditProfile {
 .AllergyBox {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  gap: 10px;
   align-items: center;
 }
 .ImgIcon ion-button{
-    width: 96px;
-    height: 80px;
+    width: 80px;
+    height: 70px;
     background-color: #9a1504;
     border-radius: 10px;
 }
 .ImgIcon{
   text-align: center;
+  max-width: 100px;
 }
 .ImgIcon ion-button ion-icon{
    font-size: 40px !important;
@@ -2995,4 +2995,38 @@ label.N-EditProfile {
 }
 .Orangebtn{
   background-color: #ffa500 !important;
+  color: #fff;
+}
+.SkipBtn{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.bottomText span{
+  font-size:12px;
+  padding-top: 3px;
+}
+.FillCheckBox input[type="checkbox"]{
+   display: none;
+}
+.FillCheckBox input[type="checkbox"]:focus{
+  border: 2px solid red;
+}
+.DietPreFerns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.FillCheckBox{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  
+}
+.FillCheckBox img{
+  width: 90px;
+  object-fit: cover;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
