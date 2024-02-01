@@ -853,13 +853,19 @@ iframe {
   font-size: 8px;
   background-color: #cccccc36;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .BrandQnty {
   display: flex;
   align-items: start;
   gap: 30px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .BrandName {
   display: flex;
   flex-direction: column;
@@ -1334,7 +1340,6 @@ ion-button.button-outline {
   background: #00a032;
   font-size: 12px;
   line-height: normal;
-
 }
 
 .GreenDesign span {
@@ -1367,7 +1372,10 @@ ion-button.button-outline {
   box-shadow: 0px -19px 10px #ccc;
   border-radius: 15px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .Address {
   display: flex;
   flex-direction: column;
@@ -1403,8 +1411,6 @@ ion-button.button-outline {
   object-fit: cover;
   position: relative;
 }
-
-
 
 .TimeingBar {
   position: absolute;
@@ -1600,12 +1606,10 @@ ion-button.button-outline {
   border: 1px solid #efeff1;
   border-radius: 5px;
   margin: 20px 0px;
-
 }
 
 .Chng-input ion-input input {
   padding-left: 20px !important;
-
 }
 
 .Change-Password {
@@ -1629,7 +1633,7 @@ ion-button.button-outline {
 }
 
 /* Edit Profile */
-.profile-upload>input {
+.profile-upload > input {
   display: none;
 }
 
@@ -1766,7 +1770,6 @@ label.EditProfile img {
 .FillSegment ion-label {
   white-space: normal;
   margin: 0px;
-
 }
 
 /* profile */
@@ -1825,7 +1828,7 @@ label.EditProfile img {
 }
 
 .profile-content .IonLabel {
-  Display: flex;
+  display: flex;
   align-items: center;
   flex-direction: column;
 }
@@ -1835,7 +1838,6 @@ label.EditProfile img {
   background-color: #ffffff;
   box-shadow: 0 2px 15px -5px rgba(0, 0, 0, 15%);
   border-radius: 10px;
-
 }
 
 .profileBioText {
@@ -1874,13 +1876,11 @@ label.EditProfile img {
   --border-style: none;
   --indicator-box-shadow: none;
   transition: color 0.15s linear 0s, opacity 0.15s linear 0s;
-  ;
 }
 
 .personalTab ion-segment-button {
   border-bottom: 1px solid #9a1a0a;
   border-radius: 0px !important;
-
 }
 
 .personalTab ion-segment-button::before {
@@ -1942,7 +1942,6 @@ label.EditProfile img {
   gap: 15px;
   position: relative;
   padding-bottom: 50px;
-
 }
 
 .passionateText img {
@@ -1958,7 +1957,7 @@ label.EditProfile img {
 }
 
 .passionateText::after {
-  content: '';
+  content: "";
   width: 2px;
   height: 40px;
   background: #00000047;
@@ -2025,7 +2024,7 @@ ul.ProHomeList li::before {
 .ViewsContent .TotalViews ion-text {
   font-size: 16px;
   font-weight: bold;
-  color: #9a1a0a
+  color: #9a1a0a;
 }
 
 .TotalViews {
@@ -2054,7 +2053,7 @@ ul.ProHomeList li::before {
 .RecipeContent ion-icon {
   font-size: 28px;
   color: #9a1a0a;
-  margin: -7px 0px
+  margin: -7px 0px;
 }
 
 .RecipeContent ion-text {
@@ -2154,7 +2153,6 @@ ul.ProHomeList li::before {
   max-width: 150px;
   width: 100%;
   position: relative;
-
 }
 
 .image-upload {
@@ -2501,7 +2499,6 @@ ul.Recipe-Star li {
   justify-content: flex-end;
   gap: 5px;
   padding-top: 5px;
-
 }
 
 .PriviousImg img {
@@ -2875,7 +2872,6 @@ ul.Recipe-Star li {
   background: #eee;
   padding: 10px;
   border-radius: 20px;
-
 }
 
 .NoSubmitBtn ion-button {
@@ -2895,6 +2891,7 @@ ul.Recipe-Star li {
   align-items: end;
   gap: 3px;
 }
+<<<<<<< HEAD
 
 .N-profileInput ion-input {
   border: 1px solid #ccc;
@@ -2905,6 +2902,14 @@ ul.Recipe-Star li {
   border: 1px solid #ccc;
 }
 
+=======
+.N-profileInput ion-input {
+  border: 1px solid #ccc;
+}
+.N-profileInput ion-select {
+  border: 1px solid #ccc;
+}
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .N-profileInput ion-button {
   background-color: #f0ad4e;
   color: #fff;
@@ -2918,13 +2923,19 @@ ul.Recipe-Star li {
   justify-content: left;
   gap: 12px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .OTPverify ion-input {
   border: 1px solid #ccc;
 
   text-align: center;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .OTPverify input {
   padding: 10px !important;
 }
@@ -2939,11 +2950,17 @@ label.N-EditProfile {
   align-items: center;
   justify-content: center;
 }
+<<<<<<< HEAD
 
 .N-EditProfile .ProfileImg {
   border-radius: 50% !important;
 }
 
+=======
+.N-EditProfile .ProfileImg {
+  border-radius: 50% !important;
+}
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .N-ProfileEdit img {
   max-width: 13px;
   width: 100%;
@@ -2954,6 +2971,7 @@ label.N-EditProfile {
   margin-left: 138px;
   top: 89px;
 }
+<<<<<<< HEAD
 
 .N-VegNon ion-label {
   padding-right: 10px;
@@ -2967,6 +2985,17 @@ label.N-EditProfile {
   padding: 10px 0px;
 }
 
+=======
+.N-VegNon ion-label {
+  padding-right: 10px;
+}
+.N-profileInput {
+  margin: 10px 0px;
+}
+.N-profileInput ion-label {
+  padding: 10px 0px;
+}
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .N-profileInput ion-input {
   margin-top: 10px;
 }
@@ -2989,7 +3018,10 @@ label.N-EditProfile {
   padding: 17px -6px;
   width: 50px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .FabBtn ion-button ion-icon {
   color: #000;
 }
@@ -3014,29 +3046,54 @@ label.N-EditProfile {
   background-color: #9a1504;
   border-radius: 10px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .ImgIcon {
   text-align: center;
   max-width: 100px;
   min-height: 120px;
 }
+<<<<<<< HEAD
 
 .ImgIcon ion-button ion-icon {
   font-size: 40px !important;
 }
 
+=======
+.ImgIcon ion-button ion-icon {
+  font-size: 40px !important;
+}
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .ImgIcon ion-title {
   white-space: normal;
   font-size: 14px;
   padding-top: 5px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 .Orangebtn {
   background-color: #ffa500 !important;
   color: #fff;
 }
 
+<<<<<<< HEAD
 .SkipBtn {
+=======
+.blank-btn {
+  min-height: auto;
+  height: auto;
+}
+
+.blank-btn::part(native) {
+  padding: 0;
+}
+
+.SkipBtn{
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
   display: flex;
   align-items: center;
   gap: 20px;
@@ -3085,6 +3142,7 @@ label.N-EditProfile {
   width: 100%;
   padding-bottom: 10px;
 }
+<<<<<<< HEAD
 
 
 
@@ -3128,3 +3186,5 @@ label.N-EditProfile {
   border-radius: 10px;
 }
 /* Add product Modal end */
+=======
+>>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7

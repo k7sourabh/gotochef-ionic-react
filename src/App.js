@@ -157,7 +157,7 @@ const App = () => {
                   <HomeRecipe />
                 </Route>
 
-                <Route path="/recipe-details" exact>
+                <Route path="/recipe-details/:id" exact>
                   <RecipeDetails />
                 </Route>
 

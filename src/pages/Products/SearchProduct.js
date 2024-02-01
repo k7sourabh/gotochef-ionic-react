@@ -13,16 +13,41 @@ import {
   IonRow,
   IonSearchbar,
   IonText,
+  useIonLoading,
+  useIonModal,
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { postApiData } from "../../utils/Utils";
 import { bookmarkOutline, star, searchOutline } from "ionicons/icons";
 import { add } from "lodash";
 import debounce from "lodash/debounce";
+import VariantModal from "../VariantModal";
 
 const SearchProduct = () => {
   const [query, setQuery] = useState("");
   const [searchData, setSearchProduct] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const [present, dismiss] = useIonModal(VariantModal, {
+    customProp: selectedProduct,
+    onDismiss: (data, role) => dismiss(data, role),
+  });
+  const [presentLoading] = useIonLoading();
+  function openModal(item) {
+    console.log(item)
+    setSelectedProduct(item);
+    present({
+      onWillDismiss: (ev) => {
+        if (ev.detail.role === "confirm") {
+          presentLoading({
+            message: "Product added to cart successfully!",
+            duration: 1500,
+            position: "bottom",
+          });
+        }
+      },
+    });
+  }
+
 
   const handleSubmit = async () => {
     if (!query) {
@@ -36,6 +61,7 @@ const SearchProduct = () => {
       "/product-search-suggestion?keyword=Magic&limit=all&pageno=0",
       formdata
     ).catch((e) => console.log(e));
+    console.log(response)
     setSearchProduct(response?.data?.subcatprod);
   };
 
@@ -157,6 +183,7 @@ const SearchProduct = () => {
                         size="default"
                         shape="round"
                         fill="outline"
+                        onClick={() => openModal(searchProductData && searchProductData)}
                       >
                         <div className="addText">
                           Add

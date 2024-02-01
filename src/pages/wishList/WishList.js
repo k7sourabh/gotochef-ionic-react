@@ -1,8 +1,31 @@
-import { IonCol,IonIcon,IonText, IonGrid, IonPage, IonContent,IonCard, IonRow, IonButton,IonChip,IonHeader,IonTitle,IonSubtitle, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from "@ionic/react";
+import { IonCol,IonIcon,IonText, IonGrid, IonPage, IonContent,IonCard, IonRow, IonButton,IonChip,IonHeader,IonTitle,IonSubtitle, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, useIonModal, useIonLoading } from "@ionic/react";
 import Header from "../../components/Header";
 import { star, add,  chevronForwardCircleSharp, remove,closeCircle,bookmark } from "ionicons/icons";
+import { useState } from "react";
+import VariantModal from "../VariantModal";
 const WishList = () => {
     const WishListArray = [1,2,3]
+    const [selectedProduct, setSelectedProduct] = useState({});
+    const [present, dismiss] = useIonModal(VariantModal, {
+      customProp: selectedProduct,
+      onDismiss: (data, role) => dismiss(data, role),
+    });
+    const [presentLoading] = useIonLoading();
+    function openModal(item) {
+      console.log(item)
+      setSelectedProduct(item);
+      present({
+        onWillDismiss: (ev) => {
+          if (ev.detail.role === "confirm") {
+            presentLoading({
+              message: "Product added to cart successfully!",
+              duration: 1500,
+              position: "bottom",
+            });
+          }
+        },
+      });
+    }
     return (
         <>
             <IonPage>
