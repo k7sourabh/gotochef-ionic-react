@@ -17,7 +17,7 @@ export const useCart = () => {
 // Create the CartProvider component
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-
+    console.log(cartItems,'itemn')
   useEffect(() => {
     const loadCartItems = async () => {
       const storedCartItems = await get("cartItems");

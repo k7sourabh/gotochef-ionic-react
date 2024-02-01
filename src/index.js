@@ -1,21 +1,24 @@
-import React from 'react';
-import App from './App';
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import store from './redux/Store';
-import { createStore } from './services/Storage';
-import { AuthProvider } from './context/AuthContext';
+import React from "react";
+import App from "./App";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import store from "./redux/Store";
+import { createStore } from "./services/Storage";
+import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./contexts/CartProvider";
 
-const container = document.getElementById('root');
+const container = document.getElementById("root");
 const root = createRoot(container);
 const setupStore = async () => {
-    await createStore("go-to-chef-storage");
-}
+  await createStore("go-to-chef-storage");
+};
 setupStore();
 root.render(
-    <Provider store={store}>
-        <AuthProvider>
+  <Provider store={store}>
+    <AuthProvider>
+      <CartProvider>
         <App />
-        </AuthProvider>
-    </Provider>
+      </CartProvider>
+    </AuthProvider>
+  </Provider>
 );

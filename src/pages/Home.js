@@ -45,14 +45,7 @@ const Home = () => {
   function openModal(item) {
     setSelectedProduct(item);
     present({
-<<<<<<< HEAD
-      customProp: {
-        name: 'World',
-      },
-
       cssClass: 'custom-modal-class',
-=======
->>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
       onWillDismiss: (ev) => {
         if (ev.detail.role === 'confirm') {
           presentLoading({

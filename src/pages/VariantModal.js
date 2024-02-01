@@ -15,39 +15,11 @@ import {
 import { useCart } from './../contexts/CartProvider';
 import { add, closeOutline } from 'ionicons/icons';
 const VariantModal = ({
-<<<<<<< HEAD
   onDismiss,
   customProp
 }) => {
   const { addToCart } = useCart();
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
-=======
-    onDismiss,
-    customProp
-  }) => {
-    const {addToCart} = useCart();
-    const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
-
-    console.log('customProp',customProp)
-  
-    const handleAddToCart = () => {
-      let obj = {
-        product_id: customProp.product_id,
-        pro_variant_id: customProp.product_variant[selectedVariantIndex].pro_variant_id,
-        variant: customProp.product_variant[selectedVariantIndex].weight+""+customProp.product_variant[selectedVariantIndex].weight_type,
-        quantity: 1,
-        prod_details: {
-          name: customProp.slug,
-          image: customProp.images,
-          brand_name: customProp.brand_name,
-          main_price: customProp.product_variant[selectedVariantIndex].main_price,
-          offer_price: customProp.product_variant[selectedVariantIndex].offer_price
-        }
-      }
-      addToCart(obj);
-      onDismiss(customProp, 'confirm')
-    }
->>>>>>> 5c3b8e2862fc6421f58b775fca517a99353714c7
 
   const handleAddToCart = () => {
     let obj = {
