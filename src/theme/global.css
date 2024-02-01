@@ -299,8 +299,8 @@ iframe {
   right: 0;
   top: 5px;
   display: flex;
-    flex-direction: column;
-    row-gap: 21px;
+  flex-direction: column;
+  row-gap: 21px;
 }
 
 .manage-product .swiper {
@@ -845,12 +845,12 @@ iframe {
   font-size: 8px;
   background-color: #cccccc36;
 }
-.BrandQnty{
+.BrandQnty {
   display: flex;
   align-items: start;
   gap: 30px;
 }
-.BrandName{
+.BrandName {
   display: flex;
   flex-direction: column;
   row-gap: 5px;
@@ -1323,7 +1323,6 @@ ion-button.button-outline {
   background: #00a032;
   font-size: 12px;
   line-height: normal;
-
 }
 
 .GreenDesign span {
@@ -1356,7 +1355,7 @@ ion-button.button-outline {
   box-shadow: 0px -19px 10px #ccc;
   border-radius: 15px;
 }
-.Address{
+.Address {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -1390,8 +1389,6 @@ ion-button.button-outline {
   object-fit: cover;
   position: relative;
 }
-
-
 
 .TimeingBar {
   position: absolute;
@@ -1587,12 +1584,10 @@ ion-button.button-outline {
   border: 1px solid #efeff1;
   border-radius: 5px;
   margin: 20px 0px;
-
 }
 
 .Chng-input ion-input input {
   padding-left: 20px !important;
-
 }
 
 .Change-Password {
@@ -1616,7 +1611,7 @@ ion-button.button-outline {
 }
 
 /* Edit Profile */
-.profile-upload>input {
+.profile-upload > input {
   display: none;
 }
 
@@ -1753,7 +1748,6 @@ label.EditProfile img {
 .FillSegment ion-label {
   white-space: normal;
   margin: 0px;
-
 }
 
 /* profile */
@@ -1812,7 +1806,7 @@ label.EditProfile img {
 }
 
 .profile-content .IonLabel {
-  Display: flex;
+  display: flex;
   align-items: center;
   flex-direction: column;
 }
@@ -1822,7 +1816,6 @@ label.EditProfile img {
   background-color: #ffffff;
   box-shadow: 0 2px 15px -5px rgba(0, 0, 0, 15%);
   border-radius: 10px;
-
 }
 
 .profileBioText {
@@ -1861,13 +1854,11 @@ label.EditProfile img {
   --border-style: none;
   --indicator-box-shadow: none;
   transition: color 0.15s linear 0s, opacity 0.15s linear 0s;
-  ;
 }
 
 .personalTab ion-segment-button {
   border-bottom: 1px solid #9a1a0a;
   border-radius: 0px !important;
-
 }
 
 .personalTab ion-segment-button::before {
@@ -1929,7 +1920,6 @@ label.EditProfile img {
   gap: 15px;
   position: relative;
   padding-bottom: 50px;
-
 }
 
 .passionateText img {
@@ -1945,7 +1935,7 @@ label.EditProfile img {
 }
 
 .passionateText::after {
-  content: '';
+  content: "";
   width: 2px;
   height: 40px;
   background: #00000047;
@@ -2012,7 +2002,7 @@ ul.ProHomeList li::before {
 .ViewsContent .TotalViews ion-text {
   font-size: 16px;
   font-weight: bold;
-  color: #9a1a0a
+  color: #9a1a0a;
 }
 
 .TotalViews {
@@ -2041,7 +2031,7 @@ ul.ProHomeList li::before {
 .RecipeContent ion-icon {
   font-size: 28px;
   color: #9a1a0a;
-  margin: -7px 0px
+  margin: -7px 0px;
 }
 
 .RecipeContent ion-text {
@@ -2141,7 +2131,6 @@ ul.ProHomeList li::before {
   max-width: 150px;
   width: 100%;
   position: relative;
-
 }
 
 .image-upload {
@@ -2488,7 +2477,6 @@ ul.Recipe-Star li {
   justify-content: flex-end;
   gap: 5px;
   padding-top: 5px;
-
 }
 
 .PriviousImg img {
@@ -2862,7 +2850,6 @@ ul.Recipe-Star li {
   background: #eee;
   padding: 10px;
   border-radius: 20px;
-
 }
 
 .NoSubmitBtn ion-button {
@@ -2875,20 +2862,19 @@ ul.Recipe-Star li {
   color: #ff0000;
 }
 /* NutribuddyStart */
-.ProgressBar{
+.ProgressBar {
   display: flex;
   flex-direction: column;
   align-items: end;
   gap: 3px;
 }
-.N-profileInput ion-input{
-  border: 1px solid #ccc;
- 
-}
-.N-profileInput ion-select{
+.N-profileInput ion-input {
   border: 1px solid #ccc;
 }
-.N-profileInput ion-button{
+.N-profileInput ion-select {
+  border: 1px solid #ccc;
+}
+.N-profileInput ion-button {
   background-color: #f0ad4e;
   color: #fff;
   margin: auto;
@@ -2900,12 +2886,12 @@ ul.Recipe-Star li {
   justify-content: left;
   gap: 12px;
 }
-.OTPverify ion-input{
+.OTPverify ion-input {
   border: 1px solid #ccc;
-  
+
   text-align: center;
 }
-.OTPverify input{
+.OTPverify input {
   padding: 10px !important;
 }
 label.N-EditProfile {
@@ -2918,10 +2904,10 @@ label.N-EditProfile {
   align-items: center;
   justify-content: center;
 }
-.N-EditProfile .ProfileImg{
+.N-EditProfile .ProfileImg {
   border-radius: 50% !important;
 }
- .N-ProfileEdit img{
+.N-ProfileEdit img {
   max-width: 13px;
   width: 100%;
 }
@@ -2931,16 +2917,16 @@ label.N-EditProfile {
   margin-left: 138px;
   top: 89px;
 }
-.N-VegNon ion-label{
+.N-VegNon ion-label {
   padding-right: 10px;
 }
-.N-profileInput{
+.N-profileInput {
   margin: 10px 0px;
 }
-.N-profileInput ion-label{
+.N-profileInput ion-label {
   padding: 10px 0px;
 }
-.N-profileInput ion-input{
+.N-profileInput ion-input {
   margin-top: 10px;
 }
 ::-webkit-scrollbar {
@@ -2959,11 +2945,11 @@ label.N-EditProfile {
   padding: 17px -6px;
   width: 50px;
 }
-.FabBtn ion-button ion-icon{
+.FabBtn ion-button ion-icon {
   color: #000;
 }
 
-.AddToFoodSetting ion-icon{
+.AddToFoodSetting ion-icon {
   background: #ccc;
   border-radius: 50%;
   padding: 5px;
@@ -2976,23 +2962,32 @@ label.N-EditProfile {
   justify-content: center;
   align-items: center;
 }
-.ImgIcon ion-button{
-    width: 96px;
-    height: 80px;
-    background-color: #9a1504;
-    border-radius: 10px;
+.ImgIcon ion-button {
+  width: 96px;
+  height: 80px;
+  background-color: #9a1504;
+  border-radius: 10px;
 }
-.ImgIcon{
+.ImgIcon {
   text-align: center;
 }
-.ImgIcon ion-button ion-icon{
-   font-size: 40px !important;
+.ImgIcon ion-button ion-icon {
+  font-size: 40px !important;
 }
-.ImgIcon ion-title{
+.ImgIcon ion-title {
   white-space: normal;
   font-size: 14px;
   padding-top: 5px;
 }
-.Orangebtn{
+.Orangebtn {
   background-color: #ffa500 !important;
+}
+
+.blank-btn {
+  min-height: auto;
+  height: auto;
+}
+
+.blank-btn::part(native) {
+  padding: 0;
 }

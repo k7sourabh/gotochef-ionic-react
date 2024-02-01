@@ -45,9 +45,6 @@ const Home = () => {
   function openModal(item) {
     setSelectedProduct(item);
     present({
-      customProp: {
-        name: 'World',
-      },
       onWillDismiss: (ev) => {
         if (ev.detail.role === 'confirm') {
           presentLoading({
@@ -69,7 +66,7 @@ const Home = () => {
       console.log(err)
     }
    }
-
+   
    useEffect(()=>{
     exclusiveProduct();
    },[])

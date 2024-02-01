@@ -9,14 +9,19 @@ import {
     IonSelect,
     IonSelectOption,
     IonToolbar,
+    IonIcon,
   } from "@ionic/react";
 import {useCart} from './../contexts/CartProvider';
+import { add, closeOutline } from 'ionicons/icons';
+
 const VariantModal = ({
     onDismiss,
     customProp
   }) => {
     const {addToCart} = useCart();
     const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+
+    console.log('customProp',customProp)
   
     const handleAddToCart = () => {
       let obj = {
@@ -42,7 +47,7 @@ const VariantModal = ({
           <IonToolbar>
             <IonButtons slot="start">
               <IonButton color="medium" onClick={() => onDismiss(null, 'cancel')}>
-                Cancel
+              <IonIcon color="dark" size="large" icon={closeOutline} />
               </IonButton>
             </IonButtons>
             <IonTitle>Add To Cart</IonTitle>
