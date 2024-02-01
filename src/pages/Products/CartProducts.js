@@ -123,18 +123,56 @@ const CartProducts = () => {
           </IonButton>
           <IonTitle color="dark">Review Cart</IonTitle>
         </IonHeader>
+    {/* <IonList>
+      <IonItemSliding>
+        <IonItem>
+          <IonLabel>Sliding Item with End Options</IonLabel>
+        </IonItem>
 
+        <IonItemOptions>
+          <IonItemOption>Favorite</IonItemOption>
+          <IonItemOption color="danger">Delete</IonItemOption>
+        </IonItemOptions>
+      </IonItemSliding>
+
+      <IonItemSliding>
+        <IonItemOptions side="start">
+          <IonItemOption color="success">Archive</IonItemOption>
+        </IonItemOptions>
+
+        <IonItem>
+          <IonLabel>Sliding Item with Start Options</IonLabel>
+        </IonItem>
+      </IonItemSliding>
+
+      <IonItemSliding>
+        <IonItemOptions side="start">
+          <IonItemOption color="success">Archive</IonItemOption>
+        </IonItemOptions>
+
+        <IonItem>
+          <IonLabel>Sliding Item with Options on Both Sides</IonLabel>
+        </IonItem>
+
+        <IonItemOptions side="end">
+          <IonItemOption>Favorite</IonItemOption>
+          <IonItemOption color="danger">Delete</IonItemOption>
+        </IonItemOptions>
+      </IonItemSliding>
+    </IonList> */}
         <IonGrid className="ion-no-padding">
           <IonRow className="bottom-shadow">
             <IonCol size="12">
-              {cartItems && cartItems.map((item, index) => <IonItemSliding key={index} className={styles.ItemSlide}>
-                <IonItem>
-                  <IonLabel>
+            <IonList className="ion-padding-top OrderList">
+              {cartItems && cartItems.map((item, index) => 
+
+              <IonItemSliding key={index} className={styles.ItemSlide}>
+                <IonItem lines="none">
+                  <div className="CardAdd">
                     <div className={styles.productDetails}>
                       <div className={styles.productThumb}>
                         <img src={item.prod_details.image || "/assets/img/product-img.png"} alt="Images" />
                       </div>
-
                       <div className={styles.productInfo}>
                         <IonText color="dark" className={styles.productTitle}>
                           {item.prod_details.name}
@@ -142,16 +180,16 @@ const CartProducts = () => {
                         <div className="BrandQnty">
                           <div className="BrandName">
                           <IonText color="dark" className={styles.productCate}>
-                          By {item.prod_details.brand_name}
+                          By ssdssd {item.prod_details.brand_name}
                         </IonText>
                         <IonText color="dark" className={styles.productQty}>
                           {item.variant}
                         </IonText>
                           </div>
                           <div>
-                          <IonItemOption className="BgNone">
-                    <div className="QtyBlock">
-                      <IonButton onClick={()=>handleQuantityChange(item, item.quantity - 1)} fill="clear" className="IconBtn">
+                          
+                          <div className="QtyBlock">
+                         <IonButton onClick={()=>handleQuantityChange(item, item.quantity - 1)} fill="clear" className="IconBtn">
                         <IonIcon color="dark" size="large" icon={remove} />
                       </IonButton>
 
@@ -161,7 +199,7 @@ const CartProducts = () => {
                         <IonIcon color="dark" size="large" icon={add} />
                       </IonButton>
                     </div>
-                  </IonItemOption>
+                  
                           </div>
 
                         </div>
@@ -176,28 +214,17 @@ const CartProducts = () => {
                         ₹{item.prod_details.main_price}
                       </IonText>
                     </div>
-
-                   
-                  </IonLabel>
+                    </div>
                 </IonItem>
 
                 <IonItemOptions>
-                  {/* <IonItemOption className="BgNone">
-                    <div className="QtyBlock">
-                      <IonButton onClick={()=>handleQuantityChange(item, item.quantity - 1)} fill="clear" className="IconBtn">
-                        <IonIcon color="dark" size="large" icon={remove} />
-                      </IonButton>
-
-                      <IonInput readonly value={item.quantity}></IonInput>
-
-                      <IonButton onClick={()=>handleQuantityChange(item, item.quantity + 1)} fill="clear" className="IconBtn">
-                        <IonIcon color="dark" size="large" icon={add} />
-                      </IonButton>
-                    </div>
-                  </IonItemOption> */}
                   <IonItemOption onClick={() => removeFromCart(item)} color="danger">Delete</IonItemOption>
                 </IonItemOptions>
               </IonItemSliding>)}
+
+
+              </IonList>
+              
             </IonCol>
           </IonRow>
 
