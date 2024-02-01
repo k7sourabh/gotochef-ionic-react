@@ -14,6 +14,8 @@ import {
   IonRow,
   IonText,
   IonTitle,
+  useIonModal,
+  useIonLoading
 } from "@ionic/react";
 import styles from "./Home.module.css";
 import "./Home.css";
@@ -24,11 +26,39 @@ import '@ionic/react/css/ionic-swiper.css';
 import Header from "../components/Header";
 import { getApiData } from '../utils/Utils';
 import { useLogo } from '../contexts/ApiProvider';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import VariantModal from './VariantModal';
+
 
 const Home = () => {
-  const { headerImage } = useLogo();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [trendingProductsData, setTrendingProductsData] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const [present, dismiss] = useIonModal(VariantModal, {
+    customProp: selectedProduct,
+    onDismiss: (data, role) => dismiss(data, role),
+  });
+  const [presentLoading] = useIonLoading();
+  const { headerImage } = useLogo();
+  const history = useHistory();
+
+  function openModal(item) {
+    setSelectedProduct(item);
+    present({
+      customProp: {
+        name: 'World',
+      },
+      onWillDismiss: (ev) => {
+        if (ev.detail.role === 'confirm') {
+          presentLoading({
+            message: "Product added to cart successfully!",
+            duration: 1500,
+            position: "bottom",
+          });
+        }
+      },
+    });
+  }
 
   const exclusiveProduct = async ()=> {
     try {
@@ -97,7 +127,7 @@ const Home = () => {
             { exclusiveProductData?.map((category, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <IonCard className="ProductCard" routerLink={`/product-details/${category?.product_id}`}>
+                  <IonCard className="ProductCard">
                     <IonCardHeader className="ProductThumb" >
                       <div className="SmartKitchen">
                         <div className="counter">
@@ -111,6 +141,7 @@ const Home = () => {
                       <img
                         src={!category?.images ? "/assets/img/img-placeholder.jpg" : category?.images}
                         alt=""
+                        onClick={()=>history.push(`/product-details/${category?.product_id}`)}
                         className="MainProductThumb"
                       />
                       <div className="BookMark">
@@ -128,7 +159,7 @@ const Home = () => {
                     </IonCardHeader>
 
                     <IonCardContent className="ProductDetails">
-                      <IonText className="ProductTitle">{category?.productName}</IonText>
+                      <IonText onClick={()=>history.push(`/product-details/${category?.product_id}`)} className="ProductTitle">{category?.productName}</IonText>
                       <IonText className="ProductBrandname">{category?.brand_name}</IonText>
                       <div className="PriceRating">
                         <div className='PriceText'>
@@ -148,7 +179,7 @@ const Home = () => {
                       </div>
 
                      
-                      <IonButton className="AddToCartBtn" size="default" shape="round" fill="outline">
+                      <IonButton onClick={() => openModal(category)} className="AddToCartBtn" size="default" shape="round" fill="outline">
                         <div className="addText">
                           Add
                           <IonIcon slot="end" size="small" icon={add} />
@@ -181,7 +212,7 @@ const Home = () => {
             {trendingProductsData?.map((category, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <IonCard className="ProductCard" routerLink={`/product-details/${category?.product_id}`}>
+                  <IonCard className="ProductCard" >
                     <IonCardHeader className="ProductThumb">
                       <div className="SmartKitchen">
                         <div className="counter">
@@ -194,6 +225,7 @@ const Home = () => {
                       <img
                         src={!category?.images ? "/assets/img/img-placeholder.jpg" : category?.images}
                         alt={category?.slug}
+                        onClick={() => history.push(`/product-details/${category?.product_id}`)}
                         className="MainProductThumb"
                       />
                       <div className="BookMark">
@@ -211,7 +243,7 @@ const Home = () => {
                     </IonCardHeader>
 
                     <IonCardContent className="ProductDetails">
-                      <IonText className="ProductTitle">{category?.productName}</IonText>
+                      <IonText onClick={() => history.push(`/product-details/${category?.product_id}`)} className="ProductTitle">{category?.productName}</IonText>
                       <IonText className="ProductBrandname">{category?.brand_name}</IonText>
                       <div className="PriceRating">
                         <div className='PriceText'>
@@ -229,7 +261,7 @@ const Home = () => {
 
                       
 
-                      <IonButton className="AddToCartBtn" size="default" shape="round" fill="outline">
+                      <IonButton onClick={() => openModal(category)} className="AddToCartBtn" size="default" shape="round" fill="outline">
                         <div className="addText">
                           Add
                           <IonIcon slot="end" size="small" icon={add} />
