@@ -24,6 +24,8 @@ import {
   add,
   bookmarkOutline,
   chevronForwardCircleSharp,
+  heart,
+  heartOutline,
 } from "ionicons/icons";
 import "swiper/swiper-bundle.css";
 import "@ionic/react/css/ionic-swiper.css";
@@ -56,6 +58,12 @@ const ViewTrendingProduct = () => {
       <Header />
 
       <IonContent fullscreen>
+      <IonHeader className="TitleHead bottom-shadow">
+          <IonButton className="backBtn" fill="clear" routerLink="/home">
+            <i class="material-icons dark">west</i>
+          </IonButton>
+          <IonTitle color="dark">Trending Product Stores</IonTitle>
+        </IonHeader>
         <IonGrid className="ion-no-padding">
           <IonHeader className="TitleHead">
             <IonTitle>Trending Product Stores</IonTitle>
@@ -95,6 +103,11 @@ const ViewTrendingProduct = () => {
                         size="small"
                         icon={bookmarkOutline}
                       />
+                      <IonIcon
+                          color="primary"
+                          size="small"  
+                          icon={heartOutline}
+                        />
                     </div>
                   </IonCardHeader>
 
