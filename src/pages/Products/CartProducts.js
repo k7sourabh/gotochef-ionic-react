@@ -228,52 +228,6 @@ const CartProducts = () => {
             </IonCol>
           </IonRow>
 
-          <IonRow>
-            <IonCol size="12">
-            <IonList className="ion-no-padding OrderList">
-             
-             <IonItemSliding>
-               <IonItem lines="none">
-                 <div className="OderBox">
-                   <div className="ProImg">
-                     <img src="assets/img/proimg.png" alt="" />
-                   </div>
-                   <div className="ProTitle">
-                     <IonText className="Title">
-                       test
-                     </IonText>
-                     <IonText className="ProPrice">
-                       $52
-                     </IonText>
-                   </div>
-                   <div className="Quantity">
-                     <IonText>Quantity</IonText>
-                     <IonText>85</IonText>
-                   </div>
-
-                   <div className="QuantityBar">
-                     <IonButton fill="clear" color="dark">
-                       -
-                     </IonButton>
-                     <IonInput readonly value={5}></IonInput>
-                     <IonButton fill="clear" color="dark">
-                       +
-                     </IonButton>
-                   </div>
-                 </div>
-               </IonItem>
-
-               <IonItemOptions>
-                 <IonItemOption>
-                   Delete
-                 </IonItemOption>
-               </IonItemOptions>
-             </IonItemSliding>
-          
-         </IonList>
-            </IonCol>
-          </IonRow>
-
           <IonRow className="ion-padding-top">
             <IonCol>
               <IonTitle color="dark">Saved For later</IonTitle>
