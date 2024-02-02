@@ -3020,11 +3020,7 @@ label.N-EditProfile {
   width: 100%;
   border-radius: 0px;
 }
-.AddVariant{
-  display: flex;
-  gap: 10px !important;
-  align-items: center;
-}
+
 .CardAdd{
   display: flex;
   justify-content: space-between;
@@ -3035,19 +3031,37 @@ label.N-EditProfile {
 
 /* Add product Modal start */
 
-.add-modal {
+.addCartModal {
+  --ion-background-color: transparent;
+}
+
+.addCartModal::part(content) {
+  backdrop-filter: blur(5px);
+}
+
+.addCart-modalContent {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
   width: 100%;
+  height: 100%;
 }
 
-.add-modal-head {
-  border-bottom: 1px solid #ccc;
+.addCart-modalPop {
+  background: #fff;
+  border-radius: 10px;
+}
+
+.addCart-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.addCart-modalBody {
+  padding: 20px;
 }
 
 .qwt-select {
@@ -3057,19 +3071,33 @@ label.N-EditProfile {
 
 .AddVariant {
   display: flex;
-  gap: 10px !important;
-  align-items: center;
-  padding-top: 30px;
+  gap: 10px;
+  padding: 10px 0;
 }
 
-.custom-modal-class {
-  --ion-background-color: transparent;
-  background: transparent;
-  --ion-backdrop-filter: blur(10px);
-}
-.add-bg {
-  background: #fff;
-  padding: 28px 17px;
-  border-radius: 10px;
-}
 /* Add product Modal end */
+
+.blank-btn {
+  min-height: auto;
+  height: auto;
+}
+
+.blank-btn::part(native) {
+  padding: 0;
+}
+
+.numCounter {
+  position: relative;
+}
+
+.numCounter span {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  background: #8f1a1d;
+  padding: 4px;
+  border-radius: 100%;
+  min-width: 21px;
+  color: #fff;
+  font-size: 9px;
+}

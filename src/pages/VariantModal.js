@@ -2,18 +2,15 @@ import React, { useState } from 'react'
 import {
   IonButton,
   IonContent,
-  IonHeader,
-  IonPage,
   IonTitle,
   IonButtons,
   IonSelect,
   IonSelectOption,
-  IonToolbar,
   IonIcon,
-  IonItem,
 } from "@ionic/react";
 import { useCart } from './../contexts/CartProvider';
 import { add, closeOutline } from 'ionicons/icons';
+
 const VariantModal = ({
   onDismiss,
   customProp
@@ -40,11 +37,10 @@ const VariantModal = ({
   }
 
   return (
-    <IonPage>
-      <IonContent className="ion-padding AddModalMain">
-        <div className='add-modal'>
-          <div className="add-bg">
-          <div className='add-modal-head'>
+    <IonContent className="ion-padding AddModalMain">
+      <div className='addCart-modalContent'>
+        <div className="addCart-modalPop">
+          <div className='addCart-head'>
             <IonTitle className='ion-no-padding'>Add To Cart</IonTitle>
             <IonButtons slot="start">
               <IonButton color="medium" onClick={() => onDismiss(null, 'cancel')}>
@@ -52,19 +48,20 @@ const VariantModal = ({
               </IonButton>
             </IonButtons>
           </div>
-          <div className='AddVariant ion-padding-vertical' lines='none'>
-            <IonSelect className="qwt-select"  onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
-              {customProp.product_variant && customProp.product_variant.map((item, index) => <IonSelectOption value={index}>{item.weight} {item.weight_type}</IonSelectOption>)}
-            </IonSelect>
-            <IonButton onClick={handleAddToCart}>
-              <IonIcon color="Light" size="large" fill="clear" icon={add} />
-            </IonButton>
-          </div>
+
+          <div className="addCart-modalBody">
+            <div className='AddVariant'>
+              <IonSelect className="qwt-select" onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
+                {customProp.product_variant && customProp.product_variant.map((item, index) => <IonSelectOption value={index}>{item.weight} {item.weight_type}</IonSelectOption>)}
+              </IonSelect>
+              <IonButton onClick={handleAddToCart}>
+                <IonIcon color="Light" size="large" fill="clear" icon={add} />
+              </IonButton>
+            </div>
           </div>
         </div>
-
-      </IonContent>
-    </IonPage>
+      </div>
+    </IonContent>
   );
 };
 
