@@ -297,7 +297,7 @@ const CartProducts = () => {
                         >
                           Delete
                         </IonItemOption>
-                        <IonItemOption onClick={() => bookMarkPost(item)}>
+                        <IonItemOption color="success" onClick={() => bookMarkPost(item)}>
                           Save
                         </IonItemOption>
                       </IonItemOptions>
