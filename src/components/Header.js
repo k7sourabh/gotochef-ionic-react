@@ -170,6 +170,15 @@ const Header = () => {
                   <IonLabel>WishList</IonLabel>
                 </IonItem>
 
+                <IonItem lines="none" routerLink="/bookmark">
+                  <IonIcon
+                    aria-hidden="true"
+                    slot="start"
+                    icon={bookmarkOutline}
+                  />
+                  <IonLabel>BookMark</IonLabel>
+                </IonItem>
+
                 <IonItem lines="none" onClick={handleLogout}>
                   <IonIcon
                     aria-hidden="true"

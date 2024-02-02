@@ -3032,3 +3032,44 @@ label.N-EditProfile {
   width: 100%;
   padding-bottom: 10px;
 }
+
+/* Add product Modal start */
+
+.add-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.add-modal-head {
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qwt-select {
+  width: 100%;
+  border-radius: 0px;
+}
+
+.AddVariant {
+  display: flex;
+  gap: 10px !important;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.custom-modal-class {
+  --ion-background-color: transparent;
+  background: transparent;
+  --ion-backdrop-filter: blur(10px);
+}
+.add-bg {
+  background: #fff;
+  padding: 28px 17px;
+  border-radius: 10px;
+}
+/* Add product Modal end */

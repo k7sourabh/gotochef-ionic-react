@@ -35,9 +35,11 @@ import Header from "../components/Header";
 // import axios from 'axios';
 import { getApiData } from "../utils/Utils";
 import VariantModal from "./VariantModal";
+import { useCart } from "../contexts/CartProvider";
 
 const ViewTrendingProduct = () => {
   const [amountLoaded, setAmountLoaded] = useState(6);
+  const { wishListPost } = useCart();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
@@ -136,6 +138,7 @@ const ViewTrendingProduct = () => {
                           color="primary"
                           size="small"
                           icon={heartOutline}
+                          onClick={() => wishListPost(data)}
                         />
                       </div>
                     </IonCardHeader>

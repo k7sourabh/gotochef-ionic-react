@@ -211,7 +211,7 @@ const CartProducts = () => {
                         ₹{item.prod_details.offer_price*item.quantity}
                       </IonText>
                       <IonText color="dark" className={styles.oldPrice}>
-                        ₹{item.prod_details.main_price}
+                        ₹{item.prod_details.main_price*item.quantity}
                       </IonText>
                     </div>
                     </div>

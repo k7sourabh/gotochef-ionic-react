@@ -1,6 +1,8 @@
 // CartProvider.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { get, set } from "../services/Storage";
+import { postApiDataWithAuth } from "../utils/Utils";
+import { useAuth } from "../context/AuthContext";
 
 // Create the cart context
 const CartContext = createContext();
@@ -17,6 +19,7 @@ export const useCart = () => {
 // Create the CartProvider component
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const {userData} = useAuth()
     console.log(cartItems,'itemn')
   useEffect(() => {
     const loadCartItems = async () => {
@@ -64,12 +67,28 @@ export const CartProvider = ({ children }) => {
     set("cartItems", []); // Save to storage
   };
 
+  const wishListPost = async (value) => {
+    const user = JSON.parse(localStorage.getItem("userData"))
+      try {
+        const obj = {
+          like_id: value?.product_id,
+          user_id: user?.user_id,
+          model_name: "products"
+        }
+        const response = await postApiDataWithAuth("/product-wishlist", obj);
+        console.log('response', response)
+      } catch (e) {
+        console.log(e);
+      }
+  }
+
   const cartContextValue = {
     cartItems,
     addToCart,
     removeFromCart,
     clearCart,
-    setCartItems
+    setCartItems,
+    wishListPost
   };
 
   return (

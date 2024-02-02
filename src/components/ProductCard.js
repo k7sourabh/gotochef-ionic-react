@@ -11,12 +11,14 @@ import {
   useIonLoading,
   useIonModal,
 } from "@ionic/react";
-import { add, bookmarkOutline, star } from "ionicons/icons";
+import { add, bookmarkOutline, heartOutline, star } from "ionicons/icons";
 import { useState } from "react";
 import VariantModal from "../pages/VariantModal";
+import { useCart } from "../contexts/CartProvider";
 
 const ProductCard = (props) => {
   const { product, index } = props;
+  const { wishListPost } = useCart();
   const [selectedProduct, setSelectedProduct] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
     customProp: selectedProduct,
@@ -52,6 +54,7 @@ const ProductCard = (props) => {
               <span>{product?.imk_num}</span>
             </div>
           </div>
+
           <IonButton
             fill="clear"
             className="blank-btn"
@@ -70,6 +73,12 @@ const ProductCard = (props) => {
           <div className="BookMark">
             <IonIcon color="primary" size="small" icon={bookmarkOutline} />
           </div>
+          <IonIcon
+            color="primary"
+            size="small"
+            icon={heartOutline}
+            onClick={() => wishListPost(product)}
+          />
         </IonCardHeader>
 
         <IonCardContent className="ProductDetails">
