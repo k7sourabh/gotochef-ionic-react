@@ -46,6 +46,7 @@ const WishList = () => {
     console.log(item);
     setSelectedProduct(item);
     present({
+      cssClass: "addCartModal",
       onWillDismiss: (ev) => {
         if (ev.detail.role === "confirm") {
           presentLoading({
