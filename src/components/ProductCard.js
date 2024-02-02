@@ -18,7 +18,7 @@ import { useCart } from "../contexts/CartProvider";
 
 const ProductCard = (props) => {
   const { product, index } = props;
-  const { wishListPost } = useCart();
+  const { wishListPost, bookMarkPost } = useCart();
   const [selectedProduct, setSelectedProduct] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
     customProp: selectedProduct,
@@ -71,7 +71,12 @@ const ProductCard = (props) => {
             />
           </IonButton>
           <div className="BookMark">
-            <IonIcon color="primary" size="small" icon={bookmarkOutline} />
+            <IonIcon
+              color="primary"
+              size="small"
+              icon={bookmarkOutline}
+              onClick={() => bookMarkPost(product)}
+            />
           </div>
           <IonIcon
             color="primary"

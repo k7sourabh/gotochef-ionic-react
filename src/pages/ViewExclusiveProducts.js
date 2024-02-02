@@ -39,7 +39,7 @@ import { useCart } from "../contexts/CartProvider";
 
 const ViewExclusiveProduct = () => {
   const [amountLoaded, setAmountLoaded] = useState(6);
-  const { wishListPost } = useCart();
+  const { wishListPost, bookMarkPost } = useCart();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
@@ -134,6 +134,7 @@ const ViewExclusiveProduct = () => {
                           color="primary"
                           size="small"
                           icon={bookmarkOutline}
+                          onClick={() => bookMarkPost(data)}
                         />
                         <IonIcon
                           color="primary"

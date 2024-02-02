@@ -25,6 +25,7 @@ import {
   bookmarkOutline,
   fastFoodOutline,
   gridOutline,
+  heartOutline,
   logInOutline,
   logOutOutline,
   personOutline,
@@ -165,7 +166,7 @@ const Header = () => {
                   <IonIcon
                     aria-hidden="true"
                     slot="start"
-                    icon={bookmarkOutline}
+                    icon={heartOutline}
                   />
                   <IonLabel>WishList</IonLabel>
                 </IonItem>

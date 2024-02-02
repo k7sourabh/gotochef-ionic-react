@@ -41,7 +41,7 @@ import WishList from "./wishList/WishList";
 import { useCart } from "../contexts/CartProvider";
 
 const Home = () => {
-  const { wishListPost } = useCart();
+  const { wishListPost, bookMarkPost } = useCart();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [trendingProductsData, setTrendingProductsData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -185,6 +185,7 @@ const Home = () => {
                           color="primary"
                           size="small"
                           icon={bookmarkOutline}
+                          onClick={() => bookMarkPost(category)}
                         />
                         <IonIcon
                           color="primary"
@@ -335,6 +336,7 @@ const Home = () => {
                           color="primary"
                           size="small"
                           icon={bookmarkOutline}
+                          onClick={() => bookMarkPost(category)}
                         />
                         <IonIcon
                           color="primary"

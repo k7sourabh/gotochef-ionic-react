@@ -68,6 +68,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const wishListPost = async (value) => {
+    console.log(value)
     const user = JSON.parse(localStorage.getItem("userData"))
       try {
         const obj = {
@@ -82,13 +83,30 @@ export const CartProvider = ({ children }) => {
       }
   }
 
+  const bookMarkPost = async (value) => {
+    const user = JSON.parse(localStorage.getItem("userData"))
+      try {
+        const obj = {
+          like_id: value?.product_id,
+          user_id: user?.user_id,
+          page_type: "products"
+        }
+        const response = await postApiDataWithAuth("/product-bookmark", obj);
+        console.log('response', response)
+      } catch (e) {
+        console.log(e);
+      }
+  }
+
+
   const cartContextValue = {
     cartItems,
     addToCart,
     removeFromCart,
     clearCart,
     setCartItems,
-    wishListPost
+    wishListPost,
+    bookMarkPost
   };
 
   return (
