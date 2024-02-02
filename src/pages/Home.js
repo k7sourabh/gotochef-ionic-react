@@ -24,9 +24,6 @@ import {
   add,
   bookmarkOutline,
   chevronForwardCircleSharp,
-  heartCircleOutline,
-  heartCircle,
-  heart,
   heartOutline,
 } from "ionicons/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -37,7 +34,6 @@ import { getApiData } from "../utils/Utils";
 import { useLogo } from "../contexts/ApiProvider";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import VariantModal from "./VariantModal";
-import WishList from "./wishList/WishList";
 import { useCart } from "../contexts/CartProvider";
 
 const Home = () => {
@@ -56,7 +52,7 @@ const Home = () => {
   function openModal(item) {
     setSelectedProduct(item);
     present({
-      cssClass: "custom-modal-class",
+      cssClass: "addCartModal",
       onWillDismiss: (ev) => {
         if (ev.detail.role === "confirm") {
           presentLoading({

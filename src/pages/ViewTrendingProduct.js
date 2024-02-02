@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonButton,
   IonCard,
@@ -25,8 +25,6 @@ import {
   star,
   add,
   bookmarkOutline,
-  chevronForwardCircleSharp,
-  heart,
   heartOutline,
 } from "ionicons/icons";
 import "swiper/swiper-bundle.css";
@@ -50,6 +48,7 @@ const ViewTrendingProduct = () => {
   function openModal(item) {
     setSelectedProduct(item);
     present({
+      cssClass: "addCartModal",
       onWillDismiss: (ev) => {
         if (ev.detail.role === "confirm") {
           presentLoading({
