@@ -39,7 +39,8 @@ import VariantModal from "./VariantModal";
 import { useCart } from "../contexts/CartProvider";
 
 const Home = () => {
-  const { wishListPost, wishListedItems, bookMarkPost } = useCart();
+  const { wishListPost, wishListedItems, bookMarkPost, bookMarkedItems } =
+    useCart();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [trendingProductsData, setTrendingProductsData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -182,13 +183,21 @@ const Home = () => {
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={bookmark}
+                          icon={
+                            bookMarkedItems.indexOf(category?.product_id) < 0
+                              ? bookmarkOutline
+                              : bookmark
+                          }
                           onClick={() => bookMarkPost(category)}
                         />
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={wishListedItems.indexOf(category?.product_id) < 0 ? heartOutline : heart}
+                          icon={
+                            wishListedItems.indexOf(category?.product_id) < 0
+                              ? heartOutline
+                              : heart
+                          }
                           onClick={() => wishListPost(category)}
                         />
                       </div>
@@ -333,13 +342,21 @@ const Home = () => {
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={bookmarkOutline}
+                          icon={
+                            bookMarkedItems.indexOf(category?.product_id) < 0
+                              ? bookmarkOutline
+                              : bookmark
+                          }
                           onClick={() => bookMarkPost(category)}
                         />
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={wishListedItems.indexOf(category?.product_id) < 0 ? heartOutline : heart}
+                          icon={
+                            wishListedItems.indexOf(category?.product_id) < 0
+                              ? heartOutline
+                              : heart
+                          }
                           onClick={() => wishListPost(category)}
                         />
                       </div>

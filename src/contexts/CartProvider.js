@@ -27,6 +27,7 @@ export const CartProvider = ({ children }) => {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [wishListedItems, setWishListedItems] = useState([]);
   const [bookMarkedItems, setBookMarkedItems] = useState([]);
+  const [saveForLaterData, setSaveForLaterData] = useState([]);
   const [present] = useIonToast();
   useEffect(() => {
     const loadCartItems = async () => {
@@ -39,7 +40,6 @@ export const CartProvider = ({ children }) => {
     const loadWishListedItems = async () => {
       try {
         const response = await getApiDataWithAuth("/get-product-wishlist");
-        console.log(response,"response")
         if(response.data.status) {
 
           let product_ids = response?.data?.data?.map((item) => item.product_id);
@@ -56,6 +56,14 @@ export const CartProvider = ({ children }) => {
     const loadBookMarkedItems = async () => {
       try {
         const response = await getApiDataWithAuth("/get-product-bookmark");
+        if(response.data.status) {
+          let product_ids = response?.data?.data?.map((item) => item.product_id);
+          console.log(product_ids)
+          setBookMarkedItems(product_ids);
+          setSaveForLaterData(response?.data?.data);
+        } else {
+          setBookMarkedItems([]);
+        }
         console.log(response,"response")
       } catch (err) {
         console.log(err);
@@ -106,7 +114,6 @@ export const CartProvider = ({ children }) => {
       setIsOpenLogin(true)
       return
     }
-    const user = JSON.parse(localStorage.getItem("userData"))
     console.log(userData, "userData");
       try {
         const obj = {
@@ -130,18 +137,17 @@ export const CartProvider = ({ children }) => {
           });
           setWishListedItems((prev) => [...prev, value?.product_id]);
         }
-        console.log('response', response)
       } catch (e) {
         console.log(e);
       }
   }
 
-  const bookMarkPost = async (value) => {
+  const bookMarkPost = async (value) => { 
+    console.log('value',value)
     if(!authenticated) {
       setIsOpenLogin(true)
       return
     }
-    const user = JSON.parse(localStorage.getItem("userData"))
       try {
         const obj = {
           like_id: value?.product_id,
@@ -149,6 +155,21 @@ export const CartProvider = ({ children }) => {
           page_type: "products"
         }
         const response = await postApiDataWithAuth("/product-bookmark", obj);
+        if(bookMarkedItems.includes(value?.product_id)) {
+          present({
+            message: 'Product removed from bookmark',
+            duration: 1500,
+            position: 'Top',
+          });
+          setBookMarkedItems((prev) => prev.filter((id) => id !== value?.product_id));
+        }else{
+          present({
+            message: 'Product added to bookmark',
+            duration: 1500,
+            position: 'Top',
+          });
+          setBookMarkedItems((prev) => [...prev, value?.product_id]);
+        }
         console.log('response', response)
       } catch (e) {
         console.log(e);
@@ -159,12 +180,14 @@ export const CartProvider = ({ children }) => {
   const cartContextValue = {
     cartItems,
     wishListedItems,
+    bookMarkedItems,
     addToCart,
     removeFromCart,
     clearCart,
     setCartItems,
     wishListPost,
-    bookMarkPost
+    bookMarkPost,
+    saveForLaterData,
   };
 
   return (

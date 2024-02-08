@@ -26,13 +26,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import {
-  add,
-  remove,
-  home,
-  closeCircle,
-  closeCircleOutline,
-} from "ionicons/icons";
+import { add, remove, home, closeCircleOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { CartStore } from "../../data/CartStore";
 import { ProductStore } from "../../data/ProductStore";
@@ -43,13 +37,9 @@ import { set } from "./../../services/Storage";
 import LoginPopup from "../../modal/LoginPopup";
 import OTPPopup from "../../modal/OTPPopup";
 import { useAuth } from "../../context/AuthContext";
-import {
-  getApiDataWithAuth,
-  postApiData,
-  postApiDataWithAuth,
-} from "../../utils/Utils";
+import { getApiDataWithAuth, postApiDataWithAuth } from "../../utils/Utils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { Form } from "formik";
+import SaveForLater from "./SaveForLater";
 
 const CartProducts = () => {
   const products = ProductStore.useState((s) => s.products);
@@ -61,7 +51,8 @@ const CartProducts = () => {
   const [isOpenChange, setIsOpenChange] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenAdd, setIsOpenAdd] = useState(false);
-  const { cartItems, setCartItems, removeFromCart } = useCart();
+  const { cartItems, setCartItems, removeFromCart, bookMarkedItems } =
+    useCart();
   const [cartTotal, setCartTotal] = useState(0);
   const [cityListData, setCityListData] = useState([]);
   const [stateListtData, setStateListtData] = useState([]);
@@ -164,7 +155,7 @@ const CartProducts = () => {
     try {
       const response = await getApiDataWithAuth("/get-user-address-list");
       console.log(response.data.data);
-      setUserAddressData(response?.data?.data)
+      setUserAddressData(response?.data?.data);
     } catch (err) {
       console.error(err);
     }
@@ -173,6 +164,7 @@ const CartProducts = () => {
   useEffect(() => {
     userAddress();
   }, []);
+  console.log("bookMarkedItems", bookMarkedItems.length);
 
   return (
     <IonPage id="cart-page">
@@ -297,8 +289,13 @@ const CartProducts = () => {
                         >
                           Delete
                         </IonItemOption>
-                        <IonItemOption color="success" onClick={() => bookMarkPost(item)}>
-                          Save
+                        <IonItemOption
+                          color="success"
+                          onClick={() => bookMarkPost(item)}
+                        >
+                          {bookMarkedItems.indexOf(item?.product_id) < 0
+                            ? "Save"
+                            : "Un Save"}
                         </IonItemOption>
                       </IonItemOptions>
                     </IonItemSliding>
@@ -312,27 +309,9 @@ const CartProducts = () => {
               <IonTitle color="dark">Saved For later</IonTitle>
             </IonCol>
           </IonRow>
+          {/* <SaveForLater /> */}
 
-          <IonRow className="ion-padding-horizontal ion-padding-vertical bottom-shadow">
-            <IonCol size="4">
-              <IonSkeletonText
-                animated={true}
-                style={{ width: "100%", height: "150px" }}
-              ></IonSkeletonText>
-            </IonCol>
-            <IonCol size="4">
-              <IonSkeletonText
-                animated={true}
-                style={{ width: "100%", height: "150px" }}
-              ></IonSkeletonText>
-            </IonCol>
-            <IonCol size="4">
-              <IonSkeletonText
-                animated={true}
-                style={{ width: "100%", height: "150px" }}
-              ></IonSkeletonText>
-            </IonCol>
-          </IonRow>
+          {bookMarkedItems.length > 0 && <SaveForLater />}
 
           <IonRow className="ion-padding bottom-shadow">
             <IonCol size="6" className="ion-padding-top">
@@ -422,28 +401,31 @@ const CartProducts = () => {
 
           <IonRow className="ion-padding bottom-shadow padd-80">
             <IonCol size="12">
-              <div className="AddressBlock">
-                <div className="IconHome">
-                  <IonIcon color="primary" size="large" icon={home} />
-                </div>
-                <div className="Address">
-                  <IonTitle color="dark" className="ion-no-padding">
-                    Delivering to <strong>Home</strong>
-                  </IonTitle>
-                  <IonText className="AddressText">
-                    10-3-85/4, Flat No 402, Pandit Rao Nilayam, Hyderabad
-                  </IonText>
-                </div>
-                <div className="AddressChangeBtn">
-                  <IonButton
-                    fill="clear"
-                    expand="block"
-                    onClick={() => setIsOpenChange(true)}
-                  >
-                    CHANGE
-                  </IonButton>
-                </div>
-              </div>
+              {userAddressData &&
+                userAddressData?.map((data, index) => (
+                  <div className="AddressBlock">
+                    <div className="IconHome">
+                      <IonIcon color="primary" size="large" icon={home} />
+                    </div>
+                    <div className="Address">
+                      <IonTitle color="dark" className="ion-no-padding">
+                        Delivering to <strong>{data?.type}</strong>
+                      </IonTitle>
+                      <IonText className="AddressText">
+                      {data.address} {data.cityname} {data.statename}
+                      </IonText>
+                    </div>
+                    <div className="AddressChangeBtn">
+                      <IonButton
+                        fill="clear"
+                        expand="block"
+                        onClick={() => setIsOpenChange(true)}
+                      >
+                        CHANGE
+                      </IonButton>
+                    </div>
+                  </div>
+                ))}
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -492,23 +474,22 @@ const CartProducts = () => {
           </IonHeader>
 
           <IonContent className="ion-padding">
-            {userAddressData && userAddressData?.map((data,index)=>(
-              <IonButton fill="clear" key={index}>
-              <div className="IconHome">
-                <IonIcon color="primary" size="large" icon={home} />
-              </div>
-              <div className="Address ion-padding-horizontal">
-                <IonTitle color="dark" className="ion-no-padding">
-                  Delivering to <strong>Home</strong>
-                </IonTitle>
-                <IonText className="AddressText">
-                  {data.address}  {data.cityname} {data.statename}
-                  {/* 10-3-85/4, Flat No 402, Pandit Rao Nilayam, Hyderabad */}
-                </IonText>
-              </div>
-            </IonButton>
-            ))}
-            
+            {userAddressData &&
+              userAddressData?.map((data, index) => (
+                <IonButton fill="clear" key={index}>
+                  <div className="IconHome">
+                    <IonIcon color="primary" size="large" icon={home} />
+                  </div>
+                  <div className="Address ion-padding-horizontal">
+                    <IonTitle color="dark" className="ion-no-padding">
+                      Delivering to {data?.type}
+                    </IonTitle>
+                    <IonText className="AddressText">
+                      {data.address} {data.cityname} {data.statename}
+                    </IonText>
+                  </div>
+                </IonButton>
+              ))}
 
             <IonItem className="ion-margin-vertical" lines="none">
               <IonButton
@@ -526,7 +507,6 @@ const CartProducts = () => {
               </IonButton>
             </IonItem>
           </IonContent>
-
         </IonModal>
         <IonModal isOpen={isOpen} size="small" className="myModel">
           <IonHeader>

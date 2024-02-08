@@ -23,7 +23,6 @@ import { useCart } from "../contexts/CartProvider";
 const Bookmart = () => {
   const [bookmarkData, setBookmarkData] = useState([]);
   const { bookMarkPost } = useCart();
-  const [isFlag, setFlag] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
     customProp: selectedProduct,
@@ -48,7 +47,7 @@ const Bookmart = () => {
   }
   const bookmarkProduct = async () => {
     try {
-      const response = await getApiDataWithAuth("/product-saveforlater-list");
+      const response = await getApiDataWithAuth("/get-product-bookmark");
       console.log(response?.data?.data);
       setBookmarkData(response?.data?.data);
     } catch (err) {
@@ -81,7 +80,7 @@ const Bookmart = () => {
           </IonGrid>
           <IonGrid className="ion-padding-bottom">
             <IonRow>
-              {bookmarkData.map((data, index) => (
+              {bookmarkData && bookmarkData?.map((data, index) => (
                 <IonCol size="6" key={index}>
                   <IonCard className="ProductCard">
                     <IonCardHeader className="ProductThumb">
