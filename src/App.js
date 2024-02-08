@@ -51,7 +51,7 @@ import ProductCard from "./components/ProductCard";
 import SearchProduct from "./pages/Products/SearchProduct";
 import Dashboard from "./pages/profile/DashBoard";
 import VeganRecipe from "./pages/HomeRecipe/VeganRecipe";
-import NutriBudy from "./pages/Products/NutriBudy";
+import NutriBudy from "./pages/Products/NutriBudy/NutriBudy";
 import MyProfile from "./pages/EditProfile/MyProfile";
 import SubmitRecipe from "./pages/HomeRecipe/SubmitRecipe";
 import { createStore } from "./services/Storage";
