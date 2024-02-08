@@ -24,10 +24,9 @@ import {
   add,
   bookmarkOutline,
   chevronForwardCircleSharp,
-  heartCircleOutline,
-  heartCircle,
-  heart,
   heartOutline,
+  heart,
+  bookmark,
 } from "ionicons/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
@@ -37,11 +36,10 @@ import { getApiData } from "../utils/Utils";
 import { useLogo } from "../contexts/ApiProvider";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import VariantModal from "./VariantModal";
-import WishList from "./wishList/WishList";
 import { useCart } from "../contexts/CartProvider";
 
 const Home = () => {
-  const { wishListPost } = useCart();
+  const { wishListPost, wishListedItems, bookMarkPost } = useCart();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [trendingProductsData, setTrendingProductsData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -56,7 +54,7 @@ const Home = () => {
   function openModal(item) {
     setSelectedProduct(item);
     present({
-      cssClass: "custom-modal-class",
+      cssClass: "addCartModal",
       onWillDismiss: (ev) => {
         if (ev.detail.role === "confirm") {
           presentLoading({
@@ -184,12 +182,13 @@ const Home = () => {
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={bookmarkOutline}
+                          icon={bookmark}
+                          onClick={() => bookMarkPost(category)}
                         />
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={heartOutline}
+                          icon={wishListedItems.indexOf(category?.product_id) < 0 ? heartOutline : heart}
                           onClick={() => wishListPost(category)}
                         />
                       </div>
@@ -335,11 +334,12 @@ const Home = () => {
                           color="primary"
                           size="small"
                           icon={bookmarkOutline}
+                          onClick={() => bookMarkPost(category)}
                         />
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={heartOutline}
+                          icon={wishListedItems.indexOf(category?.product_id) < 0 ? heartOutline : heart}
                           onClick={() => wishListPost(category)}
                         />
                       </div>

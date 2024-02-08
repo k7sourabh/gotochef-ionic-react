@@ -9,41 +9,42 @@ import {
   IonRow,
   IonButton,
   IonChip,
-  IonHeader,
-  IonTitle,
-  IonSubtitle,
   IonCardContent,
   IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
   useIonModal,
   useIonLoading,
+  useIonViewDidEnter,
 } from "@ionic/react";
 import Header from "../../components/Header";
 import {
   star,
   add,
-  chevronForwardCircleSharp,
-  remove,
   closeCircle,
-  bookmark,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import VariantModal from "../VariantModal";
 import { getApiDataWithAuth } from "../../utils/Utils";
+import { useCart } from "../../contexts/CartProvider";
+
 const WishList = () => {
-  const WishListArray = [1, 2, 3];
   const [selectedProduct, setSelectedProduct] = useState({});
   const [wishListData, setWishListData] = useState([]);
+  const { wishListPost } = useCart();
   const [present, dismiss] = useIonModal(VariantModal, {
     customProp: selectedProduct,
     onDismiss: (data, role) => dismiss(data, role),
   });
   const [presentLoading] = useIonLoading();
-  function openModal(item) {
+
+  useIonViewDidEnter(() => {
+    wishlistProduct();
+  });
+
+  const openModal = (item) => {
     console.log(item);
     setSelectedProduct(item);
     present({
+      cssClass: "addCartModal",
       onWillDismiss: (ev) => {
         if (ev.detail.role === "confirm") {
           presentLoading({
@@ -69,6 +70,14 @@ const WishList = () => {
   useEffect(() => {
     wishlistProduct();
   }, []);
+
+  const removeItem = (data) => {
+    wishListPost(data);
+    setTimeout(() => {
+      wishlistProduct();
+    }, 500);
+  };
+
   return (
     <>
       <IonPage>
@@ -104,7 +113,7 @@ const WishList = () => {
                           alt="category cover"
                           className="MainProductThumb"
                           onError={(e) => {
-                            e.target.onerror = null; 
+                            e.target.onerror = null;
                             e.target.src = "/assets/img/img-placeholder.jpg";
                           }}
                         />
@@ -113,6 +122,9 @@ const WishList = () => {
                             color="primary"
                             size="small"
                             icon={closeCircle}
+                            onClick={() => {
+                              removeItem(data);
+                            }}
                           />
                         </div>
                       </IonCardHeader>
@@ -152,6 +164,7 @@ const WishList = () => {
                           size="default"
                           shape="round"
                           fill="outline"
+                          onClick={() => openModal(data)}
                         >
                           <div className="addText">
                             add

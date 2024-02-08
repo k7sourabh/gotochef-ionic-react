@@ -222,7 +222,7 @@ const App = () => {
                   </IonTabButton>
 
                   <IonTabButton tab="search" href="/cart">
-                    <div className="NewAdd">
+                    <div className="numCounter">
                       <span>{CartNum}</span>
                       <img
                         src="/assets/img/Cart.png"

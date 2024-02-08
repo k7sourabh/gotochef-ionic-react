@@ -16,6 +16,7 @@ import OTPInput from "react-otp-input";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { postApiData } from "../utils/Utils";
 import { useAuth } from "../context/AuthContext";
+import { set } from "../services/Storage";
 
 const OTPPopup = (props) => {
   const [otpButtonClicked, setOtpButtonClicked] = useState(true);
@@ -65,13 +66,13 @@ const OTPPopup = (props) => {
       const response = await postApiData("/verify-otp", formdata);
       if (response?.data?.status === true) {
         presentToast("Top", response?.data?.message);
-        localStorage.setItem(
+        set(
           "token",
           response?.data?.token?.original?.access_token
         );
-        localStorage.setItem("userId", response?.data?.user_data?.id);
+        set("userId", response?.data?.user_data?.id);
         login();
-        localStorage.setItem("auth", "true");
+        set("auth", "true");
         setTimeout(() => {
           props.setIsOpen(false);
           history.push("/home");
