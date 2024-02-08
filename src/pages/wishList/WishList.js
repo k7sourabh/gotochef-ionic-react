@@ -9,24 +9,17 @@ import {
   IonRow,
   IonButton,
   IonChip,
-  IonHeader,
-  IonTitle,
-  IonSubtitle,
   IonCardContent,
   IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
   useIonModal,
   useIonLoading,
+  useIonViewDidEnter,
 } from "@ionic/react";
 import Header from "../../components/Header";
 import {
   star,
   add,
-  chevronForwardCircleSharp,
-  remove,
   closeCircle,
-  bookmark,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import VariantModal from "../VariantModal";
@@ -42,7 +35,12 @@ const WishList = () => {
     onDismiss: (data, role) => dismiss(data, role),
   });
   const [presentLoading] = useIonLoading();
-  function openModal(item) {
+
+  useIonViewDidEnter(() => {
+    wishlistProduct();
+  });
+
+  const openModal = (item) => {
     console.log(item);
     setSelectedProduct(item);
     present({

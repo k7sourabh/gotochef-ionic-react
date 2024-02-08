@@ -25,7 +25,6 @@ import {
   star,
   add,
   bookmarkOutline,
-  chevronForwardCircleSharp,
   heart,
   heartOutline,
 } from "ionicons/icons";
@@ -39,7 +38,7 @@ import { useCart } from "../contexts/CartProvider";
 
 const ViewExclusiveProduct = () => {
   const [amountLoaded, setAmountLoaded] = useState(6);
-  const { wishListPost, bookMarkPost } = useCart();
+  const { wishListPost, wishListedItems,bookMarkPost } = useCart();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
@@ -140,7 +139,7 @@ const ViewExclusiveProduct = () => {
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={heartOutline}
+                          icon={wishListedItems.indexOf(data?.product_id) < 0 ? heartOutline : heart}
                           onClick={() => wishListPost(data)}
                         />
                       </div>

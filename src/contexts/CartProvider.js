@@ -3,7 +3,10 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { get, set } from "../services/Storage";
 import { postApiDataWithAuth } from "../utils/Utils";
 import { useAuth } from "../context/AuthContext";
-
+import LoginPopup from "../modal/LoginPopup";
+import OTPPopup from "../modal/OTPPopup";
+import { getApiDataWithAuth } from "../utils/Utils";
+import {useIonToast} from "@ionic/react"
 // Create the cart context
 const CartContext = createContext();
 
@@ -19,8 +22,12 @@ export const useCart = () => {
 // Create the CartProvider component
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const {userData} = useAuth()
-    console.log(cartItems,'itemn')
+  const {userData, authenticated} = useAuth();
+  const [isOpenOtp, setIsOpenOtp] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
+  const [wishListedItems, setWishListedItems] = useState([]);
+  const [bookMarkedItems, setBookMarkedItems] = useState([]);
+  const [present] = useIonToast();
   useEffect(() => {
     const loadCartItems = async () => {
       const storedCartItems = await get("cartItems");
@@ -29,6 +36,33 @@ export const CartProvider = ({ children }) => {
       }
     };
 
+    const loadWishListedItems = async () => {
+      try {
+        const response = await getApiDataWithAuth("/get-product-wishlist");
+        console.log(response,"response")
+        if(response.data.status) {
+
+          let product_ids = response?.data?.data?.map((item) => item.product_id);
+          console.log(product_ids)
+          setWishListedItems(product_ids);
+        } else {
+          setWishListedItems([]);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    const loadBookMarkedItems = async () => {
+      try {
+        const response = await getApiDataWithAuth("/get-product-bookmark");
+        console.log(response,"response")
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    loadBookMarkedItems();
+    loadWishListedItems();
     loadCartItems();
   }, []);
 
@@ -68,15 +102,34 @@ export const CartProvider = ({ children }) => {
   };
 
   const wishListPost = async (value) => {
-    console.log(value)
+    if(!authenticated) {
+      setIsOpenLogin(true)
+      return
+    }
     const user = JSON.parse(localStorage.getItem("userData"))
+    console.log(userData, "userData");
       try {
         const obj = {
           like_id: value?.product_id,
-          user_id: user?.user_id,
+          user_id: 3996,
           model_name: "products"
         }
         const response = await postApiDataWithAuth("/product-wishlist", obj);
+        if(wishListedItems.includes(value?.product_id)) {
+          present({
+            message: 'Product removed from wishlist',
+            duration: 1500,
+            position: 'Top',
+          });
+          setWishListedItems((prev) => prev.filter((id) => id !== value?.product_id));
+        }else{
+          present({
+            message: 'Product added to wishlist',
+            duration: 1500,
+            position: 'Top',
+          });
+          setWishListedItems((prev) => [...prev, value?.product_id]);
+        }
         console.log('response', response)
       } catch (e) {
         console.log(e);
@@ -84,11 +137,15 @@ export const CartProvider = ({ children }) => {
   }
 
   const bookMarkPost = async (value) => {
+    if(!authenticated) {
+      setIsOpenLogin(true)
+      return
+    }
     const user = JSON.parse(localStorage.getItem("userData"))
       try {
         const obj = {
           like_id: value?.product_id,
-          user_id: user?.user_id,
+          user_id: 3996,
           page_type: "products"
         }
         const response = await postApiDataWithAuth("/product-bookmark", obj);
@@ -101,6 +158,7 @@ export const CartProvider = ({ children }) => {
 
   const cartContextValue = {
     cartItems,
+    wishListedItems,
     addToCart,
     removeFromCart,
     clearCart,
@@ -112,6 +170,13 @@ export const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider value={cartContextValue}>
       {children}
+      <LoginPopup
+        isOpen={isOpenLogin}
+        setIsOpen={setIsOpenLogin}
+        isOtpOpen={isOpenOtp}
+        setIsOtpOpen={setIsOpenOtp}
+      />
+      <OTPPopup isOpen={isOpenOtp} setIsOpen={setIsOpenOtp} />
     </CartContext.Provider>
   );
 };

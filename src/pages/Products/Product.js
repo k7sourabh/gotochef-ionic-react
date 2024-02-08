@@ -53,7 +53,7 @@ const Product = () => {
   const [allProductData, setAllProductData] = useState({});
   const [present, dismiss] = useIonLoading();
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
-  const {addToCart, cartItems} = useCart();
+  const {addToCart, wishListedItems,wishListPost, cartItems} = useCart();
   const exclusiveProduct = async () => {
     present();
     try {
@@ -155,11 +155,12 @@ const Product = () => {
                         </div>
                       </IonButton>
 
-                      <IonButton fill="clear" className="IconBtn">
+                      <IonButton onClick={() => wishListPost({...productData, product_id: productData?.id})} fill="clear" className="IconBtn">
                       <IonIcon
                           color="primary"
                           size="large"  
-                          icon={heartOutline}
+                          icon={wishListedItems?.indexOf(productData?.id) < 0 ? heartOutline : heart}
+                          
                         />
                       </IonButton>
                     </div>

@@ -13,13 +13,12 @@ import ForgotPopup from "./ForgotPopup";
 import { postApiData } from "../utils/Utils";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useAuth } from "../context/AuthContext";
+import { set } from "../services/Storage";
 
 const LoginPopup = (props) => {
   const [isOpenFgp, setIsOpenFgp] = useState(false);
   const [present] = useIonToast();
-  const history = useHistory();
   const { login } = useAuth();
 
   const SignupSchema = Yup.object().shape({
@@ -34,13 +33,12 @@ const LoginPopup = (props) => {
       formdata.append("password", values.password);
       const response = await postApiData("/login", formdata);
       if (response?.data?.status === 200) {
-        localStorage.setItem("token", response?.data?.token?.original?.access_token);
-        localStorage.setItem('auth', 'true')
+        set("token", response?.data?.token?.original?.access_token);
+        set('auth', 'true');
         presentToast("Top", response?.data?.message_response);
         setTimeout(() => {
           props.setIsOpen(false);
           login(response?.data?.user_data);
-          history.push("/home");
         }, 2000);
       } else {
         presentToast("Top", response?.data?.message_response);

@@ -1,6 +1,7 @@
 // context/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Welcome from "../pages/Welcome/Welcome";
+import { set, get } from "../services/Storage";
 
 const AuthContext = createContext();
 
@@ -10,7 +11,9 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
 
   const login = (data) => {
-    localStorage.setItem("userData", JSON.stringify(data));
+    //localStorage.setItem("userData", JSON.stringify(data));
+    set("userData", data);
+    setUserData(data);
     setAuthenticated(true);
   };
 
@@ -19,20 +22,24 @@ export const AuthProvider = ({ children }) => {
   };
   useEffect(() => {
     const loadUserData = async () => {
-      const isLoggedIn = await localStorage.getItem("auth");
+      const isLoggedIn = await get("auth");
+      const userData = await get("userData");
       setAuthenticated(!!isLoggedIn);
+      setUserData(userData);
       setLoading(false);
     };
     loadUserData();
   }, []);
 
   useEffect(() => {
-    //  setUserData(JSON.parse(localStorage.getItem("userData")));
-    if (localStorage.getItem("auth") === "true") {
-      setAuthenticated(true);
-    } else {
-      setAuthenticated(false);
-    }
+    get("auth").then((isLoggedIn) => {
+      console.log(isLoggedIn)
+      if(isLoggedIn === "true") {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+      }
+    })
   }, [authenticated]);
 
   return (

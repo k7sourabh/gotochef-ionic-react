@@ -33,6 +33,7 @@ import {
 import { useLogo } from "../contexts/ApiProvider";
 import { useAuth } from "../context/AuthContext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { set } from "../services/Storage";
 
 const Header = () => {
   const { headerImage } = useLogo();
@@ -44,7 +45,7 @@ const Header = () => {
   const handleLogout = () => {
     // Add logout logic here
     logout();
-    localStorage.setItem("auth", "false");
+    set("auth", "false");
     history.push("/"); // Redirect to the login page after logout
   };
   return (

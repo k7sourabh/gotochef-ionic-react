@@ -26,6 +26,7 @@ import {
   add,
   bookmarkOutline,
   heartOutline,
+  heart
 } from "ionicons/icons";
 import "swiper/swiper-bundle.css";
 import "@ionic/react/css/ionic-swiper.css";
@@ -37,7 +38,7 @@ import { useCart } from "../contexts/CartProvider";
 
 const ViewTrendingProduct = () => {
   const [amountLoaded, setAmountLoaded] = useState(6);
-  const { wishListPost, bookMarkPost } = useCart();
+  const { wishListPost, wishListedItems, bookMarkPost } = useCart();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
@@ -137,7 +138,7 @@ const ViewTrendingProduct = () => {
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={heartOutline}
+                          icon={wishListedItems.indexOf(data?.product_id) < 0 ? heartOutline : heart}
                           onClick={() => wishListPost(data)}
                         />
                       </div>
