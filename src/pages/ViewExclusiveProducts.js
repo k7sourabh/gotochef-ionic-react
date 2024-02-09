@@ -27,6 +27,7 @@ import {
   bookmarkOutline,
   heart,
   heartOutline,
+  bookmark,
 } from "ionicons/icons";
 import "swiper/swiper-bundle.css";
 import "@ionic/react/css/ionic-swiper.css";
@@ -38,7 +39,7 @@ import { useCart } from "../contexts/CartProvider";
 
 const ViewExclusiveProduct = () => {
   const [amountLoaded, setAmountLoaded] = useState(6);
-  const { wishListPost, wishListedItems,bookMarkPost } = useCart();
+  const { wishListPost, wishListedItems,bookMarkPost,bookMarkedItems } = useCart();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
@@ -133,7 +134,11 @@ const ViewExclusiveProduct = () => {
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={bookmarkOutline}
+                          icon={
+                            bookMarkedItems.indexOf(data?.product_id) < 0
+                              ? bookmarkOutline
+                              : bookmark
+                          }
                           onClick={() => bookMarkPost(data)}
                         />
                         <IonIcon

@@ -31,6 +31,7 @@ import {
   helpCircle,
   heart,
   heartOutline,
+  bookmark,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -53,7 +54,14 @@ const Product = () => {
   const [allProductData, setAllProductData] = useState({});
   const [present, dismiss] = useIonLoading();
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
-  const {addToCart, wishListedItems,wishListPost, cartItems} = useCart();
+  const {
+    addToCart,
+    wishListedItems,
+    wishListPost,
+    bookMarkedItems,
+    bookMarkPost,
+    cartItems,
+  } = useCart();
   const exclusiveProduct = async () => {
     present();
     try {
@@ -74,24 +82,30 @@ const Product = () => {
   const handleAddToCart = () => {
     let obj = {
       product_id: productData.id,
-      pro_variant_id: productData.product_variant_result[selectedVariantIndex].pro_variant_id,
-      variant: productData.product_variant_result[selectedVariantIndex].weight+""+productData.product_variant_result[selectedVariantIndex].weight_type,
+      pro_variant_id:
+        productData.product_variant_result[selectedVariantIndex].pro_variant_id,
+      variant:
+        productData.product_variant_result[selectedVariantIndex].weight +
+        "" +
+        productData.product_variant_result[selectedVariantIndex].weight_type,
       quantity: 1,
       prod_details: {
         name: productData.slug,
         image: productData.images,
         brand_name: productData.brand_name,
-        main_price: productData.product_variant_result[selectedVariantIndex].main_price,
-        offer_price: productData.product_variant_result[selectedVariantIndex].offer_price
-      }
-    }
+        main_price:
+          productData.product_variant_result[selectedVariantIndex].main_price,
+        offer_price:
+          productData.product_variant_result[selectedVariantIndex].offer_price,
+      },
+    };
     addToCart(obj);
     present({
       message: "Product added to cart successfully!",
       duration: 1500,
       position: "bottom",
     });
-  }
+  };
 
   function convertToOnlyDate(dateTimeString) {
     const dateOnly = new Date(dateTimeString).toISOString().split("T")[0];
@@ -155,12 +169,24 @@ const Product = () => {
                         </div>
                       </IonButton>
 
-                      <IonButton onClick={() => wishListPost({...productData, product_id: productData?.id})} fill="clear" className="IconBtn">
-                      <IonIcon
+                      <IonButton
+                        onClick={() =>
+                          wishListPost({
+                            ...productData,
+                            product_id: productData?.id,
+                          })
+                        }
+                        fill="clear"
+                        className="IconBtn"
+                      >
+                        <IonIcon
                           color="primary"
-                          size="large"  
-                          icon={wishListedItems?.indexOf(productData?.id) < 0 ? heartOutline : heart}
-                          
+                          size="large"
+                          icon={
+                            wishListedItems?.indexOf(productData?.id) < 0
+                              ? heartOutline
+                              : heart
+                          }
                         />
                       </IonButton>
                     </div>
@@ -178,11 +204,24 @@ const Product = () => {
                         />
                       </IonButton>
 
-                      <IonButton fill="clear" className="IconBtn">
+                      <IonButton
+                        fill="clear"
+                        className="IconBtn"
+                        onClick={() =>
+                          bookMarkPost({
+                            ...productData,
+                            product_id: productData?.id,
+                          })
+                        }
+                      >
                         <IonIcon
+                          color="primary"
                           size="large"
-                          color="danger"
-                          icon={bookmarkOutline}
+                          icon={
+                            bookMarkedItems.indexOf(productData?.id) < 0
+                              ? bookmarkOutline
+                              : bookmark
+                          }
                         />
                       </IonButton>
                     </div>
@@ -230,35 +269,62 @@ const Product = () => {
                         <IonIcon color="light" size="small" icon={star} />
                       </IonChip>
                     </div>
-                    <span className="productName">{productData && productData?.slug}</span>
-                    <IonSelect className="qwt-select" onIonChange={(e) => setSelectedVariantIndex(e.detail.value)} value={selectedVariantIndex}>
-                      {productData.product_variant_result && productData.product_variant_result.map((item, index)=><IonSelectOption value={index}>{item.weight} {item.weight_type}</IonSelectOption>)}
+                    <span className="productName">
+                      {productData && productData?.slug}
+                    </span>
+                    <IonSelect
+                      className="qwt-select"
+                      onIonChange={(e) =>
+                        setSelectedVariantIndex(e.detail.value)
+                      }
+                      value={selectedVariantIndex}
+                    >
+                      {productData.product_variant_result &&
+                        productData.product_variant_result.map(
+                          (item, index) => (
+                            <IonSelectOption value={index}>
+                              {item.weight} {item.weight_type}
+                            </IonSelectOption>
+                          )
+                        )}
                     </IonSelect>
                     <div className={styles.priceInfo}>
                       {productData &&
                         productData.product_variant_result &&
-                        productData.product_variant_result[selectedVariantIndex] &&
-                        productData?.product_variant_result[selectedVariantIndex]?.offer_price}
+                        productData.product_variant_result[
+                          selectedVariantIndex
+                        ] &&
+                        productData?.product_variant_result[
+                          selectedVariantIndex
+                        ]?.offer_price}
                       <div className="addButn">
                         <div className="OfferInfo">
                           <IonText color="dark" className="OldPrice">
                             {productData &&
                               productData.product_variant_result &&
-                              productData.product_variant_result[selectedVariantIndex] &&
-                              productData?.product_variant_result[selectedVariantIndex]
-                                ?.main_price}
+                              productData.product_variant_result[
+                                selectedVariantIndex
+                              ] &&
+                              productData?.product_variant_result[
+                                selectedVariantIndex
+                              ]?.main_price}
                           </IonText>
                           <IonChip className="offerBedge">
                             {productData &&
                               productData.product_variant_result &&
-                              productData.product_variant_result[selectedVariantIndex] &&
+                              productData.product_variant_result[
+                                selectedVariantIndex
+                              ] &&
                               (
-                                ((productData?.product_variant_result[selectedVariantIndex]
-                                  ?.main_price -
-                                  productData?.product_variant_result[selectedVariantIndex]
-                                    ?.offer_price) /
-                                  productData?.product_variant_result[selectedVariantIndex]
-                                    ?.main_price) *
+                                ((productData?.product_variant_result[
+                                  selectedVariantIndex
+                                ]?.main_price -
+                                  productData?.product_variant_result[
+                                    selectedVariantIndex
+                                  ]?.offer_price) /
+                                  productData?.product_variant_result[
+                                    selectedVariantIndex
+                                  ]?.main_price) *
                                 100
                               ).toFixed(0)}
                             % OFF
@@ -437,7 +503,8 @@ const Product = () => {
                             allProductData.data &&
                             allProductData.data.data &&
                             allProductData.data.data.product_details.length &&
-                            allProductData?.data?.data?.product_details?.fssai_number}
+                            allProductData?.data?.data?.product_details
+                              ?.fssai_number}
                         </IonText>
                       </div>
                     </IonCol>
