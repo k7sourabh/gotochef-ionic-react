@@ -1,4 +1,4 @@
-import React, { } from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header";
 import {
   IonButton,
@@ -6,6 +6,7 @@ import {
   IonChip,
   IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonLabel,
@@ -16,25 +17,42 @@ import {
 import {
   atCircleOutline,
   bookmarkOutline,
+  menuOutline,
   person,
   pint,
   star,
   timeOutline,
 } from "ionicons/icons";
+import SubmitArticals from "../Articals/SubmitArticals";
 
 const MyRecipe = () => {
+  const [showMenu, setShowMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
 
   return (
     <IonPage>
       <Header />
       <IonContent fullscreen>
-        <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="backBtn" fill="clear" routerLink="/profile">
-            <i class="material-icons dark">west</i>
-          </IonButton>
-          <IonTitle color="dark">My Recipe</IonTitle>
+        <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
+          <div className="TitleHead">
+            <IonButton className="backBtn" fill="clear" routerLink="/profile">
+              <i class="material-icons dark">west</i>
+            </IonButton>
+            <IonTitle color="dark">My Recipe</IonTitle>
+          </div>
+          <div className="flex ion-justify-content-end ion-align-items-end">
+            <IonButton className="ion-padding-horizontal" fill="outline" size="small" shape="round" routerLink="/submit-recipe">
+              <i class="material-icons dark">add</i>
+            </IonButton>
+          </div>
         </IonHeader>
 
+        <IonGrid>
+          <SubmitArticals show={showMenu} />
+        </IonGrid>
         <IonRow className="ion-padding-vertical">
           <IonCol size="6">
             <IonCard className="ProductCard">

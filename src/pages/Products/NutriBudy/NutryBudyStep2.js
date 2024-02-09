@@ -67,39 +67,34 @@ const NutryBudyStep2 = () => {
                         </h3>
                         <div className="AllergyBox ion-padding-vertical">
                             <div className="ImgIcon">
-                                <IonCheckbox id="icons1"></IonCheckbox>
-                                <IonLabel for="icons1">
-                                    <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                </IonLabel>
-                                <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                            <input type="checkbox" id="myCheckbox1" />
+                                <label for="myCheckbox1">
+                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                </label>
                             </div>
                             <div className="ImgIcon">
-                                <IonCheckbox id="icons2"></IonCheckbox>
-                                <IonLabel for="icons2">
-                                    <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                </IonLabel>
-                                <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                            <input type="checkbox" id="myCheckbox2" />
+                                <label for="myCheckbox2">
+                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                </label>
                             </div>
                             <div className="ImgIcon">
-                                <IonCheckbox id="icons3"></IonCheckbox>
-                                <IonLabel for="icons3">
-                                    <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                </IonLabel>
-                                <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                                <input type="checkbox" id="myCheckbox3" />
+                                <label for="myCheckbox3">
+                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                </label>
                             </div>
                             <div className="ImgIcon">
-                                <IonCheckbox id="icons4"></IonCheckbox>
-                                <IonLabel for="icons4">
-                                    <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                </IonLabel>
-                                <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                            <input type="checkbox" id="myCheckbox4" />
+                                <label for="myCheckbox4">
+                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                </label>
                             </div>
 
-                            <div className="ImgIcon">
-                                <IonButton fill="clear" >
-                                    <IonIcon size="large" icon={add} className="Orangebtn" />
+                            <div className="ImgBtn">
+                                <IonButton fill="clear">
+                                    <IonIcon size="large" icon={add}  />
                                 </IonButton>
-                                <IonTitle className="ion-no-padding">Lactose</IonTitle>
                             </div>
 
                         </div>

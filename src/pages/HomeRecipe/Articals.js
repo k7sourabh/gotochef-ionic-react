@@ -12,12 +12,20 @@ const Articals = () => {
          <IonPage>
             <Header />
             <IonContent>
-               <IonHeader className="TitleHead bottom-shadow">
+               <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
+                  <div className="TitleHead">
                   <IonButton className="backBtn" fill="clear" routerLink="/profile">
                      <i class="material-icons dark">west</i>
                   </IonButton>
                   <IonTitle color="dark">My Articles</IonTitle>
+                  </div>
+                  <div className="flex ion-justify-content-end ion-align-items-end">
+                  <IonButton  className="ion-padding-horizontal" fill="outline" size="small" shape="round" routerLink="/submit-articals">
+                        <i class="material-icons dark">add</i>
+                        </IonButton>
+                  </div>
                </IonHeader>
+               
                <IonGrid className="ion-no-padding">
                   <IonRow className="ion-padding-horizontal">
                      <IonCol size="12">

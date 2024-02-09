@@ -65,6 +65,9 @@ import RecipeDetails from "./pages/HomeRecipe/RecipeDetails";
 import MyRecipe from "./pages/HomeRecipe/MyRecipe";
 import AddIngredient from "./pages/Ingredient/AddIngredient";
 import Bookmart from "./pages/Bookmark";
+import SubmitArticals from "./pages/Articals/SubmitArticals";
+import IngredientList from "./pages/Ingredient/IngredientList";
+import IngredientProduct from "./pages/Ingredient/IngredientProduct";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -120,6 +123,7 @@ const App = () => {
                     component={OrderDetails}
                   />
                   <PrivateRoute path="/articles" component={Articals} />
+                  <PrivateRoute path="/submit-articals" component={SubmitArticals} />
                   <PrivateRoute path="/profile" component={Profile} />
                   <PrivateRoute path="/my-profile" component={MyProfile} />
                   <PrivateRoute path="/dashboard" component={Dashboard} />
@@ -139,6 +143,11 @@ const App = () => {
                     path="/add-ingredient"
                     component={AddIngredient}
                   />
+                  <PrivateRoute
+                    path="/ingredient-list"
+                    component={IngredientList}
+                  />
+                 
                   <PrivateRoute path="/my-recipe" component={MyRecipe} />
 
                   <Route path="/" exact={true}>

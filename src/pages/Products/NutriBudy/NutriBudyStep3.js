@@ -56,19 +56,18 @@ const NutriBudyStep3 = () => {
                     <h3>Diet Preferences (If Any)</h3>
                     <div className="flex DietPreFerns">
                         <div className="FillCheckBox ImgCheck">
-                            <IonButton fill="clear">
-                                <IonCheckbox> </IonCheckbox>
+                            <input type="checkbox" id="myCheckImg51" />
+                            <label for="myCheckImg51">
                                 <img src="./assets/img/imagesketo.png" alt="" className="ProfileImg" />
-                            </IonButton>
-                            <span className="ion-no-padding">Lactose Lorem</span>
+                                <IonText>Lactose Lorem</IonText>
+                            </label>
                         </div>
-
                         <div className="FillCheckBox ImgCheck">
-                            <IonButton fill="clear">
-                                <IonCheckbox> </IonCheckbox>
+                            <input type="checkbox" id="myCheckImg52" />
+                            <label for="myCheckImg52">
                                 <img src="./assets/img/imagesGluten.jpg" alt="" className="ProfileImg" />
-                            </IonButton>
-                            <IonText>Gluten Free</IonText>
+                                <IonText>Lactose Lorem</IonText>
+                            </label>
                         </div>
                     </div>
                 </IonCol>
@@ -76,44 +75,41 @@ const NutriBudyStep3 = () => {
                     <h3>Which kind of food products would You like NB to recommend you?</h3>
                     <div className="AllergyBox">
                         <div className="ImgIcon">
-                            <IonCheckbox id="icon1"></IonCheckbox>
-                            <IonLabel for="icon1">
+                            <input type="checkbox" id="myCheck1" />
+                            <label for="myCheck1">
                                 <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                            </IonLabel>
-                            <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                                <IonText>Lactose</IonText>
+                            </label>
                         </div>
                         <div className="ImgIcon">
-                            <IonCheckbox id="icon2"></IonCheckbox>
-                            <IonLabel for="icon2">
+                            <input type="checkbox" id="myCheck2" />
+                            <label for="myCheck2">
                                 <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                            </IonLabel>
-                            <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                                <IonText>Lactose</IonText>
+                            </label>
                         </div>
                         <div className="ImgIcon">
-                            <IonCheckbox id="icon3"></IonCheckbox>
-                            <IonLabel for="icon3">
+                            <input type="checkbox" id="myCheck3" />
+                            <label for="myCheck3">
                                 <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                            </IonLabel>
-                            <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                                <IonText>Lactose</IonText>
+                            </label>
                         </div>
                         <div className="ImgIcon">
-                            <IonCheckbox id="icon4"></IonCheckbox>
-                            <IonLabel for="icon4">
+                            <input type="checkbox" id="myCheck4" />
+                            <label for="myCheck4">
                                 <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                            </IonLabel>
-                            <IonTitle className="ion-no-padding">Lactose</IonTitle>
+                                <IonText>Lactose</IonText>
+                            </label>
                         </div>
-
-                        <div className="ImgIcon">
-                            <IonButton fill="clear" >
-                                <IonIcon size="large" icon={add} className="Orangebtn" />
+                        <div className="ImgBtn">
+                            <IonButton fill="clear">
+                                <IonIcon size="large" icon={add} />
                             </IonButton>
-                            <IonTitle className="ion-no-padding">Lactose</IonTitle>
                         </div>
-
                     </div>
                 </IonCol>
-                <IonCol size="12">
+                <IonCol size="12"  className='ion-padding-vertical'>
                     <div class="uploadPicture-button">
                         <label for="" class="UploadBtn">Upload Picture</label>
                         <input type="file" id="AllergyPicture" accept="image/*" />
