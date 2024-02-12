@@ -5,6 +5,7 @@ import {
   IonCol,
   IonContent,
   IonHeader,
+  IonIcon,
   IonInput,
   IonPage,
   IonRow,
@@ -14,6 +15,7 @@ import {
   IonTextarea,
   IonTitle,
 } from "@ionic/react";
+import { listOutline } from "ionicons/icons";
 
 const AddIngredient = () => {
 
@@ -21,13 +23,19 @@ const AddIngredient = () => {
     <IonPage>
       <Header />
       <IonContent fullscreen>
-        <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="backBtn" fill="clear" routerLink="/profile">
-            <i class="material-icons dark">west</i>
-          </IonButton>
-          <IonTitle color="dark">Add Ingredient</IonTitle>
+        <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
+          <div className="TitleHead">
+            <IonButton className="backBtn" fill="clear" routerLink="/profile">
+              <i class="material-icons dark">west</i>
+            </IonButton>
+            <IonTitle color="dark">Add Ingredient</IonTitle>
+          </div>
+          <div className="flex ion-justify-content-end ion-align-items-end">
+            <IonButton className="ion-padding-horizontal" fill="outline" size="small" shape="round" routerLink="/ingredient-list">
+            <IonIcon size="default" fill="clear" icon={listOutline} />
+            </IonButton>
+          </div>
         </IonHeader>
-
         <IonRow className="ion-padding">
           <IonCol size="12" className="FormGroup">
             <div className="EditprofileImg">

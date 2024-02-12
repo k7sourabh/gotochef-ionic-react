@@ -65,6 +65,12 @@ import RecipeDetails from "./pages/HomeRecipe/RecipeDetails";
 import MyRecipe from "./pages/HomeRecipe/MyRecipe";
 import AddIngredient from "./pages/Ingredient/AddIngredient";
 import Bookmart from "./pages/Bookmark";
+import SubmitArticals from "./pages/Articals/SubmitArticals";
+import IngredientList from "./pages/Ingredient/IngredientList";
+import IngredientProduct from "./pages/Ingredient/IngredientProduct";
+import FoodSetting from "./pages/profile/AddProduct";
+import AddProduct from "./pages/profile/AddProduct";
+import FoodAdd from "./pages/profile/FoodAdd";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -120,25 +126,24 @@ const App = () => {
                     component={OrderDetails}
                   />
                   <PrivateRoute path="/articles" component={Articals} />
+                  <PrivateRoute path="/submit-articals" component={SubmitArticals} />
                   <PrivateRoute path="/profile" component={Profile} />
                   <PrivateRoute path="/my-profile" component={MyProfile} />
                   <PrivateRoute path="/dashboard" component={Dashboard} />
                   <PrivateRoute path="/order-list" component={OrderList} />
                   <PrivateRoute path="/wish-list" component={WishList} />
                   <PrivateRoute path="/bookmark" component={Bookmart} />
-                  <PrivateRoute
-                    path="/change-password"
-                    component={ChangePassword}
-                  />
+                  <PrivateRoute path="/change-password" component={ChangePassword} />
+                  <PrivateRoute path="/add-product" component={AddProduct}/>
                   <PrivateRoute path="/edit-profile" component={EditProfile} />
+                  <PrivateRoute path="/food-add" component={FoodAdd} />
+                  <PrivateRoute path="/order-confirm" component={OrderConfirm}  />
+                  <PrivateRoute path="/add-ingredient" component={AddIngredient}/>
                   <PrivateRoute
-                    path="/order-confirm"
-                    component={OrderConfirm}
+                    path="/ingredient-list"
+                    component={IngredientList}
                   />
-                  <PrivateRoute
-                    path="/add-ingredient"
-                    component={AddIngredient}
-                  />
+                 
                   <PrivateRoute path="/my-recipe" component={MyRecipe} />
 
                   <Route path="/" exact={true}>

@@ -1,6 +1,6 @@
 import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonLabel, IonIcon, IonHeader, IonButton, IonTitle } from "@ionic/react";
 import Header from "../../components/Header";
-import { lockClosed, refreshCircleOutline } from "ionicons/icons";
+import { lockClosed, refreshCircleOutline, refreshOutline } from "ionicons/icons";
 import { useState } from "react";
 
 
@@ -89,7 +89,7 @@ const Dashboard = () => {
                                           <div className="RecipeRefresh">
                                              <IonIcon
                                                 aria-hidden="true"
-                                                icon={refreshCircleOutline}
+                                                icon={refreshOutline}
                                                 slot="start"
                                              ></IonIcon>
                                           </div>
@@ -98,7 +98,7 @@ const Dashboard = () => {
                                           <div className="RecipeRefresh">
                                              <IonIcon
                                                 aria-hidden="true"
-                                                icon={refreshCircleOutline}
+                                                icon={refreshOutline}
                                                 slot="start"
                                              ></IonIcon>
                                           </div>
@@ -107,7 +107,7 @@ const Dashboard = () => {
                                           <div className="RecipeRefresh">
                                              <IonIcon
                                                 aria-hidden="true"
-                                                icon={refreshCircleOutline}
+                                                icon={refreshOutline}
                                                 slot="start"
                                              ></IonIcon>
                                           </div>
@@ -124,7 +124,7 @@ const Dashboard = () => {
                                           <div className="RecipeRefresh">
                                              <IonIcon
                                                 aria-hidden="true"
-                                                icon={refreshCircleOutline}
+                                                icon={refreshOutline}
                                                 slot="start"
                                              ></IonIcon>
                                           </div>
@@ -133,7 +133,7 @@ const Dashboard = () => {
                                           <div className="RecipeRefresh">
                                              <IonIcon
                                                 aria-hidden="true"
-                                                icon={refreshCircleOutline}
+                                                icon={refreshOutline}
                                                 slot="start"
                                              ></IonIcon>
                                           </div>
@@ -142,7 +142,7 @@ const Dashboard = () => {
                                           <div className="RecipeRefresh">
                                              <IonIcon
                                                 aria-hidden="true"
-                                                icon={refreshCircleOutline}
+                                                icon={refreshOutline}
                                                 slot="start"
                                              ></IonIcon>
                                           </div>
