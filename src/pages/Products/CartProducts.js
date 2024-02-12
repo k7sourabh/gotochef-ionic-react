@@ -40,6 +40,7 @@ import { useAuth } from "../../context/AuthContext";
 import { getApiDataWithAuth, postApiDataWithAuth } from "../../utils/Utils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import SaveForLater from "./SaveForLater";
+import AddressPopup from "../../modal/AddressPopup";
 
 const CartProducts = () => {
   const products = ProductStore.useState((s) => s.products);
@@ -50,12 +51,10 @@ const CartProducts = () => {
   const [, /* total */ setTotal] = useState(0);
   const [isOpenChange, setIsOpenChange] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenAdd, setIsOpenAdd] = useState(false);
   const { cartItems, setCartItems, removeFromCart, bookMarkedItems } =
     useCart();
   const [cartTotal, setCartTotal] = useState(0);
-  const [cityListData, setCityListData] = useState([]);
-  const [stateListtData, setStateListtData] = useState([]);
+
   const [userAddressData, setUserAddressData] = useState([]);
   const { authenticated } = useAuth();
   const { bookMarkPost } = useCart();
@@ -123,32 +122,6 @@ const CartProducts = () => {
 
   const handleCheckout = () => {
     history.push("/order-confirm");
-  };
-
-  const stateList = async () => {
-    try {
-      const response = await getApiDataWithAuth("/get-state-list");
-      console.log(response);
-      setStateListtData(response?.data?.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    stateList();
-  }, []);
-
-  const handleStateChange = async (e) => {
-    const stateId = e.target.value;
-    try {
-      const response = await postApiDataWithAuth("/post-city-list", {
-        state_id: stateId,
-      });
-      setCityListData(response?.data?.data);
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   const userAddress = async () => {
@@ -412,7 +385,7 @@ const CartProducts = () => {
                         Delivering to <strong>{data?.type}</strong>
                       </IonTitle>
                       <IonText className="AddressText">
-                      {data.address} {data.cityname} {data.statename}
+                        {data.address} {data.cityname} {data.statename}
                       </IonText>
                     </div>
                     <div className="AddressChangeBtn">
@@ -508,74 +481,7 @@ const CartProducts = () => {
             </IonItem>
           </IonContent>
         </IonModal>
-        <IonModal isOpen={isOpen} size="small" className="myModel">
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Edit new address</IonTitle>
-              <IonButtons slot="end">
-                <IonButton onClick={() => setIsOpen(false)}>
-                  <IonIcon
-                    color="dark"
-                    size="large"
-                    icon={closeCircleOutline}
-                  />
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent className="ion-padding">
-            <IonList>
-              <IonItem>
-                <IonInput
-                  type="text"
-                  label="Text input"
-                  placeholder="Select Your Address"
-                ></IonInput>
-              </IonItem>
-              <IonItem className="ion-padding-top">
-                <IonSelect
-                  label="Default label"
-                  placeholder="Select Your State"
-                  onIonChange={handleStateChange}
-                >
-                  {stateListtData &&
-                    stateListtData?.map((stateName, index) => (
-                      <IonSelectOption value={stateName.id} key={index}>
-                        {stateName.state_name}
-                      </IonSelectOption>
-                    ))}
-                </IonSelect>
-              </IonItem>
-              <IonItem className="ion-padding-top">
-                <IonInput
-                  type="number"
-                  label="Text input"
-                  placeholder="Select Your PIN Code"
-                ></IonInput>
-              </IonItem>
-              <IonItem className="ion-padding-top">
-                <IonSelect label="Default label" placeholder="Select Your City">
-                  {cityListData &&
-                    cityListData?.map((cityName, index) => (
-                      <IonSelectOption value={cityName.city_name}>
-                        {cityName.city_name}
-                      </IonSelectOption>
-                    ))}
-                </IonSelect>
-              </IonItem>
-              <IonItem className="ion-padding-top">
-                <IonInput
-                  type="text"
-                  label="Text input"
-                  placeholder="Select Your Country"
-                ></IonInput>
-              </IonItem>
-              <IonItem lines="none" className="ion-padding-top">
-                <IonButton size="large">Submit</IonButton>
-              </IonItem>
-            </IonList>
-          </IonContent>
-        </IonModal>
+        <AddressPopup isOpen={isOpen} setIsOpen={setIsOpen} />
       </IonContent>
 
       <LoginPopup

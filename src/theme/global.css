@@ -2858,8 +2858,9 @@ ul.Recipe-Star li {
 }
 
 .error-text {
-  font-size: 12px;
+  font-size: 14px;
   color: #ff0000;
+  margin-top: 8px;
 }
 /* NutribuddyStart */
 .ProgressBar {
@@ -2867,7 +2868,7 @@ ul.Recipe-Star li {
   flex-direction: column;
   align-items: end;
 }
-.RangeTypelabel{
+.RangeTypelabel {
   display: flex;
   justify-content: end;
   align-items: end;
@@ -2966,13 +2967,12 @@ label.N-EditProfile {
   gap: 10px;
   align-items: center;
 }
-.ImgIcon ion-icon{
-   padding:20px;
-    background-color: #9a1504;
-    border-radius: 10px;
-    font-size: 40px !important;
-    color: #fff !important;
-    
+.ImgIcon ion-icon {
+  padding: 20px;
+  background-color: #9a1504;
+  border-radius: 10px;
+  font-size: 40px !important;
+  color: #fff !important;
 }
 .ImgIcon ion-title {
   white-space: normal;
@@ -2984,22 +2984,22 @@ label.N-EditProfile {
   background-color: #ffa500 !important;
   color: #fff;
 }
-.Orangebtn ion-icon{
+.Orangebtn ion-icon {
   padding: 20px;
 }
-.SkipBtn{
+.SkipBtn {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.bottomText span{
-  font-size:12px;
+.bottomText span {
+  font-size: 12px;
   padding-top: 3px;
 }
-.FillCheckBox input[type="checkbox"]{
-   display: none;
+.FillCheckBox input[type="checkbox"] {
+  display: none;
 }
-.FillCheckBox input[type="checkbox"]:focus{
+.FillCheckBox input[type="checkbox"]:focus {
   border: 2px solid red;
 }
 .DietPreFerns {
@@ -3010,24 +3010,23 @@ label.N-EditProfile {
   gap: 15px;
   width: 100%;
 }
-.FillCheckBox{
+.FillCheckBox {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 5px;
-  
 }
-.FillCheckBox img{
+.FillCheckBox img {
   width: 100%;
   object-fit: cover;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-.qwt-select{
+.qwt-select {
   width: 100%;
   border-radius: 0px;
 }
 
-.CardAdd{
+.CardAdd {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -3042,19 +3041,19 @@ label.N-EditProfile {
   height: 70px;
   border-radius: 10px;
 }
-.UploadPicture ion-button{
-background-color: #ccc;
-border-radius: 10px;
+.UploadPicture ion-button {
+  background-color: #ccc;
+  border-radius: 10px;
 }
-.UploadPicture input[type="text"]{
+.UploadPicture input[type="text"] {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
- margin-top: 10px;
+  margin-top: 10px;
 }
 
 .ImgCheck {
-    text-align: center;
-    max-width: 100px;
-    min-height: 110px;
+  text-align: center;
+  max-width: 100px;
+  min-height: 110px;
 }
 
 .ImgCheck ion-button ion-icon {
@@ -3065,7 +3064,7 @@ border-radius: 10px;
   font-size: 14px;
   padding-top: 5px;
 }
-.ImgCheck ion-checkbox{
+.ImgCheck ion-checkbox {
   display: none;
 }
 /* Add product Modal start */
@@ -3129,21 +3128,20 @@ border-radius: 10px;
   display: none;
 }
 
-.ProgressBar ion-range{
+.ProgressBar ion-range {
   width: 100%;
 }
 .range-custom-height {
   height: 10px;
   color: red;
 }
-.range-custom-height::-moz-range-thumb{
+.range-custom-height::-moz-range-thumb {
   display: none !important;
-  
 }
-.ImgIcon ion-checkbox{
+.ImgIcon ion-checkbox {
   display: none;
 }
-#upload{
+#upload {
   display: none;
 }
 .uploadPicture-button {
@@ -3159,7 +3157,8 @@ border-radius: 10px;
   border-radius: 4px;
   cursor: pointer;
 }
-#fileUpload input, #NbUpload input {
+#fileUpload input,
+#NbUpload input {
   max-width: 180px;
   height: 29px;
   margin-top: 10px;
@@ -3167,14 +3166,14 @@ border-radius: 10px;
   outline: none;
   border: none;
 }
-.uploadPicture-button input[type=file] {
+.uploadPicture-button input[type="file"] {
   font-size: 100px;
   position: absolute;
   left: 0;
   top: 0;
   opacity: 0;
 }
-.uploadPicture-button ion-input{
+.uploadPicture-button ion-input {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   max-width: 180px;
   background-color: #ccc;
@@ -3195,4 +3194,26 @@ border-radius: 10px;
   min-width: 21px;
   color: #fff;
   font-size: 9px;
+}
+
+
+
+.InputGroupList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.InputItem {
+  width: 100%;
+}
+
+.InputItem ion-input input {
+  padding: 10px 0 !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.InputItem ion-select {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
 }
