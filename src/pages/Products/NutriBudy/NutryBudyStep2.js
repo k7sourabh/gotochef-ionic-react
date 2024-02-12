@@ -70,24 +70,28 @@ const NutryBudyStep2 = () => {
                             <input type="checkbox" id="myCheckbox1" />
                                 <label for="myCheckbox1">
                                 <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                <IonText>Lactose Intollerant</IonText>
                                 </label>
                             </div>
                             <div className="ImgIcon">
                             <input type="checkbox" id="myCheckbox2" />
                                 <label for="myCheckbox2">
                                 <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                <IonText>Nuts</IonText>
                                 </label>
                             </div>
                             <div className="ImgIcon">
                                 <input type="checkbox" id="myCheckbox3" />
                                 <label for="myCheckbox3">
                                 <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                <IonText>lulten Intollerant</IonText>
                                 </label>
                             </div>
                             <div className="ImgIcon">
                             <input type="checkbox" id="myCheckbox4" />
                                 <label for="myCheckbox4">
                                 <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                <IonText>Garlic</IonText>
                                 </label>
                             </div>
 

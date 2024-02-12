@@ -41,7 +41,7 @@ const IngredientProduct = () => {
                           </IonText>
                           
                         </div>
-                        <IonButton size='small' fill='clear' shape='outline'>
+                        <IonButton size='default' fill='outline' shape='round'>
                             Details
                         </IonButton>
                       </IonCardContent>
