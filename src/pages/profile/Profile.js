@@ -213,7 +213,7 @@ const Profile = () => {
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className="CardBtn" routerLink="/add-food">
+                      <IonButton fill="clear" className="CardBtn" routerLink="/food-add">
                         <div className="DashBoardImg">
                           <img
                             src="/assets/img/Food.png"
@@ -226,7 +226,7 @@ const Profile = () => {
                     </IonCol>
 
                     <IonCol size="4">
-                      <IonButton fill="clear" className="CardBtn">
+                      <IonButton fill="clear" className="CardBtn" routerLink="/lifestyle-setting">
                         <div className="DashBoardImg">
                           <img
                             src="/assets/img/Lifestyle.png"
