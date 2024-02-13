@@ -102,7 +102,7 @@ const SaveForLater = () => {
                         />
                         <span>{category?.imk_num}</span>
                       </div>
-                      {category?.foodtype !== "vegetarian" ? (
+                      {category?.foodtype === "non-vegetarian" ? (
                         <img
                           src="/assets/img/non-veg-icon.svg"
                           alt="Images"

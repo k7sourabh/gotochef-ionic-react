@@ -2863,8 +2863,9 @@ ul.Recipe-Star li {
 }
 
 .error-text {
-  font-size: 12px;
+  font-size: 14px;
   color: #ff0000;
+  margin-top: 8px;
 }
 
 /* NutribuddyStart */
@@ -2873,7 +2874,6 @@ ul.Recipe-Star li {
   flex-direction: column;
   align-items: end;
 }
-
 .RangeTypelabel {
   display: flex;
   justify-content: end;
@@ -2973,14 +2973,12 @@ label.N-EditProfile {
   gap: 30px;
   align-items: start;
 }
-
 .ImgIcon ion-icon {
   padding: 20px;
   background-color: #9a1504;
   border-radius: 10px;
   font-size: 40px !important;
   color: #fff !important;
-
 }
 
 .ImgIcon ion-title {
@@ -3013,7 +3011,6 @@ label.N-EditProfile {
   align-items: center;
   gap: 20px;
 }
-
 .bottomText span {
   font-size: 12px;
   padding-top: 3px;
@@ -3035,7 +3032,6 @@ label.N-EditProfile {
   gap: 15px;
   width: 100%;
 }
-
 .FillCheckBox {
   display: flex;
   align-items: center;
@@ -3049,7 +3045,6 @@ label.N-EditProfile {
   object-fit: cover;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-
 .qwt-select {
   width: 100%;
   border-radius: 0px;
@@ -3083,7 +3078,6 @@ label.N-EditProfile {
   background-color: #ccc;
   border-radius: 10px;
 }
-
 .UploadPicture input[type="text"] {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-top: 10px;
@@ -3271,13 +3265,14 @@ label.N-EditProfile {
   font-size: 9px;
 }
 
-/* submit-articals */
-.N-profileInput ion-textarea {
-  border: 1px solid #ccc;
+.InputGroupList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.N-profileInput ion-select {
-  border: 1px solid #ccc;
+.InputItem {
+  width: 100%;
 }
 /* Add product page start */
 .add-product-profile{
@@ -3289,4 +3284,90 @@ label.N-EditProfile {
 }
 .box-shadow ion-label{
   white-space: pre-wrap !important;
+}
+
+.InputItem ion-input input {
+  padding: 10px 0 !important;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.InputItem ion-select {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+/* FoodStyle page start */
+
+
+ul {
+  list-style-type: none;
+}
+
+.LifeStyle {
+  display: inline-block;
+}
+
+.LifeStyle input[type="checkbox"] {
+  display: none;
+}
+
+.LifeStyle label {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.LifeStyle label:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute;
+  top: -5px;
+ right: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+.LifeStyle label img {
+  height: 100px;
+  width: 100px;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
+  object-fit: cover;
+}
+
+.LifeStyle :checked + label {
+  border-color: #ddd;
+}
+
+.LifeStyle :checked + label:before {
+  content: "✓";
+  background-color: grey;
+  transform: scale(1);
+}
+
+.LifeStyle :checked + label img {
+  transform: scale(0.9);
+  /* box-shadow: 0 0 5px #333; */
+  z-index: -1;
+}
+.LifeStyle ion-text{
+  text-align: center;
+}
+.StatementInfo ion-checkbox {
+  margin: 0px 10px 0px 0px;
+}
+.StatementInfo ion-label{
+  font-size: 20px;
 }

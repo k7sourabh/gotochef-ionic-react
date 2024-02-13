@@ -1,4 +1,4 @@
-import { IonButton, IonCheckbox, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonText } from '@ionic/react'
+import { IonButton, IonCheckbox, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonTitle } from '@ionic/react'
 import React, { useState } from 'react'
 import Header from '../../components/Header'
 
@@ -11,18 +11,24 @@ const FoodAdd = () => {
     <IonPage>
       <Header />
       <IonContent>
+      <IonHeader className="TitleHead bottom-shadow">
+                  <IonButton className="backBtn" fill="clear" routerLink="/profile">
+                     <i class="material-icons dark">west</i>
+                  </IonButton>
+                  <IonTitle color="dark">Food Setting</IonTitle>
+               </IonHeader>
         <IonGrid>
           <IonRow>
             <IonCol size='6'>
               <IonItem lines="none">
-                <IonLabel className="StatementInfo" for="veg">NON-VEGETARIAN</IonLabel>
-                <IonCheckbox slot='start' id='veg'></IonCheckbox>
+                <IonLabel className="StatementInfo ion-margin-start" for="veg">NON-VEGETARIAN</IonLabel>
+                <IonCheckbox slot='start' id='veg'className='ion-no-margin' ></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='6'>
               <IonItem lines="none">
-                <IonLabel className="StatementInfo" for="veg">VEGETARIAN</IonLabel>
-                <IonCheckbox slot='start' id='veg'></IonCheckbox>
+                <IonLabel className="StatementInfo ion-margin-start" for="veg" >VEGETARIAN</IonLabel>
+                <IonCheckbox slot='start' id='veg' className='ion-no-margin'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
