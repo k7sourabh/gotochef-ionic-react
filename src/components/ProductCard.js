@@ -22,12 +22,17 @@ import {
 import { useState } from "react";
 import VariantModal from "../pages/VariantModal";
 import { useCart } from "../contexts/CartProvider";
+import NotifyMePopup from "../modal/NotifyMePopup";
+import { useAuth } from "../context/AuthContext";
 
 const ProductCard = (props) => {
   const { product, index } = props;
   const { wishListPost, wishListedItems, bookMarkPost, bookMarkedItems } =
     useCart();
+  const { notifyStatus } = useAuth();
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [isNotifyMe, setIsNotifyMe] = useState(false);
+  const [notifyData, setNotifyData] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
     customProp: selectedProduct,
     onDismiss: (data, role) => dismiss(data, role),
@@ -140,21 +145,40 @@ const ProductCard = (props) => {
               <IonIcon color="light" size="small" icon={star} />
             </IonChip>
           </div>
-
-          <IonButton
-            className="AddToCartBtn"
-            size="default"
-            shape="round"
-            fill="outline"
-            onClick={() => openModal(product)}
-          >
-            <div className="addText">
-              Add
-              <IonIcon slot="end" size="small" icon={add} />
-            </div>
-          </IonButton>
+          {product?.status === notifyStatus ? (
+            <IonButton
+              className="AddToCartBtn"
+              size="default"
+              shape="round"
+              fill="outline"
+              onClick={() => openModal(product)}
+            >
+              <div className="addText">
+                Add
+                <IonIcon slot="end" size="small" icon={add} />
+              </div>
+            </IonButton>
+          ) : (
+            <IonButton
+              onClick={() => {
+                setNotifyData(product);
+                setIsNotifyMe(true);
+              }}
+              className="AddToCartBtn"
+              size="default"
+              shape="round"
+              fill="outline"
+            >
+              <div className="addText">Notify Me</div>
+            </IonButton>
+          )}
         </IonCardContent>
       </IonCard>
+      <NotifyMePopup
+        isOpen={isNotifyMe}
+        setIsOpen={setIsNotifyMe}
+        notifyData={notifyData}
+      />
     </IonCol>
   );
 };

@@ -43,15 +43,12 @@ const RecipeDetails = () => {
   const { id } = useParams();
   const [recipeData, setRecipeData] = useState({});
   const [similarRecipeData, setSimilarRecipeData] = useState([]);
-  console.log("isReadMore", isReadMore);
   const text = () => {
     setIsReadMore(true);
   };
-  console.log(recipeData);
   const recipeDetails = async () => {
     try {
       const response = await getApiData(`/getRecipeDetail/${id}`);
-      console.log("jdjkdf", response);
       setRecipeData(response?.data?.data);
       setSimilarRecipeData(response?.data?.similar_recipe)
     } catch (e) {

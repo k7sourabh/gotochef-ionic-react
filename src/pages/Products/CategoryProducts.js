@@ -99,9 +99,9 @@ const CategoryProducts = () => {
               <span>{categorydata?.total_category_product} item</span>
             </div>
           </div>
-          <IonButton className="IconBtn ml-auto" fill="clear">
+          {/* <IonButton className="IconBtn ml-auto" fill="clear">
             <img src="/assets/img/filter.svg" alt="Images" />
-          </IonButton>
+          </IonButton> */}
         </IonHeader>
 
         <IonSegment className="subCateTab" value={slug} scrollable={true}>

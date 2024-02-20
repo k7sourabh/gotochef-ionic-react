@@ -75,7 +75,6 @@ const AddressPopup = (props) => {
   }, []);
 
   const handleSubmit = async (values) => {
-    console.log(values);
     try {
       const obj = {
         user_id: 3996,
@@ -88,7 +87,6 @@ const AddressPopup = (props) => {
       };
 
       const response = await postApiDataWithAuth("/post-user-address", obj);
-      console.log(response);
       if (response?.status === 200) {
         presentToast("Top", response?.data?.message);
       } else {

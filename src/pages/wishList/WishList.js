@@ -16,20 +16,21 @@ import {
   useIonViewDidEnter,
 } from "@ionic/react";
 import Header from "../../components/Header";
-import {
-  star,
-  add,
-  closeCircle,
-} from "ionicons/icons";
+import { star, add, closeCircle } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import VariantModal from "../VariantModal";
 import { getApiDataWithAuth } from "../../utils/Utils";
 import { useCart } from "../../contexts/CartProvider";
+import { useAuth } from "../../context/AuthContext";
+import NotifyMePopup from "../../modal/NotifyMePopup";
 
 const WishList = () => {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [wishListData, setWishListData] = useState([]);
   const { wishListPost } = useCart();
+  const [isNotifyMe, setIsNotifyMe] = useState(false);
+  const [notifyData, setNotifyData] = useState({});
+  const { notifyStatus } = useAuth();
   const [present, dismiss] = useIonModal(VariantModal, {
     customProp: selectedProduct,
     onDismiss: (data, role) => dismiss(data, role),
@@ -41,7 +42,6 @@ const WishList = () => {
   });
 
   const openModal = (item) => {
-    console.log(item);
     setSelectedProduct(item);
     present({
       cssClass: "addCartModal",
@@ -55,12 +55,11 @@ const WishList = () => {
         }
       },
     });
-  }
+  };
 
   const wishlistProduct = async () => {
     try {
       const response = await getApiDataWithAuth("/get-product-wishlist");
-      console.log(response?.data?.data);
       setWishListData(response?.data?.data);
     } catch (err) {
       console.log(err);
@@ -93,7 +92,7 @@ const WishList = () => {
 
           <IonGrid className="ion-padding-bottom">
             <IonRow>
-              {wishListData &&
+              {wishListData && wishListData?.length > 0 ? (
                 wishListData?.map((data, index) => (
                   <IonCol size="6" key={index}>
                     <IonCard className="ProductCard">
@@ -159,26 +158,49 @@ const WishList = () => {
                           </IonChip>
                         </div>
 
-                        <IonButton
-                          className="AddToCartBtn"
-                          size="default"
-                          shape="round"
-                          fill="outline"
-                          onClick={() => openModal(data)}
-                        >
-                          <div className="addText">
-                            add
-                            <IonIcon slot="end" size="small" icon={add} />
-                          </div>
-                        </IonButton>
+                        {data?.status === notifyStatus ? (
+                          <IonButton
+                            className="AddToCartBtn"
+                            size="default"
+                            shape="round"
+                            fill="outline"
+                            onClick={() => openModal(data)}
+                          >
+                            <div className="addText">
+                              add
+                              <IonIcon slot="end" size="small" icon={add} />
+                            </div>
+                          </IonButton>
+                        ) : (
+                          <IonButton
+                            onClick={() => {
+                              setNotifyData(data);
+                              setIsNotifyMe(true);
+                            }}
+                            className="AddToCartBtn"
+                            size="default"
+                            shape="round"
+                            fill="outline"
+                          >
+                            <div className="addText">Notify Me</div>
+                          </IonButton>
+                        )}
                       </IonCardContent>
                     </IonCard>
                   </IonCol>
-                ))}
+                ))
+              ) : (
+                <IonText>No Record Found</IonText>
+              )}
             </IonRow>
           </IonGrid>
         </IonContent>
       </IonPage>
+      <NotifyMePopup
+        isOpen={isNotifyMe}
+        setIsOpen={setIsNotifyMe}
+        notifyData={notifyData}
+      />
     </>
   );
 };

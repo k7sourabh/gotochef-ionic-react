@@ -18,7 +18,6 @@ const VeganRecipe = () => {
         }, 1000);
     }
     const [selectedTab, setSelectedTab] = useState("GoingContest");
-    console.log("selectedTab", selectedTab)
     const handleTabChange = (event) => {
         setSelectedTab(event.detail.value);
     };

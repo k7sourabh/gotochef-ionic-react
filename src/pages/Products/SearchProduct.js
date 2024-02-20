@@ -33,7 +33,6 @@ const SearchProduct = () => {
   });
   const [presentLoading] = useIonLoading();
   function openModal(item) {
-    console.log(item)
     setSelectedProduct(item);
     present({
       onWillDismiss: (ev) => {
