@@ -36,12 +36,18 @@ import Header from "../components/Header";
 import { getApiData } from "../utils/Utils";
 import VariantModal from "./VariantModal";
 import { useCart } from "../contexts/CartProvider";
+import NotifyMePopup from "../modal/NotifyMePopup";
+import { useAuth } from "../context/AuthContext";
 
 const ViewExclusiveProduct = () => {
   const [amountLoaded, setAmountLoaded] = useState(6);
-  const { wishListPost, wishListedItems,bookMarkPost,bookMarkedItems } = useCart();
+  const { wishListPost, wishListedItems, bookMarkPost, bookMarkedItems } =
+    useCart();
+  const { notifyStatus } = useAuth();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [isNotifyMe, setIsNotifyMe] = useState(false);
+  const [notifyData, setNotifyData] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
     customProp: selectedProduct,
     onDismiss: (data, role) => dismiss(data, role),
@@ -144,7 +150,11 @@ const ViewExclusiveProduct = () => {
                         <IonIcon
                           color="primary"
                           size="small"
-                          icon={wishListedItems.indexOf(data?.product_id) < 0 ? heartOutline : heart}
+                          icon={
+                            wishListedItems.indexOf(data?.product_id) < 0
+                              ? heartOutline
+                              : heart
+                          }
                           onClick={() => wishListPost(data)}
                         />
                       </div>
@@ -179,19 +189,33 @@ const ViewExclusiveProduct = () => {
                           <IonIcon color="light" size="small" icon={star} />
                         </IonChip>
                       </div>
-
-                      <IonButton
-                        className="AddToCartBtn"
-                        size="default"
-                        shape="round"
-                        fill="outline"
-                        onClick={() => openModal(data)}
-                      >
-                        <div className="addText">
-                          Add
-                          <IonIcon slot="end" size="small" icon={add} />
-                        </div>
-                      </IonButton>
+                      {data?.status === notifyStatus ? (
+                        <IonButton
+                          className="AddToCartBtn"
+                          size="default"
+                          shape="round"
+                          fill="outline"
+                          onClick={() => openModal(data)}
+                        >
+                          <div className="addText">
+                            Add
+                            <IonIcon slot="end" size="small" icon={add} />
+                          </div>
+                        </IonButton>
+                      ) : (
+                        <IonButton
+                          onClick={() => {
+                            setNotifyData(data);
+                            setIsNotifyMe(true);
+                          }}
+                          className="AddToCartBtn"
+                          size="default"
+                          shape="round"
+                          fill="outline"
+                        >
+                          <div className="addText">Notify Me</div>
+                        </IonButton>
+                      )}
                     </IonCardContent>
                   </IonCard>
                 </IonCol>
@@ -207,6 +231,11 @@ const ViewExclusiveProduct = () => {
           </IonGrid>
         </IonGrid>
       </IonContent>
+      <NotifyMePopup
+        isOpen={isNotifyMe}
+        setIsOpen={setIsNotifyMe}
+        notifyData={notifyData}
+      />
     </IonPage>
   );
 };

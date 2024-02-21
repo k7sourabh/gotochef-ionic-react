@@ -43,13 +43,12 @@ export const CartProvider = ({ children }) => {
         if(response.data.status) {
 
           let product_ids = response?.data?.data?.map((item) => item.product_id);
-          console.log(product_ids)
           setWishListedItems(product_ids);
         } else {
           setWishListedItems([]);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
 
@@ -58,15 +57,13 @@ export const CartProvider = ({ children }) => {
         const response = await getApiDataWithAuth("/get-product-bookmark");
         if(response.data.status) {
           let product_ids = response?.data?.data?.map((item) => item.product_id);
-          console.log(product_ids)
           setBookMarkedItems(product_ids);
           setSaveForLaterData(response?.data?.data);
         } else {
           setBookMarkedItems([]);
         }
-        console.log(response,"response")
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
     loadBookMarkedItems();
@@ -91,7 +88,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (item) => {
-    console.log("jer")
     let cart = [...cartItems];
     let index = cartItems.findIndex((cartItem) => item.product_id === cartItem.product_id && item.pro_variant_id === cartItem.pro_variant_id);
     cart.splice(index, 1);
@@ -114,7 +110,6 @@ export const CartProvider = ({ children }) => {
       setIsOpenLogin(true)
       return
     }
-    console.log(userData, "userData");
       try {
         const obj = {
           like_id: value?.product_id,
@@ -138,12 +133,11 @@ export const CartProvider = ({ children }) => {
           setWishListedItems((prev) => [...prev, value?.product_id]);
         }
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
   }
 
   const bookMarkPost = async (value) => { 
-    console.log('value',value)
     if(!authenticated) {
       setIsOpenLogin(true)
       return
@@ -170,7 +164,6 @@ export const CartProvider = ({ children }) => {
           });
           setBookMarkedItems((prev) => [...prev, value?.product_id]);
         }
-        console.log('response', response)
       } catch (e) {
         console.log(e);
       }

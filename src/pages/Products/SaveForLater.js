@@ -61,12 +61,9 @@ const SaveForLater = () => {
     });
   }
 
-  console.log(saveForLaterData, 'bookMarkedItems', bookMarkedItems);
-
   const getSaveForLater = async () => {
     try {
       const response = await getApiDataWithAuth("/get-product-bookmark");
-      console.log(response?.data?.data);
       setSaveForLaterData(response?.data?.data);
     } catch (err) {
       console.log(err);

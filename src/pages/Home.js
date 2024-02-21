@@ -37,13 +37,18 @@ import { useLogo } from "../contexts/ApiProvider";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import VariantModal from "./VariantModal";
 import { useCart } from "../contexts/CartProvider";
+import NotifyMePopup from "../modal/NotifyMePopup";
+import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
   const { wishListPost, wishListedItems, bookMarkPost, bookMarkedItems } =
     useCart();
+    const {notifyStatus} = useAuth();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [trendingProductsData, setTrendingProductsData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [isNotifyMe, setIsNotifyMe] = useState(false);
+  const [notifyData, setNotifyData] = useState({});
   const [present, dismiss] = useIonModal(VariantModal, {
     customProp: selectedProduct,
     onDismiss: (data, role) => dismiss(data, role),
@@ -245,18 +250,33 @@ const Home = () => {
                         </IonChip>
                       </div>
 
-                      <IonButton
-                        onClick={() => openModal(category)}
-                        className="AddToCartBtn"
-                        size="default"
-                        shape="round"
-                        fill="outline"
-                      >
-                        <div className="addText">
-                          Add
-                          <IonIcon slot="end" size="small" icon={add} />
-                        </div>
-                      </IonButton>
+                      {category?.status === notifyStatus ? (
+                        <IonButton
+                          onClick={() => openModal(category)}
+                          className="AddToCartBtn"
+                          size="default"
+                          shape="round"
+                          fill="outline"
+                        >
+                          <div className="addText">
+                            Add
+                            <IonIcon slot="end" size="small" icon={add} />
+                          </div>
+                        </IonButton>
+                      ) : (
+                        <IonButton
+                          onClick={() => {
+                            setNotifyData(category);
+                            setIsNotifyMe(true);
+                          }}
+                          className="AddToCartBtn"
+                          size="default"
+                          shape="round"
+                          fill="outline"
+                        >
+                          <div className="addText">Notify Me</div>
+                        </IonButton>
+                      )}
                     </IonCardContent>
                   </IonCard>
                 </SwiperSlide>
@@ -402,18 +422,33 @@ const Home = () => {
                         </IonChip>
                       </div>
 
-                      <IonButton
-                        onClick={() => openModal(category)}
-                        className="AddToCartBtn"
-                        size="default"
-                        shape="round"
-                        fill="outline"
-                      >
-                        <div className="addText">
-                          Add
-                          <IonIcon slot="end" size="small" icon={add} />
-                        </div>
-                      </IonButton>
+                      {category?.status === notifyStatus ? (
+                        <IonButton
+                          onClick={() => openModal(category)}
+                          className="AddToCartBtn"
+                          size="default"
+                          shape="round"
+                          fill="outline"
+                        >
+                          <div className="addText">
+                            Add
+                            <IonIcon slot="end" size="small" icon={add} />
+                          </div>
+                        </IonButton>
+                      ) : (
+                        <IonButton
+                          onClick={() => {
+                            setNotifyData(category);
+                            setIsNotifyMe(true);
+                          }}
+                          className="AddToCartBtn"
+                          size="default"
+                          shape="round"
+                          fill="outline"
+                        >
+                          <div className="addText">Notify Me</div>
+                        </IonButton>
+                      )}
                     </IonCardContent>
                   </IonCard>
                 </SwiperSlide>
@@ -434,6 +469,11 @@ const Home = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
+      <NotifyMePopup
+        isOpen={isNotifyMe}
+        setIsOpen={setIsNotifyMe}
+        notifyData={notifyData}
+      />
     </IonPage>
   );
 };

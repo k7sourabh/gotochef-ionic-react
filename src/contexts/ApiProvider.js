@@ -11,7 +11,7 @@ export function ApiProvider({ children }) {
       const response = await getApiData("/header-logo");
       setHeaderImage(response?.data?.data);
     } catch(error){
-      console.log(error);
+      console.error(error);
     }
   };
   useEffect(() => {

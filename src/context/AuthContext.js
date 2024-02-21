@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
   const [userData, setUserData] = useState({});
+  const notifyStatus = '1'
 
   const login = (data) => {
     //localStorage.setItem("userData", JSON.stringify(data));
@@ -33,7 +34,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     get("auth").then((isLoggedIn) => {
-      console.log(isLoggedIn)
       if(isLoggedIn === "true") {
         setAuthenticated(true);
       } else {
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
   }, [authenticated]);
 
   return (
-    <AuthContext.Provider value={{ userData, authenticated, login, logout }}>
+    <AuthContext.Provider value={{ userData, authenticated, login, logout, notifyStatus }}>
       {!loading ? ( // Render the children only when loading is false
         children
       ) : (

@@ -16,7 +16,6 @@ const ForgotPopup = (props) => {
       const formdata = new FormData();
       formdata.append("email", email);
       const response = await postApiData("/forgot-password", formdata);
-      console.log(response);
     } catch (e) {
       console.log(e);
     }

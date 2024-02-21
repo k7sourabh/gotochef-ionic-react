@@ -44,7 +44,6 @@ const LoginPopup = (props) => {
         presentToast("Top", response?.data?.message_response);
       }
     } catch (e) {
-      console.log(e);
       presentToast("Top", e.data.message_response);
     }
   };
