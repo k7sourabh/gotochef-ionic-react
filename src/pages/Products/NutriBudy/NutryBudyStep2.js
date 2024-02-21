@@ -8,6 +8,53 @@ const NutryBudyStep2 = () => {
     return (
         <IonGrid>
             <IonRow>
+            <IonCol className="flex flex-column  ion-align-items-center ion-justify-content-center ion-padding-top">
+                    <IonItem lines="none" className="N-VegNon">
+                      <IonLabel>Veg</IonLabel>
+                      <IonCheckbox
+                        name="foodType"
+                        value="Veg"
+                        checked="veg"
+                        // onIonChange={(e) => {
+                        //   if (e.detail.checked) {
+                        //     setFieldValue("foodType", "veg");
+                        //   } else {
+                        //     setFieldValue("foodType", "");
+                        //   }
+                        // }}
+                      />
+                    </IonItem>
+                    <IonItem lines="none" className="N-VegNon">
+                      <IonLabel>Non-Veg</IonLabel>
+                      <IonCheckbox
+                        name="foodType"
+                        value="non-veg"
+                        checked="non-veg"
+                        // onIonChange={(e) => {
+                        //   if (e.detail.checked) {
+                        //     setFieldValue("foodType", "non-veg");
+                        //   } else {
+                        //     setFieldValue("foodType", "");
+                        //   }
+                        // }}
+                      />
+                    </IonItem>
+                    <IonItem lines="none" className="N-VegNon">
+                      <IonLabel>Egg</IonLabel>
+                      <IonCheckbox
+                        name="foodType"
+                        value="egg"
+                        checked= "egg"
+                        // onIonChange={(e) => {
+                        //   if (e.detail.checked) {
+                        //     setFieldValue("foodType", "egg");
+                        //   } else {
+                        //     setFieldValue("foodType", "");
+                        //   }
+                        // }}
+                      />
+                    </IonItem>
+                  </IonCol>
                 <IonCol size="12">
                     <div>
                         <h3>

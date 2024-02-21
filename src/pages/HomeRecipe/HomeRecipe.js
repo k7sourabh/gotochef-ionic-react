@@ -111,7 +111,8 @@ const HomeRecipe = () => {
           {popularData &&
             popularData?.map((data, i) => (
               <IonCol size="6" key={i}>
-                <IonButton className="ProductCard" routerLink={`/recipe-details/${data?.slug}`}>
+               <IonButton fill="clear" className="RecipeBtn">
+               <IonCard className="ProductCard" routerLink={`/recipe-details/${data?.slug}`}>
                   <div className="vegIcon">
                     {data?.foodtype === "vegetarian" ? (
                       <img src="/assets/img/icon-veg.svg" alt="" />
@@ -139,7 +140,7 @@ const HomeRecipe = () => {
                     />
                     <div className="TimeingBar">
                       <div className="ReciRow">
-                        <IonIcon icon={atCircleOutline}></IonIcon>
+                       
                         <IonLabel>Medium</IonLabel>
                       </div>
                       <div className="ReciRow">
@@ -200,7 +201,8 @@ const HomeRecipe = () => {
                       </div>
                     </div>
                   </div>
-                </IonButton>
+                </IonCard>
+               </IonButton>
               </IonCol>
             ))}
         </IonRow>
@@ -220,6 +222,7 @@ const HomeRecipe = () => {
           {recentlyAdded &&
             recentlyAdded.slice(0,2).map((data, i) => (
               <IonCol size="6" key={i}>
+                <IonButton fill="clear" className="RecipeBtn">
                 <IonCard className="ProductCard">
                   <div className="vegIcon">
                     {data?.foodtype === "vegetarian" ? (
@@ -313,6 +316,7 @@ const HomeRecipe = () => {
                     </div>
                   </div>
                 </IonCard>
+                </IonButton>
               </IonCol>
             ))}
         </IonRow>
@@ -329,7 +333,8 @@ const HomeRecipe = () => {
         </IonRow>
         <IonRow>
           <IonCol size="6">
-            <IonCard className="ProductCard">
+           <IonButton fill="clear" className="RecipeBtn">
+           <IonCard className="ProductCard">
               <div className="vegIcon">
                 <img src="/assets/img/icon-veg.svg" alt="" />
                 <IonButton fill="clear" className="saveIcon">
@@ -391,8 +396,10 @@ const HomeRecipe = () => {
                 </div>
               </div>
             </IonCard>
+           </IonButton>
           </IonCol>
           <IonCol size="6">
+            <IonButton fill="clear" className="RecipeBtn">
             <IonCard className="ProductCard">
               <div className="vegIcon">
                 <img src="/assets/img/icon-veg.svg" alt="" />
@@ -455,6 +462,7 @@ const HomeRecipe = () => {
                 </div>
               </div>
             </IonCard>
+            </IonButton>
           </IonCol>
         </IonRow>
         <IonGrid className="ion-no-padding">
@@ -657,6 +665,75 @@ const HomeRecipe = () => {
           </IonRow>
         </IonGrid>
 
+
+
+
+         <IonRow className="ion-padding-vertical">
+        <IonButton fill="clear">
+        <IonCard className="ProductCard">
+              <div className="vegIcon">
+                <img src="/assets/img/icon-veg.svg" alt="" />
+                <IonButton fill="clear" className="saveIcon">
+                  <IonIcon size="large" color="danger" icon={bookmarkOutline} />
+                </IonButton>
+              </div>
+              <div className="RecentProducts">
+                <div className="RecipePro">
+                  <img
+                    className="RecentUserImg"
+                    src="/assets/img/1525870462-Listing.jpg"
+                    alt=""
+                  />
+                  <div className="TimeingBar">
+                    <div className="ReciRow">
+                      <IonIcon icon={atCircleOutline}></IonIcon>
+                      <IonLabel>Medium</IonLabel>
+                    </div>
+                    <div className="ReciRow">
+                      <IonIcon icon={timeOutline}></IonIcon>
+                      <IonLabel>30 min</IonLabel>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="bottomRecipe">
+                  <div className="productRecipe">
+                    <span>Chicken Caesar Salad</span>
+                    <div className="productRecipe">
+                      <IonIcon
+                        size="medium"
+                        aria-hidden="true"
+                        icon={pint}
+                        slot="start"
+                      ></IonIcon>
+                      <IonLabel>Breakfast</IonLabel>
+                    </div>
+                  </div>
+                  <div className="productRecipe">
+                    <div className="ProfileRecipe">
+                      <img src="/assets/img/profile.jpg" alt="Images" />
+                      <IonLabel>Deepanjali</IonLabel>
+                    </div>
+                    <div className="ProfileRecipe">
+                      <IonIcon
+                        size="medium"
+                        aria-hidden="true"
+                        icon={person}
+                        slot="start"
+                      ></IonIcon>
+                      <span>2</span>
+                      <IonChip className="GreenDesign">
+                        <span>0</span>
+                        <IonIcon color="light" size="small" icon={star} />
+                      </IonChip>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </IonCard>
+        </IonButton>
+         </IonRow>
         {/* <IonRow className="ion-padding-vertical ion-padding-horizontal">
           <IonCol size="12">
             <IonSegment value="Salad" scrollable>

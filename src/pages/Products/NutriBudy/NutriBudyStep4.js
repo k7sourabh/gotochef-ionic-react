@@ -131,7 +131,7 @@ const NutriBudyStep4 = () => {
                         <IonLabel className="StatementInfo">I am focussed on my health and buy only healthy food products.</IonLabel>
                         <IonCheckbox></IonCheckbox>
                     </IonItem>
-                    <IonItem >
+                    <IonItem  lines='none'>
                         <IonLabel className="StatementInfo">I am homemaker and love to bake.</IonLabel>
                         <IonCheckbox></IonCheckbox>
                     </IonItem>

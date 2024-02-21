@@ -3,7 +3,11 @@ import {
   IonButton,
   IonCheckbox,
   IonCol,
+  IonDatetime,
   IonGrid,
+  IonPopover,
+  IonRadio,
+  IonRadioGroup,
   IonRange,
   IonRow,
 } from "@ionic/react";
@@ -144,6 +148,40 @@ const NutryBudyStep1 = () => {
                           setFieldValue("number", e.detail.value)
                         }
                       ></IonInput>
+                      <IonInput
+                        className="ion-margin-vertical"
+                        name="number"
+                        type="number"
+                        label="Default input"
+                        placeholder="Enter your Height"
+                      ></IonInput>
+                      <IonInput
+                        className="ion-margin-vertical"
+                        name="number"
+                        type="number"
+                        label="Default input"
+                        placeholder="Enter your Weight"
+                      ></IonInput>
+
+                      <IonInput
+                        className="ion-margin-vertical"
+                        name="dob"
+                        type="date"
+                        label="DOB"
+                        placeholder="Enter your DOB"
+                      ></IonInput>
+                      <div>
+                        <IonRadioGroup className="flex ion-justify-content-center ion-align-items-center">
+                          <IonItem lines="none">
+                            <IonLabel>Female</IonLabel>
+                            <IonRadio slot="start" value="option1" />
+                          </IonItem>
+                          <IonItem lines="none">
+                            <IonLabel>Male</IonLabel>
+                            <IonRadio slot="start" value="option2" />
+                          </IonItem>
+                        </IonRadioGroup>
+                      </div>
                     </div>
                   </IonCol>
                   <IonCol
@@ -176,56 +214,9 @@ const NutryBudyStep1 = () => {
                       </div>
                     </div>
                   </IonCol>
-                  <IonCol className="flex flex-column  ion-align-items-center ion-justify-content-center ion-padding-top">
-                    <IonItem lines="none" className="N-VegNon">
-                      <IonLabel>Veg</IonLabel>
-                      <IonCheckbox
-                        name="foodType"
-                        value="Veg"
-                        checked={values.foodType === "veg"}
-                        onIonChange={(e) => {
-                          if (e.detail.checked) {
-                            setFieldValue("foodType", "veg");
-                          } else {
-                            setFieldValue("foodType", "");
-                          }
-                        }}
-                      />
-                    </IonItem>
-                    <IonItem lines="none" className="N-VegNon">
-                      <IonLabel>Non-Veg</IonLabel>
-                      <IonCheckbox
-                        name="foodType"
-                        value="non-veg"
-                        checked={values.foodType === "non-veg"}
-                        onIonChange={(e) => {
-                          if (e.detail.checked) {
-                            setFieldValue("foodType", "non-veg");
-                          } else {
-                            setFieldValue("foodType", "");
-                          }
-                        }}
-                      />
-                    </IonItem>
-                    <IonItem lines="none" className="N-VegNon">
-                      <IonLabel>Egg</IonLabel>
-                      <IonCheckbox
-                        name="foodType"
-                        value="egg"
-                        checked={values.foodType === "egg"}
-                        onIonChange={(e) => {
-                          if (e.detail.checked) {
-                            setFieldValue("foodType", "egg");
-                          } else {
-                            setFieldValue("foodType", "");
-                          }
-                        }}
-                      />
-                    </IonItem>
+                  <IonCol className="ion-justify-content-center flex ion-padding-top">
+                    <IonButton fill="clear" class="Orangebtn md button button-clear ion-activatable ion-focusable">SAVE</IonButton>
                   </IonCol>
-                  <IonButton fill="clear" shape="round">
-                    Send OTP
-                  </IonButton>
                 </IonRow>
               </Form>
             )}

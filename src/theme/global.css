@@ -1226,10 +1226,12 @@ ion-button.button-outline {
 
 .AddressBlock {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
+  margin: 10px;
 }
 
 .myModel::part(content) {
@@ -3197,6 +3199,9 @@ label.N-EditProfile {
 .addCartModal {
   --ion-background-color: transparent;
 }
+.ForgotModal {
+  --ion-background-color: transparent !important;
+}
 
 .addCartModal::part(content) {
   backdrop-filter: blur(5px);
@@ -3356,7 +3361,7 @@ ul {
 
 .LifeStyle :checked + label:before {
   content: "✓";
-  background-color: grey;
+  background-color: #9a1504;
   transform: scale(1);
 }
 
@@ -3373,4 +3378,11 @@ ul {
 }
 .StatementInfo ion-label{
   font-size: 20px;
+}
+.loginContainer form{
+  width: 100%;
+}
+.RecipeBtn{
+  width: 100%;
+  height: 100%;
 }
