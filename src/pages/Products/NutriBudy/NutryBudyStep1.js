@@ -32,7 +32,7 @@ const NutryBudyStep1 = () => {
     name: Yup.string().required("Name is required"),
     // address2: Yup.string(),
     lastName: Yup.string().required("Last Name is required"),
-    email: Yup.number().required("Email code is required"),
+    email: Yup.number().required("Email is required"),
     number: Yup.string()
       .matches(
         /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
