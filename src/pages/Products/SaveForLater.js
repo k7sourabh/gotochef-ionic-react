@@ -61,10 +61,11 @@ const SaveForLater = () => {
     });
   }
 
+  console.log('bookMarkedItems', bookMarkedItems)
+
   const getSaveForLater = async () => {
     try {
       const response = await getApiDataWithAuth("/get-product-bookmark");
-      console.log('bookmart-data',response?.data?.data)
       setSaveForLaterData(response?.data?.data);
     } catch (err) {
       console.log(err);
@@ -75,7 +76,6 @@ const SaveForLater = () => {
     getSaveForLater();
   }, [bookMarkedItems]);
   
-  console.log('bookMarkedItems', bookMarkedItems)
 
   const removeItem = (data) => {
     bookMarkPost(data);
@@ -87,8 +87,8 @@ const SaveForLater = () => {
   return (
     <>
       <Swiper slidesPerView={2}>
-        {saveForLaterData &&
-          saveForLaterData?.map((category, index) => {
+        {saveForLaterData1 &&
+          saveForLaterData1?.map((category, index) => {
             return (
               <SwiperSlide key={index}>
                 <IonCard className="ProductCard">

@@ -63,6 +63,8 @@ const CartProducts = () => {
   const [present] = useIonToast();
   const [currentUserAddressData, setCurrentUserAddressData] = useState({});
 
+  console.log('bookMarkedItems', bookMarkedItems);
+
   useEffect(() => {
     const getCartProducts = () => {
       setCartProducts([]);
@@ -300,16 +302,16 @@ const CartProducts = () => {
             </IonCol>
           </IonRow>
 
-          {/* <SaveForLater /> */}
+         {authenticated &&  <SaveForLater /> }
 
-          {bookMarkedItems?.length > 0 && authenticated && (
+          {/* {bookMarkedItems?.length > 0 && authenticated && (
             <IonRow className="ion-padding-top">
               <IonCol>
                 <IonTitle color="dark">Saved For later</IonTitle>
               </IonCol>
               <SaveForLater />
             </IonRow>
-          )}
+          )} */}
 
           <IonRow className="ion-padding bottom-shadow">
             <IonCol size="6" className="ion-padding-top">
