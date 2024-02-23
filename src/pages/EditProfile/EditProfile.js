@@ -188,7 +188,7 @@ const EditProfile = () => {
                               type="text"
                               label="Default input"
                               placeholder="Enter your Phone Number"
-                              value={values.number}
+                              value={values.dob}
                               onIonChange={(e) =>
                                 setFieldValue("dob", e.detail.value)
                               }
