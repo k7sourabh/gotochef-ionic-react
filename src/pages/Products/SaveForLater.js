@@ -64,6 +64,7 @@ const SaveForLater = () => {
   const getSaveForLater = async () => {
     try {
       const response = await getApiDataWithAuth("/get-product-bookmark");
+      console.log('bookmart-data',response?.data?.data)
       setSaveForLaterData(response?.data?.data);
     } catch (err) {
       console.log(err);
@@ -73,6 +74,8 @@ const SaveForLater = () => {
   useEffect(() => {
     getSaveForLater();
   }, [bookMarkedItems]);
+  
+  console.log('bookMarkedItems', bookMarkedItems)
 
   const removeItem = (data) => {
     bookMarkPost(data);

@@ -25,6 +25,7 @@ import {
   IonText,
   IonTitle,
   IonToolbar,
+  useIonToast,
 } from "@ionic/react";
 import { add, remove, home, closeCircleOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
@@ -59,6 +60,7 @@ const CartProducts = () => {
   const { authenticated } = useAuth();
   const { bookMarkPost } = useCart();
   const history = useHistory();
+  const [present] = useIonToast();
   const [currentUserAddressData, setCurrentUserAddressData] = useState({});
 
   useEffect(() => {
@@ -138,6 +140,27 @@ const CartProducts = () => {
   useEffect(() => {
     userAddress();
   }, []);
+
+  const deleteAddressData = async(data) => {
+    console.log(data.id)
+    try {
+      const response = await getApiDataWithAuth(`/user-address-delete/${data?.id}`);
+      if (response?.status === 200) {
+        userAddress();
+        presentToast("Top", response?.data?.message);
+      } 
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const presentToast = (position, message) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
+  };
 
   return (
     <IonPage id="cart-page">
@@ -473,6 +496,14 @@ const CartProducts = () => {
                   >
                     Select
                   </IonButton>
+
+                  <IonButton
+                    fill="clear"
+                    expand="block"
+                    onClick={() => deleteAddressData(data)}
+                  >
+                    Delete
+                  </IonButton>
                 </div>
               </div>
             ))}
@@ -496,7 +527,7 @@ const CartProducts = () => {
           </IonContent>
         </IonModal>
 
-        <AddressPopup isOpen={isOpen} setIsOpen={setIsOpen} />
+        <AddressPopup isOpen={isOpen} setIsOpen={setIsOpen} userAddress={userAddress}/>
       </IonContent>
 
       <LoginPopup

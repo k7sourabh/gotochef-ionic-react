@@ -588,6 +588,7 @@ iframe {
 
 .loginContainer ion-input input {
   min-height: 44px;
+  color: #111 !important
 }
 
 .OTPGroup {
