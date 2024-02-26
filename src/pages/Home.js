@@ -103,7 +103,7 @@ const Home = () => {
 
   return (
     <IonPage id="home-page" className={styles.homePage}>
-      <Header />
+      {/* <Header /> */}
 
       <IonContent fullscreen>
         <Swiper>

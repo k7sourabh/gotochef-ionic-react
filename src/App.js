@@ -72,6 +72,7 @@ import FoodSetting from "./pages/profile/AddProduct";
 import AddProduct from "./pages/profile/AddProduct";
 import FoodAdd from "./pages/profile/FoodAdd";
 import LifeStyleSetting from "./pages/profile/LifeStyleSetting";
+import Header from "./components/Header";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -107,6 +108,7 @@ const App = () => {
     // <CartProvider>
       <ApiProvider>
         <IonApp>
+          <Header/>
           <IonReactRouter>
             <IonRouterOutlet>
               <Route path="/welcome" exact>

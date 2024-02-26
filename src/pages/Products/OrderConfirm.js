@@ -14,7 +14,7 @@ const OrderConfirm = () => {
 
   return (
     <IonPage>
-      <Header />
+      {/* <Header /> */}
       <IonContent>
         <div className='OrderConfirm'>
           <img src="/assets/img/confirm-check.png" alt="Images" />

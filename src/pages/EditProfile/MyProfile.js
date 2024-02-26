@@ -5,7 +5,7 @@ import Header from "../../components/Header"
 const MyProfile = () => {
     return (
         <IonPage>
-            <Header />
+            {/* <Header /> */}
             <IonContent fullscreen={true}>
             <IonHeader className="TitleHead bottom-shadow">
                   <IonButton className="backBtn" fill="clear" routerLink="/home">

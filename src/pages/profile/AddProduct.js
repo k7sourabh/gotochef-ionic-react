@@ -5,7 +5,7 @@ import Header from '../../components/Header'
 const AddProduct = () => {
   return (
    <IonPage>
-    <Header/>
+    {/* <Header/> */}
     <IonContent fullscreen>
     <IonHeader className="TitleHead bottom-shadow">
                     <IonButton className="backBtn" fill="clear" routerLink="/profile">

@@ -28,7 +28,7 @@ const OrderList = () => {
 
   return (
     <IonPage>
-      <Header />
+      {/* <Header /> */}
       <IonContent className="ion-padding-horizontal">
         <IonGrid>
           <IonRow>

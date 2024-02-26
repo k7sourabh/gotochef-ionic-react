@@ -70,7 +70,7 @@ const CategoryProducts = () => {
 
   return (
     <IonPage id="category-page" className={styles.categoryPage}>
-      <Header />
+      {/* <Header /> */}
 
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">

@@ -23,7 +23,7 @@ const OrderDetails = ()=> {
 
     return(
         <IonPage>
-            <Header/>
+            {/* <Header/> */}
             <IonContent>
                 <IonGrid>
                     <IonRow>

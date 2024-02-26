@@ -4,7 +4,7 @@ const ChangePassword = () => {
    return (
       <>
          <IonPage>
-            <Header />
+            {/* <Header /> */}
             <IonContent>
                <IonHeader className="TitleHead bottom-shadow">
                   <IonButton className="backBtn" fill="clear" routerLink="/profile">

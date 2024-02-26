@@ -10,7 +10,7 @@ const Articals = () => {
    return (
       <>
          <IonPage>
-            <Header />
+            {/* <Header /> */}
             <IonContent>
                <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
                   <div className="TitleHead">

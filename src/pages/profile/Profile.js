@@ -38,7 +38,7 @@ const Profile = () => {
 
   return (
     <IonPage>
-      <Header />
+      {/* <Header /> */}
       <IonContent className="profilepage">
         <IonHeader className="TitleHead">
           <IonButton className="backBtn" fill="clear" routerLink="/home">

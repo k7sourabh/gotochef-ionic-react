@@ -67,7 +67,7 @@ const SearchProduct = () => {
 
   return (
     <IonPage>
-      <Header />
+      {/* <Header /> */}
       <IonContent>
         <IonGrid className="ion-no-padding">
           <IonRow>

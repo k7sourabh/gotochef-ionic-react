@@ -64,7 +64,7 @@ const HomeRecipe = () => {
 
   return (
     <IonPage>
-      <Header />
+      {/* <Header /> */}
       <IonContent fullscreen>
         <IonHeader className="TitleHead FlexCol">
           <IonLabel>Hi, Deepshree</IonLabel>

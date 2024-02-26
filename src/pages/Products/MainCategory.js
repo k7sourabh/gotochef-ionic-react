@@ -41,7 +41,7 @@ const MainCategory = () => {
   return (
     <>
       <IonPage id="home-page">
-        <Header />
+        {/* <Header /> */}
 
         <IonContent fullscreen>
           <IonHeader className="TitleHead">

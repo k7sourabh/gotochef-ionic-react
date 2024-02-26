@@ -19,7 +19,7 @@ const AddPayment = () => {
   return (
     <>
       <IonPage id="home-page" className={styles.homePage}>
-        <Header />
+        {/* <Header /> */}
 
         <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">

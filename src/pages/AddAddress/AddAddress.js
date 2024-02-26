@@ -23,7 +23,7 @@ import { briefcase, home, location } from "ionicons/icons";
 const AddAddress = () => {
   return (
     <IonPage>
-      <Header />
+      {/* <Header /> */}
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
           <IonButton className="backBtn" fill="clear" routerLink="/home">

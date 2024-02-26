@@ -133,7 +133,7 @@ const Product = () => {
   };
   return (
     <IonPage id="productDetails-page">
-      <Header />
+      {/* <Header /> */}
 
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">

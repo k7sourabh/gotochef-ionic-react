@@ -80,7 +80,7 @@ const WishList = () => {
   return (
     <>
       <IonPage>
-        <Header />
+        {/* <Header /> */}
         <IonContent>
           <IonGrid>
             <IonRow>

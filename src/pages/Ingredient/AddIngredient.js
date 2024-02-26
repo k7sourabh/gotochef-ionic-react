@@ -21,7 +21,7 @@ const AddIngredient = () => {
 
   return (
     <IonPage>
-      <Header />
+      {/* <Header /> */}
       <IonContent fullscreen>
         <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
           <div className="TitleHead">

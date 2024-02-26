@@ -141,7 +141,7 @@ const CartProducts = () => {
 
   return (
     <IonPage id="cart-page">
-      <Header />
+      {/* <Header /> */}
 
       <IonContent fullscreen>
         <IonHeader className="TitleHead bottom-shadow">
