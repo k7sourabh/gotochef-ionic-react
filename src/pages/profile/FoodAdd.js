@@ -11,18 +11,18 @@ const FoodAdd = () => {
     <IonPage>
       {/* <Header /> */}
       <IonContent>
-      <IonHeader className="TitleHead bottom-shadow">
-                  <IonButton className="backBtn" fill="clear" routerLink="/profile">
-                     <i class="material-icons dark">west</i>
-                  </IonButton>
-                  <IonTitle color="dark">Food Setting</IonTitle>
-               </IonHeader>
+        <IonHeader className="TitleHead bottom-shadow">
+          <IonButton className="backBtn" fill="clear" routerLink="/profile">
+            <i class="material-icons dark">west</i>
+          </IonButton>
+          <IonTitle color="dark">Food Setting</IonTitle>
+        </IonHeader>
         <IonGrid>
           <IonRow>
             <IonCol size='6'>
               <IonItem lines="none">
                 <IonLabel className="StatementInfo ion-margin-start" for="veg">NON-VEGETARIAN</IonLabel>
-                <IonCheckbox slot='start' id='veg'className='ion-no-margin' ></IonCheckbox>
+                <IonCheckbox slot='start' id='veg' className='ion-no-margin' ></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='6'>
@@ -109,120 +109,120 @@ const FoodAdd = () => {
           </IonRow>
         </IonGrid>
         <IonGrid className='ion-padding-horizontal'>
-        <h3>Cuisines</h3>
+          <h3>Cuisines</h3>
           <IonRow className='d-flex ion-justify-content-center'>
             <IonCol size='5'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>African</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>African</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>French</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>French</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Mughlai</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Mughlai</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Chinese</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Chinese</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Italian</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Italian</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Madhya Pradesh</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Madhya Pradesh</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Italian</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Italian</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Madhya Pradesh</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Madhya Pradesh</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
           </IonRow>
         </IonGrid>
         <IonGrid className='ion-padding-horizontal'>
-        <h3>Cooking Techniques</h3>
+          <h3>Cooking Techniques</h3>
           <IonRow className='d-flex ion-justify-content-center'>
             <IonCol size='5'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Baking</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Baking</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Deep Frying</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Deep Frying</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Grill/BBQ</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Grill/BBQ</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Roasting</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Roasting</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Boiling</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Boiling</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Microwave</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Microwave</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Slow Cooking</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Slow Cooking</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
-               <IonItem lines='none' className='box-shadow'>
-               <IonLabel>Steaming</IonLabel>
-               <IonCheckbox className='ion-margin-start'></IonCheckbox>
-               </IonItem>
+              <IonItem lines='none' className='box-shadow'>
+                <IonLabel>Steaming</IonLabel>
+                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+              </IonItem>
             </IonCol>
           </IonRow>
         </IonGrid>

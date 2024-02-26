@@ -26,7 +26,7 @@ import * as Yup from "yup";
 import { closeCircleOutline } from "ionicons/icons";
 
 const AddressPopup = (props) => {
-  const { isOpen, setIsOpen } = props;
+  const { isOpen, setIsOpen, userAddress } = props;
   const [present] = useIonToast();
   const [cityListData, setCityListData] = useState([]);
   const [stateListtData, setStateListtData] = useState([]);
@@ -89,6 +89,7 @@ const AddressPopup = (props) => {
       const response = await postApiDataWithAuth("/post-user-address", obj);
       if (response?.status === 200) {
         presentToast("Top", response?.data?.message);
+        userAddress();
       } else {
       }
     } catch (err) {
@@ -189,24 +190,6 @@ const AddressPopup = (props) => {
                   </div>
 
                   <div className="InputItem">
-                    <IonInput
-                      type="number"
-                      label="postal_code"
-                      name="postalCode"
-                      placeholder="Select Your PIN Code"
-                      onIonChange={(e) =>
-                        setFieldValue("postalCode", e.target.value)
-                      }
-                    ></IonInput>
-                    <ErrorMessage
-                      color="danger"
-                      name="postalCode"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                  </div>
-
-                  <div className="InputItem">
                     <IonSelect
                       label="Select Your City"
                       placeholder="Select Your City"
@@ -223,6 +206,24 @@ const AddressPopup = (props) => {
                     <ErrorMessage
                       color="danger"
                       name="city"
+                      component="div"
+                      className="error-message error-text"
+                    />
+                  </div>
+
+                  <div className="InputItem">
+                    <IonInput
+                      type="number"
+                      label="postal_code"
+                      name="postalCode"
+                      placeholder="Select Your PIN Code"
+                      onIonChange={(e) =>
+                        setFieldValue("postalCode", e.target.value)
+                      }
+                    ></IonInput>
+                    <ErrorMessage
+                      color="danger"
+                      name="postalCode"
                       component="div"
                       className="error-message error-text"
                     />
