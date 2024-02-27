@@ -17,6 +17,10 @@ iframe {
   --box-shadow: none;
 }
 
+.ion-page > ion-content::part(scroll) {
+  padding-top: 80px;
+}
+
 /* Header */
 
 .LogoGroup {

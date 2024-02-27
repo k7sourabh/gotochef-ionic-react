@@ -22,12 +22,12 @@ const AddPayment = () => {
         {/* <Header /> */}
 
         <IonContent fullscreen>
-        <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="backBtn" fill="clear" routerLink="/cart">
-            <i class="material-icons dark">west</i>
-          </IonButton>
-          <IonTitle color="dark">Checkout</IonTitle>
-        </IonHeader>
+          <IonHeader className="TitleHead bottom-shadow">
+            <IonButton className="backBtn" fill="clear" routerLink="/cart">
+              <i class="material-icons dark">west</i>
+            </IonButton>
+            <IonTitle color="dark">Checkout</IonTitle>
+          </IonHeader>
 
           <IonGrid className="ion-no-padding ">
             <IonRow className="ion-padding">

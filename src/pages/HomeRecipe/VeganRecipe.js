@@ -26,12 +26,12 @@ const VeganRecipe = () => {
         <IonPage>
             {/* <Header /> */}
             <IonContent>
-            <IonHeader className="TitleHead bottom-shadow">
-                  <IonButton className="backBtn" fill="clear" routerLink="/home">
-                     <i class="material-icons dark">west</i>
-                  </IonButton>
-                  <IonTitle color="dark">GoToChef Contests</IonTitle>
-               </IonHeader>
+                <IonHeader className="TitleHead bottom-shadow">
+                    <IonButton className="backBtn" fill="clear" routerLink="/home">
+                        <i class="material-icons dark">west</i>
+                    </IonButton>
+                    <IonTitle color="dark">GoToChef Contests</IonTitle>
+                </IonHeader>
                 <IonGrid className="ion-padding-horizontal ion-padding-top">
                     <IonRow className="ion-justify-content-center">
                         <IonCol>
@@ -312,7 +312,7 @@ const VeganRecipe = () => {
                                                     <IonText className="datePrivious">Perfect recipe to make momhappy on her special day</IonText>
                                                 </div>
                                             </div>
-                                            
+
                                         </IonRow>
                                     </IonRow>
                                 </IonGrid>
