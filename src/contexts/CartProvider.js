@@ -169,9 +169,6 @@ export const CartProvider = ({ children }) => {
       }
   }
 
-  console.log('bookMarkedItemsFromCart',bookMarkedItems)
-
-
   const cartContextValue = {
     cartItems,
     wishListedItems,

@@ -20,26 +20,35 @@ import {
   IonPopover,
   IonHeader,
   IonTitle,
+  IonModal,
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import { getApiDataWithAuth } from "../../utils/Utils";
+import { getApiDataWithAuth, postApiDataWithAuth } from "../../utils/Utils";
 import { ErrorMessage, Form, Formik } from "formik";
+import { formatDate } from "../../utils/Utils";
 import * as Yup from "yup";
 
 const EditProfile = () => {
   const [userProfileData, setUserProfileData] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [cityListData, setCityListData] = useState([]);
+  const [stateListtData, setStateListtData] = useState([]);
   const [formValues, setFormValues] = useState({
+    avatar: "",
     name: "",
     lastName: "",
     email: "",
     number: "",
     dob: "",
     city: "",
+    stateId: "",
   });
+  const [stateName, setStateName] = useState("");
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
+    avatar: Yup.string().required("Profile picture is required"),
     // address2: Yup.string(),
     lastName: Yup.string().required("Last Name is required"),
     // email: Yup.number().required("Email is required"),
@@ -59,6 +68,7 @@ const EditProfile = () => {
       console.log(response?.data?.user_dashboard?.user_form_data);
       setUserProfileData(response?.data?.user_dashboard?.user_form_data);
       setFormValues({
+        avatar: response?.data?.user_dashboard?.user_form_data?.avatar || "",
         name: response?.data?.user_dashboard?.user_form_data?.first_name || "",
         lastName:
           response?.data?.user_dashboard?.user_form_data?.last_name || "",
@@ -66,6 +76,7 @@ const EditProfile = () => {
         number: response?.data?.user_dashboard?.user_form_data?.mobile || "",
         dob: response?.data?.user_dashboard?.user_form_data?.dob || "",
         city: response?.data?.user_dashboard?.user_form_data?.city || "",
+        // stateId: response?.data?.user_dashboard?.user_form_data?.state_id || "",
       });
     } catch (e) {
       console.log(e);
@@ -77,6 +88,62 @@ const EditProfile = () => {
   }, []);
 
   console.log("formValues", formValues);
+
+  const handleStateChange = async (e) => {
+    const stateId = e.target.value;
+    try {
+      const response = await postApiDataWithAuth("/post-city-list", {
+        state_id: stateId,
+      });
+      setCityListData(response?.data?.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const stateList = async () => {
+    try {
+      const response = await getApiDataWithAuth("/get-state-list");
+      setStateListtData(response?.data?.data);
+      console.log("iddddd", userProfileData.state_id);
+      if (userProfileData.state_id) {
+        response?.data?.data.filter((val, i) => {
+          if (val.id === userProfileData.state_id) {
+            console.log("vallll", val.state_name);
+            setStateName(val.state_name);
+            // setFormValues("stateId", val.state_name);
+          }
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    stateList();
+  }, [userProfileData]);
+
+  const profileSettingPost = async (values) => {
+    console.log("values", values);
+    try {
+      const formdata = new FormData();
+      formdata.append("firstName", values.name);
+      formdata.append("lastName", values.lastName);
+      formdata.append("mobile", values.number);
+      formdata.append("avatar", values.avatar);
+      formdata.append("dob", values.dob);
+      formdata.append("city", values.city);
+
+      const response = await postApiDataWithAuth(
+        "/user-update-personal-info",
+        formdata
+      );
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -94,8 +161,7 @@ const EditProfile = () => {
               initialValues={formValues}
               validationSchema={validationSchema}
               onSubmit={(values) => {
-                //   handleSubmit(values);
-                console.log(values);
+                profileSettingPost(values);
               }}
             >
               {({ isSubmitting, setFieldValue, values }) => (
@@ -105,16 +171,35 @@ const EditProfile = () => {
                       <IonCol className="ion-padding-top">
                         <div className="EditprofileImg">
                           <img
-                            src="./assets/img/img-person.jpg"
+                            src={values?.avatar}
                             alt=""
-                            className="ProfileImg"
+                            className="MainProductThumb"
+                            onError={(e) => {
+                              e.target.onerror = null; // Remove the event handler to prevent an infinite loop
+                              e.target.src = "./assets/img/img-person.jpg"; // Placeholder image URL
+                            }}
                           />
-
-                          <div class="image-upload">
-                            <label for="file-input" className="EditProfile">
+                          <ErrorMessage
+                            color="danger"
+                            name="image"
+                            component="div"
+                            className="error-message error-text"
+                          />
+                          <div className="image-upload">
+                            <label htmlFor="file-input" className="EditProfile">
                               <img src="./assets/img/edit.png" alt="" />
                             </label>
-                            <input id="file-input" type="file" />
+                            <input
+                              id="file-input"
+                              type="file"
+                              onChange={(e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                  setFieldValue("avatar", file);
+                                }
+                              }}
+                              style={{ display: "none" }}
+                            />
                           </div>
                         </div>
                       </IonCol>
@@ -221,13 +306,9 @@ const EditProfile = () => {
                               onIonChange={(e) =>
                                 setFieldValue("dob", e.detail.value)
                               }
+                              onClick={() => setShowModal(true)}
                             ></IonInput>
-                            <IonPopover
-                              trigger="click-trigger"
-                              triggerAction="click"
-                            >
-                              <IonDatetime id="datetime"></IonDatetime>
-                            </IonPopover>
+
                             <ErrorMessage
                               color="danger"
                               name="dob"
@@ -235,12 +316,54 @@ const EditProfile = () => {
                               className="error-message error-text"
                             />
                           </IonItem>
-                          {/* <IonItem>
-                               <IonSelect label="Please Select" fill="solid" placeholder="Please Select" >
-                                        <IonSelectOption value="apple">Female</IonSelectOption>
-                                        <IonSelectOption value="banana">Male</IonSelectOption>
-                                    </IonSelect>
-                               </IonItem> */}
+                          <IonModal
+                            isOpen={showModal}
+                            onDidDismiss={() => setShowModal(false)}
+                          >
+                            <IonDatetime
+                              displayFormat="MMM DD, YYYY"
+                              placeholder="Select Date"
+                              onIonChange={(e) => {
+                                setFieldValue(
+                                  "dob",
+                                  formatDate(e.detail.value)
+                                );
+                                setShowModal(false);
+                              }}
+                            ></IonDatetime>
+                          </IonModal>
+
+                          <IonItem>
+                            <IonSelect
+                              label="Select Your State"
+                              placeholder="Select Your State"
+                              name="stateId"
+                              onIonChange={(e) => {
+                                handleStateChange(e);
+                                setFieldValue("stateId", e.target.value);
+                              }}
+                            >
+                              <IonSelectOption value={stateName}>
+                                {stateName}
+                              </IonSelectOption>
+                              {stateListtData &&
+                                stateListtData?.map((stateName1, index) => (
+                                  <IonSelectOption
+                                    value={stateName1.id}
+                                    key={index}
+                                  >
+                                    {stateName1.state_name}
+                                  </IonSelectOption>
+                                ))}
+                            </IonSelect>
+                            <ErrorMessage
+                              color="danger"
+                              name="state"
+                              component="div"
+                              className="error-message error-text"
+                            />
+                          </IonItem>
+
                           <IonItem>
                             <IonLabel position="floating">
                               Select Your City
@@ -248,17 +371,20 @@ const EditProfile = () => {
                             <IonSelect
                               label="Please Select"
                               fill="solid"
-                              value={values.city} // Set the value of the select input to Formik's value
+                              value={values.city}
                               onIonChange={(e) =>
                                 setFieldValue("city", e.detail.value)
                               }
                             >
-                              <IonSelectOption value="Indore">
-                                Indore
+                              <IonSelectOption value={values.city}>
+                                {values.city}
                               </IonSelectOption>
-                              <IonSelectOption value="Bhopal">
-                                Bhopal
-                              </IonSelectOption>
+                              {cityListData &&
+                                cityListData?.map((cityName, index) => (
+                                  <IonSelectOption value={cityName.city_name}>
+                                    {cityName.city_name}
+                                  </IonSelectOption>
+                                ))}
                             </IonSelect>
                           </IonItem>
                         </div>
