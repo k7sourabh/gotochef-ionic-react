@@ -44,10 +44,9 @@ const Header = () => {
   const history = useHistory();
 
   const handleLogout = () => {
-    // Add logout logic here
     logout();
     set("auth", "false");
-    history.push("/"); // Redirect to the login page after logout
+    history.push("/");
   };
 
   const startScan = async () => {
@@ -61,10 +60,13 @@ const Header = () => {
 
     const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
 
-    console.log(result);
+    const resultJSON = JSON.stringify(result);
+    alert(resultJSON);
+
     // if the result has content
     if (result.hasContent) {
-      console.log(result.content); // log the raw scanned content
+      const content = JSON.stringify(result.hasContent);
+      alert(content); // log the raw scanned content
     }
   };
 
