@@ -34,6 +34,7 @@ import { useLogo } from "../contexts/ApiProvider";
 import { useAuth } from "../context/AuthContext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { set } from "../services/Storage";
+import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 
 const Header = () => {
   const { headerImage } = useLogo();
@@ -48,9 +49,28 @@ const Header = () => {
     set("auth", "false");
     history.push("/"); // Redirect to the login page after logout
   };
+
+  const startScan = async () => {
+    // Check camera permission
+    // This is just a simple example, check out the better checks below
+    await BarcodeScanner.checkPermission();
+
+    // make background of WebView transparent
+    // note: if you are using ionic this might not be enough, check below
+    BarcodeScanner.hideBackground();
+
+    const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
+
+    console.log(result);
+    // if the result has content
+    if (result.hasContent) {
+      console.log(result.content); // log the raw scanned content
+    }
+  };
+
   return (
     <>
-    <IonHeader id="main-content">
+      <IonHeader id="main-content">
         <IonToolbar>
           <IonGrid className="ion-no-padding">
             <IonRow className="ion-justify-content-between ion-padding ion-align-items-center">
@@ -66,11 +86,14 @@ const Header = () => {
                       alt="Images"
                       className="mainLogo"
                     />
+                  </div>
+                  <div className="LogoGroup">
                     <img
                       src="/assets/img/ScanIcon.png"
                       alt="Images"
                       className="logoTag"
                       routerLink="/home"
+                      onClick={startScan}
                     />
                   </div>
                 </IonButton>
