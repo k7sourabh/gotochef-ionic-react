@@ -126,7 +126,8 @@ const CartProducts = () => {
   };
 
   const handleCheckout = () => {
-    history.push("/order-confirm");
+    history.push('/add-payment')
+    // history.push("/order-confirm");
   };
 
   const userAddress = async () => {
