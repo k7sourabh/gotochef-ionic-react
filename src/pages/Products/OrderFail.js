@@ -17,7 +17,7 @@ const OrderFail = () => {
       {/* <Header /> */}
       <IonContent>
         <div className='OrderConfirm'>
-          <img src="/assets/img/confirm-check.png" alt="Images" />
+          <img src="/assets/img/fail.png" alt="Images" />
           <IonText className='Title'>Oops!</IonText>
           <IonText className='subTitle'>Your order is failed</IonText>
           <IonText className='description'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</IonText>
