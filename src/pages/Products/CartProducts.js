@@ -52,6 +52,7 @@ const CartProducts = () => {
   const [, /* total */ setTotal] = useState(0);
   const [isOpenChange, setIsOpenChange] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [totalSaving, setTotalSaving] = useState(0);
   const { cartItems, setCartItems, removeFromCart, bookMarkedItems } =
     useCart();
   const [cartTotal, setCartTotal] = useState(0);
@@ -63,7 +64,7 @@ const CartProducts = () => {
   const [present] = useIonToast();
   const [currentUserAddressData, setCurrentUserAddressData] = useState({});
 
-  console.log('bookMarkedItems', bookMarkedItems);
+  console.log("bookMarkedItems", bookMarkedItems);
 
   useEffect(() => {
     const getCartProducts = () => {
@@ -109,6 +110,20 @@ const CartProducts = () => {
     );
   }, [cartItems]);
 
+  useEffect(() => {
+    setTotalSaving(
+      cartItems.reduce(
+        (total, item) =>
+          total +
+          item.quantity *
+            parseInt(
+              item.prod_details.main_price - item.prod_details.offer_price
+            ),
+        0
+      )
+    );
+  }, [cartItems]);
+
   const handleQuantityChange = (product, quantity) => {
     if (quantity === 0) {
       removeFromCart(product);
@@ -126,7 +141,7 @@ const CartProducts = () => {
   };
 
   const handleCheckout = () => {
-    history.push('/add-payment')
+    history.push("/add-payment");
     // history.push("/order-confirm");
   };
 
@@ -144,18 +159,20 @@ const CartProducts = () => {
     userAddress();
   }, []);
 
-  const deleteAddressData = async(data) => {
-    console.log(data.id)
+  const deleteAddressData = async (data) => {
+    console.log(data.id);
     try {
-      const response = await getApiDataWithAuth(`/user-address-delete/${data?.id}`);
+      const response = await getApiDataWithAuth(
+        `/user-address-delete/${data?.id}`
+      );
       if (response?.status === 200) {
         userAddress();
         presentToast("Top", response?.data?.message);
-      } 
+      }
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   const presentToast = (position, message) => {
     present({
@@ -212,7 +229,7 @@ const CartProducts = () => {
                                     color="dark"
                                     className={styles.productCate}
                                   >
-                                    By ssdssd {item.prod_details.brand_name}
+                                    By {item.prod_details.brand_name}
                                   </IonText>
                                   <IonText
                                     color="dark"
@@ -303,7 +320,7 @@ const CartProducts = () => {
             </IonCol>
           </IonRow>
 
-         {authenticated &&  <SaveForLater /> }
+          {authenticated && <SaveForLater />}
 
           {/* {bookMarkedItems?.length > 0 && authenticated && (
             <IonRow className="ion-padding-top">
@@ -338,7 +355,7 @@ const CartProducts = () => {
           <IonRow className="BgColor ion-padding bottom-shadow">
             <IonCol size="12">
               <IonText>
-                Your Total Savings <span>$94.00</span>
+                Your Total Savings <span>₹{totalSaving}</span>
               </IonText>
             </IonCol>
           </IonRow>
@@ -438,10 +455,10 @@ const CartProducts = () => {
           <div className={styles.priceInfo}>
             <div className="addButn">
               <div className="OfferInfo FlexCols">
-                <div className="FlexPro">
+                {/* <div className="FlexPro">
                   <IonText color="dark">485.00</IonText>
                   <IonChip className="offerBedge">16 Saved</IonChip>
-                </div>
+                </div> */}
               </div>
               <IonButton
                 onClick={() => {
@@ -530,7 +547,11 @@ const CartProducts = () => {
           </IonContent>
         </IonModal>
 
-        <AddressPopup isOpen={isOpen} setIsOpen={setIsOpen} userAddress={userAddress}/>
+        <AddressPopup
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          userAddress={userAddress}
+        />
       </IonContent>
 
       <LoginPopup

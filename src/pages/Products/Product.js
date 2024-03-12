@@ -46,6 +46,7 @@ import "swiper/css/pagination";
 import "@ionic/react/css/ionic-swiper.css";
 import { getApiData } from "../../utils/Utils";
 import { useCart } from "../../contexts/CartProvider";
+import WriteReview from "../../modal/WriteReviewPopuo";
 
 const Product = () => {
   const { id } = useParams();
@@ -62,6 +63,7 @@ const Product = () => {
     bookMarkPost,
     cartItems,
   } = useCart();
+  const [isOpen, setIsOpen] = useState(false);
   const exclusiveProduct = async () => {
     present();
     try {
@@ -377,14 +379,15 @@ const Product = () => {
                   />
                   MySmartKitchen
                 </IonButton>
+
                 <IonButton
                   size="default"
                   expand="block"
                   fill="outline"
                   className={styles.chefbutton}
+                  onClick={() => setIsOpen(true)}
                 >
-                  <IonIcon slot="start" icon={bookmarkOutline} size="small" />
-                  Wishlist
+                  Write a review
                 </IonButton>
               </div>
             </IonCol>
@@ -749,7 +752,7 @@ const Product = () => {
           </IonRow>
         </IonGrid>
 
-        <IonGrid className="ion-no-padding px-6 ion-padding-bottom">
+        {/* <IonGrid className="ion-no-padding px-6 ion-padding-bottom">
           <IonHeader className="TitleHead">
             <IonTitle color="dark">User Recipe</IonTitle>
           </IonHeader>
@@ -818,7 +821,7 @@ const Product = () => {
                   )}
             </IonCol>
           </IonRow>
-        </IonGrid>
+        </IonGrid> */}
 
         <IonGrid className="ion-no-padding ion-padding-bottom">
           <IonHeader className="TitleHead">
@@ -843,6 +846,7 @@ const Product = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
+      <WriteReview isOpen={isOpen} setIsOpen={setIsOpen} productData={productData}/>
     </IonPage>
   );
 };

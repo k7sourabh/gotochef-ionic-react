@@ -73,6 +73,7 @@ import AddProduct from "./pages/profile/AddProduct";
 import FoodAdd from "./pages/profile/FoodAdd";
 import LifeStyleSetting from "./pages/profile/LifeStyleSetting";
 import Header from "./components/Header";
+import OrderFail from "./pages/Products/OrderFail";
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -142,6 +143,7 @@ const App = () => {
                   <PrivateRoute path="/edit-profile" component={EditProfile} />
                   <PrivateRoute path="/food-add" component={FoodAdd} />
                   <PrivateRoute path="/order-confirm" component={OrderConfirm}  />
+                  <PrivateRoute path="/order-fail" component={OrderFail}  />
                   <PrivateRoute path="/add-ingredient" component={AddIngredient}/>
                   <PrivateRoute
                     path="/ingredient-list"

@@ -6,19 +6,53 @@ import {
   IonHeader,
   IonInput,
   IonItem,
+  IonLabel,
   IonPage,
+  IonRadio,
+  IonRadioGroup,
   IonRow,
   IonText,
   IonTitle,
+  useIonToast,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import styles from "./AddPayment.module.css";
 import Header from "../../components/Header";
 import { useCart } from "../../contexts/CartProvider";
+import { useAuth } from "../../context/AuthContext";
+import { ErrorMessage, Form, Formik } from "formik";
+import * as Yup from "yup";
+import { getApiDataWithAuth, postApiDataWithAuth } from "../../utils/Utils";
+import OrderConfirm from "../Products/OrderConfirm";
+import useRazorpay from "react-razorpay";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const AddPayment = () => {
   const { cartItems } = useCart();
+  const { userData } = useAuth();
+  const [Razorpay] = useRazorpay();
   const [cartTotal, setCartTotal] = useState(0);
+  const [addressData, setCurrentUserAddressData] = useState({});
+  const [cartData, setCartData] = useState([]);
+  const [formValues, setFormValues] = useState({
+    firstname: "",
+    email: "",
+    mobile: "",
+    paymentMethod: "",
+    amount: "",
+  });
+  const history = useHistory();
+  const [present] = useIonToast();
+  const [showSubmit, SetShowSubmit] = useState(true);
+
+  const validationSchema = Yup.object().shape({
+    firstname: Yup.string().required("Name is required"),
+    email: Yup.string().required("Email is required"),
+    mobile: Yup.string().matches(/^[6-9]\d{9}$/, {
+      message: "Please enter valid number.",
+    }),
+    paymentMethod: Yup.string().required("Please select a payment method"),
+  });
 
   useEffect(() => {
     setCartTotal(
@@ -30,66 +64,178 @@ const AddPayment = () => {
     );
   }, [cartItems]);
 
-  function loadScript(src) {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-      document.body.appendChild(script);
-    });
-  }
-
-
-  async function displayRazorpay() {
-
-    const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
-    );
-
-    if (!res) {
-      alert("Razorpay SDK failed to load. Are you online?");
-      return;
+  useEffect(() => {
+    if (cartTotal > 0) {
+      SetShowSubmit(false);
     }
+  }, [cartTotal]);
 
-    console.log('cartTotal', cartTotal)
+  const userProfile = async () => {
+    setFormValues({
+      firstname: userData.first_name || "",
+      email: userData.email || "",
+      mobile: userData.mobile || "",
+      paymentMethod: "",
+      amount: cartTotal,
+    });
+  };
+
+  useEffect(() => {
+    userProfile();
+  }, [userData]);
+
+  const userAddress = async () => {
+    try {
+      const response = await getApiDataWithAuth("/get-user-address-list");
+      setCurrentUserAddressData(
+        response?.data?.data[response?.data?.data.length - 1]
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    userAddress();
+  }, []);
+
+  const profileSettingPost = async (values) => {
+    if (values.paymentMethod === "cod") {
+      handleOrderConfirm();
+    } else {
+      const modifiedCartItems = cartItems.map((item) => {
+        const {
+          prod_details,
+          pro_variant_id,
+          product_id,
+          quantity,
+          variant,
+          ...rest
+        } = item;
+        const proVariantId = item?.pro_variant_id || "0";
+        return {
+          pro_variant_id: proVariantId.toString(),
+          product_id: product_id.toString(),
+          quantity: quantity.toString(),
+          variant: variant.toString(),
+        };
+      });
+
+      try {
+        const obj = {
+          user_id: userData.user_id,
+          firstname: values.firstname,
+          email: values.email,
+          address: addressData.address,
+          pincode: addressData.postal_code,
+          payment_type: "razorpay",
+          mobile: values.mobile,
+          city: addressData.cityname,
+          state: addressData.statename,
+          cart_data: modifiedCartItems,
+        };
+        const response = await postApiDataWithAuth("/checkout", obj);
+        if (response?.status === 200) {
+          console.log("iddd", response?.data, response?.data.data.order_id);
+          handlePayment(
+            response?.data?.result.id,
+            response?.data?.data?.order_id
+          );
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+  const handleOrderConfirm = () => {
+    history.push("/order-confirm");
+  };
+
+  const handleOrderFail = () => {
+    history.push("/order-fail");
+  };
+
+  const handlePayment = async (orderIdd, db_orderId) => {
+    // const order = await createOrder(orderIdd); //  Create order on your backend
+    console.log("orderIdd", orderIdd);
+
     const options = {
-      key: "rzp_test_5o9k2e6rhLHdsH", // Enter the Key ID generated from the Dashboard
+      key: "rzp_test_5o9k2e6rhLHdsH",
       amount: cartTotal * 100,
-      // currency: currency,
+      currency: "INR",
       name: "testing",
       description: "Test Transaction",
-      // image: { logo },
-      // order_id: order_id,
+      // image: "https://example.com/your_logo",
+      order_id: orderIdd, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
       handler: async function (response) {
-        console.log('response', response)
+        console.log("response", response, response.razorpay_payment_id);
+        try {
+          const obj = {
+            user_id: userData.user_id,
+            order_id: db_orderId,
+            payment_id: response.razorpay_payment_id,
+            amount: cartTotal * 100,
+            payment_gateway_resp: response,
+          };
+          console.log(obj);
+          const apiResponse = await postApiDataWithAuth(
+            "/payment-capture",
+            obj
+          );
+          console.log("dklhtiorrio", apiResponse);
+          if (apiResponse.data.status === true) {
+            presentToast("Top", response?.data?.message);
+            handleOrderConfirm();
+          }
+        } catch (err) {
+          console.error(err);
+          presentToast("Top", err?.data?.message);
+        }
       },
       prefill: {
-        name: "testing",
-        email: "testing@example.com",
-        contact: "9999999999",
+        name: userData.first_name,
+        email: userData.email,
+        contact: userData.mobile,
       },
       notes: {
-        address: "dummy address",
+        address: addressData.address,
       },
       theme: {
-        color: "#61dafb",
+        color: "#3399cc",
       },
     };
 
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
-  }
+    const rzp1 = new Razorpay(options);
+
+    rzp1.on("payment.failed", function (response) {
+      console.log("response Error", response);
+      presentToast("Top", response.error.step);
+      presentToast("Top", response.error.description);
+      handleOrderFail();
+      // alert(response.error.code);
+      // alert(response.error.description);
+      // alert(response.error.source);
+      // alert(response.error.step);
+      // alert(response.error.reason);
+      // alert(response.error.metadata.order_id);
+      // alert(response.error.metadata.payment_id);
+    });
+
+    rzp1.open();
+  };
+
+  const presentToast = (position, message) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
+  };
 
   return (
     <>
       <IonPage id="home-page" className={styles.homePage}>
-        {/* <Header /> */}
-
         <IonContent fullscreen>
           <IonHeader className="TitleHead bottom-shadow">
             <IonButton className="backBtn" fill="clear" routerLink="/cart">
@@ -97,110 +243,143 @@ const AddPayment = () => {
             </IonButton>
             <IonTitle color="dark">Checkout</IonTitle>
           </IonHeader>
+          {formValues && formValues.firstname && (
+            <Formik
+              initialValues={formValues}
+              validationSchema={validationSchema}
+              onSubmit={(values) => {
+                profileSettingPost(values);
+              }}
+            >
+              {({ setFieldValue, values, errors, touched }) => (
+                <Form>
+                  <IonGrid className="ion-no-padding ">
+                    <IonRow className="ion-padding">
+                      <IonCol size="12">
+                        <IonItem>
+                          <IonInput
+                            label="firstname"
+                            labelPlacement="floating"
+                            placeholder="First name"
+                            name="firstname"
+                            value={values && values?.firstname}
+                            onIonChange={(e) =>
+                              setFieldValue("firstname", e.detail.value)
+                            }
+                          ></IonInput>
+                          <ErrorMessage
+                            color="danger"
+                            name="firstname"
+                            component="div"
+                            className="error-message error-text"
+                          />
+                        </IonItem>
+                      </IonCol>
+                      <IonCol size="12">
+                        <IonItem>
+                          <IonInput
+                            label="Email"
+                            labelPlacement="floating"
+                            placeholder="Email"
+                            name="email"
+                            value={values && values?.email}
+                            onIonChange={(e) =>
+                              setFieldValue("email", e.detail.value)
+                            }
+                          ></IonInput>
+                          <ErrorMessage
+                            color="danger"
+                            name="email"
+                            component="div"
+                            className="error-message error-text"
+                          />
+                        </IonItem>
+                      </IonCol>
+                      <IonCol size="12">
+                        <IonItem>
+                          <IonInput
+                            label="Mobile"
+                            labelPlacement="floating"
+                            placeholder="Mobile"
+                            name="mobile"
+                            value={values && values?.mobile}
+                            onIonChange={(e) =>
+                              setFieldValue("mobile", e.detail.value)
+                            }
+                          ></IonInput>
+                          <ErrorMessage
+                            color="danger"
+                            name="mobile"
+                            component="div"
+                            className="error-message error-text"
+                          />
+                        </IonItem>
+                      </IonCol>
 
-          <IonGrid className="ion-no-padding ">
-            <IonRow className="ion-padding">
-              <IonCol size="12">
-                <IonItem>
-                  <IonInput
-                    label="Name"
-                    labelPlacement="floating"
-                    placeholder="Name"
-                  ></IonInput>
-                </IonItem>
-              </IonCol>
-              <IonCol size="12">
-                <IonItem>
-                  <IonInput
-                    label="Email (Optional)"
-                    labelPlacement="floating"
-                    placeholder="Email (Optional)"
-                  ></IonInput>
-                </IonItem>
-              </IonCol>
-              <IonCol size="12">
-                <IonItem>
-                  <IonInput
-                    label="Mobile"
-                    labelPlacement="floating"
-                    placeholder="Mobile"
-                  ></IonInput>
-                </IonItem>
-              </IonCol>
-            </IonRow>
+                      <IonCol size="12">
+                        <IonItem>
+                          <IonInput
+                            label="Address"
+                            labelPlacement="floating"
+                            placeholder="Address"
+                            name="address"
+                            // value={values && values?.address}
+                            disabled
+                            value={`${addressData.address} ${addressData.cityname} ${addressData.statename}`}
+                          ></IonInput>
+                        </IonItem>
+                      </IonCol>
+                    </IonRow>
 
+                    <IonItem>
+                      <IonText color="dark">Payment Method: </IonText>
+                      <IonRadioGroup
+                        onIonChange={(e) =>
+                          setFieldValue("paymentMethod", e.detail.value)
+                        }
+                      >
+                        <IonItem>
+                          <IonLabel>Cod</IonLabel>
+                          <IonRadio name="paymentMethod" value="cod" />
+                        </IonItem>
 
-            {/* <IonRow className={styles.backgroundClrr}>
-              <IonCol size="12" className="ion-padding ion-padding-top">
-                <IonText className={styles.headingtext}>
-                  Saved Payments Options
-                </IonText>
-              </IonCol>
-            </IonRow> */}
-            {/* <IonRow className="ion-padding-horizontal">
-              <IonCol size="12">
-                <IonGrid className={styles.paymentlist}>
-                  <IonRow className={styles.paymentrow}>
-                    <IonCol className={styles.paylogo}>
-                      <img src="/assets/img/Amazon-pay.png" alt="Images" />
-                    </IonCol>
+                        <IonItem>
+                          <IonLabel>Razorpay</IonLabel>
+                          <IonRadio name="paymentMethod" value="razorpay" />
+                        </IonItem>
+                      </IonRadioGroup>
+                      {errors.paymentMethod && touched.paymentMethod ? (
+                        <div className="error-message error-text">
+                          {errors.paymentMethod}
+                        </div>
+                      ) : null}
+                    </IonItem>
 
-                    <IonCol className={styles.paycontent}>
-                      <IonText>Amazon Pay</IonText>
-                      <IonText>Balance : Rs 150</IonText>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
-              </IonCol>
-              <IonCol size="12">
-                <IonGrid className={styles.paymentlist}>
-                  <IonRow className={styles.paymentrow}>
-                    <IonCol className={styles.paylogo}>
-                      <img src="/assets/img/Lzypay.jpg" alt="Images" />
-                    </IonCol>
+                    <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
+                      <IonCol size="5">
+                        <IonText>Total Amount</IonText>
+                      </IonCol>
+                      <IonCol size="3" className="ion-text-right">
+                        <IonText name="amount">{cartTotal}</IonText>
+                      </IonCol>
+                    </IonRow>
 
-                    <IonCol className={styles.paycontent}>
-                      <IonText>LazyPay</IonText>
-                      <IonText>Clear Your Dues by 18 July 2023</IonText>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
-              </IonCol>
-              <IonCol size="12">
-                <IonGrid className={styles.paymentlist}>
-                  <IonRow className={styles.paymentrow}>
-                    <IonCol className={styles.paylogo}>
-                      <img src="/assets/img/icici.png" alt="Images" />
-                    </IonCol>
-
-                    <IonCol className={styles.paycontent}>
-                      <IonText>ICICI Credit</IonText>
-                      <IonText>XXXX-XXXXXX 2023</IonText>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
-              </IonCol>
-              <IonCol size="12">
-                <IonGrid className={styles.paymentlist}>
-                  <IonRow className={styles.paymentrow}>
-                    <IonCol className={styles.paylogo}>
-                      <img src="/assets/img/Amazon-pay.png" alt="Images" />
-                    </IonCol>
-
-                    <IonCol className={styles.paycontent}>
-                      <IonText>One Credit Card</IonText>
-                      <IonText>XXXX-XXXXXX 5931</IonText>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
-              </IonCol>
-            </IonRow> */}
-            <IonRow className="ion-padding-vertical ion-padding-horizontal">
-              <IonCol size="12">
-                <IonButton expand="full" onClick={displayRazorpay}>Save & Checkout</IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
+                    <IonRow className="ion-padding-vertical ion-padding-horizontal">
+                      <IonCol size="12">
+                        <IonButton
+                          type="submit"
+                          expand="full"
+                          disabled={showSubmit}
+                        >
+                          Save & Checkout
+                        </IonButton>
+                      </IonCol>
+                    </IonRow>
+                  </IonGrid>
+                </Form>
+              )}
+            </Formik>
+          )}
         </IonContent>
       </IonPage>
     </>
