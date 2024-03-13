@@ -9,6 +9,7 @@ import {
   IonModal,
   IonRadio,
   IonRadioGroup,
+  IonRow,
   IonText,
   IonTextarea,
   IonTitle,
@@ -112,160 +113,182 @@ const WriteReview = (props) => {
         onDidDismiss={() => setIsOpen(false)}
         className="ForgotModal"
       >
-        <div className="loginContainer">
-          <IonText color="dark" className="title">
-            Write a review
-          </IonText>
+        <div className="writeReviewContainer">
+          <div className="PopHead">
+            <IonText color="dark" className="title">
+              Write a review
+            </IonText>
+          </div>
 
-          <Formik
-            initialValues={initialValues}
-            validationSchema={reviewSchema}
-            onSubmit={(values) => {
-              submitReview(values);
-            }}
-          >
-            {({ errors, touched, setFieldValue }) => (
-              <Form>
-                <div>
-                  <IonGrid className="ion-no-padding ion-padding-vertical">
-                    <IonTitle>Ratings</IonTitle>
-                    <IonCol
-                      size="6"
-                      className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
-                    >
-                      <IonText color="dark">Overall Rating</IonText>
-                      <Rating
-                        name="overallRating"
-                        onClick={(rate) => setFieldValue("overallRating", rate)}
-                      />
-                      {errors.overallRating && touched.overallRating && (
-                        <div className="error-message error-text">
-                          {errors.overallRating}
+          <div className="PopBody">
+            <Formik
+              initialValues={initialValues}
+              validationSchema={reviewSchema}
+              onSubmit={(values) => {
+                submitReview(values);
+              }}
+            >
+              {({ errors, touched, setFieldValue }) => (
+                <Form>
+                  <IonGrid className="ion-no-padding">
+                    <IonRow className="ion-margin-bottom">
+                      <IonCol size="12">
+                        <div className="InfoBlock">
+                          <IonTitle>Ratings</IonTitle>
+
+                          <div className="ratingbox-grid">
+                            <div className="ratingBox">
+                              <IonText color="dark">Overall Rating</IonText>
+                              <Rating
+                                name="overallRating"
+                                onClick={(rate) => setFieldValue("overallRating", rate)}
+                              />
+                              {errors.overallRating && touched.overallRating && (
+                                <p className="error-message error-text">{errors.overallRating}</p>
+                              )}
+                            </div>
+
+                            <div className="ratingBox">
+                              <IonText color="dark">Value For Money</IonText>
+                              <Rating
+                                name="valueForMoney"
+                                onClick={(rate) => setFieldValue("valueForMoney", rate)}
+                              />
+                              {errors.valueForMoney && touched.valueForMoney && (
+                                <p className="error-message error-text">
+                                  {errors.valueForMoney}
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="ratingBox">
+                              <IonText color="dark">Taste And Texture</IonText>
+                              <Rating
+                                name="tasteAndTexture"
+                                onClick={(rate) =>
+                                  setFieldValue("tasteAndTexture", rate)
+                                }
+                              />
+                              {errors.tasteAndTexture && touched.tasteAndTexture && (
+                                <p className="error-message error-text">
+                                  {errors.tasteAndTexture}
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="ratingBox">
+                              <IonText color="dark">Packaging</IonText>
+                              <Rating
+                                name="Packaging"
+                                onClick={(rate) => setFieldValue("Packaging", rate)}
+                              />
+                              {errors.Packaging && touched.Packaging && (
+                                <p className="error-message error-text">
+                                  {errors.Packaging}
+                                </p>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      )}
-                    </IonCol>
-                    <IonCol
-                      size="6"
-                      className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
-                    >
-                      <IonText color="dark">Value For Money</IonText>
-                      <Rating
-                        name="valueForMoney"
-                        onClick={(rate) => setFieldValue("valueForMoney", rate)}
-                      />
-                      {errors.valueForMoney && touched.valueForMoney && (
-                        <div className="error-message error-text">
-                          {errors.valueForMoney}
+                      </IonCol>
+                    </IonRow>
+
+                    <IonRow className="ion-margin-bottom">
+                      <IonCol size="12">
+                        <div className="InfoBlock">
+                          <IonTitle>Review Title</IonTitle>
+                          <IonItem className="ion-no-padding">
+                            <IonInput
+                              name="title"
+                              onIonChange={(e) =>
+                                setFieldValue("title", e.target.value)
+                              }
+                              label="Default input"
+                              placeholder="Title"></IonInput>
+                            {errors.title && touched.title ? (
+                              <div className="error-message error-text">
+                                {errors.title}
+                              </div>
+                            ) : null}
+                          </IonItem>
                         </div>
-                      )}
-                    </IonCol>
-                    <IonCol
-                      size="6"
-                      className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
-                    >
-                      <IonText color="dark">Taste And Texture</IonText>
-                      <Rating
-                        name="tasteAndTexture"
-                        onClick={(rate) =>
-                          setFieldValue("tasteAndTexture", rate)
-                        }
-                      />
-                      {errors.tasteAndTexture && touched.tasteAndTexture && (
-                        <div className="error-message error-text">
-                          {errors.tasteAndTexture}
+                      </IonCol>
+                    </IonRow>
+
+                    <IonRow className="ion-margin-bottom">
+                      <IonCol size="12">
+                        <div className="InfoBlock">
+                          <IonTitle>Review</IonTitle>
+                          <IonItem className="ion-no-padding">
+                            <IonTextarea
+                              label="Regular textarea"
+                              name="review"
+                              maxlength={140}
+                              onIonInput={(event) =>
+                                setFieldValue("review", event.target.value)
+                              }
+                            ></IonTextarea>
+                            {errors.review && touched.review ? (
+                              <div className="error-message error-text">
+                                {errors.review}
+                              </div>
+                            ) : null}
+                          </IonItem>
+
+                          <IonItem className="ion-no-padding">
+                            <IonCheckbox
+                              onIonChange={(event) =>
+                                setFieldValue("mySmartKitchen", event.detail.checked)
+                              }
+                            ></IonCheckbox>
+                            <IonText className="ml-10">MySmartKitchen</IonText>
+                            {errors.mySmartKitchen && touched.mySmartKitchen ? (
+                              <div className="error-message error-text">
+                                {errors.mySmartKitchen}
+                              </div>
+                            ) : null}
+                          </IonItem>
                         </div>
-                      )}
-                    </IonCol>
-                    <IonCol
-                      size="6"
-                      className="ion-no-padding ion-padding-horizontal ion-padding-bottom"
-                    >
-                      <IonText color="dark">Packaging</IonText>
-                      <Rating
-                        name="Packaging"
-                        onClick={(rate) => setFieldValue("Packaging", rate)}
-                      />
-                      {errors.Packaging && touched.Packaging && (
-                        <div className="error-message error-text">
-                          {errors.Packaging}
+                      </IonCol>
+                    </IonRow>
+
+                    <IonRow className="ion-margin-bottom">
+                      <IonCol size="12">
+                        <div className="InfoBlock">
+                          <IonTitle>Do you recommend this product for others to buy:</IonTitle>
+                          <IonItem className="ion-no-padding">
+                            <IonRadioGroup
+                              onIonChange={(e) =>
+                                setFieldValue("do_you_recommend", e.detail.value)
+                              }
+                            >
+                              <IonItem>
+                                <IonLabel>Yes</IonLabel>
+                                <IonRadio name="do_you_recommend" value="yes" />
+                              </IonItem>
+
+                              <IonItem>
+                                <IonLabel>No</IonLabel>
+                                <IonRadio name="do_you_recommend" value="no" />
+                              </IonItem>
+                            </IonRadioGroup>
+                            {errors.do_you_recommend && touched.do_you_recommend ? (
+                              <div className="error-message error-text">
+                                {errors.do_you_recommend}
+                              </div>
+                            ) : null}
+                          </IonItem>
                         </div>
-                      )}
-                    </IonCol>
+                      </IonCol>
+                    </IonRow>
                   </IonGrid>
-                  <IonItem>
-                    <IonText color="dark">Review Title</IonText>
-                    <IonInput
-                      name="title"
-                      onIonChange={(e) =>
-                        setFieldValue("title", e.target.value)
-                      }
-                      label="Default input"
-                      placeholder="Title"
-                      className="ion-margin-top"
-                    ></IonInput>
-                    {errors.title && touched.title ? (
-                      <div className="error-message error-text">
-                        {errors.title}
-                      </div>
-                    ) : null}
-                  </IonItem>
 
-                  <IonItem>
-                    <IonText color="dark">Review</IonText>
-                    <IonTextarea
-                      label="Regular textarea"
-                      name="review"
-                      maxlength={140}
-                      onIonInput={(event) =>
-                        setFieldValue("review", event.target.value)
-                      }
-                    ></IonTextarea>
-                    {errors.review && touched.review ? (
-                      <div className="error-message error-text">
-                        {errors.review}
-                      </div>
-                    ) : null}
-                  </IonItem>
 
-                  <IonItem>
-                    <IonCheckbox
-                      onIonChange={(event) =>
-                        setFieldValue("mySmartKitchen", event.detail.checked)
-                      }
-                    ></IonCheckbox>
-                    <IonText>MySmartKitchen</IonText>
-                    {errors.mySmartKitchen && touched.mySmartKitchen ? (
-                      <div className="error-message error-text">
-                        {errors.mySmartKitchen}
-                      </div>
-                    ) : null}
-                  </IonItem>
 
-                  <IonItem>
-                    <IonText color="dark">
-                      Do you recommend this product for others to buy:{" "}
-                    </IonText>
-                    <IonRadioGroup
-                      onIonChange={(e) =>
-                        setFieldValue("do_you_recommend", e.detail.value)
-                      }
-                    >
-                      <IonItem>
-                        <IonLabel>Yes</IonLabel>
-                        <IonRadio name="do_you_recommend" value="yes" />
-                      </IonItem>
 
-                      <IonItem>
-                        <IonLabel>No</IonLabel>
-                        <IonRadio name="do_you_recommend" value="no" />
-                      </IonItem>
-                    </IonRadioGroup>
-                    {errors.do_you_recommend && touched.do_you_recommend ? (
-                      <div className="error-message error-text">
-                        {errors.do_you_recommend}
-                      </div>
-                    ) : null}
-                  </IonItem>
+
+
+
 
                   <IonItem>
                     <IonRadioGroup
@@ -275,8 +298,8 @@ const WriteReview = (props) => {
                     >
                       <IonItem>
                         <IonRadio name="is_confirm" value="yes" />
+                        <IonText color="dark">Review</IonText>
                       </IonItem>
-                      <IonText color="dark"> reviews.</IonText>
                     </IonRadioGroup>
                     {errors.is_confirm && touched.is_confirm ? (
                       <div className="error-message error-text">
@@ -291,10 +314,10 @@ const WriteReview = (props) => {
                       Cancel
                     </IonButton>
                   </div>
-                </div>
-              </Form>
-            )}
-          </Formik>
+                </Form>
+              )}
+            </Formik>
+          </div>
         </div>
       </IonModal>
     </>

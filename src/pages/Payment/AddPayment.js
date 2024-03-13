@@ -48,7 +48,7 @@ const AddPayment = () => {
   const validationSchema = Yup.object().shape({
     firstname: Yup.string().required("Name is required"),
     email: Yup.string().required("Email is required"),
-    mobile: Yup.string().matches(/^[6-9]\d{9}$/, {
+    mobile: Yup.string().required("Mobile number is required").matches(/^[6-9]\d{9}$/, {
       message: "Please enter valid number.",
     }),
     paymentMethod: Yup.string().required("Please select a payment method"),
@@ -83,6 +83,8 @@ const AddPayment = () => {
   useEffect(() => {
     userProfile();
   }, [userData]);
+
+  console.log(userData)
 
   const userAddress = async () => {
     try {
@@ -256,7 +258,7 @@ const AddPayment = () => {
                   <IonGrid className="ion-no-padding ">
                     <IonRow className="ion-padding">
                       <IonCol size="12">
-                        <IonItem>
+                        <IonItem className="ion-no-padding">
                           <IonInput
                             label="firstname"
                             labelPlacement="floating"
@@ -276,7 +278,7 @@ const AddPayment = () => {
                         </IonItem>
                       </IonCol>
                       <IonCol size="12">
-                        <IonItem>
+                        <IonItem className="ion-no-padding">
                           <IonInput
                             label="Email"
                             labelPlacement="floating"
@@ -296,7 +298,7 @@ const AddPayment = () => {
                         </IonItem>
                       </IonCol>
                       <IonCol size="12">
-                        <IonItem>
+                        <IonItem className="ion-no-padding">
                           <IonInput
                             label="Mobile"
                             labelPlacement="floating"
@@ -317,7 +319,7 @@ const AddPayment = () => {
                       </IonCol>
 
                       <IonCol size="12">
-                        <IonItem>
+                        <IonItem className="ion-no-padding">
                           <IonInput
                             label="Address"
                             labelPlacement="floating"
@@ -331,29 +333,36 @@ const AddPayment = () => {
                       </IonCol>
                     </IonRow>
 
-                    <IonItem>
-                      <IonText color="dark">Payment Method: </IonText>
-                      <IonRadioGroup
-                        onIonChange={(e) =>
-                          setFieldValue("paymentMethod", e.detail.value)
-                        }
-                      >
-                        <IonItem>
-                          <IonLabel>Cod</IonLabel>
-                          <IonRadio name="paymentMethod" value="cod" />
-                        </IonItem>
+                    <IonRow className="ion-padding">
+                      <IonCol size="12">
+                        <IonItem className="ion-no-padding">
+                          <div className="paymentMethode">
+                            <IonText color="dark">Payment Method: </IonText>
+                            <IonRadioGroup
+                              onIonChange={(e) =>
+                                setFieldValue("paymentMethod", e.detail.value)
+                              }
+                            >
+                              <IonItem className="ion-no-padding" lines="none">
+                                <IonLabel>Cod</IonLabel>
+                                <IonRadio name="paymentMethod" value="cod" />
+                              </IonItem>
 
-                        <IonItem>
-                          <IonLabel>Razorpay</IonLabel>
-                          <IonRadio name="paymentMethod" value="razorpay" />
+                              <IonItem className="ion-no-padding" lines="none">
+                                <IonLabel>Razorpay</IonLabel>
+                                <IonRadio name="paymentMethod" value="razorpay" />
+                              </IonItem>
+                            </IonRadioGroup>
+                            {errors.paymentMethod && touched.paymentMethod ? (
+                              <div className="error-message error-text">
+                                {errors.paymentMethod}
+                              </div>
+                            ) : null}
+                          </div>
                         </IonItem>
-                      </IonRadioGroup>
-                      {errors.paymentMethod && touched.paymentMethod ? (
-                        <div className="error-message error-text">
-                          {errors.paymentMethod}
-                        </div>
-                      ) : null}
-                    </IonItem>
+                      </IonCol>
+                    </IonRow>
+
 
                     <IonRow className="ion-padding-horizontal ion-padding-bottom ion-justify-content-between">
                       <IonCol size="5">

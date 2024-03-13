@@ -17,7 +17,7 @@ iframe {
   --box-shadow: none;
 }
 
-.ion-page > ion-content::part(scroll) {
+.ion-page>ion-content::part(scroll) {
   padding-top: 80px;
 }
 
@@ -74,7 +74,7 @@ iframe {
 
 .searchBar input {
   border: 1px solid #ccc !important;
-  padding: 8px 65px 8px 50px !important;
+  padding: 8px 65px 8px 15px !important;
 }
 
 .searchBar .searchbar-clear-button {
@@ -84,6 +84,7 @@ iframe {
 .searchBar .searchbar-search-icon {
   top: 50%;
   transform: translateY(-50%);
+  display: none !important;
 }
 
 .SerchBtn {
@@ -492,7 +493,7 @@ iframe {
   height: auto;
   border-radius: 30px;
   background: #efeff1;
-  width: 80%;
+  width: 90%;
 }
 
 .loginModal::part(backdrop),
@@ -1236,7 +1237,8 @@ ion-button.button-outline {
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
-  margin: 10px;
+  gap: 10px;
+  margin: 0 0 10px;
 }
 
 .myModel::part(content) {
@@ -2881,6 +2883,7 @@ ul.Recipe-Star li {
   flex-direction: column;
   align-items: end;
 }
+
 .RangeTypelabel {
   display: flex;
   justify-content: end;
@@ -2980,6 +2983,7 @@ label.N-EditProfile {
   gap: 30px;
   align-items: start;
 }
+
 .ImgIcon ion-icon {
   padding: 20px;
   background-color: #9a1504;
@@ -3018,6 +3022,7 @@ label.N-EditProfile {
   align-items: center;
   gap: 20px;
 }
+
 .bottomText span {
   font-size: 12px;
   padding-top: 3px;
@@ -3039,6 +3044,7 @@ label.N-EditProfile {
   gap: 15px;
   width: 100%;
 }
+
 .FillCheckBox {
   display: flex;
   align-items: center;
@@ -3052,6 +3058,7 @@ label.N-EditProfile {
   object-fit: cover;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
 .qwt-select {
   width: 100%;
   border-radius: 0px;
@@ -3085,6 +3092,7 @@ label.N-EditProfile {
   background-color: #ccc;
   border-radius: 10px;
 }
+
 .UploadPicture input[type="text"] {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-top: 10px;
@@ -3204,6 +3212,7 @@ label.N-EditProfile {
 .addCartModal {
   --ion-background-color: transparent;
 }
+
 .ForgotModal {
   --ion-background-color: transparent !important;
 }
@@ -3284,15 +3293,18 @@ label.N-EditProfile {
 .InputItem {
   width: 100%;
 }
+
 /* Add product page start */
-.add-product-profile{
+.add-product-profile {
   flex-wrap: wrap;
   gap: 10px;
 }
-.box-shadow{
+
+.box-shadow {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
-.box-shadow ion-label{
+
+.box-shadow ion-label {
   white-space: pre-wrap !important;
 }
 
@@ -3305,9 +3317,11 @@ label.N-EditProfile {
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
 }
-.ForgotModal .loginContainer .title{
+
+.ForgotModal .loginContainer .title {
   padding: 30px 0px 0px 0px;
 }
+
 /* FoodStyle page start */
 
 
@@ -3343,7 +3357,7 @@ ul {
   border: 1px solid grey;
   position: absolute;
   top: -5px;
- right: -5px;
+  right: -5px;
   width: 25px;
   height: 25px;
   text-align: center;
@@ -3360,34 +3374,133 @@ ul {
   object-fit: cover;
 }
 
-.LifeStyle :checked + label {
+.LifeStyle :checked+label {
   border-color: #ddd;
 }
 
-.LifeStyle :checked + label:before {
+.LifeStyle :checked+label:before {
   content: "✓";
   background-color: #9a1504;
   transform: scale(1);
 }
 
-.LifeStyle :checked + label img {
+.LifeStyle :checked+label img {
   transform: scale(0.9);
   /* box-shadow: 0 0 5px #333; */
   z-index: -1;
 }
-.LifeStyle ion-text{
+
+.LifeStyle ion-text {
   text-align: center;
 }
+
 .StatementInfo ion-checkbox {
   margin: 0px 10px 0px 0px;
 }
-.StatementInfo ion-label{
+
+.StatementInfo ion-label {
   font-size: 20px;
 }
-.loginContainer form{
+
+.loginContainer form {
   width: 100%;
 }
-.RecipeBtn{
+
+.RecipeBtn {
   width: 100%;
   height: 100%;
+}
+
+.paymentMethode {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.paymentMethode ion-text {
+  display: block;
+  width: 100%;
+  margin: 0 0 10px;
+}
+
+.paymentMethode ion-radio-group {
+  display: flex;
+  width: 100%;
+  gap: 24px;
+}
+
+.paymentMethode ion-radio-group ion-item {
+  width: 100%;
+}
+
+/* write message */
+
+.writeReviewContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.PopHead {
+  padding: 20px;
+  background: rgb(143 26 29 / 10%);
+}
+
+.PopHead ion-text {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.writeReviewContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.PopBody {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+}
+
+.InfoBlock ion-title {
+  padding: 0;
+  font-size: 18px;
+  margin: 0 0 15px;
+}
+
+.ratingBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.ratingBox svg {
+  width: 24px;
+  height: 24px;
+}
+
+.ratingBox ion-text {
+  font-size: 14px;
+}
+
+.ratingbox-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ratingbox-grid .ratingBox {
+  width: calc(50% - 8px);
+}
+
+.ratingbox-grid .ratingBox .error-message {
+  margin: 0;
+}
+
+.ml-10 {
+  margin-left: 10px;
 }
