@@ -2639,8 +2639,6 @@ ul.Recipe-Star li {
 .RecipeTextArea {
   background: #f1f1f1;
   border-radius: 8px;
-  min-height: 126px;
-  height: auto;
 }
 
 .OuantityBox {
@@ -2706,13 +2704,20 @@ ul.Recipe-Star li {
 .Recipebox {
   padding: 10px;
   margin-top: 5px;
+  height: 100px;
 }
 
 .MainSubmitRow {
   display: flex;
   gap: 15px;
+  justify-content: space-between;
 }
-
+.RecipeSelectImage{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
 .ActionInfo {
   display: flex;
   align-items: center;
@@ -2727,6 +2732,9 @@ ul.Recipe-Star li {
 .IngredientsInfo {
   min-width: 50%;
   width: 50%;
+}
+.IngredientsInfoMethod {
+  width: 100%;
 }
 
 .QuantityInfo {
@@ -3040,10 +3048,11 @@ label.N-EditProfile {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
+  justify-content: space-between;
+  row-gap: 15px;
   width: 100%;
 }
+
 
 .FillCheckBox {
   display: flex;
@@ -3057,6 +3066,7 @@ label.N-EditProfile {
   width: 100%;
   object-fit: cover;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
 }
 
 .qwt-select {
@@ -3503,4 +3513,17 @@ ul {
 
 .ml-10 {
   margin-left: 10px;
+}
+#Cover-Profile{
+  display: none;
+}
+label.cover-img-upload img {
+  width: 100%;
+}
+label.cover-img-upload ion-text {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
 }

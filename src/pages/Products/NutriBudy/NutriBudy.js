@@ -42,6 +42,22 @@ const NutriBudy = () => {
                     <IonTitle color="dark">NutriBuddy</IonTitle>
                 </IonHeader>
                 <IonGrid>
+                    <IonRow className="ion-padding-horizontal ion-padding-top">
+                        <IonCol>
+                        <div className="">
+                      {/* <IonRange
+                        min={0}
+                        max={100}
+                        className="range-custom-height ion-no-padding"
+                      ></IonRange> */}
+                       <IonProgressBar  value="0.5"></IonProgressBar> 
+                      <IonLabel slot="end" className="RangeTypelabel">
+                        100% Complete
+                      </IonLabel>
+                    </div>
+                        </IonCol>
+                    </IonRow>
+
                     <IonRow>
                         <IonCol>
                             <div>

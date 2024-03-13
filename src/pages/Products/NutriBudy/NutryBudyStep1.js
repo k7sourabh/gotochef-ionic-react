@@ -92,16 +92,6 @@ const NutryBudyStep1 = () => {
                     <h4>Personal Setting</h4>
                   </IonCol>
                   <IonCol size="12" className="ion-padding-bottom">
-                    <div className="">
-                      <IonRange
-                        min={0}
-                        max={100}
-                        className="range-custom-height ion-no-padding"
-                      ></IonRange>
-                      <IonLabel slot="end" className="RangeTypelabel">
-                        100% Complete
-                      </IonLabel>
-                    </div>
                     <div className="N-profileInput">
                       <IonInput
                         className="ion-margin-vertical"
@@ -163,7 +153,7 @@ const NutryBudyStep1 = () => {
                         label="Default input"
                         placeholder="Enter your Weight"
                       ></IonInput>
-
+                      <IonLabel>Enter Your DOB</IonLabel>
                       <IonInput
                         className="ion-margin-vertical"
                         name="dob"

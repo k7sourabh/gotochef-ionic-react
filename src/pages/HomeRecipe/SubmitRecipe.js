@@ -1,8 +1,17 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTextarea, IonTitle } from "@ionic/react"
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow, IonSegment, IonSegmentButton, IonSelect, IonSelectOption, IonText, IonTextarea, IonTitle } from "@ionic/react"
 import { person, timeOutline, closeOutline, trashOutline } from "ionicons/icons"
+import { useEffect, useState } from "react";
 import Header from "../../components/Header"
+import SubmitRecipeStep1 from "./SubmitRecipeStep1";
+import SubmitRecipeStep2 from "./SubmitRecipeStep2";
+import SubmitRecipeStep3 from "./SubmitRecipeStep3";
+import SubmitRecipeStep4 from "./SubmitRecipeStep4";
 
 const SubmitRecipe = () => {
+  const [selectedTab, setSelectedTab] = useState("step1");
+  const handleTabChange = (event) => {
+    setSelectedTab(event.detail.value);
+  };
   return (
 
     <IonPage>
@@ -25,9 +34,64 @@ const SubmitRecipe = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        <IonGrid className="ion-padding-horizontal">
+
+        <IonRow>
+          <IonCol>
+            <div>
+              <div className="ion-padding" slot="content">
+                <IonSegment
+                  scrollable
+                  value={selectedTab}
+                  onIonChange={handleTabChange}
+                  className="RecipeSubmitTab"
+                >
+                  <IonSegmentButton value="step1">
+                    <IonLabel>Step1</IonLabel>
+                  </IonSegmentButton>
+                  <IonSegmentButton value="step2">
+                    <IonLabel>Step2</IonLabel>
+                  </IonSegmentButton>
+                  <IonSegmentButton value="step3">
+                    <IonLabel>Step3</IonLabel>
+                  </IonSegmentButton>
+                  <IonSegmentButton value="step4">
+                    <IonLabel>Step4</IonLabel>
+                  </IonSegmentButton>
+                </IonSegment>
+                {selectedTab === "step1" && (
+                 <SubmitRecipeStep1 />
+                )}
+                {selectedTab === "step2" && (
+                  <SubmitRecipeStep2 />
+                )}
+
+                {selectedTab === "step3" && (
+                  <SubmitRecipeStep3 />
+                )}
+                {selectedTab === "step4" && (
+                  <SubmitRecipeStep4 />
+                )}
+              </div>
+            </div>
+
+
+          </IonCol>
+        </IonRow>
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* <IonGrid className="ion-padding-horizontal">
           <IonRow>
-            <IonCol className="SubmitInput ion-padding-vertical">
+            <IonCol className="SubmitInput ion-padding-top">
               <IonText>Recipe Title*</IonText>
               <div className="RecipeInput">
                 <IonInput fill="solid"></IonInput>
@@ -35,8 +99,31 @@ const SubmitRecipe = () => {
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol className="SubmitInput">
-              <IonText>Description*</IonText>
+            <IonCol className="SubmitInput ion-padding-top">
+              <IonText>Select Level*</IonText>
+              <div className="RecipeInput">
+              <IonSelect label="Solid select" labelPlacement="floating" fill="solid" placeholder="Please Select">
+                  <IonSelectOption value="apple">Easy</IonSelectOption>
+                  <IonSelectOption value="banana">Moderate</IonSelectOption>
+                  <IonSelectOption value="orange">Difficult</IonSelectOption>
+                </IonSelect>
+              </div>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol className="SubmitInput ion-padding-top">
+              <IonText>Select Food Type*</IonText>
+              <div className="RecipeInput">
+              <IonSelect label="Solid select" labelPlacement="floating" fill="solid" placeholder="Select Food Type">
+                  <IonSelectOption value="apple">Veg</IonSelectOption>
+                  <IonSelectOption value="banana">Non Veg</IonSelectOption>
+                </IonSelect>
+              </div>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol className="SubmitInput ion-padding-top">
+              <IonText>Recipe Description*</IonText>
               <div className="RecipeTextArea">
                 <IonTextarea placeholder="Please add description here and method in the section below"></IonTextarea>
               </div>
@@ -79,7 +166,7 @@ const SubmitRecipe = () => {
           </IonRow>
           <IonRow>
             <IonCol className="SubmitInput ion-padding-vertical">
-              <IonText>Food Type*</IonText>
+              <IonText>Select Techniques*</IonText>
               <div className="RecipeInput SelectInput">
                 <IonSelect label="Solid select" labelPlacement="floating" fill="solid" placeholder="Please Select">
                   <IonSelectOption value="apple">Apple</IonSelectOption>
@@ -89,7 +176,7 @@ const SubmitRecipe = () => {
               </div>
             </IonCol>
             <IonCol className="SubmitInput ion-padding-vertical">
-              <IonText>Food Type*</IonText>
+              <IonText>Select Products*</IonText>
               <div className="RecipeInput SelectInput">
                 <IonSelect label="Solid select" labelPlacement="floating" fill="solid" placeholder="Please Select">
                   <IonSelectOption value="apple">Apple</IonSelectOption>
@@ -239,7 +326,7 @@ const SubmitRecipe = () => {
               </IonButton>
             </IonCol>
           </IonRow>
-        </IonGrid>
+        </IonGrid> */}
       </IonContent>
     </IonPage>
 

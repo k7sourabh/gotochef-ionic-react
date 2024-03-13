@@ -261,15 +261,16 @@ const WriteReview = (props) => {
                               onIonChange={(e) =>
                                 setFieldValue("do_you_recommend", e.detail.value)
                               }
+                              className="flex"
                             >
-                              <IonItem>
-                                <IonLabel>Yes</IonLabel>
-                                <IonRadio name="do_you_recommend" value="yes" />
+                              <IonItem lines="none">
+                                <IonLabel >Yes</IonLabel>
+                                <IonRadio className="ml-10" name="do_you_recommend" value="yes" />
                               </IonItem>
 
-                              <IonItem>
-                                <IonLabel>No</IonLabel>
-                                <IonRadio name="do_you_recommend" value="no" />
+                              <IonItem lines="none">
+                                <IonLabel >No</IonLabel>
+                                <IonRadio className="ml-10" name="do_you_recommend" value="no" />
                               </IonItem>
                             </IonRadioGroup>
                             {errors.do_you_recommend && touched.do_you_recommend ? (
@@ -283,22 +284,18 @@ const WriteReview = (props) => {
                     </IonRow>
                   </IonGrid>
 
-
-
-
-
-
-
-
-                  <IonItem>
+                  <IonItem lines="none" className="ion-no-padding">
                     <IonRadioGroup
                       onIonChange={(e) =>
                         setFieldValue("is_confirm", e.detail.value)
                       }
                     >
-                      <IonItem>
-                        <IonRadio name="is_confirm" value="yes" />
-                        <IonText color="dark">Review</IonText>
+                      <IonItem lines="none" className="ion-align-item-start">
+                        <div className="ReviewRadio">
+                        <IonRadio name="is_confirm" value="yes" className="" />
+                        <IonText color="dark" className="ml-10">I certify that this review is based on my own experience and is my genuine opinion of this product, and that I have
+                         no personal or business relationship with this establishment, and have not been offered any incentive or payment originating from the establishment to write this review. I understand that GoToChef has a zero-tolerance policy on fake reviews.</IonText>
+                        </div>
                       </IonItem>
                     </IonRadioGroup>
                     {errors.is_confirm && touched.is_confirm ? (
@@ -308,7 +305,31 @@ const WriteReview = (props) => {
                     ) : null}
                   </IonItem>
 
-                  <div className="btnGroup flex ion-margin-top">
+
+
+
+
+
+                  {/* <IonItem lines="none" className="ion-no-padding">
+                    <IonRadioGroup
+                      onIonChange={(e) =>
+                        setFieldValue("is_confirm", e.detail.value)
+                      }
+                    >
+                      <IonItem lines="none" className="">
+                        <IonRadio name="is_confirm" value="yes" />
+                        <IonText color="dark" className="ml-10">I certify that this review is based on my own experience and is my genuine opinion of this product, and that I have
+                         no personal or business relationship with this establishment, and have not been offered any incentive or payment originating from the establishment to write this review. I understand that GoToChef has a zero-tolerance policy on fake reviews.</IonText>
+                      </IonItem>
+                    </IonRadioGroup>
+                    {errors.is_confirm && touched.is_confirm ? (
+                      <div className="error-message error-text">
+                        {errors.is_confirm}
+                      </div>
+                    ) : null}
+                  </IonItem> */}
+
+                  <div className="btnGroup flex ion-margin-top ion-justify-content-between">
                     <IonButton type="submit">Submit</IonButton>
                     <IonButton onClick={() => setIsOpen(false)}>
                       Cancel
