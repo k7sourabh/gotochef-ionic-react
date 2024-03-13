@@ -48,9 +48,11 @@ const AddPayment = () => {
   const validationSchema = Yup.object().shape({
     firstname: Yup.string().required("Name is required"),
     email: Yup.string().required("Email is required"),
-    mobile: Yup.string().required("Mobile number is required").matches(/^[6-9]\d{9}$/, {
-      message: "Please enter valid number.",
-    }),
+    mobile: Yup.string()
+      .required("Mobile number is required")
+      .matches(/^[6-9]\d{9}$/, {
+        message: "Please enter valid number.",
+      }),
     paymentMethod: Yup.string().required("Please select a payment method"),
   });
 
