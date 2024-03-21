@@ -812,13 +812,11 @@ const SubmitRecipeStep1 = (props) => {
                         ))}
                     </div>
                   </IonCol>
-                </IonRow>
 
-                <IonRow>
-                  <IonCol size="12" className="SubmitInput ion-padding-top">
-                    <IonText>Select Products</IonText>
-                    <div className="RecipeInput SelectInput">
-                      <div className="RecipeInput">
+                  <IonCol size="12" className="FormGroup">
+                      <IonText>Select Products</IonText>
+
+                      <div className="TagsInput-block">
                         <TagsInput
                           name="selectProducts"
                           value={tags}
@@ -834,16 +832,13 @@ const SubmitRecipeStep1 = (props) => {
                           className="error-message error-text"
                         />
                       </div>
-                    </div>
-                  </IonCol>
-                </IonRow>
+                    </IonCol>
 
-                <IonRow>
-                  <IonCol className="flex ion-justify-content-end  ion-align-items-center">
-                    <IonButton type="submit" value="Submit">
-                      Continue
-                    </IonButton>
-                  </IonCol>
+                    <IonCol size="12">
+                      <IonButton type="submit" value="Submit" expand="full">
+                        Continue
+                      </IonButton>
+                    </IonCol>
                 </IonRow>
               </IonGrid>
             </Form>
