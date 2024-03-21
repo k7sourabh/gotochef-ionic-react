@@ -59,17 +59,17 @@ const SubmitRecipe = () => {
                   </IonSegmentButton>
                 </IonSegment>
                 {selectedTab === "step1" && (
-                 <SubmitRecipeStep1 />
+                 <SubmitRecipeStep1 setSelectedTab={setSelectedTab}/>
                 )}
                 {selectedTab === "step2" && (
-                  <SubmitRecipeStep2 />
+                  <SubmitRecipeStep2 setSelectedTab={setSelectedTab}/>
                 )}
 
                 {selectedTab === "step3" && (
-                  <SubmitRecipeStep3 />
+                  <SubmitRecipeStep3 setSelectedTab={setSelectedTab}/>
                 )}
                 {selectedTab === "step4" && (
-                  <SubmitRecipeStep4 />
+                  <SubmitRecipeStep4 setSelectedTab={setSelectedTab}/>
                 )}
               </div>
             </div>

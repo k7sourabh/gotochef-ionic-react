@@ -3527,3 +3527,9 @@ label.cover-img-upload ion-text {
   justify-content: center;
   padding: 5px;
 }
+
+.tagArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
