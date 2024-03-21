@@ -3593,6 +3593,7 @@ label.cover-img-upload ion-text {
   min-height: 50px;
   display: flex;
   align-items: center;
+  border-radius: 8px;
 }
 
 .TagsInput-block input {
