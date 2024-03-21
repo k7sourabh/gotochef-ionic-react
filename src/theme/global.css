@@ -931,17 +931,29 @@ ion-button.button-outline {
 }
 
 .FormGroup ion-text {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0 0 10px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .fillInput {
   background: #f1f1f1;
   border-radius: 5px;
-  font-size: 14px;
-  min-height: 40px;
-  padding: 10px 15px;
+  font-size: 16px;
+  min-height: 50px;
+  padding: 5px 15px !important;
+}
+
+.fillInput input {
+  padding: 0 !important;
+}
+
+.fillInput textarea {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  line-height: 24px;
 }
 
 .fillTextarea {
@@ -2689,12 +2701,16 @@ ul.Recipe-Star li {
 .ProBtn {
   background-color: #ffffff;
   max-width: 158px;
-  padding: 11px;
+  padding: 10px 15px;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.ProBtn ion-text {
+  margin: 0;
 }
 
 .RecipeTextArea ion-icon {
@@ -2712,12 +2728,14 @@ ul.Recipe-Star li {
   gap: 15px;
   justify-content: space-between;
 }
-.RecipeSelectImage{
+
+.RecipeSelectImage {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
+
 .ActionInfo {
   display: flex;
   align-items: center;
@@ -2733,6 +2751,7 @@ ul.Recipe-Star li {
   min-width: 50%;
   width: 50%;
 }
+
 .IngredientsInfoMethod {
   width: 100%;
 }
@@ -3514,12 +3533,15 @@ ul {
 .ml-10 {
   margin-left: 10px;
 }
-#Cover-Profile{
+
+#Cover-Profile {
   display: none;
 }
+
 label.cover-img-upload img {
   width: 100%;
 }
+
 label.cover-img-upload ion-text {
   text-align: center;
   display: flex;
@@ -3532,4 +3554,29 @@ label.cover-img-upload ion-text {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.timeSelectBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 10px;
+}
+
+.timeSelectBox ion-select::part(icon) {
+  display: none;
+}
+
+.suggestionList {
+  padding: 15px;
+  background: #f1f1f1;
+}
+
+.suggestionList ion-item {
+  --background: transparent;
+}
+
+.tagArea .ProBtn ion-button::part(native) {
+  padding: 0;
 }
