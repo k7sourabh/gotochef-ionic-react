@@ -7,7 +7,8 @@ import SubmitRecipeStep2 from "./SubmitRecipeStep2";
 import SubmitRecipeStep3 from "./SubmitRecipeStep3";
 import SubmitRecipeStep4 from "./SubmitRecipeStep4";
 
-const SubmitRecipe = () => {
+const SubmitRecipe = (props) => {
+  const {recipeData} = props;
   const [selectedTab, setSelectedTab] = useState("step1");
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
@@ -59,17 +60,17 @@ const SubmitRecipe = () => {
                   </IonSegmentButton>
                 </IonSegment>
                 {selectedTab === "step1" && (
-                 <SubmitRecipeStep1 setSelectedTab={setSelectedTab}/>
+                 <SubmitRecipeStep1 setSelectedTab={setSelectedTab} recipeData={recipeData}/>
                 )}
                 {selectedTab === "step2" && (
-                  <SubmitRecipeStep2 setSelectedTab={setSelectedTab}/>
+                  <SubmitRecipeStep2 setSelectedTab={setSelectedTab} recipeData={recipeData}/>
                 )}
 
                 {selectedTab === "step3" && (
-                  <SubmitRecipeStep3 setSelectedTab={setSelectedTab}/>
+                  <SubmitRecipeStep3 setSelectedTab={setSelectedTab} recipeData={recipeData}/>
                 )}
                 {selectedTab === "step4" && (
-                  <SubmitRecipeStep4 setSelectedTab={setSelectedTab}/>
+                  <SubmitRecipeStep4 setSelectedTab={setSelectedTab} recipeData={recipeData}/>
                 )}
               </div>
             </div>
