@@ -41,11 +41,11 @@ const SubmitRecipeStep1 = (props) => {
     selectLevel: Yup.string().required("Select Level is required"),
     selectFoodType: Yup.string().required("Select Food Type is required"),
     recipeDescription: Yup.string().required("Recipe Description is required"),
-    cookTime: Yup.string().required("Cook Time is required"),
+    cookTime: Yup.string().required("required"),
     cookTimeMinute: Yup.string().required("required"),
-    prepTime: Yup.string().required("Prep Time is required"),
+    prepTime: Yup.string().required("required"),
     prepTimeMinute: Yup.string().required("required"),
-    serve: Yup.string().required("Serve is required"),
+    serve: Yup.string().required("required"),
     selectTechniques: Yup.string().required("Select Techniques is required"),
     selectProducts: Yup.array()
       .min(1, "Please tag")
@@ -83,6 +83,7 @@ const SubmitRecipeStep1 = (props) => {
 
   const handleSelectTeq = async (event) => {
     const item = event.target.value;
+
     if (item) {
       try {
         const response = await postApiDataWithAuth(
@@ -97,6 +98,7 @@ const SubmitRecipeStep1 = (props) => {
         console.error(err);
       }
     } else {
+      setIsOpen(false)
       setShowTeq([]);
     }
     setSearchTerm(item);
@@ -126,8 +128,8 @@ const SubmitRecipeStep1 = (props) => {
       console.error(err);
     }
   };
-
   useEffect(() => {
+    console.log(showTeq.length)
     if (showTeq.length > 0) {
       setIsOpen(true);
     }
@@ -160,115 +162,107 @@ const SubmitRecipeStep1 = (props) => {
         {({ isSubmitting, setFieldValue, values }) => (
           <Form>
             <IonGrid className="ion-no-padding">
-              <IonRow>
-                <IonCol className="SubmitInput ion-padding-top">
+              <IonRow className="ion-padding-vertical ion-margin-top">
+                <IonCol size="12" className="FormGroup">
                   <IonText>Recipe Title</IonText>
-                  <div className="RecipeInput">
-                    <IonInput
-                      fill="solid"
-                      className="ion-margin-vertical"
-                      name="recipeTitle"
-                      type="text"
-                      placeholder="Enter your Title"
-                      onIonChange={(e) =>
-                        setFieldValue("recipeTitle", e.detail.value)
-                      }
-                    ></IonInput>
-                    <ErrorMessage
-                      color="danger"
-                      name="recipeTitle"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                  </div>
+                  <IonInput
+                    fill="solid"
+                    className="fillInput"
+                    name="recipeTitle"
+                    type="text"
+                    placeholder="Enter your Title"
+                    onIonChange={(e) =>
+                      setFieldValue("recipeTitle", e.detail.value)
+                    }
+                  ></IonInput>
+                  <ErrorMessage
+                    color="danger"
+                    name="recipeTitle"
+                    component="div"
+                    className="error-message error-text"
+                  />
                 </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="SubmitInput ion-padding-top">
+
+                <IonCol size="12" className="FormGroup">
                   <IonText>Select Level</IonText>
-                  <div className="RecipeInput">
-                    <IonSelect
-                      label="Solid select"
-                      placeholder="Please Select"
-                      name="selectLevel"
-                      labelPlacement="floating"
-                      fill="solid"
-                      onIonChange={(e) =>
-                        setFieldValue("selectLevel", e.target.value)
-                      }
-                    >
-                      {typeLevel &&
-                        typeLevel?.map((data, index) => (
-                          <IonSelectOption value={data} key={index}>
-                            {data}
-                          </IonSelectOption>
-                        ))}
-                    </IonSelect>
-                    <ErrorMessage
-                      color="danger"
-                      name="selectLevel"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                  </div>
+                  <IonSelect
+                    className="fillInput"
+                    label="Solid select"
+                    placeholder="Please Select"
+                    name="selectLevel"
+                    labelPlacement="floating"
+                    fill="solid"
+                    onIonChange={(e) =>
+                      setFieldValue("selectLevel", e.target.value)
+                    }
+                  >
+                    {typeLevel &&
+                      typeLevel?.map((data, index) => (
+                        <IonSelectOption value={data} key={index}>
+                          {data}
+                        </IonSelectOption>
+                      ))}
+                  </IonSelect>
+                  <ErrorMessage
+                    color="danger"
+                    name="selectLevel"
+                    component="div"
+                    className="error-message error-text"
+                  />
                 </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="SubmitInput ion-padding-top">
+
+                <IonCol size="12" className="FormGroup">
                   <IonText>Select Food Type</IonText>
-                  <div className="RecipeInput">
-                    <IonSelect
-                      label="Solid select"
-                      labelPlacement="floating"
-                      fill="solid"
-                      placeholder="Select Food Type"
-                      name="selectFoodType"
-                      onIonChange={(e) =>
-                        setFieldValue("selectFoodType", e.target.value)
-                      }
-                    >
-                      {foodType &&
-                        foodType?.map((data, index) => (
-                          <IonSelectOption value={data} key={index}>
-                            {data}
-                          </IonSelectOption>
-                        ))}
-                    </IonSelect>
-                    <ErrorMessage
-                      color="danger"
-                      name="selectFoodType"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                  </div>
+                  <IonSelect
+                    className="fillInput"
+                    label="Solid select"
+                    labelPlacement="floating"
+                    fill="solid"
+                    placeholder="Select Food Type"
+                    name="selectFoodType"
+                    onIonChange={(e) =>
+                      setFieldValue("selectFoodType", e.target.value)
+                    }
+                  >
+                    {foodType &&
+                      foodType?.map((data, index) => (
+                        <IonSelectOption value={data} key={index}>
+                          {data}
+                        </IonSelectOption>
+                      ))}
+                  </IonSelect>
+                  <ErrorMessage
+                    color="danger"
+                    name="selectFoodType"
+                    component="div"
+                    className="error-message error-text"
+                  />
                 </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="SubmitInput ion-padding-top">
+
+                <IonCol size="12" className="FormGroup">
                   <IonText>Recipe Description</IonText>
-                  <div className="RecipeTextArea">
-                    <IonTextarea
-                      placeholder="Please add description here and method in the section below"
-                      name="recipeDescription"
-                      onIonChange={(e) =>
-                        setFieldValue("recipeDescription", e.detail.value)
-                      }
-                    ></IonTextarea>
-                    <ErrorMessage
-                      color="danger"
-                      name="recipeDescription"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                  </div>
+                  <IonTextarea
+                    className="fillInput fillTextarea"
+                    placeholder="Please add description here and method in the section below"
+                    name="recipeDescription"
+                    onIonChange={(e) =>
+                      setFieldValue("recipeDescription", e.detail.value)
+                    }
+                  ></IonTextarea>
+                  <ErrorMessage
+                    color="danger"
+                    name="recipeDescription"
+                    component="div"
+                    className="error-message error-text"
+                  />
                 </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol size="6" className="SubmitInput ion-padding-vertical">
-                  <div className="OuantityContent">
-                    <IonText>Cook Time</IonText>
-                    <div className="OuantityBox">
+
+                <IonCol size="12" className="FormGroup">
+                  <IonText>Cook Time <IonIcon icon={timeOutline}></IonIcon></IonText>
+                  <div className="timeSelectBox">
+                    <div className="timeSelect">
                       <IonSelect
+                        className="fillInput"
                         placeholder="Select Hours"
                         name="cookTime"
                         onIonChange={(e) =>
@@ -282,13 +276,19 @@ const SubmitRecipeStep1 = (props) => {
                             </IonSelectOption>
                           ))}
                       </IonSelect>
+
                       <ErrorMessage
                         color="danger"
                         name="cookTime"
                         component="div"
                         className="error-message error-text"
                       />
+                    </div>
+
+
+                    <div className="timeSelect">
                       <IonSelect
+                        className="fillInput"
                         placeholder="Select minute"
                         name="cookTimeMinute"
                         onIonChange={(e) =>
@@ -302,6 +302,7 @@ const SubmitRecipeStep1 = (props) => {
                             </IonSelectOption>
                           ))}
                       </IonSelect>
+
                       <ErrorMessage
                         color="danger"
                         name="cookTimeMinute"
@@ -311,129 +312,127 @@ const SubmitRecipeStep1 = (props) => {
                     </div>
                   </div>
                 </IonCol>
-                <IonCol size="6" className="SubmitInput ion-padding-vertical">
-                  <div className="OuantityContent">
-                    <IonText>Prep Time</IonText>
 
-                    <IonIcon icon={timeOutline}></IonIcon>
-                    <IonSelect
-                      placeholder="Select Hours"
-                      name="prepTime"
-                      onIonChange={(e) =>
-                        setFieldValue("prepTime", e.target.value)
-                      }
-                    >
-                      {Hours &&
-                        Hours?.map((data, index) => (
-                          <IonSelectOption value={data} key={index}>
-                            {data}
-                          </IonSelectOption>
-                        ))}
-                    </IonSelect>
-                    <ErrorMessage
-                      color="danger"
-                      name="prepTime"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                    <IonSelect
-                      placeholder="Select minute"
-                      name="prepTimeMinute"
-                      onIonChange={(e) =>
-                        setFieldValue("prepTimeMinute", e.target.value)
-                      }
-                    >
-                      {Minutes &&
-                        Minutes?.map((data, index) => (
-                          <IonSelectOption value={data} key={index}>
-                            {data}
-                          </IonSelectOption>
-                        ))}
-                    </IonSelect>
-                    <ErrorMessage
-                      color="danger"
-                      name="prepTimeMinute"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                  </div>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol size="12" className="SubmitInput ion-padding-top">
-                  <IonText>Serve</IonText>
-                  <div className="RecipeInput SelectInput">
-                    <div className="RecipeInput">
-                      <IonInput
-                        fill="solid"
-                        placeholder="Serve"
-                        name="serve"
+                <IonCol size="12" className="FormGroup">
+                  <IonText>Prep Time <IonIcon icon={timeOutline}></IonIcon></IonText>
+                  <div className="timeSelectBox">
+                    <div className="timeSelect">
+                      <IonSelect
+                        className="fillInput"
+                        placeholder="Select Hours"
+                        name="prepTime"
                         onIonChange={(e) =>
-                          setFieldValue("serve", e.detail.value)
+                          setFieldValue("prepTime", e.target.value)
                         }
-                      ></IonInput>
+                      >
+                        {Hours &&
+                          Hours?.map((data, index) => (
+                            <IonSelectOption value={data} key={index}>
+                              {data}
+                            </IonSelectOption>
+                          ))}
+                      </IonSelect>
                       <ErrorMessage
                         color="danger"
-                        name="serve"
+                        name="prepTime"
                         component="div"
                         className="error-message error-text"
                       />
                     </div>
-                  </div>
-                </IonCol>
-                <IonCol size="12" className="SubmitInput ion-padding-top">
-                  <IonText>Select Techniques</IonText>
-                  <div className="RecipeInput SelectInput">
-                    <div className="RecipeInput">
-                      <IonInput
-                        fill="solid"
-                        placeholder="Techniques"
-                        name="selectTechniques"
-                        onIonChange={(e) => {
-                          handleSelectTeq(e);
-                          setFieldValue("selectTechniques", e.detail.value);
-                        }}
-                      ></IonInput>
+
+                    <div className="timeSelect">
+                      <IonSelect
+                        className="fillInput"
+                        placeholder="Select minute"
+                        name="prepTimeMinute"
+                        onIonChange={(e) =>
+                          setFieldValue("prepTimeMinute", e.target.value)
+                        }
+                      >
+                        {Minutes &&
+                          Minutes?.map((data, index) => (
+                            <IonSelectOption value={data} key={index}>
+                              {data}
+                            </IonSelectOption>
+                          ))}
+                      </IonSelect>
                       <ErrorMessage
                         color="danger"
-                        name="selectTechniques"
+                        name="prepTimeMinute"
                         component="div"
                         className="error-message error-text"
                       />
                     </div>
-                    {isOpen && (
-                      <IonList>
-                        <IonItem>
-                          <IonList>
-                            {showTeq.map((data, index) => (
-                              <IonItem
-                                value={data.technique_name}
-                                onClick={() =>
-                                  setTechniquesArr((prev) => [
-                                    ...prev,
-                                    data.technique_name,
-                                  ])
-                                }
-                                key={index}
-                              >
-                                {data.technique_name}
-                              </IonItem>
-                            ))}
-                          </IonList>
-                        </IonItem>
-                      </IonList>
-                    )}
                   </div>
                 </IonCol>
 
-                <IonCol size="12" className="SubmitInput ion-padding-top">
+                <IonCol size="12" className="FormGroup">
+                  <IonText>Serve</IonText>
+                  <IonInput
+                    className="fillInput"
+                    fill="solid"
+                    placeholder="Serve"
+                    name="serve"
+                    onIonChange={(e) =>
+                      setFieldValue("serve", e.detail.value)
+                    }
+                  ></IonInput>
+                  <ErrorMessage
+                    color="danger"
+                    name="serve"
+                    component="div"
+                    className="error-message error-text"
+                  />
+                </IonCol>
+
+                <IonCol size="12" className="FormGroup">
+                  <IonText>Select Techniques</IonText>
+                  <IonInput
+                    className="fillInput"
+                    fill="solid"
+                    placeholder="Techniques"
+                    name="selectTechniques"
+                    onIonChange={(e) => {
+                      handleSelectTeq(e);
+                      setFieldValue("selectTechniques", e.detail.value);
+                    }}
+                  ></IonInput>
+                  <ErrorMessage
+                    color="danger"
+                    name="selectTechniques"
+                    component="div"
+                    className="error-message error-text"
+                  />
+
+                  {isOpen && (
+                    <IonList className="suggestionList">
+                      {showTeq.map((data, index) => (
+                        <IonItem
+                          className="ion-no-padding"
+                          value={data.technique_name}
+                          onClick={() =>
+                            setTechniquesArr((prev) => [
+                              ...prev,
+                              data.technique_name,
+                            ])
+                          }
+                          key={index}
+                        >
+                          {data.technique_name}
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  )}
+                </IonCol>
+
+                <IonCol size="12" className="FormGroup">
                   <IonText>Techniques</IonText>
                   <div className="RecipeTextArea Recipebox tagArea">
                     {techniquesArr &&
                       techniquesArr.map((data, i) => (
                         <div className="ProBtn" key={i}>
                           <IonText>{data}</IonText>
-                          <IonButton onClick={() => handleRemoveTag(data)}>
+                          <IonButton fill="none" className="text-button" onClick={() => handleRemoveTag(data)}>
                             <IonIcon
                               size="medium"
                               aria-hidden="true"
@@ -445,7 +444,9 @@ const SubmitRecipeStep1 = (props) => {
                       ))}
                   </div>
                 </IonCol>
+              </IonRow>
 
+              <IonRow>
                 <IonCol size="12" className="SubmitInput ion-padding-top">
                   <IonText>Select Products</IonText>
                   <div className="RecipeInput SelectInput">
