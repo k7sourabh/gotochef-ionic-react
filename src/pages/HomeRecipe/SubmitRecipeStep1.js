@@ -444,35 +444,30 @@ const SubmitRecipeStep1 = (props) => {
                       ))}
                   </div>
                 </IonCol>
-              </IonRow>
 
-              <IonRow>
-                <IonCol size="12" className="SubmitInput ion-padding-top">
+                <IonCol size="12" className="FormGroup">
                   <IonText>Select Products</IonText>
-                  <div className="RecipeInput SelectInput">
-                    <div className="RecipeInput">
-                      <TagsInput
-                        name="selectProducts"
-                        value={tags}
-                        onChange={(tags) => {
-                          setFieldValue("selectProducts", tags);
-                          setTags(tags);
-                        }}
-                      />
-                      <ErrorMessage
-                        color="danger"
-                        name="selectProducts"
-                        component="div"
-                        className="error-message error-text"
-                      />
-                    </div>
+
+                  <div className="TagsInput-block">
+                    <TagsInput
+                      name="selectProducts"
+                      value={tags}
+                      onChange={(tags) => {
+                        setFieldValue("selectProducts", tags);
+                        setTags(tags);
+                      }}
+                    />
+                    <ErrorMessage
+                      color="danger"
+                      name="selectProducts"
+                      component="div"
+                      className="error-message error-text"
+                    />
                   </div>
                 </IonCol>
-              </IonRow>
 
-              <IonRow>
-                <IonCol className="flex ion-justify-content-end  ion-align-items-center">
-                  <IonButton type="submit" value="Submit">
+                <IonCol size="12">
+                  <IonButton type="submit" value="Submit" expand="full">
                     Continue
                   </IonButton>
                 </IonCol>

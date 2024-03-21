@@ -2700,13 +2700,13 @@ ul.Recipe-Star li {
 
 .ProBtn {
   background-color: #ffffff;
-  max-width: 158px;
-  padding: 10px 15px;
+  padding: 8px 15px;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
 }
 
 .ProBtn ion-text {
@@ -3556,6 +3556,16 @@ label.cover-img-upload ion-text {
   gap: 10px;
   flex-wrap: wrap;
   height: auto;
+  min-height: 50px;
+}
+
+.tagArea .ProBtn ion-button::part(native) {
+  padding: 0;
+}
+
+.tagArea .ProBtn ion-button ion-icon {
+  margin: 0;
+  font-size: 16px;
 }
 
 .timeSelectBox {
@@ -3577,6 +3587,47 @@ label.cover-img-upload ion-text {
   --background: transparent;
 }
 
-.tagArea .ProBtn ion-button::part(native) {
-  padding: 0;
+.TagsInput-block {
+  padding: 10px 15px;
+  background: #f1f1f1;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.TagsInput-block input {
+  border: 0;
+  background: transparent;
+  outline: none;
+}
+
+.TagsInput-block .react-tagsinput>span {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.TagsInput-block  .react-tagsinput-tag {
+  padding: 8px 15px;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+}
+
+.TagsInput-block .react-tagsinput-remove {
+  display: inline-flex;
+  margin-left: 10px;
+  align-items: center;
+  justify-content: center;
+  line-height: normal;
+}
+
+.TagsInput-block .react-tagsinput-remove:after {
+  content: '\e5cd';
+  font-family: 'Material Icons';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 2px;
 }
