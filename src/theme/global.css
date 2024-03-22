@@ -942,7 +942,7 @@ ion-button.button-outline {
   background: #f1f1f1;
   border-radius: 5px;
   font-size: 16px;
-  min-height: 50px;
+  min-height: 44px;
   padding: 5px 15px !important;
 }
 
@@ -3631,4 +3631,23 @@ label.cover-img-upload ion-text {
   justify-content: center;
   position: relative;
   top: 2px;
+}
+
+.px-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.inputsGroup {
+  display: flex;
+  gap: 15px;
+}
+
+.inputsGroup .actionBox {
+  display: flex;
+  align-items: flex-end;
+}
+
+.inputsGroup .inputBox {
+  width: 100%;
 }

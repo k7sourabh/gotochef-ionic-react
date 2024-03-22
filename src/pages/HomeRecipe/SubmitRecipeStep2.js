@@ -3,10 +3,12 @@ import {
   IonButton,
   IonCol,
   IonGrid,
+  IonHeader,
   IonIcon,
   IonInput,
   IonRow,
   IonText,
+  IonTitle,
   useIonToast,
 } from "@ionic/react";
 import { trashOutline } from "ionicons/icons";
@@ -15,7 +17,7 @@ import * as Yup from "yup";
 import { postApiDataWithAuth } from "../../utils/Utils";
 
 const SubmitRecipeStep2 = (props) => {
-    const {setSelectedTab} = props
+  const { setSelectedTab } = props
   const [present] = useIonToast();
 
   const validationSchema = Yup.object().shape({
@@ -86,93 +88,77 @@ const SubmitRecipeStep2 = (props) => {
               name="ingredients"
               render={({ remove, push }) => (
                 <>
-                  <IonGrid>
-                    <IonCol size="12">
-                      <h4>Preparation Procedure</h4>
-                    </IonCol>
+
+                  <IonGrid className="ion-padding-vertical">
+                    <IonHeader className="TitleHead px-0 ion-margin-bottom">
+                      <IonTitle>Preparation Procedure</IonTitle>
+                    </IonHeader>
                     {values.ingredients &&
                       values.ingredients.length > 0 &&
                       values.ingredients.map((name, index) => (
-                        <div key={index}>
-                          <IonRow>
-                            <IonCol size="12">
-                              <div className="MainSubmitRow">
-                                <div className="IngredientsInfo">
-                                  <IonText>Ingredients</IonText>
-                                </div>
-
-                                <div className="QuantityInfo">
-                                  <IonText>Quantity</IonText>
-                                </div>
-                                <div className="ActionInfo">
-                                  <IonText></IonText>
-                                </div>
+                        <IonRow key={index}>
+                          <IonCol size="12" className="FormGroup">
+                            <div className="inputsGroup">
+                              <div className="inputBox">
+                                <IonText>Ingredients</IonText>
+                                <IonInput
+                                  className="fillInput"
+                                  fill="solid"
+                                  name={`ingredients.${index}.data`}
+                                  onIonChange={(e) =>
+                                    setFieldValue(
+                                      `ingredients.${index}.data`,
+                                      e.detail.value
+                                    )
+                                  }
+                                ></IonInput>
+                                <ErrorMessage
+                                  color="danger"
+                                  name={`ingredients.${index}.data`}
+                                  component="div"
+                                  className="error-message error-text"
+                                />
                               </div>
-                            </IonCol>
-                          </IonRow>
-                          <IonRow>
-                            <IonCol size="12">
-                              <div className="MainSubmitRow">
-                                <div className="IngredientsInfo">
-                                  <div className="RecipeInput">
-                                    <IonInput
-                                      fill="solid"
-                                      name={`ingredients.${index}.data`}
-                                      onIonChange={(e) =>
-                                        setFieldValue(
-                                          `ingredients.${index}.data`,
-                                          e.detail.value
-                                        )
-                                      }
-                                    ></IonInput>
-                                    <ErrorMessage
-                                      color="danger"
-                                      name={`ingredients.${index}.data`}
-                                      component="div"
-                                      className="error-message error-text"
-                                    />
-                                  </div>
-                                </div>
 
-                                <div className="QuantityInfo">
-                                  <div className="RecipeInput">
-                                    <IonInput
-                                      fill="solid"
-                                      name={`ingredients.${index}.qty`}
-                                      onIonChange={(e) =>
-                                        setFieldValue(
-                                          `ingredients.${index}.qty`,
-                                          e.detail.value
-                                        )
-                                      }
-                                    ></IonInput>
-                                    <ErrorMessage
-                                      color="danger"
-                                      name={`ingredients.${index}.qty`}
-                                      component="div"
-                                      className="error-message error-text"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="ActionInfo">
-                                  <IonButton
-                                    fill="clear"
-                                    onClick={() => remove(index)}
-                                  >
-                                    <IonIcon
-                                      size="default"
-                                      icon={trashOutline}
-                                      slot="start"
-                                    ></IonIcon>
-                                  </IonButton>
-                                </div>
+                              <div className="inputBox">
+                                <IonText>Quantity</IonText>
+                                <IonInput
+                                  className="fillInput"
+                                  fill="solid"
+                                  name={`ingredients.${index}.qty`}
+                                  onIonChange={(e) =>
+                                    setFieldValue(
+                                      `ingredients.${index}.qty`,
+                                      e.detail.value
+                                    )
+                                  }
+                                ></IonInput>
+                                <ErrorMessage
+                                  color="danger"
+                                  name={`ingredients.${index}.qty`}
+                                  component="div"
+                                  className="error-message error-text"
+                                />
                               </div>
-                            </IonCol>
-                          </IonRow>
-                        </div>
+
+                              <div className="actionBox">
+                                <IonButton
+                                  fill="clear"
+                                  onClick={() => remove(index)}
+                                >
+                                  <IonIcon
+                                    size="default"
+                                    icon={trashOutline}
+                                    slot="start"
+                                  ></IonIcon>
+                                </IonButton>
+                              </div>
+                            </div>
+                          </IonCol>
+                        </IonRow>
                       ))}
 
-                    <IonRow className="ion-padding-top">
+                    <IonRow>
                       <IonCol className="flex ion-justify-content-center ion-align-items-center">
                         <IonButton
                           fill="outline"
@@ -194,62 +180,52 @@ const SubmitRecipeStep2 = (props) => {
               render={({ remove, push }) => (
                 <>
                   <IonGrid>
-                    <IonRow>
-                      <IonCol size="12">
-                        <div className="MainSubmitRow">
-                          <div className="IngredientsInfo">
-                            <IonText>Steps / Method</IonText>
-                          </div>
-                        </div>
-                      </IonCol>
-                    </IonRow>
-
                     {values.steps &&
                       values.steps.length > 0 &&
                       values.steps.map((name, stepsIndex) => (
-                        <div key={stepsIndex}>
-                          <IonRow>
-                            <IonCol size="12">
-                              <div className="MainSubmitRow">
-                                <div className="IngredientsInfoMethod">
-                                  <div className="RecipeInput">
-                                    <IonInput
-                                      fill="solid"
-                                      name={`steps.${stepsIndex}`}
-                                      onIonChange={(e) =>
-                                        setFieldValue(
-                                          `steps.${stepsIndex}`,
-                                          e.detail.value
-                                        )
-                                      }
-                                    ></IonInput>
-                                    <ErrorMessage
-                                      color="danger"
-                                      name={`steps.${stepsIndex}`}
-                                      component="div"
-                                      className="error-message error-text"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="ActionInfo">
-                                  <IonButton
-                                    fill="clear"
-                                    onClick={() => remove(stepsIndex)}
-                                  >
-                                    <IonIcon
-                                      size="default"
-                                      icon={trashOutline}
-                                      slot="start"
-                                    ></IonIcon>
-                                  </IonButton>
-                                </div>
+                        <IonRow key={stepsIndex}>
+                          <IonCol size="12" className="FormGroup">
+                            <div className="inputsGroup">
+                              <div className="inputBox">
+                                <IonText>Steps / Method</IonText>
+                                <IonInput
+                                  className="fillInput"
+                                  fill="solid"
+                                  name={`steps.${stepsIndex}`}
+                                  onIonChange={(e) =>
+                                    setFieldValue(
+                                      `steps.${stepsIndex}`,
+                                      e.detail.value
+                                    )
+                                  }
+                                ></IonInput>
+                                <ErrorMessage
+                                  color="danger"
+                                  name={`steps.${stepsIndex}`}
+                                  component="div"
+                                  className="error-message error-text"
+                                />
+
                               </div>
-                            </IonCol>
-                          </IonRow>
-                        </div>
+
+                              <div className="actionBox">
+                                <IonButton
+                                  fill="clear"
+                                  onClick={() => remove(stepsIndex)}
+                                >
+                                  <IonIcon
+                                    size="default"
+                                    icon={trashOutline}
+                                    slot="start"
+                                  ></IonIcon>
+                                </IonButton>
+                              </div>
+                            </div>
+                          </IonCol>
+                        </IonRow>
                       ))}
 
-                    <IonRow className="ion-padding-top">
+                    <IonRow>
                       <IonCol className="flex ion-justify-content-center ion-align-items-center">
                         <IonButton
                           fill="outline"
@@ -268,49 +244,46 @@ const SubmitRecipeStep2 = (props) => {
 
             <IonGrid>
               <IonRow>
-                <IonCol size="12" className="SubmitInput ion-padding-top">
+                <IonCol size="12" className="FormGroup">
                   <IonText>Blog Link</IonText>
-                  <div className="RecipeInput">
-                    <IonInput
-                      fill="solid"
-                      name="blogLink"
-                      onIonChange={(e) =>
-                        setFieldValue(`blogLink`, e.detail.value)
-                      }
-                    ></IonInput>
-                    <ErrorMessage
-                      color="danger"
-                      name="blogLink"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                  </div>
+                  <IonInput
+                    className="fillInput"
+                    fill="solid"
+                    name="blogLink"
+                    onIonChange={(e) =>
+                      setFieldValue(`blogLink`, e.detail.value)
+                    }
+                  ></IonInput>
+                  <ErrorMessage
+                    color="danger"
+                    name="blogLink"
+                    component="div"
+                    className="error-message error-text"
+                  />
                 </IonCol>
-                <IonCol size="12" className="SubmitInput ion-padding-top">
+                <IonCol size="12" className="FormGroup">
                   <IonText>Youtube Link</IonText>
-                  <div className="RecipeInput">
-                    <IonInput
-                      fill="solid"
-                      name="youtubeLink"
-                      onIonChange={(e) =>
-                        setFieldValue(`youtubeLink`, e.detail.value)
-                      }
-                    ></IonInput>
-                    <ErrorMessage
-                      color="danger"
-                      name="youtubeLink"
-                      component="div"
-                      className="error-message error-text"
-                    />
-                  </div>
+                  <IonInput
+                    className="fillInput"
+                    fill="solid"
+                    name="youtubeLink"
+                    onIonChange={(e) =>
+                      setFieldValue(`youtubeLink`, e.detail.value)
+                    }
+                  ></IonInput>
+                  <ErrorMessage
+                    color="danger"
+                    name="youtubeLink"
+                    component="div"
+                    className="error-message error-text"
+                  />
                 </IonCol>
-              </IonRow>
-            </IonGrid>
-            <IonGrid>
-              <IonRow>
-                <IonCol className="flex ion-justify-content-between  ion-align-items-center">
-                  <IonButton fill="outline" onClick={() => setSelectedTab('step1')}>Previous</IonButton>
-                  <IonButton type="submit">Continue</IonButton>
+
+                <IonCol size="12">
+                  <div className="btnGroup">
+                    <IonButton fill="outline" onClick={() => setSelectedTab('step1')}>Previous</IonButton>
+                    <IonButton type="submit">Continue</IonButton>
+                  </div>
                 </IonCol>
               </IonRow>
             </IonGrid>
