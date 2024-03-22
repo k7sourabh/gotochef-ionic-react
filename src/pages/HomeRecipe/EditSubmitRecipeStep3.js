@@ -15,6 +15,7 @@ import { getApiDataWithAuth, postApiDataWithAuth } from "../../utils/Utils";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import TagsInput from "react-tagsinput";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const EditSubmitRecipeStep3 = (props) => {
   const { setSelectedTab, recipeData } = props;
@@ -31,6 +32,7 @@ const EditSubmitRecipeStep3 = (props) => {
     selectTag: [],
   });
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const { id } = useParams();
 
   const validationSchema = Yup.object().shape({
     recipeNotes: Yup.string().required("Recipe notes is required"),
@@ -47,8 +49,6 @@ const EditSubmitRecipeStep3 = (props) => {
       .required("required"),
   });
 
-  console.log("recipeData", recipeData);
-
   useEffect(() => {
     if (recipeData) {
       const {
@@ -63,13 +63,13 @@ const EditSubmitRecipeStep3 = (props) => {
 
       setInitialValuesEdit((prev) => ({
         ...prev,
-        recipeNotes: recipes_notes,
-        allergyInformation: allergy_info,
-        selectDiet: diet,
-        selectCuisine: cuisinestype,
-        occasion: occasions_id,
-        selectCourse: foodscategory_id,
-        selectTag: tags,
+        recipeNotes: recipes_notes || "",
+        allergyInformation: allergy_info || "",
+        selectDiet: diet || "",
+        selectCuisine: cuisinestype || "",
+        occasion: occasions_id || "",
+        selectCourse: foodscategory_id || "",
+        selectTag: tags || [],
       }));
     }
     setIsFormVisible(true);
@@ -101,7 +101,6 @@ const EditSubmitRecipeStep3 = (props) => {
   }, []);
 
   const handleSubmit = async (values) => {
-    const id = localStorage.getItem("recipeId");
     const obj = {
       recipe_id: id,
       recipes_notes: values.recipeNotes,

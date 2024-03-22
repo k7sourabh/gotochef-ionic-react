@@ -17,7 +17,7 @@ import * as Yup from "yup";
 import { postApiDataWithAuth } from "../../utils/Utils";
 
 const SubmitRecipeStep2 = (props) => {
-  const { setSelectedTab } = props
+  const { setSelectedTab } = props;
   const [present] = useIonToast();
 
   const validationSchema = Yup.object().shape({
@@ -31,11 +31,9 @@ const SubmitRecipeStep2 = (props) => {
       Yup.string().required("Step description is required")
     ),
     blogLink: Yup.string()
-      .url("Invalid URL format")
-      .required("Blog link is required"),
+    .required("Blog link is required"),
     youtubeLink: Yup.string()
-      .url("Invalid URL format")
-      .required("Youtube link is required"),
+    .required("Youtube link is required"),
   });
 
   const initialValues = {
@@ -87,7 +85,6 @@ const SubmitRecipeStep2 = (props) => {
               name="ingredients"
               render={({ remove, push }) => (
                 <>
-
                   <IonGrid className="ion-padding-vertical">
                     <IonHeader className="TitleHead px-0 ion-margin-bottom">
                       <IonTitle>Preparation Procedure</IonTitle>
@@ -204,7 +201,6 @@ const SubmitRecipeStep2 = (props) => {
                                   component="div"
                                   className="error-message error-text"
                                 />
-
                               </div>
 
                               <div className="actionBox">
@@ -280,7 +276,12 @@ const SubmitRecipeStep2 = (props) => {
 
                 <IonCol size="12">
                   <div className="btnGroup">
-                    <IonButton fill="outline" onClick={() => setSelectedTab('step1')}>Previous</IonButton>
+                    <IonButton
+                      fill="outline"
+                      onClick={() => setSelectedTab("step1")}
+                    >
+                      Previous
+                    </IonButton>
                     <IonButton type="submit">Continue</IonButton>
                   </div>
                 </IonCol>

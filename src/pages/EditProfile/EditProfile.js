@@ -65,7 +65,6 @@ const EditProfile = () => {
   const userProfile = async () => {
     try {
       const response = await getApiDataWithAuth(`/user-dashboard`);
-      console.log(response?.data?.user_dashboard?.user_form_data);
       setUserProfileData(response?.data?.user_dashboard?.user_form_data);
       setFormValues({
         avatar: response?.data?.user_dashboard?.user_form_data?.avatar || "",
@@ -87,8 +86,6 @@ const EditProfile = () => {
     userProfile();
   }, []);
 
-  console.log("formValues", formValues);
-
   const handleStateChange = async (e) => {
     const stateId = e.target.value;
     try {
@@ -105,11 +102,9 @@ const EditProfile = () => {
     try {
       const response = await getApiDataWithAuth("/get-state-list");
       setStateListtData(response?.data?.data);
-      console.log("iddddd", userProfileData.state_id);
       if (userProfileData.state_id) {
         response?.data?.data.filter((val, i) => {
           if (val.id === userProfileData.state_id) {
-            console.log("vallll", val.state_name);
             setStateName(val.state_name);
             // setFormValues("stateId", val.state_name);
           }
@@ -125,7 +120,6 @@ const EditProfile = () => {
   }, [userProfileData]);
 
   const profileSettingPost = async (values) => {
-    console.log("values", values);
     try {
       const formdata = new FormData();
       formdata.append("firstName", values.name);
@@ -139,7 +133,7 @@ const EditProfile = () => {
         "/user-update-personal-info",
         formdata
       );
-      console.log(response);
+     
     } catch (err) {
       console.error(err);
     }

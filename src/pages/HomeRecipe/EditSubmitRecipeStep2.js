@@ -13,6 +13,7 @@ import { trashOutline } from "ionicons/icons";
 import { ErrorMessage, FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { postApiDataWithAuth } from "../../utils/Utils";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const EditSubmitRecipeStep2 = (props) => {
   const { setSelectedTab, recipeData } = props;
@@ -24,6 +25,7 @@ const EditSubmitRecipeStep2 = (props) => {
     youtubeLink: "",
   });
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const { id } = useParams();
 
   useEffect(() => {
     if (recipeData) {
@@ -31,13 +33,14 @@ const EditSubmitRecipeStep2 = (props) => {
 
       setInitialValuesEdit((prev) => ({
         ...prev,
-        ingredients: quantity.map((item) => ({
-          data: item.data,
-          qty: item.qty,
-        })),
-        steps: directions,
-        blogLink: blogger_url,
-        youtubeLink: youtube_link,
+        ingredients: (quantity &&
+          quantity?.map((item) => ({
+            data: item.data,
+            qty: item.qty,
+          }))) || [{ data: "", qty: "" }],
+        steps: directions || [""],
+        blogLink: blogger_url || "",
+        youtubeLink: youtube_link || "",
       }));
     }
     setIsFormVisible(true);
@@ -53,16 +56,11 @@ const EditSubmitRecipeStep2 = (props) => {
     steps: Yup.array().of(
       Yup.string().required("Step description is required")
     ),
-    blogLink: Yup.string()
-      .url("Invalid URL format")
-      .required("Blog link is required"),
-    youtubeLink: Yup.string()
-      .url("Invalid URL format")
-      .required("Youtube link is required"),
+    blogLink: Yup.string().required("Blog link is required"),
+    youtubeLink: Yup.string().required("Youtube link is required"),
   });
 
   const handleSubmit = async (values) => {
-    const id = localStorage.getItem("recipeId");
     const obj = {
       recipe_id: id,
       ingredientdata: values.ingredients,

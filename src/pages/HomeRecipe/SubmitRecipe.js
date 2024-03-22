@@ -34,6 +34,7 @@ import EditSubmitRecipeStep3 from "./EditSubmitRecipeStep3";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { getApiDataWithAuth } from "../../utils/Utils";
 import EditSubmitRecipeStep1 from "./EditSubmitRecipeStep1";
+import EditSubmitRecipeStep4 from "./EditSubmitRecipeStep4";
 
 const SubmitRecipe = (props) => {
   // const { recipeData } = props;
@@ -49,7 +50,7 @@ const SubmitRecipe = (props) => {
   const MyRecipe = async () => {
     try {
       const response = await getApiDataWithAuth("/myRecipes");
-      console.log(response.data.data);
+      console.log('diojuoidp',response.data.data.recipes_draft);
       setAllRecipeData(response.data.data.recipes_draft);
     } catch (err) {
       console.error(err);
@@ -138,12 +139,15 @@ const SubmitRecipe = (props) => {
                   ) : (
                     <SubmitRecipeStep3 setSelectedTab={setSelectedTab} />
                   ))}
-                {selectedTab === "step4" && (
-                  <SubmitRecipeStep4
-                    setSelectedTab={setSelectedTab}
-                    recipeData={recipeData}
-                  />
-                )}
+                {selectedTab === "step4" &&
+                  (recipeData ? (
+                    <EditSubmitRecipeStep4
+                      setSelectedTab={setSelectedTab}
+                      recipeData={recipeData}
+                    />
+                  ) : (
+                    <SubmitRecipeStep4 setSelectedTab={setSelectedTab} />
+                  ))}
               </div>
             </div>
           </IonCol>

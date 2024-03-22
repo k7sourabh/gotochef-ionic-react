@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IonButton,
   IonCol,
@@ -6,13 +6,20 @@ import {
   IonInput,
   IonRow,
   IonText,
+  useIonToast,
 } from "@ionic/react";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { postApiDataWithAuth } from "../../utils/Utils";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const SubmitRecipeStep4 = (props) => {
   const { setSelectedTab } = props;
+  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview1, setImagePreview1] = useState(null);
+  const [imagePreview2, setImagePreview2] = useState(null);
+  const [present] = useIonToast();
+  const history = useHistory();
 
   const validationSchema = Yup.object().shape({
     images: Yup.string().required("Cover image is required"),
@@ -39,11 +46,20 @@ const SubmitRecipeStep4 = (props) => {
         "/saveRecipeLastStep",
         formdata
       );
-      //   presentToast("Top", response?.data?.message);
+       presentToast("Top", response?.data?.message);
+       history.push('/my-recipe')
       console.log(response.data.user_data.id);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const presentToast = (position, message) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
   };
 
   return (
@@ -64,7 +80,11 @@ const SubmitRecipeStep4 = (props) => {
                     <IonText>Select Cover Image</IonText>
                     <img
                       // src="/assets/img/camera-placeholder.png"
-                      src={values?.images}
+                      src={
+                        imagePreview
+                          ? imagePreview
+                          : "/assets/img/camera-placeholder.png"
+                      }
                       alt=""
                       onError={(e) => {
                         e.target.onerror = null; // Remove the event handler to prevent an infinite loop
@@ -78,6 +98,7 @@ const SubmitRecipeStep4 = (props) => {
                     type="file"
                     onChange={(e) => {
                       const file = e.target.files[0];
+                      setImagePreview(URL.createObjectURL(file));
                       console.log(file);
                       if (file) {
                         setFieldValue("images", file);
@@ -98,7 +119,14 @@ const SubmitRecipeStep4 = (props) => {
                     <div>
                       <label for="Cover-Profile" class="cover-img-upload">
                         <IonText>Select Image</IonText>
-                        <img src="/assets/img/camera-placeholder.png" alt="" />
+                        <img
+                          src={
+                            imagePreview1
+                              ? imagePreview1
+                              : "/assets/img/camera-placeholder.png"
+                          }
+                          alt=""
+                        />
                       </label>
                       <input
                         name="images_opt1"
@@ -106,7 +134,7 @@ const SubmitRecipeStep4 = (props) => {
                         type="file"
                         onChange={(e) => {
                           const file = e.target.files[0];
-                          console.log(file);
+                          setImagePreview1(URL.createObjectURL(file));
                           if (file) {
                             console.log("file", file);
                             setFieldValue("images_opt1", file);
@@ -117,7 +145,14 @@ const SubmitRecipeStep4 = (props) => {
                     <div>
                       <label for="Cover-Profile" class="cover-img-upload">
                         <IonText>Select Image</IonText>
-                        <img src="/assets/img/camera-placeholder.png" alt="" />
+                        <img
+                          src={
+                            imagePreview2
+                              ? imagePreview2
+                              : "/assets/img/camera-placeholder.png"
+                          }
+                          alt=""
+                        />
                       </label>
                       <input
                         name="images_opt2"
@@ -125,7 +160,7 @@ const SubmitRecipeStep4 = (props) => {
                         type="file"
                         onChange={(e) => {
                           const file = e.target.files[0];
-                          console.log(file);
+                          setImagePreview2(URL.createObjectURL(file));
                           if (file) {
                             setFieldValue("images_opt2", file);
                           }

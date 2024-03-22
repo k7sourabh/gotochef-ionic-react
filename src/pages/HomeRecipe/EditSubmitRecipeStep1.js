@@ -20,6 +20,7 @@ import * as Yup from "yup";
 import { getApiDataWithAuth, postApiDataWithAuth } from "../../utils/Utils";
 import TagsInput from "react-tagsinput";
 import { useAuth } from "../../context/AuthContext";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const EditSubmitRecipeStep1 = (props) => {
   const { setSelectedTab, recipeData } = props;
@@ -32,6 +33,7 @@ const EditSubmitRecipeStep1 = (props) => {
   const [showTeq, setShowTeq] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [present] = useIonToast();
+  const { id } = useParams();
   const [initialValuesEdit, setInitialValuesEdit] = useState({
     recipeTitle: "",
     selectLevel: "",
@@ -83,23 +85,21 @@ const EditSubmitRecipeStep1 = (props) => {
 
       setInitialValuesEdit((prev) => ({
         ...prev,
-        recipeTitle: recipesName,
-        selectLevel: prep_level,
-        selectFoodType: foodtype,
-        recipeDescription: longDescription,
-        cookTime: cook_time[0],
-        prepTime: prep_time.split("-")[0],
-        serve: serving,
-        selectTechniques: techniques,
-        selectProducts: used_product,
-        cookTimeMinute: cook_time[1],
-        prepTimeMinute: prep_time.split("-")[1],
+        recipeTitle: recipesName || "",
+        selectLevel: prep_level || "",
+        selectFoodType: foodtype || "",
+        recipeDescription: longDescription || "",
+        cookTime: (cook_time && cook_time[0]) || "0",
+        prepTime: (prep_time && prep_time.split("-")[0]) || "0",
+        serve: serving || "",
+        selectTechniques: techniques || "",
+        selectProducts: used_product || "",
+        cookTimeMinute: (cook_time && cook_time[1]) || "0",
+        prepTimeMinute: (prep_time && prep_time.split("-")[1]) || "0",
       }));
     }
     setIsFormVisible(true);
   }, [recipeData]);
-
-  console.log("recipeData111", recipeData);
 
   const getRecipesTypeFoodTypeData = async () => {
     try {
@@ -153,7 +153,7 @@ const EditSubmitRecipeStep1 = (props) => {
   const handleSubmit = async (values) => {
     const obj = {
       user_id: userData.user_id,
-      recipe_id: "",
+      recipe_id: id,
       recipesName: values.recipeTitle,
       prep_level: values.selectLevel,
       foodtype: values.selectFoodType,
