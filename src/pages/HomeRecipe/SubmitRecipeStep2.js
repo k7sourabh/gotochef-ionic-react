@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonButton,
   IonCol,
@@ -15,7 +15,7 @@ import * as Yup from "yup";
 import { postApiDataWithAuth } from "../../utils/Utils";
 
 const SubmitRecipeStep2 = (props) => {
-    const {setSelectedTab} = props
+  const { setSelectedTab } = props;
   const [present] = useIonToast();
 
   const validationSchema = Yup.object().shape({
@@ -44,8 +44,7 @@ const SubmitRecipeStep2 = (props) => {
   };
 
   const handleSubmit = async (values) => {
-    const id = localStorage.getItem('recipeId')
-    console.log(id)
+    const id = localStorage.getItem("recipeId");
     const obj = {
       recipe_id: id,
       ingredientdata: values.ingredients,
@@ -58,7 +57,7 @@ const SubmitRecipeStep2 = (props) => {
       const response = await postApiDataWithAuth("/saveRecipeSecondStep", obj);
       console.log(response.data);
       presentToast("Top", response?.data?.message);
-      setSelectedTab('step3')
+      setSelectedTab("step3");
     } catch (err) {
       console.error(err);
     }
@@ -309,7 +308,12 @@ const SubmitRecipeStep2 = (props) => {
             <IonGrid>
               <IonRow>
                 <IonCol className="flex ion-justify-content-between  ion-align-items-center">
-                  <IonButton fill="outline" onClick={() => setSelectedTab('step1')}>Previous</IonButton>
+                  <IonButton
+                    fill="outline"
+                    onClick={() => setSelectedTab("step1")}
+                  >
+                    Previous
+                  </IonButton>
                   <IonButton type="submit">Continue</IonButton>
                 </IonCol>
               </IonRow>

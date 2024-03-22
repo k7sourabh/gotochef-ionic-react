@@ -32,7 +32,10 @@ import {
 } from "ionicons/icons";
 import { useLogo } from "../contexts/ApiProvider";
 import { useAuth } from "../context/AuthContext";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { set } from "../services/Storage";
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 
@@ -42,6 +45,7 @@ const Header = () => {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const { authenticated, logout } = useAuth();
   const history = useHistory();
+  const { id } = useParams;
 
   const handleLogout = () => {
     logout();
@@ -111,7 +115,11 @@ const Header = () => {
                     />
                   </IonButton>
                   {authenticated && (
-                    <IonButton className="IconBtn" routerLink="/submit-recipe">
+                    <IonButton
+                      className="IconBtn"
+                      routerLink={`/submit-recipe/${id ? id : ""}`}
+                      // routerLink="/submit-recipe"
+                    >
                       <img
                         src="/assets/img/edit.png"
                         alt="Images"

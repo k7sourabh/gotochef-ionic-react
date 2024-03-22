@@ -26,12 +26,14 @@ import {
 import SubmitArticals from "../Articals/SubmitArticals";
 import { getApiDataWithAuth } from "../../utils/Utils";
 import SubmitRecipe from "./SubmitRecipe";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const MyRecipe = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [recipeData, setRecipeData] = useState({});
   const [editRecipe, showEditRecipe] = useState(false);
-  const [recipeObj, setRecipeObj] = useState({})
+  const [recipeObj, setRecipeObj] = useState({});
+  const { id } = useParams();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -68,7 +70,7 @@ const MyRecipe = () => {
               fill="outline"
               size="small"
               shape="round"
-              routerLink="/submit-recipe"
+              routerLink={`/submit-recipe`}
             >
               <i class="material-icons dark">add</i>
             </IonButton>
@@ -112,6 +114,7 @@ const MyRecipe = () => {
                       </IonButton>
                       <IonButton
                         fill="clear"
+                        routerLink={`/submit-recipe/${data.id}`}
                         onClick={() => {
                           showEditRecipe(true);
                           setRecipeObj(data);
@@ -412,7 +415,7 @@ const MyRecipe = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
-      {editRecipe && <SubmitRecipe recipeData={recipeObj} />}
+      {/* {editRecipe && <SubmitRecipe recipeData={recipeObj} />} */}
     </IonPage>
   );
 };

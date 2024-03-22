@@ -1,20 +1,71 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow, IonSegment, IonSegmentButton, IonSelect, IonSelectOption, IonText, IonTextarea, IonTitle } from "@ionic/react"
-import { person, timeOutline, closeOutline, trashOutline } from "ionicons/icons"
+import {
+  IonButton,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonLabel,
+  IonPage,
+  IonRow,
+  IonSegment,
+  IonSegmentButton,
+  IonSelect,
+  IonSelectOption,
+  IonText,
+  IonTextarea,
+  IonTitle,
+} from "@ionic/react";
+import {
+  person,
+  timeOutline,
+  closeOutline,
+  trashOutline,
+} from "ionicons/icons";
 import { useEffect, useState } from "react";
-import Header from "../../components/Header"
+import Header from "../../components/Header";
 import SubmitRecipeStep1 from "./SubmitRecipeStep1";
 import SubmitRecipeStep2 from "./SubmitRecipeStep2";
 import SubmitRecipeStep3 from "./SubmitRecipeStep3";
 import SubmitRecipeStep4 from "./SubmitRecipeStep4";
+import EditSubmitRecipeStep2 from "./EditSubmitRecipeStep2";
+import EditSubmitRecipeStep3 from "./EditSubmitRecipeStep3";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { getApiDataWithAuth } from "../../utils/Utils";
+import EditSubmitRecipeStep1 from "./EditSubmitRecipeStep1";
 
 const SubmitRecipe = (props) => {
-  const {recipeData} = props;
+  // const { recipeData } = props;
+  const { id } = useParams();
   const [selectedTab, setSelectedTab] = useState("step1");
+  const [allRecipeData, setAllRecipeData] = useState([]);
+  const [recipeData, setRecipeData] = useState({});
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
   };
-  return (
+  console.log("id", id);
 
+  const MyRecipe = async () => {
+    try {
+      const response = await getApiDataWithAuth("/myRecipes");
+      console.log(response.data.data);
+      setAllRecipeData(response.data.data.recipes_draft);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    MyRecipe();
+  }, []);
+
+  useEffect(() => {
+    const filteredObject = allRecipeData.find((data) => data.id == id);
+    setRecipeData(filteredObject);
+    console.log(filteredObject);
+  }, [allRecipeData, id]);
+
+  return (
     <IonPage>
       {/* <Header /> */}
       <IonContent>
@@ -59,36 +110,44 @@ const SubmitRecipe = (props) => {
                     <IonLabel>Step4</IonLabel>
                   </IonSegmentButton>
                 </IonSegment>
-                {selectedTab === "step1" && (
-                 <SubmitRecipeStep1 setSelectedTab={setSelectedTab} recipeData={recipeData}/>
-                )}
-                {selectedTab === "step2" && (
-                  <SubmitRecipeStep2 setSelectedTab={setSelectedTab} recipeData={recipeData}/>
-                )}
+                {selectedTab === "step1" &&
+                  (recipeData ? (
+                    <EditSubmitRecipeStep1
+                      setSelectedTab={setSelectedTab}
+                      recipeData={recipeData}
+                    />
+                  ) : (
+                    <SubmitRecipeStep1 setSelectedTab={setSelectedTab} />
+                  ))}
+                {selectedTab === "step2" &&
+                  (recipeData ? (
+                    <EditSubmitRecipeStep2
+                      setSelectedTab={setSelectedTab}
+                      recipeData={recipeData}
+                    />
+                  ) : (
+                    <SubmitRecipeStep2 setSelectedTab={setSelectedTab} />
+                  ))}
 
-                {selectedTab === "step3" && (
-                  <SubmitRecipeStep3 setSelectedTab={setSelectedTab} recipeData={recipeData}/>
-                )}
+                {selectedTab === "step3" &&
+                  (recipeData ? (
+                    <EditSubmitRecipeStep3
+                      setSelectedTab={setSelectedTab}
+                      recipeData={recipeData}
+                    />
+                  ) : (
+                    <SubmitRecipeStep3 setSelectedTab={setSelectedTab} />
+                  ))}
                 {selectedTab === "step4" && (
-                  <SubmitRecipeStep4 setSelectedTab={setSelectedTab} recipeData={recipeData}/>
+                  <SubmitRecipeStep4
+                    setSelectedTab={setSelectedTab}
+                    recipeData={recipeData}
+                  />
                 )}
               </div>
             </div>
-
-
           </IonCol>
         </IonRow>
-
-
-
-
-
-
-
-
-
-
-
 
         {/* <IonGrid className="ion-padding-horizontal">
           <IonRow>
@@ -330,7 +389,6 @@ const SubmitRecipe = (props) => {
         </IonGrid> */}
       </IonContent>
     </IonPage>
-
-  )
-}
-export default SubmitRecipe
+  );
+};
+export default SubmitRecipe;

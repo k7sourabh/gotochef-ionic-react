@@ -122,7 +122,7 @@ const App = () => {
                   <PrivateRoute path="/add-payment" component={AddPayment} />
                   <PrivateRoute path="/vegan-recipe" component={VeganRecipe} />
                   <PrivateRoute
-                    path="/submit-recipe"
+                    path="/submit-recipe/:id?"
                     component={SubmitRecipe}
                   />
                   <PrivateRoute
