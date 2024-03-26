@@ -51,6 +51,12 @@ const MyRecipe = () => {
     MyRecipe();
   }, []);
 
+
+  const showPreprationTime = (data) => {
+    let arr = data.split("-")
+    return `${arr[0] ? arr[0] : "0"} : ${arr[1] ? arr[1] : "0"}`
+  }
+
   return (
     <IonPage>
       {/* <Header /> */}
@@ -143,7 +149,7 @@ const MyRecipe = () => {
                           </div>
                           <div className="ReciRow">
                             <IonIcon icon={timeOutline}></IonIcon>
-                            <IonLabel>{data.prep_time}</IonLabel>
+                            <IonLabel>{showPreprationTime(data?.prep_time)}</IonLabel>
                           </div>
                         </div>
                       </div>
@@ -151,7 +157,7 @@ const MyRecipe = () => {
                       <div className="bottomRecipe">
                         <div className="productRecipe">
                           <span>{data?.recipesName}</span>
-                          <div className="productRecipe">
+                          {/* <div className="productRecipe">
                             <IonIcon
                               size="medium"
                               aria-hidden="true"
@@ -159,7 +165,7 @@ const MyRecipe = () => {
                               slot="start"
                             ></IonIcon>
                             <IonLabel>Breakfast</IonLabel>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="productRecipe">
                           <div className="ProfileRecipe">
@@ -251,7 +257,7 @@ const MyRecipe = () => {
                           </div>
                           <div className="ReciRow">
                             <IonIcon icon={timeOutline}></IonIcon>
-                            <IonLabel>{data.prep_time}</IonLabel>
+                            <IonLabel>{showPreprationTime(data?.prep_time)}</IonLabel>
                           </div>
                         </div>
                       </div>
@@ -259,7 +265,7 @@ const MyRecipe = () => {
                       <div className="bottomRecipe">
                         <div className="productRecipe">
                           <span>{data?.recipesName}</span>
-                          <div className="productRecipe">
+                          {/* <div className="productRecipe">
                             <IonIcon
                               size="medium"
                               aria-hidden="true"
@@ -267,7 +273,7 @@ const MyRecipe = () => {
                               slot="start"
                             ></IonIcon>
                             <IonLabel>Breakfast</IonLabel>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="productRecipe">
                           <div className="ProfileRecipe">
@@ -359,7 +365,7 @@ const MyRecipe = () => {
                           </div>
                           <div className="ReciRow">
                             <IonIcon icon={timeOutline}></IonIcon>
-                            <IonLabel>{data.prep_time}</IonLabel>
+                            <IonLabel>{showPreprationTime(data?.prep_time)}</IonLabel>
                           </div>
                         </div>
                       </div>
@@ -367,7 +373,7 @@ const MyRecipe = () => {
                       <div className="bottomRecipe">
                         <div className="productRecipe">
                           <span>{data?.recipesName}</span>
-                          <div className="productRecipe">
+                          {/* <div className="productRecipe">
                             <IonIcon
                               size="medium"
                               aria-hidden="true"
@@ -375,7 +381,7 @@ const MyRecipe = () => {
                               slot="start"
                             ></IonIcon>
                             <IonLabel>Breakfast</IonLabel>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="productRecipe">
                           <div className="ProfileRecipe">
