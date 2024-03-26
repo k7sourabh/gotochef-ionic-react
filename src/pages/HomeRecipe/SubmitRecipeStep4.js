@@ -32,7 +32,6 @@ const SubmitRecipeStep4 = (props) => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
     const id = localStorage.getItem("recipeId");
 
     try {
@@ -48,7 +47,6 @@ const SubmitRecipeStep4 = (props) => {
       );
        presentToast("Top", response?.data?.message);
        history.push('/my-recipe')
-      console.log(response.data.user_data.id);
     } catch (err) {
       console.error(err);
     }
@@ -99,7 +97,6 @@ const SubmitRecipeStep4 = (props) => {
                     onChange={(e) => {
                       const file = e.target.files[0];
                       setImagePreview(URL.createObjectURL(file));
-                      console.log(file);
                       if (file) {
                         setFieldValue("images", file);
                       }
@@ -136,7 +133,6 @@ const SubmitRecipeStep4 = (props) => {
                           const file = e.target.files[0];
                           setImagePreview1(URL.createObjectURL(file));
                           if (file) {
-                            console.log("file", file);
                             setFieldValue("images_opt1", file);
                           }
                         }}

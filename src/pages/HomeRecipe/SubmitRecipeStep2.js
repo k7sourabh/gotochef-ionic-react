@@ -55,7 +55,6 @@ const SubmitRecipeStep2 = (props) => {
 
     try {
       const response = await postApiDataWithAuth("/saveRecipeSecondStep", obj);
-      console.log(response.data);
       presentToast("Top", response?.data?.message);
       setSelectedTab("step3");
     } catch (err) {

@@ -64,8 +64,6 @@ const CartProducts = () => {
   const [present] = useIonToast();
   const [currentUserAddressData, setCurrentUserAddressData] = useState({});
 
-  console.log("bookMarkedItems", bookMarkedItems);
-
   useEffect(() => {
     const getCartProducts = () => {
       setCartProducts([]);
@@ -160,7 +158,6 @@ const CartProducts = () => {
   }, []);
 
   const deleteAddressData = async (data) => {
-    console.log(data.id);
     try {
       const response = await getApiDataWithAuth(
         `/user-address-delete/${data?.id}`

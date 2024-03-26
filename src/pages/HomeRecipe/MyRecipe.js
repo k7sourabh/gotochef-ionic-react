@@ -42,13 +42,11 @@ const MyRecipe = () => {
   const MyRecipe = async () => {
     try {
       const response = await getApiDataWithAuth("/myRecipes");
-      console.log(response.data.data);
       setRecipeData(response.data.data);
     } catch (err) {
       console.error(err);
     }
   };
-  console.log(recipeData?.recipes_draft);
   useEffect(() => {
     MyRecipe();
   }, []);

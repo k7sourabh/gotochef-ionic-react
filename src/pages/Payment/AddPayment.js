@@ -86,8 +86,6 @@ const AddPayment = () => {
     userProfile();
   }, [userData]);
 
-  console.log(userData)
-
   const userAddress = async () => {
     try {
       const response = await getApiDataWithAuth("/get-user-address-list");
@@ -140,7 +138,6 @@ const AddPayment = () => {
         };
         const response = await postApiDataWithAuth("/checkout", obj);
         if (response?.status === 200) {
-          console.log("iddd", response?.data, response?.data.data.order_id);
           handlePayment(
             response?.data?.result.id,
             response?.data?.data?.order_id
@@ -162,7 +159,6 @@ const AddPayment = () => {
 
   const handlePayment = async (orderIdd, db_orderId) => {
     // const order = await createOrder(orderIdd); //  Create order on your backend
-    console.log("orderIdd", orderIdd);
 
     const options = {
       key: "rzp_test_5o9k2e6rhLHdsH",
@@ -173,7 +169,6 @@ const AddPayment = () => {
       // image: "https://example.com/your_logo",
       order_id: orderIdd, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
       handler: async function (response) {
-        console.log("response", response, response.razorpay_payment_id);
         try {
           const obj = {
             user_id: userData.user_id,
@@ -182,12 +177,10 @@ const AddPayment = () => {
             amount: cartTotal * 100,
             payment_gateway_resp: response,
           };
-          console.log(obj);
           const apiResponse = await postApiDataWithAuth(
             "/payment-capture",
             obj
           );
-          console.log("dklhtiorrio", apiResponse);
           if (apiResponse.data.status === true) {
             presentToast("Top", response?.data?.message);
             handleOrderConfirm();
@@ -213,7 +206,6 @@ const AddPayment = () => {
     const rzp1 = new Razorpay(options);
 
     rzp1.on("payment.failed", function (response) {
-      console.log("response Error", response);
       presentToast("Top", response.error.step);
       presentToast("Top", response.error.description);
       handleOrderFail();

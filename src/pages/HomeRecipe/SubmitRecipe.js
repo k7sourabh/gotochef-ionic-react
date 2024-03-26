@@ -45,12 +45,10 @@ const SubmitRecipe = (props) => {
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
   };
-  console.log("id", id);
 
   const MyRecipe = async () => {
     try {
       const response = await getApiDataWithAuth("/myRecipes");
-      console.log('diojuoidp',response.data.data.recipes_draft);
       setAllRecipeData(response.data.data.recipes_draft);
     } catch (err) {
       console.error(err);
@@ -63,7 +61,6 @@ const SubmitRecipe = (props) => {
   useEffect(() => {
     const filteredObject = allRecipeData.find((data) => data.id == id);
     setRecipeData(filteredObject);
-    console.log(filteredObject);
   }, [allRecipeData, id]);
 
   return (

@@ -31,7 +31,6 @@ const EditSubmitRecipeStep4 = (props) => {
   const validationSchema = Yup.object().shape({
     images: Yup.string().required("Cover image is required"),
   });
-  console.log("recipeData44", recipeData, id);
 
   useEffect(() => {
     if (recipeData) {
@@ -47,7 +46,6 @@ const EditSubmitRecipeStep4 = (props) => {
   }, [recipeData]);
 
   const handleSubmit = async (values) => {
-    console.log(values);
     try {
       const formdata = new FormData();
       formdata.append("images", values.images);
@@ -61,7 +59,6 @@ const EditSubmitRecipeStep4 = (props) => {
       );
     presentToast("Top", response?.data?.message);
     history.push('/my-recipe')
-      console.log(response.data.user_data.id);
     } catch (err) {
       console.error(err);
     }
@@ -84,7 +81,6 @@ const EditSubmitRecipeStep4 = (props) => {
           }}
         >
           {({ isSubmitting, setFieldValue, values }) => {
-            console.log("valuuuu5", values);
             return (
               <Form>
                 <IonGrid>
@@ -150,7 +146,6 @@ const EditSubmitRecipeStep4 = (props) => {
                               const file = e.target.files[0];
                               setImagePreview1(URL.createObjectURL(file));
                               if (file) {
-                                console.log("file", file);
                                 setFieldValue("images_opt1", file);
                               }
                             }}

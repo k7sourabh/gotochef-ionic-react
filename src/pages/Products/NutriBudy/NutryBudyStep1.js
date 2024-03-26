@@ -54,7 +54,6 @@ const NutryBudyStep1 = () => {
     try {
       const response = await getApiDataWithAuth("/getNutribuddy");
       if (response?.status === 200) {
-        console.log(response?.data?.data)
         setStepFirstData(response?.data?.data);
         setFormValues({
           name: response?.data?.data?.name || "",

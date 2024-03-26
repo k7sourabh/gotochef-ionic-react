@@ -54,7 +54,6 @@ const SubmitRecipeStep3 = (props) => {
       const response = await getApiDataWithAuth(
         "/getRecipesDietsCusineOccasionCourseData"
       );
-      console.log(response.data.data);
       setData(response.data.data);
     } catch (err) {
       console.error(err);
