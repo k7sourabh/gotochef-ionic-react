@@ -134,7 +134,6 @@ const AddPayment = () => {
           cart_data: modifiedCartItems,
         };
         const response = await postApiDataWithAuth("/checkout", obj);
-        console.log("here")
         if (response?.status === 200) {
           if(values.paymentMethod === "razorpay"){
             handlePayment(
