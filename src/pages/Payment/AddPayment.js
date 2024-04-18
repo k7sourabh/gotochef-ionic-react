@@ -102,9 +102,6 @@ const AddPayment = () => {
   }, []);
 
   const profileSettingPost = async (values) => {
-    if (values.paymentMethod === "cod") {
-      handleOrderConfirm();
-    } else {
       const modifiedCartItems = cartItems.map((item) => {
         const {
           prod_details,
@@ -130,23 +127,28 @@ const AddPayment = () => {
           email: values.email,
           address: addressData.address,
           pincode: addressData.postal_code,
-          payment_type: "razorpay",
+          payment_type: values.paymentMethod === "cod" ? "cod" : "razorpay",
           mobile: values.mobile,
           city: addressData.cityname,
           state: addressData.statename,
           cart_data: modifiedCartItems,
         };
         const response = await postApiDataWithAuth("/checkout", obj);
+        console.log("here")
         if (response?.status === 200) {
-          handlePayment(
-            response?.data?.result.id,
-            response?.data?.data?.order_id
-          );
+          if(values.paymentMethod === "razorpay"){
+            handlePayment(
+              response?.data?.result.id,
+              response?.data?.data?.order_id
+            );
+          }else{
+            handleOrderConfirm();
+          }
         }
       } catch (err) {
         console.error(err);
       }
-    }
+    
   };
 
   const handleOrderConfirm = () => {

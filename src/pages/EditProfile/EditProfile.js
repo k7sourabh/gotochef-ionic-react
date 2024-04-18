@@ -78,7 +78,7 @@ const EditProfile = () => {
         // stateId: response?.data?.user_dashboard?.user_form_data?.state_id || "",
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
