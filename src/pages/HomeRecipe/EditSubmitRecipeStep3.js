@@ -305,7 +305,7 @@ const EditSubmitRecipeStep3 = (props) => {
                     </IonCol>
                     <IonCol size="12" className="SubmitInput ion-padding-top">
                       <IonText>Select Custom Tags*</IonText>
-                      <div className="RecipeInput">
+                      <div className="RecipeInput TagsInput-block">
                         <TagsInput
                           name="selectTag"
                           placeholder="#HashTags"

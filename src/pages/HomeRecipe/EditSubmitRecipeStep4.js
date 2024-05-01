@@ -127,10 +127,9 @@ const EditSubmitRecipeStep4 = (props) => {
                     <IonCol>
                       <div className="RecipeSelectImage">
                         <div>
-                          <label for="Cover-Profile" class="cover-img-upload">
+                          <label for="Cover-Profile1" class="cover-img-upload">
                             <IonText>Select Image</IonText>
-                          </label>
-                          <img
+                            <img
                             src={
                               imagePreview1
                                 ? imagePreview1
@@ -138,24 +137,20 @@ const EditSubmitRecipeStep4 = (props) => {
                             }
                             alt=""
                           />
+                          </label>
+                         
                           <input
                             name="images_opt1"
                             id="Cover-Profile1"
                             type="file"
-                            onChange={(e) => {
-                              const file = e.target.files[0];
-                              setImagePreview1(URL.createObjectURL(file));
-                              if (file) {
-                                setFieldValue("images_opt1", file);
-                              }
-                            }}
+                            
                           />
                         </div>
                         <div>
-                          <label for="Cover-Profile" class="cover-img-upload">
+                          <label for="Cover-Profile2" class="cover-img-upload">
                             <IonText>Select Image</IonText>
-                          </label>
-                          <img
+
+                            <img
                             src={
                               imagePreview2
                                 ? imagePreview2
@@ -163,6 +158,8 @@ const EditSubmitRecipeStep4 = (props) => {
                             }
                             alt=""
                           />
+                          </label>
+                          
                           <input
                             name="images_opt2"
                             id="Cover-Profile2"

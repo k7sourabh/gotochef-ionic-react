@@ -3537,9 +3537,18 @@ ul {
 #Cover-Profile {
   display: none;
 }
+input#Cover-Profile1{
+  display: none;
+}
+input#Cover-Profile2 {
+  display: none;
+}
 
 label.cover-img-upload img {
   width: 100%;
+  max-width: 400px;
+  height: 200px;
+  object-fit: cover;
 }
 
 label.cover-img-upload ion-text {
@@ -3650,4 +3659,33 @@ label.cover-img-upload ion-text {
 
 .inputsGroup .inputBox {
   width: 100%;
+}
+.MyRecipeCard .vegIcon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  z-index: 9;
+  width: 90%;
+  padding: 0px 10px;
+}
+.MyRecipeCard .saveIcon {
+  width: 100%;
+  max-width: 50px;
+  height: 40px !important;
+  min-height: auto;
+  --overflow: visible;
+  
+}
+.MyRecipeCard .vegIcon img {
+  max-width: 20px;
+  width: 40px;
+  border-radius: 0px !important;
+}
+.editBtn {
+  position: absolute;
+  right: -14px;
+  top: -22px;
+  border-radius: 50%;
+  font-size: 5px;
 }
