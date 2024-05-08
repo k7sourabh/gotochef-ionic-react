@@ -47,11 +47,7 @@ const Header = () => {
   const history = useHistory();
   const { id } = useParams;
 
-  const handleLogout = () => {
-    logout();
-    set("auth", "false");
-    history.push("/");
-  };
+
 
   const startScan = async () => {
     // Check camera permission
@@ -72,6 +68,12 @@ const Header = () => {
       const content = JSON.stringify(result.hasContent);
       alert(content); // log the raw scanned content
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    set("auth", "false");
+    history.push("/").catch((err) => console.error(err));
   };
 
   return (
@@ -118,7 +120,7 @@ const Header = () => {
                     <IonButton
                       className="IconBtn"
                       routerLink={`/submit-recipe/${id ? id : ""}`}
-                      // routerLink="/submit-recipe"
+                    // routerLink="/submit-recipe"
                     >
                       <img
                         src="/assets/img/edit.png"
