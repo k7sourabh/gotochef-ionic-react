@@ -57,8 +57,8 @@ const EditSubmitRecipeStep4 = (props) => {
         "/saveRecipeLastStep",
         formdata
       );
-    presentToast("Top", response?.data?.message);
-    history.push('/my-recipe')
+      presentToast("Top", response?.data?.message);
+      history.push('/my-recipe')
     } catch (err) {
       console.error(err);
     }
@@ -130,20 +130,26 @@ const EditSubmitRecipeStep4 = (props) => {
                           <label for="Cover-Profile1" class="cover-img-upload">
                             <IonText>Select Image</IonText>
                             <img
-                            src={
-                              imagePreview1
-                                ? imagePreview1
-                                : "/assets/img/camera-placeholder.png"
-                            }
-                            alt=""
-                          />
+                              src={
+                                imagePreview1
+                                  ? imagePreview1
+                                  : "/assets/img/camera-placeholder.png"
+                              }
+                              alt=""
+                            />
                           </label>
-                         
+
                           <input
                             name="images_opt1"
                             id="Cover-Profile1"
                             type="file"
-                            
+                            onChange={(e) => {
+                              const file = e.target.files[0];
+                              setImagePreview1(URL.createObjectURL(file));
+                              if (file) {
+                                setFieldValue("images_opt2", file);
+                              }
+                            }}
                           />
                         </div>
                         <div>
@@ -151,15 +157,15 @@ const EditSubmitRecipeStep4 = (props) => {
                             <IonText>Select Image</IonText>
 
                             <img
-                            src={
-                              imagePreview2
-                                ? imagePreview2
-                                : "/assets/img/camera-placeholder.png"
-                            }
-                            alt=""
-                          />
+                              src={
+                                imagePreview2
+                                  ? imagePreview2
+                                  : "/assets/img/camera-placeholder.png"
+                              }
+                              alt=""
+                            />
                           </label>
-                          
+
                           <input
                             name="images_opt2"
                             id="Cover-Profile2"
