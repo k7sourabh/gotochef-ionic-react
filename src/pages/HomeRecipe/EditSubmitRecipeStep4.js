@@ -147,7 +147,7 @@ const EditSubmitRecipeStep4 = (props) => {
                               const file = e.target.files[0];
                               setImagePreview1(URL.createObjectURL(file));
                               if (file) {
-                                setFieldValue("images_opt2", file);
+                                setFieldValue("images_opt1", file);
                               }
                             }}
                           />
