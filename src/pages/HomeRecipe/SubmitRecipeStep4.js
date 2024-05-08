@@ -114,7 +114,7 @@ const SubmitRecipeStep4 = (props) => {
                 <IonCol>
                   <div className="RecipeSelectImage">
                     <div>
-                      <label for="Cover-Profile" class="cover-img-upload">
+                      <label for="Cover-Profile1" class="cover-img-upload">
                         <IonText>Select Image</IonText>
                         <img
                           src={
@@ -139,7 +139,7 @@ const SubmitRecipeStep4 = (props) => {
                       />
                     </div>
                     <div>
-                      <label for="Cover-Profile" class="cover-img-upload">
+                      <label for="Cover-Profile2" class="cover-img-upload">
                         <IonText>Select Image</IonText>
                         <img
                           src={

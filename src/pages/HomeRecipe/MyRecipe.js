@@ -91,8 +91,9 @@ const MyRecipe = () => {
             {recipeData &&
               recipeData?.recipes_draft?.map((data, index) => (
                 <IonCol size="6" key={index}>
-                  <IonCard className="ProductCard">
+                  <IonCard className="ProductCard MyRecipeCard">
                     <div className="vegIcon">
+                      <div className="flex ion-align-items-center">
                       {data?.foodtype === "vegetarian" ? (
                         <img
                           src="/assets/img/veg-icon.svg"
@@ -109,6 +110,9 @@ const MyRecipe = () => {
                         <></>
                       )}
 
+                      
+
+                      </div>
                       <IonButton fill="clear" className="saveIcon">
                         <IonIcon
                           size="large"
@@ -116,7 +120,9 @@ const MyRecipe = () => {
                           icon={bookmarkOutline}
                         />
                       </IonButton>
+
                       <IonButton
+                      className="editBtn"
                         fill="clear"
                         routerLink={`/submit-recipe/${data.id}`}
                         onClick={() => {
@@ -126,6 +132,7 @@ const MyRecipe = () => {
                       >
                         <i class="material-icons">edit</i>
                       </IonButton>
+                     
                     </div>
                     <div className="RecentProducts">
                       <div className="RecipePro">
