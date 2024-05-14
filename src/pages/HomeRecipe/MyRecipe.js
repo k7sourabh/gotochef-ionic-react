@@ -86,7 +86,9 @@ const MyRecipe = () => {
         </IonGrid> */}
 
         <IonGrid>
+          <IonRow className="ion-padding-top">
           <IonTitle color="dark">Recipes Draft</IonTitle>
+          </IonRow>
           <IonRow className="ion-padding-vertical">
             {recipeData &&
               recipeData?.recipes_draft?.map((data, index) => (
@@ -94,44 +96,48 @@ const MyRecipe = () => {
                   <IonCard className="ProductCard MyRecipeCard">
                     <div className="vegIcon">
                       <div className="flex ion-align-items-center">
-                      {data?.foodtype === "vegetarian" ? (
-                        <img
-                          src="/assets/img/veg-icon.svg"
-                          alt="Images"
-                          className="icon-img"
-                        />
-                      ) : data?.foodtype === "non-vegetarian" ? (
-                        <img
-                          src="/assets/img/non-veg-icon.svg"
-                          alt="Images"
-                          className="icon-img"
-                        />
-                      ) : (
-                        <></>
-                      )}
-
-                      
-
+                          {data?.foodtype === "vegetarian" ? (
+                            <img
+                              src="/assets/img/veg-icon.svg"
+                              alt="Images"
+                              className="icon-img"
+                            />
+                          ) : data?.foodtype === "non-vegetarian" ? (
+                            <img
+                              src="/assets/img/non-veg-icon.svg"
+                              alt="Images"
+                              className="icon-img"
+                            />
+                          ) : (
+                            <></>
+                          )}
                       </div>
-                      <IonButton fill="clear" className="saveIcon">
-                        <IonIcon
-                          size="large"
-                          color="danger"
-                          icon={bookmarkOutline}
-                        />
-                      </IonButton>
+                   
+                      <div className="Draft-Edit">
+                        <IonButton fill="clear" className="save-btn">
+                          <IonIcon
+                            size="large"
+                            color="danger"
+                            icon={bookmarkOutline}
+                          />
+                        </IonButton>
 
-                      <IonButton
-                      className="editBtn"
-                        fill="clear"
-                        routerLink={`/submit-recipe/${data.id}`}
-                        onClick={() => {
-                          showEditRecipe(true);
-                          setRecipeObj(data);
-                        }}
-                      >
-                        <i class="material-icons">edit</i>
-                      </IonButton>
+                        <IonButton
+                        className="edit-btn"
+                        size="small"
+                          fill="clear"
+                          routerLink={`/submit-recipe/${data.id}`}
+                          onClick={() => {
+                            showEditRecipe(true);
+                            setRecipeObj(data);
+                          }}
+                        >
+                          <i class="material-icons">edit</i>
+                        </IonButton>
+                        </div>
+                      
+                      
+                     
                      
                     </div>
                     <div className="RecentProducts">

@@ -1281,6 +1281,7 @@ ion-button.button-outline {
   justify-content: space-between;
 }
 
+
 .vegIcon img {
   max-width: 20px;
   width: 40px;
@@ -1316,7 +1317,7 @@ ion-button.button-outline {
 }
 
 .productRecipe ion-label {
-  font-size: 8px;
+  font-size: 14px;
   color: #9a1a0a;
 }
 
@@ -1799,7 +1800,8 @@ label.EditProfile img {
 .profileImg img {
   width: 100%;
   border-radius: 50%;
-  max-width: 110px;
+  max-width: 120px;
+  min-height: 120px;
   margin-top: -50px;
   border: 10px solid #fff;
 }
@@ -3546,7 +3548,7 @@ input#Cover-Profile2 {
 
 label.cover-img-upload img {
   width: 100%;
-  max-width: 400px;
+  min-width: 400px;
   height: 200px;
   object-fit: cover;
 }
@@ -3682,10 +3684,24 @@ label.cover-img-upload ion-text {
   width: 40px;
   border-radius: 0px !important;
 }
-.editBtn {
-  position: absolute;
-  right: -14px;
-  top: -22px;
-  border-radius: 50%;
- 
+.Draft-Edit{
+    display: flex;
+    flex-direction: column;
+    margin-right: -20px;
+    right: 0px;
+}
+.save-btn{
+  width: 100%;
+    max-width: 50px;
+    height: 40px !important;
+    min-height: auto;
+    --overflow: visible;
+}
+.edit-btn{
+  margin: -10px 0px 0px 0px;
+  width: 100%;
+    max-width: 50px;
+    height: 40px !important;
+    min-height: auto;
+    --overflow: visible;
 }
