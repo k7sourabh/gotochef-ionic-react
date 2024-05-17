@@ -11,16 +11,29 @@ import {
   IonButton,
   IonHeader,
   IonTitle,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonIcon,
+  IonChip,
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import { getApiData } from "../../utils/Utils";
+import { add, closeCircle, remove, removeCircleOutline, star } from "ionicons/icons";
+import SavedContent from "./SavedContent";
+import Leaderboard from "./Leaderboard";
 
 const Profile = () => {
   const [selectedTab, setSelectedTab] = useState("Personal");
   const [userProfileData, setUserProfileData] = useState({});
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
+  };
+
+  const [selectedTabladder, setSelectedTabladder] = useState("saved");
+  const handleTabChangeladder = (event) => {
+    setSelectedTabladder(event.detail.value);
   };
 
   const userProfile = async () => {
@@ -55,7 +68,7 @@ const Profile = () => {
                 src={userProfileData?.avatar}
                 alt="Images"
                 onError={(e) => {
-                  e.target.onerror = null; 
+                  e.target.onerror = null;
                   e.target.src = "/assets/img/img-placeholder.jpg";
                 }}
               ></img>
@@ -236,8 +249,8 @@ const Profile = () => {
                           <IonText>Lifestyle Settings</IonText>
                         </div>
                       </IonButton>
-                    </IonCol> 
-                    
+                    </IonCol>
+
                     <IonCol size="4">
                       <IonButton fill="clear" className="CardBtn" routerLink="/add-product">
                         <div className="DashBoardImg">
@@ -249,12 +262,17 @@ const Profile = () => {
                           <IonText>Add Product</IonText>
                         </div>
                       </IonButton>
-                    </IonCol> 
+                    </IonCol>
                   </IonRow>
                 </IonGrid>
               )}
-              {selectedTab === "SavedContent" && <div className="ion-padding">Coming Soon</div>}
-              {selectedTab === "Leaderboard" && <div className="ion-padding">Coming Soon</div>}
+              {selectedTab === "SavedContent" && (
+               <SavedContent/>
+
+              )}
+              {selectedTab === "Leaderboard" && (
+              <Leaderboard/>
+              )}
             </IonCol>
           </IonRow>
         </IonGrid>

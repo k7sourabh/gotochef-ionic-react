@@ -14,43 +14,43 @@ const NutriBudyStep4 = () => {
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg1" />
                             <label for="myCheckImg1">
-                                <img src="./assets/img/Cholesterol.png" alt="" className="ProfileImg" />
-                                <IonText>Gym / Strength</IonText>
+                                <img src="./assets/img/DiabetesRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Diabetics</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg2" />
                             <label for="myCheckImg2">
-                                <img src="./assets/img/glucose-meter.png" alt="" className="ProfileImg" />
-                                <IonText>Gym / Strength</IonText>
+                                <img src="./assets/img/KidneyRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Kidney</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg3" />
                             <label for="myCheckImg3">
-                                <img src="./assets/img/Cholesterol.png" alt="" className="ProfileImg" />
-                                <IonText>Gym / Strength</IonText>
+                                <img src="./assets/img/CholesterolRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Cholesterol</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg4" />
                             <label for="myCheckImg4">
-                                <img src="./assets/img/Liver.png" alt="" className="ProfileImg" />
-                                <IonText>Gym / Strength</IonText>
+                                <img src="./assets/img/LiverRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Liver</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg5" />
                             <label for="myCheckImg5">
-                                <img src="./assets/img/kidney.png" alt="" className="ProfileImg" />
-                                <IonText>Gym / Strength</IonText>
+                                <img src="./assets/img/ObesityRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Obese</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg12" />
                             <label for="myCheckImg12">
-                                <img src="./assets/img/Heart.png" alt="" className="ProfileImg" />
-                                <IonText>Gym / Strength</IonText>
+                                <img src="./assets/img/HeartRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Heart</IonText>
                             </label>
                         </div>
 
@@ -62,45 +62,39 @@ const NutriBudyStep4 = () => {
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg6" />
                             <label for="myCheckImg6">
-                                <img src="./assets/img/strength-icon.webp" alt="" className="ProfileImg" />
+                                <img src="./assets/img/Gym-StrengthRed_Icons.png" alt="" className="ProfileImg" />
                                 <IonText>Gym / Strength</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg7" />
                             <label for="myCheckImg7">
-                                <img src="./assets/img/runing.png" alt="" className="ProfileImg" />
+                                <img src="./assets/img/Running-EnduranceRed_Icons.png" alt="" className="ProfileImg" />
                                 <IonText>Running / Endurance</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg8" />
                             <label for="myCheckImg8">
-                                <img src="./assets/img/profession-working.webp" alt="" className="ProfileImg" />
-                                <IonText>Long Sitting Job</IonText>
+                                <img src="./assets/img/Activity JobRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Activity Job</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg9" />
                             <label for="myCheckImg9">
-                                <img src="./assets/img/system.png" alt="" className="ProfileImg" />
-                                <IonText>Student</IonText>
+                                <img src="./assets/img/HomemakerRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Home Maker</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg10" />
                             <label for="myCheckImg10">
-                                <img src="./assets/img/shoping.png" alt="" className="ProfileImg" />
-                                <IonText>Activity Job</IonText>
+                                <img src="./assets/img/StudentRed_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>Student</IonText>
                             </label>
                         </div>
-                        <div className="FillCheckBox ImgCheck">
-                            <input type="checkbox" id="myCheckImg11" />
-                            <label for="myCheckImg11">
-                                <img src="./assets/img/education.png" alt="" className="ProfileImg" />
-                                <IonText>Home Maker</IonText>
-                            </label>
-                        </div>
+                        
                     </div>
                 </IonCol>
             </IonRow>

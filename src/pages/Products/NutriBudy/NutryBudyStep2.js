@@ -113,31 +113,31 @@ const NutryBudyStep2 = () => {
                             Allergy Setup
                         </h3>
                         <div className="AllergyBox ion-padding-vertical">
-                            <div className="ImgIcon">
-                            <input type="checkbox" id="myCheckbox1" />
-                                <label for="myCheckbox1">
-                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                <IonText>Lactose Intollerant</IonText>
-                                </label>
-                            </div>
+                        <div className="ImgIcon">
+                            <input type="checkbox" id="myCheck3" />
+                            <label for="myCheck3">
+                            <img src="./assets/img/Go_VeganWhite_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>All Natural Only</IonText>
+                            </label>
+                        </div>
                             <div className="ImgIcon">
                             <input type="checkbox" id="myCheckbox2" />
                                 <label for="myCheckbox2">
-                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                <img src="./assets/img/Gluten_FreeWhite_Icons.png" alt="" className="ProfileImg" />
                                 <IonText>Nuts</IonText>
                                 </label>
                             </div>
                             <div className="ImgIcon">
                                 <input type="checkbox" id="myCheckbox3" />
                                 <label for="myCheckbox3">
-                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                <img src="./assets/img/KetoWhite_Icons.png" alt="" className="ProfileImg" />
                                 <IonText>lulten Intollerant</IonText>
                                 </label>
                             </div>
                             <div className="ImgIcon">
                             <input type="checkbox" id="myCheckbox4" />
                                 <label for="myCheckbox4">
-                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
+                                <img src="./assets/img/Jain FriendlyWhite_Icons.png" alt="" className="ProfileImg" />
                                 <IonText>Garlic</IonText>
                                 </label>
                             </div>
