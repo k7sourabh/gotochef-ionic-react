@@ -85,7 +85,7 @@ const SubmitRecipeStep2 = (props) => {
               render={({ remove, push }) => (
                 <>
                   <IonGrid className="ion-padding-vertical">
-                    <IonHeader className="TitleHead px-0 ion-margin-bottom">
+                    <IonHeader className="TitleHead px-0">
                       <IonTitle>Preparation Procedure</IonTitle>
                     </IonHeader>
                     {values.ingredients &&
