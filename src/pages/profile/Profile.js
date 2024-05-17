@@ -10,12 +10,7 @@ import {
   IonLabel,
   IonButton,
   IonHeader,
-  IonTitle,
-  IonCard,
-  IonCardHeader,
-  IonCardContent,
-  IonIcon,
-  IonChip,
+  IonTitle
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
@@ -267,11 +262,10 @@ const Profile = () => {
                 </IonGrid>
               )}
               {selectedTab === "SavedContent" && (
-               <SavedContent/>
-
+                <SavedContent />
               )}
               {selectedTab === "Leaderboard" && (
-              <Leaderboard/>
+                <Leaderboard />
               )}
             </IonCol>
           </IonRow>

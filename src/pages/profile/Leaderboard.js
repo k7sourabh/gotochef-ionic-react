@@ -4,22 +4,14 @@ import {
     IonSegmentButton,
     IonCol,
     IonGrid,
-    IonPage,
-    IonContent,
     IonRow,
     IonText,
     IonLabel,
-    IonButton,
-    IonHeader,
     IonTitle,
-    IonCard,
-    IonCardHeader,
-    IonCardContent,
-    IonIcon,
-    IonChip,
+    IonIcon
 } from "@ionic/react";
 import { useEffect, useState } from "react";
-import { add, closeCircle, lockClosed, lockClosedOutline, refreshOutline, remove, removeCircleOutline, star } from "ionicons/icons";
+import { lockClosedOutline} from "ionicons/icons";
 
 const Leaderboard = () => {
     const [selectedTabladder, setSelectedTabladder] = useState("achievements");

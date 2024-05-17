@@ -17,7 +17,6 @@ const AddProduct = () => {
                     <IonRow>
                         <IonCol>
                             <div className="N-profileInput">
-                               
                                 <IonLabel>Product Name*</IonLabel>
                                 <IonInput
                                     className="ion-margin-bottom"
@@ -60,7 +59,7 @@ const AddProduct = () => {
                             </div>
                             </div>
                         </IonCol>
-                        <IonCol size="12" className="flex   ion-align-items-center ion-justify-content-center add-product-profile">
+                        <IonCol size="12" className="flex ion-align-items-center ion-justify-content-center add-product-profile">
                             <div className="EditprofileImg N-ProfileEdit">
                                 <img src="./assets/img/img-person.jpg" alt="" className="ProfileImg" />
                                 <div class="image-upload">
