@@ -121,208 +121,208 @@ const AddProduct = () => {
                     validationSchema={validateForm}
                     onSubmit={(values) => handleSubmit(values)}
                 >
-                    {({ isSubmitting, setFieldValue, values }) => (
-                        <Form>
-                            <IonGrid className="ion-padding-horizontal">
-                                <IonRow>
-                                    <IonCol>
+                {({ isSubmitting, setFieldValue, values }) => (
+                    <Form>
+                        <IonGrid className="ion-padding-horizontal">
+                            <IonRow>
+                                <IonCol>
+                                    <div className="N-profileInput">
+                                        <IonLabel>Product Name*</IonLabel>
+                                        <IonInput
+                                            className="ion-margin-bottom"
+                                            name="Productname"
+                                            type="text"
+                                            placeholder="Product Name"
+                                            value={values.Productname}
+                                            onIonChange={(e) =>
+                                                setFieldValue('Productname', e.target.value)
+                                            }
+                                        />
+                                        <ErrorMessage
+                                            name="Productname"
+                                            component="div"
+                                            className="error-message error-text"
+                                        />
+
+                                        <IonLabel>Brand Name*</IonLabel>
+                                        <IonInput
+                                            className="ion-margin-vertical"
+                                            name="Brandname"
+                                            type="text"
+                                            placeholder="Brand Name"
+                                            value={values.Brandname}
+                                            onIonChange={(e) =>
+                                                setFieldValue('Brandname', e.target.value)
+                                            }
+                                        />
+                                        <ErrorMessage
+                                            name="Brandname"
+                                            component="div"
+                                            className="error-message error-text"
+                                        />
+
+                                        <IonLabel>Select Main Category*</IonLabel>
+                                        <IonSelect
+                                            placeholder="Select Main Category"
+                                            className="ion-margin-top"
+                                            name="Category"
+                                            onIonChange={(e) => {
+                                                handleStateChange(e);
+                                                setFieldValue('Category', e.target.value);
+                                            }}
+                                            value={values.Category}
+                                        >
+                                            {Categorydata &&
+                                                Categorydata.map((item, i) => (
+                                                    <IonSelectOption key={i} value={item.id}>
+                                                        {item.category_name}
+                                                    </IonSelectOption>
+                                                ))}
+                                        </IonSelect>
+                                        <ErrorMessage
+                                            name="Category"
+                                            component="div"
+                                            className="error-message error-text"
+                                        />
+
                                         <div className="N-profileInput">
-                                            <IonLabel>Product Name*</IonLabel>
-                                            <IonInput
-                                                className="ion-margin-bottom"
-                                                name="Productname"
-                                                type="text"
-                                                placeholder="Product Name"
-                                                value={values.Productname}
-                                                onIonChange={(e) =>
-                                                    setFieldValue('Productname', e.target.value)
-                                                }
-                                            />
-                                            <ErrorMessage
-                                                name="Productname"
-                                                component="div"
-                                                className="error-message error-text"
-                                            />
-
-                                            <IonLabel>Brand Name*</IonLabel>
-                                            <IonInput
-                                                className="ion-margin-vertical"
-                                                name="Brandname"
-                                                type="text"
-                                                placeholder="Brand Name"
-                                                value={values.Brandname}
-                                                onIonChange={(e) =>
-                                                    setFieldValue('Brandname', e.target.value)
-                                                }
-                                            />
-                                            <ErrorMessage
-                                                name="Brandname"
-                                                component="div"
-                                                className="error-message error-text"
-                                            />
-
-                                            <IonLabel>Select Main Category*</IonLabel>
+                                            <IonLabel>Product Sub Category*</IonLabel>
                                             <IonSelect
-                                                placeholder="Select Main Category"
+                                                placeholder="Product Sub Category"
                                                 className="ion-margin-top"
-                                                name="Category"
+                                                name="subCategory"
                                                 onIonChange={(e) => {
-                                                    handleStateChange(e);
-                                                    setFieldValue('Category', e.target.value);
+                                                    setFieldValue('subCategory', e.target.value);
                                                 }}
-                                                value={values.Category}
+                                                value={values.subCategory}
                                             >
-                                                {Categorydata &&
-                                                    Categorydata.map((item, i) => (
+                                                {subCategorydata &&
+                                                    subCategorydata.map((item, i) => (
                                                         <IonSelectOption key={i} value={item.id}>
-                                                            {item.category_name}
+                                                            {item.sub_category_name}
                                                         </IonSelectOption>
                                                     ))}
                                             </IonSelect>
                                             <ErrorMessage
-                                                name="Category"
+                                                name="subCategory"
                                                 component="div"
                                                 className="error-message error-text"
                                             />
+                                        </div>
+                                    </div>
+                                </IonCol>
+                                <IonCol size="12" className="flex ion-align-items-center ion-padding-vertical add-product-profile">
+                                    <div className="EditprofileImg N-ProfileEdit">
+                                        <img src={imagePreview ? imagePreview : "./assets/img/camera-placeholder.png"}
+                                            alt="" className="ProfileImg" />
+                                        <div className="image-upload">
+                                            <label htmlFor="file-input" className="N-EditProfile">
+                                                <img src="./assets/img/edit.png" alt="" />
+                                            </label>
+                                            <input id="file-input" type="file" name='image1'
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    setImagePreview(URL.createObjectURL(file));
+                                                    if (file) {
+                                                        setFieldValue('image1', file);
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <ErrorMessage
+                                            name="image1"
+                                            component="div"
+                                            className="error-message error-text"
+                                        />
+                                    </div>
 
-                                            <div className="N-profileInput">
-                                                <IonLabel>Product Sub Category*</IonLabel>
-                                                <IonSelect
-                                                    placeholder="Product Sub Category"
-                                                    className="ion-margin-top"
-                                                    name="subCategory"
-                                                    onIonChange={(e) => {
-                                                        setFieldValue('subCategory', e.target.value);
-                                                    }}
-                                                    value={values.subCategory}
-                                                >
-                                                    {subCategorydata &&
-                                                        subCategorydata.map((item, i) => (
-                                                            <IonSelectOption key={i} value={item.id}>
-                                                                {item.sub_category_name}
-                                                            </IonSelectOption>
-                                                        ))}
-                                                </IonSelect>
-                                                <ErrorMessage
-                                                    name="subCategory"
-                                                    component="div"
-                                                    className="error-message error-text"
-                                                />
-                                            </div>
-                                        </div>
-                                    </IonCol>
-                                    <IonCol size="12" className="flex ion-align-items-center ion-justify-content-center add-product-profile">
-                                        <div className="EditprofileImg N-ProfileEdit">
-                                            <img src={imagePreview ? imagePreview : "./assets/img/camera-placeholder.png"}
-                                                alt="" className="ProfileImg" />
-                                            <div className="image-upload">
-                                                <label htmlFor="file-input" className="N-EditProfile">
-                                                    <img src="./assets/img/edit.png" alt="" />
-                                                </label>
-                                                <input id="file-input" type="file" name='image1'
-                                                    onChange={(e) => {
-                                                        const file = e.target.files[0];
-                                                        setImagePreview(URL.createObjectURL(file));
-                                                        if (file) {
-                                                            setFieldValue('image1', file);
-                                                        }
-                                                    }}
-                                                />
-                                            </div>
-                                            <ErrorMessage
-                                                name="image1"
-                                                component="div"
-                                                className="error-message error-text"
+                                    <div className="EditprofileImg N-ProfileEdit">
+                                        <img src={imagePreview2 ? imagePreview2 : "./assets/img/camera-placeholder.png"}
+                                            alt="" className="ProfileImg" />
+                                        <div className="image-upload">
+                                            <label htmlFor="file-input2" className="N-EditProfile">
+                                                <img src="./assets/img/edit.png" alt="" />
+                                            </label>
+                                            <input id="file-input2" type="file" name='image2'
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    setImagePreview2(URL.createObjectURL(file));
+                                                    if (file) {
+                                                        setFieldValue('image2', file);
+                                                    }
+                                                }}
                                             />
                                         </div>
+                                        <ErrorMessage
+                                            name="image2"
+                                            component="div"
+                                            className="error-message error-text"
+                                        />
+                                    </div>
+                                    <div className="EditprofileImg N-ProfileEdit">
+                                        <img src={imagePreview3 ? imagePreview3 : "./assets/img/camera-placeholder.png"}
+                                            alt="" className="ProfileImg" />
+                                        <div className="image-upload">
+                                            <label htmlFor="file-input3" className="N-EditProfile">
+                                                <img src="./assets/img/edit.png" alt="" />
+                                            </label>
+                                            <input id="file-input3" type="file" name='image3'
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    setImagePreview3(URL.createObjectURL(file));
+                                                    if (file) {
+                                                        setFieldValue('image3', file);
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <ErrorMessage
+                                            name="image3"
+                                            component="div"
+                                            className="error-message error-text"
+                                        />
+                                    </div>
+                                    <div className="EditprofileImg N-ProfileEdit">
+                                        <img src={imagePreview4 ? imagePreview4 : "./assets/img/camera-placeholder.png"}
+                                            alt="" className="ProfileImg" />
+                                        <div className="image-upload">
+                                            <label htmlFor="file-input4" className="N-EditProfile">
+                                                <img src="./assets/img/edit.png" alt="" />
+                                            </label>
+                                            <input id="file-input4" type="file" name='image4'
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    setImagePreview4(URL.createObjectURL(file));
+                                                    if (file) {
+                                                        setFieldValue('image4', file);
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <ErrorMessage
+                                            name="image4"
+                                            component="div"
+                                            className="error-message error-text"
+                                        />
+                                    </div>
+                                </IonCol>
 
-                                        <div className="EditprofileImg N-ProfileEdit">
-                                            <img src={imagePreview2 ? imagePreview2 : "./assets/img/camera-placeholder.png"}
-                                                alt="" className="ProfileImg" />
-                                            <div className="image-upload">
-                                                <label htmlFor="file-input2" className="N-EditProfile">
-                                                    <img src="./assets/img/edit.png" alt="" />
-                                                </label>
-                                                <input id="file-input2" type="file" name='image2'
-                                                    onChange={(e) => {
-                                                        const file = e.target.files[0];
-                                                        setImagePreview2(URL.createObjectURL(file));
-                                                        if (file) {
-                                                            setFieldValue('image2', file);
-                                                        }
-                                                    }}
-                                                />
-                                            </div>
-                                            <ErrorMessage
-                                                name="image2"
-                                                component="div"
-                                                className="error-message error-text"
-                                            />
-                                        </div>
-                                        <div className="EditprofileImg N-ProfileEdit">
-                                            <img src={imagePreview3 ? imagePreview3 : "./assets/img/camera-placeholder.png"}
-                                                alt="" className="ProfileImg" />
-                                            <div className="image-upload">
-                                                <label htmlFor="file-input3" className="N-EditProfile">
-                                                    <img src="./assets/img/edit.png" alt="" />
-                                                </label>
-                                                <input id="file-input3" type="file" name='image3'
-                                                    onChange={(e) => {
-                                                        const file = e.target.files[0];
-                                                        setImagePreview3(URL.createObjectURL(file));
-                                                        if (file) {
-                                                            setFieldValue('image3', file);
-                                                        }
-                                                    }}
-                                                />
-                                            </div>
-                                            <ErrorMessage
-                                                name="image3"
-                                                component="div"
-                                                className="error-message error-text"
-                                            />
-                                        </div>
-                                        <div className="EditprofileImg N-ProfileEdit">
-                                            <img src={imagePreview4 ? imagePreview4 : "./assets/img/camera-placeholder.png"}
-                                                alt="" className="ProfileImg" />
-                                            <div className="image-upload">
-                                                <label htmlFor="file-input4" className="N-EditProfile">
-                                                    <img src="./assets/img/edit.png" alt="" />
-                                                </label>
-                                                <input id="file-input4" type="file" name='image4'
-                                                    onChange={(e) => {
-                                                        const file = e.target.files[0];
-                                                        setImagePreview4(URL.createObjectURL(file));
-                                                        if (file) {
-                                                            setFieldValue('image4', file);
-                                                        }
-                                                    }}
-                                                />
-                                            </div>
-                                            <ErrorMessage
-                                                name="image4"
-                                                component="div"
-                                                className="error-message error-text"
-                                            />
-                                        </div>
-                                    </IonCol>
-
-                                    <IonCol>
-                                        <div className="flex ion-padding-top">
-                                            <IonButton
-                                                onClick={() => history.push('/profile')}
-                                            >
-                                                CANCEL
-                                            </IonButton>
-                                            <IonButton type="submit" className="ion-padding-start">
-                                                SAVE & FINISH
-                                            </IonButton>
-                                        </div>
-                                    </IonCol>
-                                </IonRow>
-                            </IonGrid>
-                        </Form>
-                    )}
+                                <IonCol>
+                                    <div className="flex ion-padding-top">
+                                        <IonButton
+                                            onClick={() => history.push('/profile')}
+                                        >
+                                            CANCEL
+                                        </IonButton>
+                                        <IonButton type="submit" className="ion-padding-start">
+                                            SAVE & FINISH
+                                        </IonButton>
+                                    </div>
+                                </IonCol>
+                            </IonRow>
+                        </IonGrid>
+                    </Form>
+                )}
                 </Formik>
             </IonContent>
         </IonPage>
