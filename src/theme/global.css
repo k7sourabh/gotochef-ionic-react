@@ -637,6 +637,7 @@ iframe {
 .btnGroup {
   display: flex;
   gap: 15px;
+  width: 100%;
 }
 
 .btnGroup img {
@@ -1658,6 +1659,7 @@ ion-button.button-outline {
   max-width: 170px;
   width: 100%;
   border-radius: 87px;
+  object-fit: cover;
 }
 
 .EditprofileImg {
@@ -1804,6 +1806,7 @@ label.EditProfile img {
   min-height: 120px;
   margin-top: -50px;
   border: 10px solid #fff;
+  object-fit: cover;
 }
 
 .profile-content ion-label {
@@ -3020,6 +3023,13 @@ label.N-EditProfile {
   font-size: 40px !important;
   color: #fff !important;
 }
+.ImgIcon img {
+  background-color: #9a1504;
+  border-radius: 10px;
+  min-width: 75px;
+  width: 100%;
+  height: 100%;
+}
 
 .ImgIcon ion-title {
   white-space: normal;
@@ -3068,9 +3078,8 @@ label.N-EditProfile {
 .DietPreFerns {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  row-gap: 15px;
+  justify-content: center;
+  gap: 15px;
   width: 100%;
 }
 
@@ -3164,6 +3173,9 @@ label.N-EditProfile {
 }
 
 .ImgIcon :checked+label ion-icon {
+  border: 2px solid #000;
+}
+.ImgIcon :checked+label img {
   border: 2px solid #000;
 }
 
@@ -3707,4 +3719,50 @@ label.cover-img-upload ion-text {
 }
 .image-upload input {
   display: none;
+}
+.topImage{
+  position: relative;
+}
+.topIcon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.topIcon .iconTop{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.review-award{
+  text-align: center;
+}
+.review-award .line {
+  width: 153px;
+  height: 1px;
+  background: #00000052;
+  margin: 10px auto;
+}
+.review-lock {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+.review-help{
+  position: relative;
+}
+.about-profile{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.about-profile span {
+ margin-right: 10px;
+ font-size: 20px;
+ color: #9a1504;
+}
+.about-name{
+  color: #9a1504;
 }

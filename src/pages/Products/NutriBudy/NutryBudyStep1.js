@@ -152,6 +152,20 @@ const NutryBudyStep1 = () => {
                         label="Default input"
                         placeholder="Enter your Weight"
                       ></IonInput>
+                      <IonInput
+                        className="ion-margin-vertical"
+                        name="password"
+                        type="password"
+                        label="Default input"
+                        placeholder="Enter your Password"
+                      ></IonInput>
+                      <IonInput
+                        className="ion-margin-vertical"
+                        name="password"
+                        type="password"
+                        label="Default input"
+                        placeholder="Enter your Confirm Password"
+                      ></IonInput>
                       <IonLabel>Enter Your DOB</IonLabel>
                       <IonInput
                         className="ion-margin-vertical"

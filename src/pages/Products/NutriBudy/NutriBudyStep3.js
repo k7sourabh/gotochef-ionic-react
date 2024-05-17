@@ -11,7 +11,10 @@ const NutriBudyStep3 = () => {
                 <IonCol size="12" className="ion-no-padding">
                     <h3>Taste Preferences</h3>
                     <div className="progressBar">
+                        <div className='flex ion-justify-content-between ion-align-items-center'>
                         <IonLabel>Sweet</IonLabel>
+                        <IonLabel>20%</IonLabel>
+                        </div>
                         <IonRange min={0} max={100} color="success" className="ion-no-padding range-custom-height" >
                         </IonRange>
                         <div className="bottomText flex ion-justify-content-between ion-align-items-center">
@@ -20,7 +23,10 @@ const NutriBudyStep3 = () => {
                         </div>
                     </div>
                     <div className="progressBar ion-padding-top">
+                    <div className='flex ion-justify-content-between ion-align-items-center'>
                         <IonLabel>Sour</IonLabel>
+                        <IonLabel>50%</IonLabel>
+                        </div>
                         <IonRange min={0} max={100} color="warning" className="ion-no-padding range-custom-height" > </IonRange>
                         <div className="bottomText flex ion-justify-content-between ion-align-items-center">
                             <span>I don’t like spicy food</span>
@@ -28,7 +34,10 @@ const NutriBudyStep3 = () => {
                         </div>
                     </div>
                     <div className="progressBar ion-padding-top">
+                    <div className='flex ion-justify-content-between ion-align-items-center'>
                         <IonLabel>Bitter</IonLabel>
+                        <IonLabel>40%</IonLabel>
+                        </div>
                         <IonRange min={0} max={100} color="primary" className="ion-no-padding range-custom-height"  > </IonRange>
                         <div className="bottomText flex ion-justify-content-between ion-align-items-center">
                             <span>I don't eat sweets</span>
@@ -36,7 +45,10 @@ const NutriBudyStep3 = () => {
                         </div>
                     </div>
                     <div className="progressBar ion-padding-top">
+                    <div className='flex ion-justify-content-between ion-align-items-center'>
                         <IonLabel>Salty</IonLabel>
+                        <IonLabel>30%</IonLabel>
+                        </div>
                         <IonRange min={0} max={100} color="primary" className="ion-no-padding range-custom-height" > </IonRange>
                         <div className="bottomText flex ion-justify-content-between ion-align-items-center">
                             <span>I like my food bland</span>
@@ -44,7 +56,10 @@ const NutriBudyStep3 = () => {
                         </div>
                     </div>
                     <div className="progressBar ion-padding-top">
+                        <div className='flex ion-justify-content-between ion-align-items-center'>
                         <IonLabel>Umami/Savoury</IonLabel>
+                        <IonLabel>10%</IonLabel>
+                        </div>
                         <IonRange min={0} max={100} color="warning" className="ion-no-padding range-custom-height"></IonRange>
                         <div className="bottomText flex ion-justify-content-between ion-align-items-center">
                             <span>I don’t like savoury food</span>
@@ -59,14 +74,21 @@ const NutriBudyStep3 = () => {
                             <input type="checkbox" id="myCheckImg51" />
                             <label for="myCheckImg51">
                                 <img src="./assets/img/imagesketo.png" alt="" className="ProfileImg" />
-                                <IonText>Lactose Lorem</IonText>
+                                <IonText>Keto</IonText>
                             </label>
                         </div>
                         <div className="FillCheckBox ImgCheck">
                             <input type="checkbox" id="myCheckImg52" />
                             <label for="myCheckImg52">
                                 <img src="./assets/img/imagesGluten.jpg" alt="" className="ProfileImg" />
-                                <IonText>Lactose Lorem</IonText>
+                                <IonText>Gluten Free</IonText>
+                            </label>
+                        </div>
+                        <div className="FillCheckBox ImgCheck">
+                            <input type="checkbox" id="myCheckImg53" />
+                            <label for="myCheckImg53">
+                                <img src="./assets/img/pngwing.png" alt="" className="ProfileImg" />
+                                <IonText>Jain Friedndly</IonText>
                             </label>
                         </div>
                     </div>
@@ -74,34 +96,28 @@ const NutriBudyStep3 = () => {
                 <IonCol size="12" className="ion-padding-top">
                     <h3>Which kind of food products would You like NB to recommend you?</h3>
                     <div className="AllergyBox">
-                        <div className="ImgIcon">
-                            <input type="checkbox" id="myCheck1" />
-                            <label for="myCheck1">
-                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                <IonText>Lactose</IonText>
-                            </label>
-                        </div>
-                        <div className="ImgIcon">
+                    <div className="ImgIcon">
                             <input type="checkbox" id="myCheck2" />
                             <label for="myCheck2">
-                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                <IonText>Lactose</IonText>
-                            </label>
-                        </div>
-                        <div className="ImgIcon">
-                            <input type="checkbox" id="myCheck3" />
-                            <label for="myCheck3">
-                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                <IonText>Lactose</IonText>
+                            <img src="./assets/img/No PreservativesWhite_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>No Preservative and Chemicals</IonText>
                             </label>
                         </div>
                         <div className="ImgIcon">
                             <input type="checkbox" id="myCheck4" />
                             <label for="myCheck4">
-                                <IonIcon size="large" fill="clear" icon={sunnyOutline} />
-                                <IonText>Lactose</IonText>
+                            <img src="./assets/img/No added sugarWhite_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>No Added Sugar</IonText>
                             </label>
                         </div>
+                        <div className="ImgIcon">
+                            <input type="checkbox" id="myCheck3" />
+                            <label for="myCheck3">
+                            <img src="./assets/img/All Natural OnlyWhite_Icons.png" alt="" className="ProfileImg" />
+                                <IonText>All Natural Only</IonText>
+                            </label>
+                        </div>
+                        
                         <div className="ImgBtn">
                             <IonButton fill="clear">
                                 <IonIcon size="large" icon={add} />

@@ -77,6 +77,9 @@ import OrderFail from "./pages/Products/OrderFail";
 import { useAuth } from "./context/AuthContext";
 import LoginPopup from "./modal/LoginPopup";
 import OTPPopup from "./modal/OTPPopup";
+import IngredientDetail from "./pages/Ingredient/IngredientDetail";
+import SavedContent from "./pages/profile/SavedContent";
+
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -151,6 +154,9 @@ const App = () => {
                 <PrivateRoute path="/order-confirm" component={OrderConfirm} />
                 <PrivateRoute path="/order-fail" component={OrderFail} />
                 <PrivateRoute path="/add-ingredient" component={AddIngredient} />
+                <PrivateRoute path="/ingredient-detail" component={IngredientDetail} />
+                
+               
                 <PrivateRoute
                   path="/ingredient-list"
                   component={IngredientList}
