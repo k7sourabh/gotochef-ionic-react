@@ -20,7 +20,6 @@ import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const AddProduct = () => {
-
     const [Categorydata, setCategoryData] = useState([]);
     const [subCategorydata, setSubCategoryData] = useState([]);
     const [imagePreview, setImagePreview] = useState(null);
@@ -29,7 +28,6 @@ const AddProduct = () => {
     const [imagePreview4, setImagePreview4] = useState(null);
     const [present] = useIonToast();
     const history = useHistory();
-
 
     const initialValues = {
         Productname: '',
@@ -42,20 +40,17 @@ const AddProduct = () => {
         image4: null,
     };
 
-    const validateFrom = Yup.object().shape({
+    const validateForm = Yup.object().shape({
         Productname: Yup.string().required('Product name is required'),
         Brandname: Yup.string().required('Brand name is required'),
         Category: Yup.string().required('Category is required'),
         subCategory: Yup.string().required('Subcategory is required'),
         image1: Yup.mixed().required('Product image is required'),
-        // image2: Yup.mixed().required('Product image is required'),
-        // image3: Yup.mixed().required('Product image is required'),
-        // image4: Yup.mixed().required('Product image is required'),
     });
 
     const Categorylist = async () => {
         try {
-            const response = await getApiData(`/category-list`);
+            const response = await getApiData('/category-list');
             setCategoryData(response?.data?.data);
         } catch (e) {
             console.log(e);
@@ -92,7 +87,7 @@ const AddProduct = () => {
 
             if (response.data.status === 200) {
                 presentToast("Top", response?.data?.message_response);
-                actions.resetForm();
+               
                 setTimeout(() => {
                     history.push('/profile');
                 }, 3000);
@@ -100,13 +95,10 @@ const AddProduct = () => {
 
         } catch (error) {
             console.error('Error submitting the form', error);
-            // presentToast("Top", );
+            presentToast("Top",)
         }
-
-        // setImagePreview(null);
-        // setImagePreview2(null);
-        // setImagePreview3(null);
-        // setImagePreview4(null);
+         actions.resetForm();
+         setImagePreview(null)       
     };
 
     const presentToast = (position, message) => {
@@ -128,11 +120,10 @@ const AddProduct = () => {
                 </IonHeader>
                 <Formik
                     initialValues={initialValues}
-                    validationSchema={validateFrom}
-                    onSubmit={handleSubmit}
-                    resetForm
+                    validationSchema={validateForm}
+                    onSubmit={(values, actions) => handleSubmit(values, actions)}
                 >
-                    {({ isSubmitting, setFieldValue }) => (
+                    {({ isSubmitting, setFieldValue, values }) => (
                         <Form>
                             <IonGrid className="ion-padding-horizontal">
                                 <IonRow>
@@ -144,6 +135,7 @@ const AddProduct = () => {
                                                 name="Productname"
                                                 type="text"
                                                 placeholder="Product Name"
+                                                value={values.Productname}
                                                 onIonChange={(e) =>
                                                     setFieldValue('Productname', e.target.value)
                                                 }
@@ -160,6 +152,7 @@ const AddProduct = () => {
                                                 name="Brandname"
                                                 type="text"
                                                 placeholder="Brand Name"
+                                                value={values.Brandname}
                                                 onIonChange={(e) =>
                                                     setFieldValue('Brandname', e.target.value)
                                                 }
@@ -179,6 +172,7 @@ const AddProduct = () => {
                                                     handleStateChange(e);
                                                     setFieldValue('Category', e.target.value);
                                                 }}
+                                                value={values.Category}
                                             >
                                                 {Categorydata &&
                                                     Categorydata.map((item, i) => (
@@ -194,7 +188,7 @@ const AddProduct = () => {
                                             />
 
                                             <div className="N-profileInput">
-                                                <IonLabel>Product Sub Category</IonLabel>
+                                                <IonLabel>Product Sub Category*</IonLabel>
                                                 <IonSelect
                                                     placeholder="Product Sub Category"
                                                     className="ion-margin-top"
@@ -202,6 +196,7 @@ const AddProduct = () => {
                                                     onIonChange={(e) => {
                                                         setFieldValue('subCategory', e.target.value);
                                                     }}
+                                                    value={values.subCategory}
                                                 >
                                                     {subCategorydata &&
                                                         subCategorydata.map((item, i) => (
@@ -318,7 +313,6 @@ const AddProduct = () => {
                                         <div className="flex ion-padding-top">
                                             <IonButton
                                                 onClick={() => {
-                                                    // resetForm();
                                                     setImagePreview(null);
                                                     setImagePreview2(null);
                                                     setImagePreview3(null);
@@ -338,7 +332,7 @@ const AddProduct = () => {
                     )}
                 </Formik>
             </IonContent>
-        </IonPage >
+        </IonPage>
     );
 };
 
