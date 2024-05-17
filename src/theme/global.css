@@ -2160,7 +2160,9 @@ ul.ProHomeList li::before {
 .EditprofileImg .ProfileImg {
   width: 100%;
   border-radius: 50%;
+  min-width: 130px;
   max-width: 130px;
+  max-height: 130px;
   min-height: 130px;
   position: relative;
   border: 10px solid #fff;
@@ -2965,8 +2967,8 @@ label.N-EditProfile {
 
 .N-ProfileEdit .image-upload {
   position: absolute;
-  margin-left: 86px;
-  top: 115px;
+  margin-left: 96px;
+  top: 85px;
 }
 
 .N-VegNon ion-label {
