@@ -57,7 +57,7 @@ const EditSubmitRecipeStep2 = (props) => {
       Yup.string().required("Step description is required")
     ),
     blogLink: Yup.string().required("Blog link is required"),
-    youtubeLink: Yup.string().required("Youtube link is required"),
+    // youtubeLink: Yup.string().required("Youtube link is required"),
   });
 
   const handleSubmit = async (values) => {
@@ -104,7 +104,7 @@ const EditSubmitRecipeStep2 = (props) => {
                     <>
                       <IonGrid>
                         <IonCol size="12">
-                          <h4>Preparation Procedure edir</h4>
+                          <h4>Preparation Procedure edit</h4>
                         </IonCol>
                         {values.ingredients &&
                           values.ingredients.length > 0 &&
@@ -317,12 +317,12 @@ const EditSubmitRecipeStep2 = (props) => {
                             setFieldValue(`youtubeLink`, e.detail.value)
                           }
                         ></IonInput>
-                        <ErrorMessage
+                        {/* <ErrorMessage
                           color="danger"
                           name="youtubeLink"
                           component="div"
                           className="error-message error-text"
-                        />
+                        /> */}
                       </div>
                     </IonCol>
                   </IonRow>

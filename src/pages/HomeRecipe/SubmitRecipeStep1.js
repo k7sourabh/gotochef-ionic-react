@@ -409,11 +409,14 @@ const SubmitRecipeStep1 = (props) => {
                         <IonItem
                           className="ion-no-padding"
                           value={data.technique_name}
-                          onClick={() =>
+                          onClick={() => {
                             setTechniquesArr((prev) => [
                               ...prev,
                               data.technique_name,
                             ])
+                            setShowTeq([])
+                            setIsOpen(false)
+                          }
                           }
                           key={index}
                         >

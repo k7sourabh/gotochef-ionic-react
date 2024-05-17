@@ -27,7 +27,6 @@ const OTPPopup = (props) => {
   const [present] = useIonToast();
   const history = useHistory();
   const { login } = useAuth();
-  // console.log(showOtpInputBox);
   const validationSchema = Yup.object({
     number: Yup.string()
       .matches(/^[6-9]\d{9}$/, {

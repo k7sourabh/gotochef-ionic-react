@@ -3717,6 +3717,9 @@ label.cover-img-upload ion-text {
     min-height: auto;
     --overflow: visible;
 }
+.image-upload input {
+  display: none;
+}
 .topImage{
   position: relative;
 }

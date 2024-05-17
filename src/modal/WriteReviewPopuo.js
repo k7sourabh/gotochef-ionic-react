@@ -78,7 +78,6 @@ const WriteReview = (props) => {
         user_id: "3996",
         is_inmykitchen: mySmartKitchen && 1,
       };
-      console.log(obj);
       const response = await postApiDataWithAuth(
         "/post-user-product-review",
         obj
