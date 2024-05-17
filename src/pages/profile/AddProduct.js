@@ -71,7 +71,7 @@ const AddProduct = () => {
         }
     };
 
-    const handleSubmit = async (values, actions) => {
+    const handleSubmit = async (values) => {
         try {
             const formData = new FormData();
             formData.append('product_name', values.Productname);
@@ -87,7 +87,7 @@ const AddProduct = () => {
 
             if (response.data.status === 200) {
                 presentToast("Top", response?.data?.message_response);
-               
+
                 setTimeout(() => {
                     history.push('/profile');
                 }, 3000);
@@ -97,8 +97,6 @@ const AddProduct = () => {
             console.error('Error submitting the form', error);
             presentToast("Top",)
         }
-         actions.resetForm();
-         setImagePreview(null)       
     };
 
     const presentToast = (position, message) => {
@@ -121,7 +119,7 @@ const AddProduct = () => {
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validateForm}
-                    onSubmit={(values, actions) => handleSubmit(values, actions)}
+                    onSubmit={(values) => handleSubmit(values)}
                 >
                     {({ isSubmitting, setFieldValue, values }) => (
                         <Form>
@@ -312,12 +310,7 @@ const AddProduct = () => {
                                     <IonCol>
                                         <div className="flex ion-padding-top">
                                             <IonButton
-                                                onClick={() => {
-                                                    setImagePreview(null);
-                                                    setImagePreview2(null);
-                                                    setImagePreview3(null);
-                                                    setImagePreview4(null);
-                                                }}
+                                                onClick={() => history.push('/profile')}
                                             >
                                                 CANCEL
                                             </IonButton>
