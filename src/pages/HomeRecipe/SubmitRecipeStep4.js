@@ -10,7 +10,7 @@ import {
 } from "@ionic/react";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { postApiDataWithAuth } from "../../utils/Utils";
+import { getApiDataWithAuth, postApiDataWithAuth } from "../../utils/Utils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const SubmitRecipeStep4 = (props) => {
@@ -45,8 +45,8 @@ const SubmitRecipeStep4 = (props) => {
         "/saveRecipeLastStep",
         formdata
       );
-       presentToast("Top", response?.data?.message);
-       history.push('/my-recipe')
+      presentToast("Top", response?.data?.message);
+      history.push('/my-recipe')
     } catch (err) {
       console.error(err);
     }

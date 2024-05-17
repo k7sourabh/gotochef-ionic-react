@@ -32,8 +32,8 @@ const SubmitRecipeStep2 = (props) => {
     ),
     blogLink: Yup.string()
     .required("Blog link is required"),
-    youtubeLink: Yup.string()
-    .required("Youtube link is required"),
+    // youtubeLink: Yup.string()
+    // .required("Youtube link is required"),
   });
 
   const initialValues = {
@@ -265,12 +265,12 @@ const SubmitRecipeStep2 = (props) => {
                       setFieldValue(`youtubeLink`, e.detail.value)
                     }
                   ></IonInput>
-                  <ErrorMessage
+                  {/* <ErrorMessage
                     color="danger"
                     name="youtubeLink"
                     component="div"
                     className="error-message error-text"
-                  />
+                  /> */}
                 </IonCol>
 
                 <IonCol size="12">

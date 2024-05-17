@@ -12,6 +12,7 @@ import {
   IonLabel,
   IonPage,
   IonRow,
+  IonText,
   IonTitle,
 } from "@ionic/react";
 import {
@@ -26,20 +27,26 @@ import {
 import SubmitArticals from "../Articals/SubmitArticals";
 import { getApiDataWithAuth } from "../../utils/Utils";
 import SubmitRecipe from "./SubmitRecipe";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useLocation, useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-const MyRecipe = () => {
+const MyRecipeComponent = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [recipeData, setRecipeData] = useState({});
   const [editRecipe, showEditRecipe] = useState(false);
   const [recipeObj, setRecipeObj] = useState({});
-  const { id } = useParams();
+  const param = useParams();
+  const location = useLocation();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
-  const MyRecipe = async () => {
+  useEffect(() => {
+    console.log('useEfff')
+    fetchRecipeData();
+  }, [location]);
+
+  const fetchRecipeData = async () => {
     try {
       const response = await getApiDataWithAuth("/myRecipes");
       setRecipeData(response.data.data);
@@ -47,10 +54,6 @@ const MyRecipe = () => {
       console.error(err);
     }
   };
-  useEffect(() => {
-    MyRecipe();
-  }, []);
-
 
   const showPreprationTime = (data) => {
     let arr = data.split("-")
@@ -87,32 +90,32 @@ const MyRecipe = () => {
 
         <IonGrid>
           <IonRow className="ion-padding-top">
-          <IonTitle color="dark">Recipes Draft</IonTitle>
+            <IonTitle color="dark">Recipes Draft</IonTitle>
           </IonRow>
           <IonRow className="ion-padding-vertical">
-            {recipeData &&
+            {recipeData && recipeData?.recipes_draft && recipeData?.recipes_draft.length > 0 ? (
               recipeData?.recipes_draft?.map((data, index) => (
                 <IonCol size="6" key={index}>
                   <IonCard className="ProductCard MyRecipeCard">
                     <div className="vegIcon">
                       <div className="flex ion-align-items-center">
-                          {data?.foodtype === "vegetarian" ? (
-                            <img
-                              src="/assets/img/veg-icon.svg"
-                              alt="Images"
-                              className="icon-img"
-                            />
-                          ) : data?.foodtype === "non-vegetarian" ? (
-                            <img
-                              src="/assets/img/non-veg-icon.svg"
-                              alt="Images"
-                              className="icon-img"
-                            />
-                          ) : (
-                            <></>
-                          )}
+                        {data?.foodtype === "vegetarian" ? (
+                          <img
+                            src="/assets/img/veg-icon.svg"
+                            alt="Images"
+                            className="icon-img"
+                          />
+                        ) : data?.foodtype === "non-vegetarian" ? (
+                          <img
+                            src="/assets/img/non-veg-icon.svg"
+                            alt="Images"
+                            className="icon-img"
+                          />
+                        ) : (
+                          <></>
+                        )}
                       </div>
-                   
+
                       <div className="Draft-Edit">
                         <IonButton fill="clear" className="save-btn">
                           <IonIcon
@@ -123,8 +126,8 @@ const MyRecipe = () => {
                         </IonButton>
 
                         <IonButton
-                        className="edit-btn"
-                        size="small"
+                          className="edit-btn"
+                          size="small"
                           fill="clear"
                           routerLink={`/submit-recipe/${data.id}`}
                           onClick={() => {
@@ -134,11 +137,11 @@ const MyRecipe = () => {
                         >
                           <i class="material-icons">edit</i>
                         </IonButton>
-                        </div>
-                      
-                      
-                     
-                     
+                      </div>
+
+
+
+
                     </div>
                     <div className="RecentProducts">
                       <div className="RecipePro">
@@ -151,10 +154,10 @@ const MyRecipe = () => {
                           }}
                         />
                         {/* <img
-                        className="RecentUserImg"
-                        src="/assets/img/1525870462-Listing.jpg"
-                        alt=""
-                      /> */}
+          className="RecentUserImg"
+          src="/assets/img/1525870462-Listing.jpg"
+          alt=""
+        /> */}
                         <div className="TimeingBar">
                           <div className="ReciRow">
                             <IonIcon icon={atCircleOutline}></IonIcon>
@@ -171,14 +174,14 @@ const MyRecipe = () => {
                         <div className="productRecipe">
                           <span>{data?.recipesName}</span>
                           {/* <div className="productRecipe">
-                            <IonIcon
-                              size="medium"
-                              aria-hidden="true"
-                              icon={pint}
-                              slot="start"
-                            ></IonIcon>
-                            <IonLabel>Breakfast</IonLabel>
-                          </div> */}
+              <IonIcon
+                size="medium"
+                aria-hidden="true"
+                icon={pint}
+                slot="start"
+              ></IonIcon>
+              <IonLabel>Breakfast</IonLabel>
+            </div> */}
                         </div>
                         <div className="productRecipe">
                           <div className="ProfileRecipe">
@@ -212,7 +215,13 @@ const MyRecipe = () => {
                     </div>
                   </IonCard>
                 </IonCol>
-              ))}
+              ))
+            ) : (
+              <IonCol size="12" className="ion-padding-horizontal">
+                <IonText>No draft recipe found</IonText>
+              </IonCol>
+            )
+            }
           </IonRow>
         </IonGrid>
 
@@ -437,4 +446,4 @@ const MyRecipe = () => {
   );
 };
 
-export default MyRecipe;
+export default MyRecipeComponent;
