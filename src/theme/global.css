@@ -2158,10 +2158,18 @@ ul.ProHomeList li::before {
 }
 
 .EditprofileImg .ProfileImg {
-  border-radius: 100px;
-  max-width: 150px;
   width: 100%;
+  border-radius: 50%;
+  min-width: 130px;
+  max-width: 130px;
+  max-height: 130px;
+  min-height: 130px;
   position: relative;
+  border: 10px solid #fff;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
 }
 
 .image-upload {
@@ -2959,8 +2967,8 @@ label.N-EditProfile {
 
 .N-ProfileEdit .image-upload {
   position: absolute;
-  margin-left: 138px;
-  top: 89px;
+  margin-left: 96px;
+  top: 85px;
 }
 
 .N-VegNon ion-label {
@@ -3023,6 +3031,7 @@ label.N-EditProfile {
   font-size: 40px !important;
   color: #fff !important;
 }
+
 .ImgIcon img {
   background-color: #9a1504;
   border-radius: 10px;
@@ -3175,6 +3184,7 @@ label.N-EditProfile {
 .ImgIcon :checked+label ion-icon {
   border: 2px solid #000;
 }
+
 .ImgIcon :checked+label img {
   border: 2px solid #000;
 }
@@ -3551,9 +3561,11 @@ ul {
 #Cover-Profile {
   display: none;
 }
-input#Cover-Profile1{
+
+input#Cover-Profile1 {
   display: none;
 }
+
 input#Cover-Profile2 {
   display: none;
 }
@@ -3631,7 +3643,7 @@ label.cover-img-upload ion-text {
   gap: 10px;
 }
 
-.TagsInput-block  .react-tagsinput-tag {
+.TagsInput-block .react-tagsinput-tag {
   padding: 8px 15px;
   background: #fff;
   border-radius: 30px;
@@ -3674,6 +3686,7 @@ label.cover-img-upload ion-text {
 .inputsGroup .inputBox {
   width: 100%;
 }
+
 .MyRecipeCard .vegIcon {
   display: flex;
   align-items: center;
@@ -3683,46 +3696,54 @@ label.cover-img-upload ion-text {
   width: 90%;
   padding: 0px 10px;
 }
+
 .MyRecipeCard .saveIcon {
   width: 100%;
   max-width: 50px;
   height: 40px !important;
   min-height: auto;
   --overflow: visible;
-  
+
 }
+
 .MyRecipeCard .vegIcon img {
   max-width: 20px;
   width: 40px;
   border-radius: 0px !important;
 }
-.Draft-Edit{
-    display: flex;
-    flex-direction: column;
-    margin-right: -20px;
-    right: 0px;
+
+.Draft-Edit {
+  display: flex;
+  flex-direction: column;
+  margin-right: -20px;
+  right: 0px;
 }
-.save-btn{
+
+.save-btn {
   width: 100%;
-    max-width: 50px;
-    height: 40px !important;
-    min-height: auto;
-    --overflow: visible;
+  max-width: 50px;
+  height: 40px !important;
+  min-height: auto;
+  --overflow: visible;
 }
-.edit-btn{
+
+.edit-btn {
   margin: -10px 0px 0px 0px;
   width: 100%;
-    max-width: 50px;
-    height: 40px !important;
-    min-height: auto;
-    --overflow: visible;
+  max-width: 50px;
+  height: 40px !important;
+  min-height: auto;
+  --overflow: visible;
 }
+
 .image-upload input {
   display: none;
 }
-.topImage{
+
+.topImage {
   position: relative;
 }
+
 .topIcon {
   position: absolute;
   top: 10px;
@@ -3731,38 +3752,46 @@ label.cover-img-upload ion-text {
   align-items: center;
   gap: 15px;
 }
-.topIcon .iconTop{
+
+.topIcon .iconTop {
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.review-award{
+
+.review-award {
   text-align: center;
 }
+
 .review-award .line {
   width: 153px;
   height: 1px;
   background: #00000052;
   margin: 10px auto;
 }
+
 .review-lock {
   position: absolute;
   top: 15px;
   left: 15px;
 }
-.review-help{
+
+.review-help {
   position: relative;
 }
-.about-profile{
+
+.about-profile {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .about-profile span {
- margin-right: 10px;
- font-size: 20px;
- color: #9a1504;
+  margin-right: 10px;
+  font-size: 20px;
+  color: #9a1504;
 }
-.about-name{
+
+.about-name {
   color: #9a1504;
 }
