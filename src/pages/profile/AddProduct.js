@@ -99,9 +99,7 @@ const AddProduct = () => {
                 setImagePreview2(null);
                 setImagePreview3(null);
                 setImagePreview4(null);
-                setTimeout(() => {
-                    history.push('/profile');
-                }, 3000);
+              
             }
         } catch (errors) {
             console.errors('Error submitting the form', errors);
@@ -114,7 +112,9 @@ const AddProduct = () => {
         setImagePreview2(null);
         setImagePreview3(null);
         setImagePreview4(null);
+        history.push('/profile');
     }
+  
 
     const presentToast = (position, message) => {
         present({
