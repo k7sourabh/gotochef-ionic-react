@@ -16,9 +16,16 @@ import {
     useIonToast,
   } from "@ionic/react";
   import { closeCircleOutline } from "ionicons/icons";
+  import { useHistory } from 'react-router-dom';
 
 function AddProductPopup(props) {
     const { isOpen, setIsOpen, responcedata } = props;
+    const history = useHistory();
+
+    const handleFrom=()=>{
+        setIsOpen(false)
+        history.push('/profile');
+    }
 
     return (
         <IonModal isOpen={isOpen} className="myModel">
@@ -26,7 +33,7 @@ function AddProductPopup(props) {
                 <IonToolbar>
                     <IonTitle>Product Submission Response</IonTitle>
                     <IonButtons slot="end">
-                        <IonButton onClick={() => setIsOpen(false)}>
+                        <IonButton onClick={() =>handleFrom()}>
                             <IonIcon color="dark" size="large" icon={closeCircleOutline} />
                         </IonButton>
                     </IonButtons>

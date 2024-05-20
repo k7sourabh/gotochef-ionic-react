@@ -107,7 +107,9 @@ const AddProduct = () => {
         setImagePreview2(null);
         setImagePreview3(null);
         setImagePreview4(null);
+        history.push('/profile');
     }
+  
 
     return (
         <IonPage>
