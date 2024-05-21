@@ -11,7 +11,6 @@ import {
     IonSelectOption,
     IonTitle,
     IonGrid,
-    useIonToast,
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { getApiData, postApiData } from '../../utils/Utils';
@@ -28,9 +27,7 @@ const AddProduct = () => {
     const [imagePreview3, setImagePreview3] = useState(null);
     const [imagePreview4, setImagePreview4] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
-    const [responcedata,setResponceData]=useState({})
-
-    const [present] = useIonToast();
+    const [responcedata, setResponceData] = useState({})
     const history = useHistory();
 
     const initialValues = {
@@ -66,7 +63,7 @@ const AddProduct = () => {
     }, []);
 
     const handleStateChange = async (proid) => {
-        if(proid){
+        if (proid) {
             try {
                 const response = await getApiData(`getSubcatProductlist/${proid}`);
                 setSubCategoryData(response?.data?.subcat_data);
@@ -91,7 +88,6 @@ const AddProduct = () => {
             const response = await postApiData('user-add-product', formData);
 
             if (response.data.status === 200) {
-                presentToast("Top", response?.data?.message_response);
                 setResponceData(response?.data?.message_response)
                 setIsOpen(true);
                 resetForm();
@@ -99,14 +95,13 @@ const AddProduct = () => {
                 setImagePreview2(null);
                 setImagePreview3(null);
                 setImagePreview4(null);
-              
+                history.push('/profile');
             }
         } catch (errors) {
             console.errors('Error submitting the form', errors);
-            presentToast("Top", errors);
         }
     };
-    const  clearForm=(resetForm)=>{
+    const clearForm = (resetForm) => {
         resetForm();
         setImagePreview(null);
         setImagePreview2(null);
@@ -116,13 +111,6 @@ const AddProduct = () => {
     }
   
 
-    const presentToast = (position, message) => {
-        present({
-            message: message,
-            duration: 1500,
-            position: position,
-        });
-    };
     return (
         <IonPage>
             <IonContent fullscreen>
@@ -139,7 +127,7 @@ const AddProduct = () => {
                         handleSubmit(values, { resetForm });
                     }}
                 >
-                    {({ isSubmitting, setFieldValue, values,resetForm }) => {
+                    {({ isSubmitting, setFieldValue, values, resetForm }) => {
                         return (
                             <Form>
                                 <IonGrid className="ion-padding-horizontal">
@@ -192,7 +180,7 @@ const AddProduct = () => {
                                                             value
                                                         )
                                                         setFieldValue('Category', value);
-                                                       
+
                                                     }}
                                                 >
                                                     {Categorydata &&
@@ -350,7 +338,7 @@ const AddProduct = () => {
                         );
                     }}
                 </Formik>
-               
+
                 <AddProductPopup isOpen={isOpen} setIsOpen={setIsOpen} responcedata={responcedata} />
             </IonContent>
         </IonPage>
