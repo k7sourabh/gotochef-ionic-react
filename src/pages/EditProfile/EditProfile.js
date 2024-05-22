@@ -21,6 +21,7 @@ import {
   IonHeader,
   IonTitle,
   IonModal,
+  useIonToast,
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
@@ -34,6 +35,7 @@ const EditProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [cityListData, setCityListData] = useState([]);
   const [stateListtData, setStateListtData] = useState([]);
+  const [present] = useIonToast();
   const [formValues, setFormValues] = useState({
     avatar: "",
     name: "",
@@ -133,11 +135,20 @@ const EditProfile = () => {
         "/user-update-personal-info",
         formdata
       );
+      console.log("update",response);
+      presentToast("Top", response?.data?.message_response);
      
     } catch (err) {
       console.error(err);
     }
   };
+  const presentToast = (position, message) => {
+    present({
+        message: message,
+        duration: 1500,
+        position: position,
+    });
+};
 
   return (
     <>

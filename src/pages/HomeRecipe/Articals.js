@@ -1,12 +1,50 @@
-import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonLabel, IonHeader, IonButton, IonTitle,  IonCard } from "@ionic/react";
+import {
+   IonSegment,
+   IonSegmentButton,
+   IonCol,
+   IonGrid,
+   IonPage,
+   IonContent,
+   IonRow,
+   IonText,
+   IonLabel,
+   IonHeader,
+   IonButton,
+   IonTitle,
+   IonCard
+} from "@ionic/react";
 import Header from "../../components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getApiData, postApiData } from '../../utils/Utils';
 
 const Articals = () => {
    const [selectedTabladder, setSelectedTabladder] = useState("Submitted");
    const handleTabChangeladder = (event) => {
       setSelectedTabladder(event.detail.value);
    };
+   const [submitdata, setSubmitData] = useState([]);
+   const [approveddata, setApprovedData] = useState([]);
+
+
+   const fetchArticalData = async () => {
+      try {
+         const response = await getApiData("my-articles")
+         setSubmitData(response?.data?.my_articles?.submit_articles)
+         setApprovedData(response?.data?.my_articles?.approved_articles)
+      } catch (err) {
+         console.log(err);
+      }
+   }
+   const truncateText = (text, maxLength) => {              
+      if (text.length > maxLength) {
+         return text.substr(0, maxLength) + '...';
+      }
+      return text;
+   };
+
+   useEffect(() => {
+      fetchArticalData();
+   }, [])
    return (
       <>
          <IonPage>
@@ -14,18 +52,18 @@ const Articals = () => {
             <IonContent>
                <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
                   <div className="TitleHead">
-                  <IonButton className="backBtn" fill="clear" routerLink="/profile">
-                     <i class="material-icons dark">west</i>
-                  </IonButton>
-                  <IonTitle color="dark">My Articles</IonTitle>
+                     <IonButton className="backBtn" fill="clear" routerLink="/profile">
+                        <i class="material-icons dark">west</i>
+                     </IonButton>
+                     <IonTitle color="dark">My Articles</IonTitle>
                   </div>
                   <div className="flex ion-justify-content-end ion-align-items-end">
-                  <IonButton  className="ion-padding-horizontal" fill="outline" size="small" shape="round" routerLink="/submit-articals">
+                     <IonButton className="ion-padding-horizontal" fill="outline" size="small" shape="round" routerLink="/submit-articals">
                         <i class="material-icons dark">add</i>
-                        </IonButton>
+                     </IonButton>
                   </div>
                </IonHeader>
-               
+
                <IonGrid className="ion-no-padding">
                   <IonRow className="ion-padding-horizontal">
                      <IonCol size="12">
@@ -45,83 +83,108 @@ const Articals = () => {
 
                         {selectedTabladder === "Submitted" && (
                            <IonGrid>
-                              <IonRow>
-                                 <IonCol size="6">
-                                    <IonCard className="ArticalCard">
-                                       <div className="vegIcon">
-                                          <img src="/assets/img/icon-veg.svg" alt="" />
-                                       </div>
-                                       <div className="RecentProducts">
-                                          <img
-                                             className="RecentUserImg"
-                                             src="/assets/img/1525870462-Listing.jpg"
-                                             alt=""
-                                          />
-                                          <div className="bottomArtical">
-                                             <IonText>
-                                                Margerrita Pizza: A classic food to relish
-                                             </IonText>
-                                             <div className="productRecipe">
-                                                <IonText className="ArticalTextName">By Chiara</IonText>
-                                                <IonText className="ArticalTextDate">15 Oct, 2020</IonText>
-                                             </div>
-                                             <div className=" productRecipe Articalpera">
-                                                <IonText>
-                                                   Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                                                   diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                                                   aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nos-
-                                                   trud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex
-                                                </IonText>
-                                             </div>
+                              {submitdata && submitdata.length > 0 ? (
+                                 <IonRow>
+                                    {
+                                       submitdata?.map?.((item, i) => (
+
+                                          <IonCol size="6" key={i}>
+                                             <IonCard className="ArticalCard">
+                                                <div className="vegIcon">
+                                                   <img src="/assets/img/icon-veg.svg" alt="" />
+                                                </div>
+                                                <div className="RecentProducts">
+                                                   <img
+                                                      className="RecentUserImg"
+                                                      src={item.images}
+                                                      alt=""
+                                                   />
+                                                   <div className="bottomArtical">
+                                                      <IonText>
+                                                         {truncateText(item.highlights, 30)}
+                                                      </IonText>
+                                                      <div className="productRecipe">
+                                                         <IonText className="ArticalTextName">{item.articleName}</IonText>
+                                                         <IonText className="ArticalTextDate">{item.created_at}</IonText>
+                                                      </div>
+                                                      <div className=" productRecipe Articalpera">
+                                                         <IonText>
+                                                            {truncateText(item.longDescription, 100)}
+
+                                                         </IonText>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </IonCard>
+                                          </IonCol>
+                                       ))}
+                                 </IonRow>
+                              ) : (
+                                 <IonGrid className="ion-padding-vertical ion-padding-horizontal">
+                                    <IonRow>
+                                       <IonCol>
+                                          <div className="NoSubmitBtn">
+                                             <IonButton fill="clear">
+                                                No Submitted Recipes
+                                             </IonButton>
                                           </div>
-                                       </div>
-                                    </IonCard>
-                                 </IonCol>
-                                 <IonCol size="6">
-                                    <IonCard className="ArticalCard">
-                                       <div className="vegIcon">
-                                          <img src="/assets/img/icon-veg.svg" alt="" />
-                                       </div>
-                                       <div className="RecentProducts">
-                                          <img
-                                             className="RecentUserImg"
-                                             src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
-                                             alt=""
-                                          />
-                                          <div className="bottomArtical">
-                                             <IonText>
-                                                Margerrita Pizza: A classic food to relish
-                                             </IonText>
-                                             <div className="productRecipe">
-                                                <IonText className="ArticalTextName">By Chiara</IonText>
-                                                <IonText className="ArticalTextDate">15 Oct, 2020</IonText>
-                                             </div>
-                                             <div className=" productRecipe Articalpera">
-                                                <IonText>
-                                                   Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                                                   diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                                                   aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nos-
-                                                   trud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex
-                                                </IonText>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </IonCard>
-                                 </IonCol>
-                              </IonRow>
+                                       </IonCol>
+                                    </IonRow>
+                                 </IonGrid>
+                              )}
                            </IonGrid>
                         )}
                         {selectedTabladder === "Approved" && (
-                           <IonGrid className="ion-padding-vertical ion-padding-horizontal">
-                              <IonRow>
-                                 <IonCol>
-                                    <div className="NoSubmitBtn">
-                                       <IonButton fill="clear">
-                                          No Submitted Recipes
-                                       </IonButton>
-                                    </div>
-                                 </IonCol>
-                              </IonRow>
+                           <IonGrid>
+                              {approveddata && approveddata.length > 0 ? (
+                                 <IonRow>
+                                    {
+                                       approveddata?.map?.((item, i) => (
+
+                                          <IonCol size="6" key={i}>
+                                             <IonCard className="ArticalCard">
+                                                <div className="vegIcon">
+                                                   <img src="/assets/img/icon-veg.svg" alt="" />
+                                                </div>
+                                                <div className="RecentProducts">
+                                                   <img
+                                                      className="RecentUserImg"
+                                                      src={item.images}
+                                                      alt=""
+                                                   />
+                                                   <div className="bottomArtical">
+                                                      <IonText>
+                                                         {truncateText(item.shortDescription, 25)}
+
+                                                      </IonText>
+                                                      <div className="productRecipe">
+                                                         <IonText className="ArticalTextName">{item.approvedarticleName}</IonText>
+                                                         <IonText className="ArticalTextDate">{item.created_at}</IonText>
+                                                      </div>
+                                                      <div className=" productRecipe Articalpera">
+                                                         <IonText>
+                                                            {truncateText(item.longDescription, 100)}
+                                                         </IonText>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </IonCard>
+                                          </IonCol>
+                                       ))}
+                                 </IonRow>
+                              ) : (
+                                 <IonGrid className="ion-padding-vertical ion-padding-horizontal">
+                                    <IonRow>
+                                       <IonCol>
+                                          <div className="NoSubmitBtn">
+                                             <IonButton fill="clear">
+                                                No Approved Recipes
+                                             </IonButton>
+                                          </div>
+                                       </IonCol>
+                                    </IonRow>
+                                 </IonGrid>
+                              )}
                            </IonGrid>
                         )}
 
