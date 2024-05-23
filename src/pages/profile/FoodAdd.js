@@ -1,4 +1,5 @@
-import { IonButton, IonCheckbox, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonTitle } from '@ionic/react'
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCheckbox, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from '@ionic/react'
+import { heartOutline } from 'ionicons/icons';
 import React, { useState } from 'react'
 import Header from '../../components/Header'
 
@@ -100,10 +101,134 @@ const FoodAdd = () => {
 
               </IonSegment>
               {selectedTab === "step1" && (
-                <div>Favorite List</div>
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size='6'>
+                    <IonCard className="ProductCard">
+                      <IonCardHeader className="ProductThumb">
+                        <img
+                          src="/assets/img/product-img.png"
+                          alt="category cover"
+                          className="MainProductThumb"
+                         
+                        />
+                      </IonCardHeader>
+                      <IonCardContent className="ProductDetails">
+                        <IonText className="ProductTitle">
+                        Chia Seeds
+                        </IonText>
+                        <div className="PriceRating">
+                          <IonText color="dark" className="CurrentPrice">
+                          Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                          </IonText>
+                          
+                        </div>
+                        <IonButton size='default' fill='outline' shape='round'>
+                            Read More
+                        </IonButton>
+                        <IonButton size='default' fill='outline' shape='round'>
+                            Delete
+                        </IonButton>
+                      </IonCardContent>
+                    </IonCard>
+                    </IonCol>
+                    <IonCol size='6'>
+                    <IonCard className="ProductCard">
+                      <IonCardHeader className="ProductThumb">
+                        <img
+                          src="/assets/img/1525870462-Listing.jpg"
+                          alt="category cover"
+                          className="MainProductThumb"
+                         
+                        />
+                      </IonCardHeader>
+                      <IonCardContent className="ProductDetails">
+                        <IonText className="ProductTitle">
+                        Chia Seeds
+                        </IonText>
+                        <div className="PriceRating">
+                          <IonText color="dark" className="CurrentPrice">
+                          Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                          </IonText>
+                          
+                        </div>
+                        <IonButton size='default' fill='outline' shape='round'>
+                            Read More
+                        </IonButton>
+                        <IonButton size='default' fill='outline' shape='round'>
+                            Delete
+                        </IonButton>
+                      </IonCardContent>
+                    </IonCard>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+                
+
               )}
               {selectedTab === "step2" && (
-                <div>Negative List</div>
+                <IonGrid>
+                <IonRow>
+                <IonCol size='6'>
+                  <IonCard className="ProductCard">
+                    <IonCardHeader className="ProductThumb">
+                      <img
+                        src="/assets/img/1525870462-Listing.jpg"
+                        alt="category cover"
+                        className="MainProductThumb"
+                       
+                      />
+                    </IonCardHeader>
+                    <IonCardContent className="ProductDetails">
+                      <IonText className="ProductTitle">
+                      Chia Seeds
+                      </IonText>
+                      <div className="PriceRating">
+                        <IonText color="dark" className="CurrentPrice">
+                        Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                        </IonText>
+                        
+                      </div>
+                      <IonButton size='default' fill='outline' shape='round'>
+                          Read More
+                      </IonButton>
+                      <IonButton size='default' fill='outline' shape='round'>
+                          Delete
+                      </IonButton>
+                    </IonCardContent>
+                  </IonCard>
+                  </IonCol>
+                  <IonCol size='6'>
+                  <IonCard className="ProductCard">
+                    <IonCardHeader className="ProductThumb">
+                      <img
+                        src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
+                        alt="category cover"
+                        className="MainProductThumb"
+                       
+                      />
+                    </IonCardHeader>
+                    <IonCardContent className="ProductDetails">
+                      <IonText className="ProductTitle">
+                      Chia Seeds
+                      </IonText>
+                      <div className="PriceRating">
+                        <IonText color="dark" className="CurrentPrice">
+                        Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                        </IonText>
+                        
+                      </div>
+                      <IonButton size='default' fill='outline' shape='round'>
+                          Read More
+                      </IonButton>
+                      <IonButton size='default' fill='outline' shape='round'>
+                          Delete
+                      </IonButton>
+                    </IonCardContent>
+                  </IonCard>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
               )}
             </IonCol>
           </IonRow>

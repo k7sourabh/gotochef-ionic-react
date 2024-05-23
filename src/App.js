@@ -79,6 +79,8 @@ import LoginPopup from "./modal/LoginPopup";
 import OTPPopup from "./modal/OTPPopup";
 import IngredientDetail from "./pages/Ingredient/IngredientDetail";
 import SavedContent from "./pages/profile/SavedContent";
+import ArticalList from "./pages/HomeRecipe/ArticalList";
+import ArticalDetail from "./pages/HomeRecipe/ArticalDetail";
 
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
@@ -155,6 +157,8 @@ const App = () => {
                 <PrivateRoute path="/order-fail" component={OrderFail} />
                 <PrivateRoute path="/add-ingredient" component={AddIngredient} />
                 <PrivateRoute path="/ingredient-detail" component={IngredientDetail} />
+                <PrivateRoute path="/artical-list" component={ArticalList} />
+                <PrivateRoute path="/artical-detail" component={ArticalDetail} />
                 
                
                 <PrivateRoute
