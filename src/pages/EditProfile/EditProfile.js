@@ -45,7 +45,12 @@ const EditProfile = () => {
     dob: "",
     city: "",
     stateId: "",
+    is_home_cook: "",
+    is_your_self: "",
+    is_grocery_shopping: "",
+    about_us: "",
   });
+  // console.log("formValues", formValues)
   const [stateName, setStateName] = useState("");
 
   const validationSchema = Yup.object().shape({
@@ -77,6 +82,10 @@ const EditProfile = () => {
         number: response?.data?.user_dashboard?.user_form_data?.mobile || "",
         dob: response?.data?.user_dashboard?.user_form_data?.dob || "",
         city: response?.data?.user_dashboard?.user_form_data?.city || "",
+        is_home_cook: response?.data?.user_dashboard?.user_form_data?.is_home_cook || "",
+        is_your_self: response?.data?.user_dashboard?.user_form_data?.is_your_self || "",
+        is_grocery_shopping: response?.data?.user_dashboard?.user_form_data?.is_grocery_shopping || "",
+        about_us: response?.data?.user_dashboard?.user_form_data?.about_us || "",
         // stateId: response?.data?.user_dashboard?.user_form_data?.state_id || "",
       });
     } catch (e) {
@@ -122,6 +131,7 @@ const EditProfile = () => {
   }, [userProfileData]);
 
   const profileSettingPost = async (values) => {
+    // console.log("values", values)
     try {
       const formdata = new FormData();
       formdata.append("firstName", values.name);
@@ -130,25 +140,31 @@ const EditProfile = () => {
       formdata.append("avatar", values.avatar);
       formdata.append("dob", values.dob);
       formdata.append("city", values.city);
+      formdata.append("is_home_cook", values.is_home_cook);
+      formdata.append("is_your_self", values.is_your_self);
+      formdata.append("is_grocery_shopping", values.is_grocery_shopping);
+      formdata.append("about_us", values.about_us);
+
 
       const response = await postApiDataWithAuth(
         "/user-update-personal-info",
         formdata
       );
-      console.log("update",response);
+      console.log("update", response);
       presentToast("Top", response?.data?.message_response);
-     
+
     } catch (err) {
       console.error(err);
     }
   };
   const presentToast = (position, message) => {
     present({
-        message: message,
-        duration: 1500,
-        position: position,
+      message: message,
+      duration: 1500,
+      position: position,
     });
-};
+  };
+
 
   return (
     <>
@@ -267,9 +283,9 @@ const EditProfile = () => {
                               placeholder="Enter your Email"
                               value={values.email}
                               disabled
-                              // onIonChange={(e) =>
-                              //   setFieldValue("email", e.detail.value)
-                              // }
+                            // onIonChange={(e) =>
+                            //   setFieldValue("email", e.detail.value)
+                            // }
                             ></IonInput>
                             {/* <ErrorMessage
                               color="danger"
@@ -288,9 +304,9 @@ const EditProfile = () => {
                               placeholder="Enter your Phone Number"
                               value={values.number}
                               disabled
-                              // onIonChange={(e) =>
-                              //   setFieldValue("number", e.detail.value)
-                              // }
+                            // onIonChange={(e) =>
+                            //   setFieldValue("number", e.detail.value)
+                            // }
                             ></IonInput>
                             {/* <ErrorMessage
                               color="danger"
@@ -400,53 +416,62 @@ const EditProfile = () => {
                             </IonItem>
                             <div slot="content">
                               <div className="ion-padding-bottom Radio-box">
-                                <IonRadioGroup value="strawberries">
+                                <IonRadioGroup
+                                  value={values.is_home_cook}
+                                  onIonChange={(e) => {
+                                    setFieldValue("is_home_cook", e.detail.value);
+                                  }}
+                                >
                                   <h5>
                                     Please select an option suitable to you
                                   </h5>
                                   <div className="RadioBtn">
                                     <div className="RadioField">
-                                      <IonRadio value="Hook"></IonRadio>
+                                      <IonRadio value="HookCook">Hook Cook</IonRadio>
                                       <IonLabel>Hook Cook</IonLabel>
                                     </div>
                                     <div className="RadioField">
-                                      <IonRadio value="Aspiring"></IonRadio>
+                                      <IonRadio value="AspiringChef"></IonRadio>
                                       <IonLabel>Aspiring Chef</IonLabel>
                                     </div>
                                     <div className="RadioField">
-                                      <IonRadio value="Health">Health</IonRadio>
+                                      <IonRadio value="HealthBuff">Health</IonRadio>
                                       <IonLabel>Health Buff</IonLabel>
                                     </div>
                                     <div className="RadioField">
-                                      <IonRadio value="Professional">
-                                        Professional
+                                      <IonRadio value="ProfessionalChef">
+                                        Professional Chef
                                       </IonRadio>
                                       <IonLabel>Professional Chef</IonLabel>
                                     </div>
                                     <div className="RadioField">
-                                      <IonRadio value="Food">Food</IonRadio>
+                                      <IonRadio value="FoodEnthusiast">Food Enthusiast</IonRadio>
                                       <IonLabel>Food Enthusiast</IonLabel>
                                     </div>
                                   </div>
                                 </IonRadioGroup>
                               </div>
                               <div className="ion-padding-bottom Radio-box">
-                                <IonRadioGroup value="strawberries">
+                                <IonRadioGroup value={values.is_your_self}
+                                  onIonChange={(e) => {
+                                    setFieldValue("is_your_self", e.detail.value)
+                                  }}
+                                >
                                   <h5>
                                     How many times in a week do you cook for
                                     yourself?
                                   </h5>
                                   <div className="RadioBtn">
                                     <div className="RadioField">
-                                      <IonRadio value="Times">Times</IonRadio>
+                                      <IonRadio value="1-3Times">1-3  Times</IonRadio>
                                       <IonLabel>1-3 Times</IonLabel>
                                     </div>
                                     <div className="RadioField">
-                                      <IonRadio value="3-7">3-7</IonRadio>
+                                      <IonRadio value="3-7Times">3-7 Times</IonRadio>
                                       <IonLabel>3-7 Times</IonLabel>
                                     </div>
                                     <div className="RadioField">
-                                      <IonRadio value="More">More</IonRadio>
+                                      <IonRadio value="More than 7 Times">More than 7 Times</IonRadio>
                                       <IonLabel>More than 7 Times</IonLabel>
                                     </div>
                                     <div className="RadioField">
@@ -457,26 +482,28 @@ const EditProfile = () => {
                                 </IonRadioGroup>
                               </div>
                               <div className="ion-padding-bottom Radio-box">
-                                <IonRadioGroup value="strawberries">
+                                <IonRadioGroup value={values.is_grocery_shopping}
+                                  onIonChange={(e) => {
+                                    setFieldValue("is_grocery_shopping", e.target.value)
+                                  }}>
                                   <h5>
                                     How many times in a month do you go for food
                                     and grocery shopping?
                                   </h5>
                                   <div className="RadioBtn">
                                     <div className="RadioField">
-                                      <IonRadio value="Once">Once</IonRadio>
+                                      <IonRadio value="Once a Month">Oncea Month</IonRadio>
                                       <IonLabel>Once a Month</IonLabel>
                                     </div>
                                     <div className="RadioField">
-                                      <IonRadio value="Month">Month</IonRadio>
+                                      <IonRadio value="4 to 5 Times a Month Times">Month</IonRadio>
                                       <IonLabel>
                                         4 to 5 Times a Month Times
                                       </IonLabel>
                                     </div>
                                     <div className="RadioField">
-                                      <IonRadio value="than">than</IonRadio>
+                                      <IonRadio value="More than 5 times a Month"> More than 5 times a Month</IonRadio>
                                       <IonLabel>
-                                        {" "}
                                         More than 5 times a Month
                                       </IonLabel>
                                     </div>
@@ -486,7 +513,11 @@ const EditProfile = () => {
                               <div className="ion-padding-bottom">
                                 <div className="textAreaField">
                                   <h5>Brief About Myself</h5>
-                                  <IonTextarea
+                                  <IonTextarea value={values.about_us}
+                                    onIonChange={(e) =>
+                                      setFieldValue("about_us", e.detail.value)
+                                    }
+                                     
                                     label="Outline textarea"
                                     placeholder="I am food of cooking and love cooking so i am think this will help me a lot"
                                   ></IonTextarea>
