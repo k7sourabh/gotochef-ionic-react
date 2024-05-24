@@ -16,6 +16,7 @@ import {
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import { getApiData, postApiData } from '../../utils/Utils';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Articals = () => {
    const [selectedTabladder, setSelectedTabladder] = useState("Submitted");
@@ -24,6 +25,7 @@ const Articals = () => {
    };
    const [submitdata, setSubmitData] = useState([]);
    const [approveddata, setApprovedData] = useState([]);
+   const history = useHistory();
 
 
    const fetchArticalData = async () => {
@@ -37,26 +39,27 @@ const Articals = () => {
    }
    const truncateText = (text, maxLength) => {
       if (!text) {
-         return ''; 
+         return '';
       }
       if (text.length > maxLength) {
          return text.substr(0, maxLength) + '...';
       }
       return text;
    };
-   
+
 
    useEffect(() => {
       fetchArticalData();
    }, [])
 
-   const handleEdit=()=>{
-      console.log("editpage")
+   const handleEdit = (id) => {
+      history.push(`/edit-articals/${id}`)
+      console.log("editpage", id)
    }
-   const handleRemove=(articalId)=>{
-      console.log("Remove",articalId)
+   const handleRemove = (articalId) => {
+      console.log("Remove", articalId)
    }
-   const handleview=()=>{
+   const handleview = () => {
       console.log("view")
    }
    return (
@@ -127,14 +130,14 @@ const Articals = () => {
 
                                                          </IonText>
                                                       </div>
-                                                      <IonButton onClick={handleEdit}>Edit</IonButton>
-                                                      <IonButton onClick={()=>handleRemove(item.id)}>Remove</IonButton>
+                                                      <IonButton onClick={() => handleEdit(item.id)}>Edit</IonButton>
+                                                      <IonButton onClick={() => handleRemove(item.id)}>Remove</IonButton>
                                                    </div>
                                                 </div>
                                              </IonCard>
                                           </IonCol>
                                        ))}
-                                      
+
                                  </IonRow>
                               ) : (
                                  <IonGrid className="ion-padding-vertical ion-padding-horizontal">
@@ -160,7 +163,7 @@ const Articals = () => {
 
                                           <IonCol size="6" key={i}>
                                              <IonCard className="ArticalCard">
-                                               
+
                                                 <div className="RecentProducts">
                                                    <img
                                                       className="RecentUserImg"

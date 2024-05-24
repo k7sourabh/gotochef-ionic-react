@@ -11,36 +11,36 @@ import {
     IonSelectOption,
     IonTextarea,
     IonTitle
-} from '@ionic/react'
+} from '@ionic/react';
 
-import Header from '../../components/Header'
-import { getApiData, postApiData } from '../../utils/Utils';
 import { useEffect, useState } from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { image } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
+import { useParams } from "react-router";
+import { getApiData, postApiData } from '../../utils/Utils';
 
-
-
-const SubmitArticals = () => {
-    const [tages, setTages] = useState({})
-    const [category, setCategory] = useState({});
-    const [section, setSection] = useState({});
+const EditArticles = () => {
     const [imagePreview, setImagePreview] = useState(null);
-    const history=useHistory();
+    const [tags, setTags] = useState([]);
+    const [category, setCategory] = useState([]);
+    const [section, setSection] = useState([]);
+    const history = useHistory();
+    const { id } = useParams();
 
-    const initialValues = {
+    const [formValues, setFormValues] = useState({
         title: '',
         introText: '',
         articleContent: '',
         highlights: '',
-        image1: "",
+        image1: '',
         tags: '',
         category: '',
         section: ''
-    };
-    const validateYupSchema = Yup.object().shape({
+    });
+    console.log("formValues",formValues)
+
+    const validationSchema = Yup.object().shape({
         title: Yup.string().required('Title is required'),
         introText: Yup.string().required('Intro Text is required'),
         articleContent: Yup.string().required('Article Content is required'),
@@ -50,68 +50,60 @@ const SubmitArticals = () => {
         section: Yup.string().required('Article Section is required')
     });
 
-    const fetchArticalData = async () => {
+    const fetchArticleData = async () => {
         try {
-            const response = await getApiData('submit-article-get')
-            console.log("response", response);
-            setTages(response?.data?.data?.tags)
-            setCategory(response?.data?.data?.article_category);
-            setSection(response?.data?.data?.article_section);
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    useEffect(() => {
-        fetchArticalData();
-    }, [])
-
-    const handleSubmit = async(values, { resetForm }) => {
-        try{
-            const formData=new FormData();
-            formData.append("article_name",values.title);
-            formData.append("intro_text",values.introText);
-            formData.append("article_description",values.articleContent);
-            formData.append("images",values.image1);
-            formData.append("tags",values.tags);
-            formData.append("article_category",values.category);
-            formData.append("article_section",values.section);
-            const response = await postApiData('submit-article-post',formData)
-          
-            if(response?.data?.status){
-                resetForm();
-                setImagePreview(null);
-                history.push("/articles");
+            const response = await getApiData(`submit-article-edit/${id}`);
+            if (response?.data?.data) {
+                const data = response.data.data;
+                setFormValues({
+                    title: data.article_name || '',
+                    introText: data.intro_text || '',
+                    articleContent: data.article_description || '',
+                    highlights: data.highlights || '',
+                    image1: data.images || '',
+                    tags: data.tags || '',
+                    category: data.article_category || '',
+                    section: data.article_section || ''
+                });
             }
-        }catch(err){
-            console.log(err)
+        } catch (err) {
+            console.log(err);
+            // Handle error here
         }
-      
-    }
+    };
 
-    const handleclear=(resetForm)=>{
-        resetForm();
-        setImagePreview(null);
-        // history.push("/articles");
-    }
+    useEffect(() => {
+        fetchArticleData();
+    }, []);
+
+    const handleSubmit = async (values) => {
+        console.log("values", values);
+        // Add the API call logic to submit the form data here.
+    };
+
+    const handleClear = () => {
+        history.push("/articles");
+    };
+
     return (
         <IonPage>
-            {/* {/ <Header /> /} */}
             <IonContent>
                 <IonHeader className="TitleHead bottom-shadow">
                     <IonButton className="backBtn" fill="clear" routerLink="/profile">
-                        <i class="material-icons dark">west</i>
+                        <i className="material-icons dark">west</i>
                     </IonButton>
-                    <IonTitle color="dark">Submit Articals</IonTitle>
+                    <IonTitle color="dark">Edit Articles</IonTitle>
                 </IonHeader>
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validateYupSchema}
-                    onSubmit={(values, { resetForm }) => {
-                        handleSubmit(values, { resetForm });
-                    }}
-                >
-                    {({ isSubmitting, setFieldValue, values, resetForm }) => {
-                        return (
+                {formValues && (
+                    <Formik
+                        initialValues={formValues}
+                        enableReinitialize={true}
+                        validationSchema={validationSchema}
+                        onSubmit={(values) => {
+                            handleSubmit(values);
+                        }}
+                    >
+                        {({ values, setFieldValue }) => (
                             <Form>
                                 <IonGrid className='ion-padding-horizontal'>
                                     <IonRow>
@@ -123,9 +115,7 @@ const SubmitArticals = () => {
                                                     type="text"
                                                     placeholder="Title Name"
                                                     value={values.title}
-                                                    onIonChange={(e) =>
-                                                        setFieldValue('title', e.target.value)
-                                                    }
+                                                    onIonChange={(e) => setFieldValue('title', e.target.value)}
                                                 />
                                                 <ErrorMessage
                                                     name="title"
@@ -138,34 +128,25 @@ const SubmitArticals = () => {
                                                     type="text"
                                                     placeholder="Intro Text"
                                                     value={values.introText}
-                                                    onIonChange={(e) => {
-                                                        setFieldValue("introText", e.target.value);
-                                                      
-                                                    }}
+                                                    onIonChange={(e) => setFieldValue("introText", e.target.value)}
                                                 />
-
                                                 <IonTextarea
                                                     name='articleContent'
                                                     value={values.articleContent}
-                                                    label="Regular textarea"
                                                     placeholder="Type something here"
-                                                    onIonChange={(e) =>
-                                                        setFieldValue("articleContent", e.target.value)
-                                                    }
+                                                    onIonChange={(e) => setFieldValue("articleContent", e.target.value)}
                                                 />
                                                 <IonInput
                                                     className="ion-margin-vertical"
                                                     name="highlights"
-                                                    type="number"
-                                                    label="Default input"
+                                                    type="text"
                                                     placeholder="Add Highlights"
                                                     value={values.highlights}
-                                                    onIonChange={(e) =>
-                                                        setFieldValue("highlights", e.detail.value)}
+                                                    onIonChange={(e) => setFieldValue("highlights", e.detail.value)}
                                                 />
                                             </div>
                                         </IonCol>
-                                        <IonCol size="12" className="flex flex-column  ion-align-items-center ion-justify-content-center">
+                                        <IonCol size="12" className="flex flex-column ion-align-items-center ion-justify-content-center">
                                             <div className="EditprofileImg N-ProfileEdit">
                                                 {imagePreview ? (
                                                     <img src={imagePreview} alt="Selected" className="ProfileImg" />
@@ -185,18 +166,17 @@ const SubmitArticals = () => {
                                                     }} />
                                                 </div>
                                             </div>
-
                                         </IonCol>
                                         <IonCol>
-                                            < div className='N-profileInput'>
-                                                <IonSelect name='tags'
+                                            <div className='N-profileInput'>
+                                                <IonSelect
+                                                    name='tags'
                                                     placeholder='Add Tags'
                                                     className="ion-margin-vertical"
                                                     value={values.tags}
-                                                    onIonChange={(e) =>
-                                                        setFieldValue('tags', e.target.value)}
+                                                    onIonChange={(e) => setFieldValue('tags', e.target.value)}
                                                 >
-                                                    {tages?.map?.((item, i) => (
+                                                    {tags.map((item, i) => (
                                                         <IonSelectOption key={i} value={item}>
                                                             {item}
                                                         </IonSelectOption>
@@ -208,60 +188,43 @@ const SubmitArticals = () => {
                                                     name='category'
                                                     placeholder="Article Category"
                                                     value={values.category}
-                                                    onIonChange={(e) => {
-                                                        setFieldValue("category", e.detail.value);
-                                                       
-                                                    }}
+                                                    onIonChange={(e) => setFieldValue("category", e.detail.value)}
                                                 >
-                                                    {category?.map?.((item, i) => (
+                                                    {category.map((item, i) => (
                                                         <IonSelectOption key={i} value={item.id}>
                                                             {item.category_name}
                                                         </IonSelectOption>
                                                     ))}
                                                 </IonSelect>
-
-
                                             </div>
-
                                             <div className='N-profileInput'>
                                                 <IonSelect
-                                                    placeholder="Article Section"
                                                     name='section'
+                                                    placeholder="Article Section"
                                                     value={values.section}
-                                                    onIonChange={(e) => {
-                                                        setFieldValue("section", e.detail.value);
-                                                       
-                                                    }}
+                                                    onIonChange={(e) => setFieldValue("section", e.detail.value)}
                                                 >
-                                                    {section?.map?.((item, i) => (
+                                                    {section.map((item, i) => (
                                                         <IonSelectOption key={i} value={item.id}>
                                                             {item.article_section}
                                                         </IonSelectOption>
                                                     ))}
                                                 </IonSelect>
-
                                             </div>
-                                            <div className="flex  ion-padding-top">
-                                                <IonButton onClick={()=>handleclear(resetForm)}>CANCEL</IonButton>
+                                            <div className="flex ion-padding-top">
+                                                <IonButton onClick={() => handleClear()}>CANCEL</IonButton>
                                                 <IonButton className='ion-padding-start' type='submit'>SUBMIT</IonButton>
-
                                             </div>
                                         </IonCol>
                                     </IonRow>
                                 </IonGrid>
                             </Form>
-                        )
-                    }}
-
-
-
-                </Formik>
-
+                        )}
+                    </Formik>
+                )}
             </IonContent>
         </IonPage>
-    )
-}
+    );
+};
 
-export default SubmitArticals
-
-
+export default EditArticles;
