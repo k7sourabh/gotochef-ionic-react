@@ -36,7 +36,7 @@ const ArticalDetail = () => {
           </IonButton>
           <IonTitle color="dark">Artical Details</IonTitle>
         </IonHeader>
-        <IonGrid className="ion-padding-horizontal ion-padding-vertical">
+        <IonGrid className="ion-padding-horizontal ion-padding-top">
           <IonRow className="ion-justify-content-center">
             <IonCol>
               <img
@@ -94,6 +94,86 @@ const ArticalDetail = () => {
                 <p>Studies have also shown that Coconut oil improves the lipid profile of the body – it increases the HDL (good cholesterol) and reduces LDL (bad cholesterol) thereby pumping the overall cholesterol profile of the heart.</p>
                 <p>Coconut oil has a wonderful unique flavour of its own and several dishes across the cuisines do not attain their best flavours until they are cooked in coconut oil. Countries and regions that use coconut oil extensively have been found to have lower rates of heart diseases. Coconut oil has been an integral part of the Indian culture, tradition, and cooking (especially the southern parts of India) and it is now gaining widespread acceptance because of its scientifically proven health benefits.</p>
             </IonCol>
+          </IonRow>
+        </IonGrid>
+
+        <IonGrid className="ion-padding-horizontal">
+          <IonRow>
+           <h3>Similar Articles</h3>
+          </IonRow>
+          <IonRow>
+               
+               <IonCol size='6'>
+                 <IonCard className="ProductCard">
+                   <IonCardHeader className="ProductThumb">
+                     <img
+                       src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
+                       alt="category cover"
+                       className="MainProductThumb"
+                      
+                     />
+                   </IonCardHeader>
+                   <IonCardContent className="ProductDetails">
+                    <div className="d-flex">
+                    <IonText className="ProductTitle">
+                     By john chef
+                     </IonText>
+                    <IonText className="ProductTitle">
+                    Dark Chocolate: What’s the hype about!
+                     </IonText>
+                    </div>
+                     <div className="PriceRating">
+                       <IonText color="dark">
+                       Over the years as technology has progressed
+                       </IonText>
+                       
+                     </div>
+                     <IonButton size='default' fill='outline' shape='round' routerLink="/artical-detail">
+                         Read More
+                     </IonButton>
+                    
+                   </IonCardContent>
+                 </IonCard>
+                 </IonCol>
+               <IonCol size='6'>
+                 <IonCard className="ProductCard">
+                   <IonCardHeader className="ProductThumb">
+                     <img
+                       src="/assets/img/1525870462-Listing.jpg"
+                       alt="category cover"
+                       className="MainProductThumb"
+                      
+                     />
+                   </IonCardHeader>
+                   <IonCardContent className="ProductDetails">
+                    <div className="d-flex">
+                    <IonText className="ProductTitle">
+                     By john chef
+                     </IonText>
+                    <IonText className="ProductTitle">
+                    Coconut Oil – It's more Beneficial than You Think
+                     </IonText>
+                    </div>
+                     <div className="PriceRating">
+                       <IonText color="dark">
+                       Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                       </IonText>
+                       
+                     </div>
+                     <IonButton size='default' fill='outline' shape='round' routerLink="/artical-detail">
+                         Read More
+                     </IonButton>
+                    
+                   </IonCardContent>
+                 </IonCard>
+                 </IonCol>
+               
+           </IonRow>
+
+           <IonRow>
+           <IonCol className="flex ion-justify-content-center  ion-align-items-center">
+            <IonButton fill="outline" size="default">View all</IonButton>
+           </IonCol>
           </IonRow>
         </IonGrid>
         
