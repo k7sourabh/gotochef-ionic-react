@@ -1,5 +1,6 @@
-import { IonButton, IonCheckbox, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonTitle } from '@ionic/react'
-import React, { useEffect, useState } from 'react'
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCheckbox, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from '@ionic/react'
+import { heartOutline } from 'ionicons/icons';
+import React, { useState } from 'react'
 import Header from '../../components/Header'
 import { getApiData, postApiData } from '../../utils/Utils';
 import { ErrorMessage, Form, Formik } from 'formik';
@@ -66,7 +67,7 @@ const FoodAdd = () => {
 
         response?.data?.food_setting?.cooking_techniques.filter((val) => {
           if (val.flag === 1) {
-            setCheckedValuesCookings((prev) =>[...prev,val.cooking_techniques_name])
+            setCheckedValuesCookings((prev) => [...prev, val.cooking_techniques_name])
           }
         });
 
@@ -77,7 +78,7 @@ const FoodAdd = () => {
   };
 
   console.log('checkedValues', checkedValues)
-  
+
   useEffect(() => {
     getFoodSetting();
   }, []);
