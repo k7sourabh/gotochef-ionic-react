@@ -1,6 +1,6 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCheckbox, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from '@ionic/react'
 import { heartOutline } from 'ionicons/icons';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import { getApiData, postApiData } from '../../utils/Utils';
 import { ErrorMessage, Form, Formik } from 'formik';
