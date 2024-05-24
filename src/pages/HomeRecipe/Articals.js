@@ -35,16 +35,30 @@ const Articals = () => {
          console.log(err);
       }
    }
-   const truncateText = (text, maxLength) => {              
+   const truncateText = (text, maxLength) => {
+      if (!text) {
+         return ''; 
+      }
       if (text.length > maxLength) {
          return text.substr(0, maxLength) + '...';
       }
       return text;
    };
+   
 
    useEffect(() => {
       fetchArticalData();
    }, [])
+
+   const handleEdit=()=>{
+      console.log("editpage")
+   }
+   const handleRemove=(articalId)=>{
+      console.log("Remove",articalId)
+   }
+   const handleview=()=>{
+      console.log("view")
+   }
    return (
       <>
          <IonPage>
@@ -90,9 +104,9 @@ const Articals = () => {
 
                                           <IonCol size="6" key={i}>
                                              <IonCard className="ArticalCard">
-                                                <div className="vegIcon">
+                                                {/* <div className="vegIcon">
                                                    <img src="/assets/img/icon-veg.svg" alt="" />
-                                                </div>
+                                                </div> */}
                                                 <div className="RecentProducts">
                                                    <img
                                                       className="RecentUserImg"
@@ -113,11 +127,14 @@ const Articals = () => {
 
                                                          </IonText>
                                                       </div>
+                                                      <IonButton onClick={handleEdit}>Edit</IonButton>
+                                                      <IonButton onClick={()=>handleRemove(item.id)}>Remove</IonButton>
                                                    </div>
                                                 </div>
                                              </IonCard>
                                           </IonCol>
                                        ))}
+                                      
                                  </IonRow>
                               ) : (
                                  <IonGrid className="ion-padding-vertical ion-padding-horizontal">
@@ -143,9 +160,7 @@ const Articals = () => {
 
                                           <IonCol size="6" key={i}>
                                              <IonCard className="ArticalCard">
-                                                <div className="vegIcon">
-                                                   <img src="/assets/img/icon-veg.svg" alt="" />
-                                                </div>
+                                               
                                                 <div className="RecentProducts">
                                                    <img
                                                       className="RecentUserImg"
@@ -167,6 +182,7 @@ const Articals = () => {
                                                          </IonText>
                                                       </div>
                                                    </div>
+                                                   <IonButton onClick={handleview}>View</IonButton>
                                                 </div>
                                              </IonCard>
                                           </IonCol>
