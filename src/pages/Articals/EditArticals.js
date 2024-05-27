@@ -10,7 +10,8 @@ import {
     IonSelect,
     IonSelectOption,
     IonTextarea,
-    IonTitle
+    IonTitle,
+    useIonToast
 } from '@ionic/react';
 
 import { useEffect, useState } from 'react';
@@ -23,10 +24,11 @@ import { getApiData, postApiData } from '../../utils/Utils';
 const EditArticles = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [tags, setTags] = useState([]);
-    const [category, setCategory] = useState([]);
-    const [section, setSection] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [sections, setSections] = useState([]);
     const history = useHistory();
     const { id } = useParams();
+    const [present] = useIonToast();
 
     const [formValues, setFormValues] = useState({
         title: '',
@@ -40,14 +42,18 @@ const EditArticles = () => {
     });
     console.log("formValues",formValues)
 
+    const [selectedSection, setSelectedSection] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
+
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Title is required'),
         introText: Yup.string().required('Intro Text is required'),
         articleContent: Yup.string().required('Article Content is required'),
-        highlights: Yup.string(),
-        tags: Yup.string(),
+        highlights: Yup.string().required('Highlights are required'),
+        tags: Yup.string().min(1, 'At least one tag is required').required('Tags are required'),
         category: Yup.string().required('Article Category is required'),
-        section: Yup.string().required('Article Section is required')
+        section: Yup.string().required('Article Section is required'),
+        image1: Yup.mixed().required('Image is required')
     });
 
     const fetchArticleData = async () => {
@@ -61,28 +67,84 @@ const EditArticles = () => {
                     articleContent: data.article_description || '',
                     highlights: data.highlights || '',
                     image1: data.images || '',
-                    tags: data.tags || '',
+                    tags: data.tags.replace(/"/g, '') || '',
                     category: data.article_category || '',
                     section: data.article_section || ''
                 });
+                setImagePreview(data.images || null);
+                setSelectedCategory(data.article_category || '');
+                setSelectedSection(data.article_section || '');
             }
         } catch (err) {
             console.log(err);
-            // Handle error here
+        }
+    };
+
+    const fetchArticleMetaData = async () => {
+        try {
+            const response = await getApiData('submit-article-get');
+            setTags(response?.data?.data?.tags || []);
+            setCategories(response?.data?.data?.article_category || []);
+            setSections(response?.data?.data?.article_section || []);
+        } catch (err) {
+            console.log(err);
         }
     };
 
     useEffect(() => {
+        fetchArticleMetaData();
         fetchArticleData();
-    }, []);
+    }, [id]);
+
+    useEffect(() => {
+        if (sections.length > 0) {
+            const section = sections.find(item => item.id == formValues.section);
+            if (section) setSelectedSection(section.id);
+        }
+    }, [sections, formValues.section]);
+
+    useEffect(() => {
+        if (categories.length > 0) {
+            const category = categories.find(item => item.id == formValues.category);
+            if (category) setSelectedCategory(category.id);
+        }
+    }, [categories, formValues.category]);
 
     const handleSubmit = async (values) => {
-        console.log("values", values);
-        // Add the API call logic to submit the form data here.
+        try {
+            const formData = new FormData();
+            formData.append("articleName", values.title);
+            formData.append("shortDescription", values.introText);
+            formData.append("longDescription", values.articleContent);
+            formData.append("highlights", values.highlights);
+            formData.append("tags", values.tags);
+            formData.append("article_category", values.category);
+            formData.append("article_section", values.section);
+            formData.append("mobileImages", values.image1);
+            formData.append("article_id", id);
+
+            const response = await postApiData("update-article", formData);
+
+            presentToast("Top", response?.data?.message_response);
+            setTimeout(() => {
+                history.push("/articles");
+            }, 2000);
+
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     const handleClear = () => {
         history.push("/articles");
+    };
+
+    const presentToast = (position, message) => {
+        present({
+            message: message,
+            duration: 1500,
+            position: position,
+        });
     };
 
     return (
@@ -99,9 +161,7 @@ const EditArticles = () => {
                         initialValues={formValues}
                         enableReinitialize={true}
                         validationSchema={validationSchema}
-                        onSubmit={(values) => {
-                            handleSubmit(values);
-                        }}
+                        onSubmit={handleSubmit}
                     >
                         {({ values, setFieldValue }) => (
                             <Form>
@@ -120,6 +180,7 @@ const EditArticles = () => {
                                                 <ErrorMessage
                                                     name="title"
                                                     component="div"
+                                                    style={{ color: "red" }}
                                                     className="error-message error-text"
                                                 />
                                                 <IonInput
@@ -130,11 +191,23 @@ const EditArticles = () => {
                                                     value={values.introText}
                                                     onIonChange={(e) => setFieldValue("introText", e.target.value)}
                                                 />
+                                                <ErrorMessage
+                                                    name="introText"
+                                                    component="div"
+                                                    style={{ color: "red" }}
+                                                    className="error-message error-text"
+                                                />
                                                 <IonTextarea
                                                     name='articleContent'
                                                     value={values.articleContent}
                                                     placeholder="Type something here"
                                                     onIonChange={(e) => setFieldValue("articleContent", e.target.value)}
+                                                />
+                                                <ErrorMessage
+                                                    name="articleContent"
+                                                    component="div"
+                                                    style={{ color: "red" }}
+                                                    className="error-message error-text"
                                                 />
                                                 <IonInput
                                                     className="ion-margin-vertical"
@@ -142,7 +215,13 @@ const EditArticles = () => {
                                                     type="text"
                                                     placeholder="Add Highlights"
                                                     value={values.highlights}
-                                                    onIonChange={(e) => setFieldValue("highlights", e.detail.value)}
+                                                    onIonChange={(e) => setFieldValue("highlights", e.target.value)}
+                                                />
+                                                <ErrorMessage
+                                                    name="highlights"
+                                                    component="div"
+                                                    style={{ color: "red" }}
+                                                    className="error-message error-text"
                                                 />
                                             </div>
                                         </IonCol>
@@ -165,6 +244,12 @@ const EditArticles = () => {
                                                         }
                                                     }} />
                                                 </div>
+                                                <ErrorMessage
+                                                    name="image1"
+                                                    component="div"
+                                                    style={{ color: "red" }}
+                                                    className="error-message error-text"
+                                                />
                                             </div>
                                         </IonCol>
                                         <IonCol>
@@ -174,7 +259,7 @@ const EditArticles = () => {
                                                     placeholder='Add Tags'
                                                     className="ion-margin-vertical"
                                                     value={values.tags}
-                                                    onIonChange={(e) => setFieldValue('tags', e.target.value)}
+                                                    onIonChange={(e) => setFieldValue('tags', e.detail.value)}
                                                 >
                                                     {tags.map((item, i) => (
                                                         <IonSelectOption key={i} value={item}>
@@ -182,37 +267,63 @@ const EditArticles = () => {
                                                         </IonSelectOption>
                                                     ))}
                                                 </IonSelect>
+                                                <ErrorMessage
+                                                    name="tags"
+                                                    component="div"
+                                                    style={{ color: "red" }}
+                                                    className="error-message error-text"
+                                                />
                                             </div>
                                             <div className='N-profileInput'>
                                                 <IonSelect
                                                     name='category'
                                                     placeholder="Article Category"
-                                                    value={values.category}
-                                                    onIonChange={(e) => setFieldValue("category", e.detail.value)}
+                                                    value={selectedCategory}
+                                                    onIonChange={(e) => {
+                                                        const selectedCategoryId = e.detail.value;
+                                                        setSelectedCategory(selectedCategoryId);
+                                                        setFieldValue('category', selectedCategoryId);
+                                                    }}
                                                 >
-                                                    {category.map((item, i) => (
+                                                    {categories.map((item, i) => (
                                                         <IonSelectOption key={i} value={item.id}>
                                                             {item.category_name}
                                                         </IonSelectOption>
                                                     ))}
                                                 </IonSelect>
+                                                <ErrorMessage
+                                                    name="category"
+                                                    component="div"
+                                                    style={{ color: "red" }}
+                                                    className="error-message error-text"
+                                                />
                                             </div>
                                             <div className='N-profileInput'>
                                                 <IonSelect
                                                     name='section'
                                                     placeholder="Article Section"
-                                                    value={values.section}
-                                                    onIonChange={(e) => setFieldValue("section", e.detail.value)}
+                                                    value={selectedSection}
+                                                    onIonChange={(e) => {
+                                                        const selectedSectionId = e.detail.value;
+                                                        setSelectedSection(selectedSectionId);
+                                                        setFieldValue('section', selectedSectionId);
+                                                    }}
                                                 >
-                                                    {section.map((item, i) => (
+                                                    {sections.map((item, i) => (
                                                         <IonSelectOption key={i} value={item.id}>
                                                             {item.article_section}
                                                         </IonSelectOption>
                                                     ))}
                                                 </IonSelect>
+                                                <ErrorMessage
+                                                    name="section"
+                                                    component="div"
+                                                    style={{ color: "red" }}
+                                                    className="error-message error-text"
+                                                />
                                             </div>
                                             <div className="flex ion-padding-top">
-                                                <IonButton onClick={() => handleClear()}>CANCEL</IonButton>
+                                                <IonButton onClick={handleClear}>CANCEL</IonButton>
                                                 <IonButton className='ion-padding-start' type='submit'>SUBMIT</IonButton>
                                             </div>
                                         </IonCol>

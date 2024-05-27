@@ -31,6 +31,7 @@ const Articals = () => {
    const fetchArticalData = async () => {
       try {
          const response = await getApiData("my-articles")
+         console.log(response)
          setSubmitData(response?.data?.my_articles?.submit_articles)
          setApprovedData(response?.data?.my_articles?.approved_articles)
       } catch (err) {
@@ -54,13 +55,23 @@ const Articals = () => {
 
    const handleEdit = (id) => {
       history.push(`/edit-articals/${id}`)
-      console.log("editpage", id)
+
    }
-   const handleRemove = (articalId) => {
-      console.log("Remove", articalId)
+   const handleRemove = async (articalId) => {
+      try {
+         const obj = {
+            'article_id': articalId,
+         }
+
+         const response = await postApiData("delete-article", obj);
+         console.log("responce", response?.message_response)
+      } catch (err) {
+         console.log(err)
+      }
    }
-   const handleview = () => {
-      console.log("view")
+  
+   const handleView = (slug) => {
+      history.push(`/artical-detail/${slug}`)
    }
    return (
       <>
@@ -185,7 +196,7 @@ const Articals = () => {
                                                          </IonText>
                                                       </div>
                                                    </div>
-                                                   <IonButton onClick={handleview}>View</IonButton>
+                                                   <IonButton onClick={()=> handleView(item.slug)}>View</IonButton>
                                                 </div>
                                              </IonCard>
                                           </IonCol>

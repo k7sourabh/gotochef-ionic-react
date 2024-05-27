@@ -150,7 +150,7 @@ const EditProfile = () => {
         "/user-update-personal-info",
         formdata
       );
-      console.log("update", response);
+      // console.log("update", response);
       presentToast("Top", response?.data?.message_response);
 
     } catch (err) {
