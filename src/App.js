@@ -159,7 +159,7 @@ const App = () => {
                 <PrivateRoute path="/add-ingredient" component={AddIngredient} />
                 <PrivateRoute path="/ingredient-detail" component={IngredientDetail} />
                 <PrivateRoute path="/artical-list" component={ArticalList}/>
-                <PrivateRoute path="/artical-detail/:slug" component={ArticalDetail}/>
+                <PrivateRoute path="/artical-detail/:slug:slug" component={ArticalDetail}/>
                 <PrivateRoute path="/edit-articals/:id" component={EditArticals}/>
                
                 <PrivateRoute

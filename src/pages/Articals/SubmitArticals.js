@@ -10,7 +10,9 @@ import {
     IonSelectOption,
     IonTextarea,
     IonTitle,
-    IonGrid
+    IonGrid,
+    useIonToast,
+    useIonViewWillEnter
 } from '@ionic/react';
 
 import Header from '../../components/Header';
@@ -26,6 +28,7 @@ const SubmitArticles = () => {
     const [sections, setSections] = useState([]);
     const [imagePreview, setImagePreview] = useState(null);
     const history = useHistory();
+    const [present] = useIonToast();
 
     const initialValues = {
         title: '',
@@ -50,6 +53,7 @@ const SubmitArticles = () => {
     });
 
     const fetchArticleData = async () => {
+        setImagePreview(null);
         try {
             const response = await getApiData('submit-article-get');
             setTags(response?.data?.data?.tags || []);
@@ -59,13 +63,13 @@ const SubmitArticles = () => {
             console.error(err);
         }
     };
-
-    useEffect(() => {
+    useIonViewWillEnter(() => {
         fetchArticleData();
-    }, []);
+     });
+   
 
     const handleSubmit = async (values, { resetForm }) => {
-        // console.log('values', values)
+        
         try {
             const formData = new FormData();
             formData.append("article_name", values.title);
@@ -78,11 +82,19 @@ const SubmitArticles = () => {
             formData.append("article_section", values.section);
 
             const response = await postApiData('submit-article-post', formData);
-
-            if (response?.data?.status) {
+               console.log("response",response)
+            if (response?.data?.status===200) {
+                const truncatedMessage = truncateText(response?.data?.message_response, 35);
+                presentToast("Top", truncatedMessage);
+               
                 resetForm();
                 setImagePreview(null);
-                history.push("/articles");
+                setTimeout(()=>{
+                    
+                    history.push("/articles");
+                },3000)
+               
+                
             }
         } catch (err) {
             console.error(err);
@@ -93,12 +105,25 @@ const SubmitArticles = () => {
         resetForm();
         setImagePreview(null);
     };
+    const presentToast = (position, message) => {
+        present({
+           message: message,
+           duration: 1500,
+           position: position,
+        });
+     };
 
+     const truncateText = (text, maxLength) => {
+        if (text && text.length > maxLength) {
+           return text.substr(0, maxLength) + '...';
+        }
+        return text;
+     };
     return (
         <IonPage>
             <IonContent>
                 <IonHeader className="TitleHead bottom-shadow">
-                    <IonButton className="backBtn" fill="clear" routerLink="/profile">
+                    <IonButton className="backBtn" fill="clear" routerLink="/articles">
                         <i className="material-icons dark">west</i>
                     </IonButton>
                     <IonTitle color="dark">Submit Articles</IonTitle>

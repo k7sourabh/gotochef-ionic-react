@@ -11,14 +11,20 @@ import {
    IonHeader,
    IonButton,
    IonTitle,
-   IonCard
+   IonCard,
+   useIonToast,
+   IonIcon,
+   IonAlert,
+   useIonViewWillEnter
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import { getApiData, postApiData } from '../../utils/Utils';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { close, pencilOutline } from "ionicons/icons";
 
 const Articals = () => {
+
    const [selectedTabladder, setSelectedTabladder] = useState("Submitted");
    const handleTabChangeladder = (event) => {
       setSelectedTabladder(event.detail.value);
@@ -26,53 +32,69 @@ const Articals = () => {
    const [submitdata, setSubmitData] = useState([]);
    const [approveddata, setApprovedData] = useState([]);
    const history = useHistory();
-
+   const [present] = useIonToast();
+   const [showAlert, setShowAlert] = useState(false);
+   const [articleToDelete, setArticleToDelete] = useState(null);
 
    const fetchArticalData = async () => {
       try {
-         const response = await getApiData("my-articles")
-         console.log(response)
-         setSubmitData(response?.data?.my_articles?.submit_articles)
-         setApprovedData(response?.data?.my_articles?.approved_articles)
+         const response = await getApiData("my-articles");
+         setSubmitData(response?.data?.my_articles?.submit_articles);
+         setApprovedData(response?.data?.my_articles?.approved_articles);
       } catch (err) {
          console.log(err);
       }
-   }
+   };
+
+   useIonViewWillEnter(() => {
+      fetchArticalData();
+   });
+
    const truncateText = (text, maxLength) => {
-      if (!text) {
-         return '';
-      }
-      if (text.length > maxLength) {
+      if (text && text.length > maxLength) {
          return text.substr(0, maxLength) + '...';
       }
       return text;
    };
 
-
-   useEffect(() => {
-      fetchArticalData();
-   }, [])
-
    const handleEdit = (id) => {
-      history.push(`/edit-articals/${id}`)
+      history.push(`/edit-articals/${id}`);
+   };
 
-   }
    const handleRemove = async (articalId) => {
+      setShowAlert(true);
+      setArticleToDelete(articalId);
+   };
+
+   const confirmRemove = async () => {
       try {
          const obj = {
-            'article_id': articalId,
-         }
-
+            'article_id': articleToDelete,
+         };
          const response = await postApiData("delete-article", obj);
-         console.log("responce", response?.message_response)
+         if (response.status === 200) {
+            presentToast("Top", response?.data?.message_response);
+            fetchArticalData();
+         }
       } catch (err) {
-         console.log(err)
+         console.log(err);
       }
-   }
-  
+      setShowAlert(false);
+      setArticleToDelete(null);
+   };
+
    const handleView = (slug) => {
-      history.push(`/artical-detail/${slug}`)
-   }
+      history.push(`/artical-detail/:${slug}`);
+   };
+
+   const presentToast = (position, message) => {
+      present({
+         message: message,
+         duration: 1500,
+         position: position,
+      });
+   };
+
    return (
       <>
          <IonPage>
@@ -81,13 +103,13 @@ const Articals = () => {
                <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
                   <div className="TitleHead">
                      <IonButton className="backBtn" fill="clear" routerLink="/profile">
-                        <i class="material-icons dark">west</i>
+                        <i className="material-icons dark">west</i>
                      </IonButton>
                      <IonTitle color="dark">My Articles</IonTitle>
                   </div>
                   <div className="flex ion-justify-content-end ion-align-items-end">
                      <IonButton className="ion-padding-horizontal" fill="outline" size="small" shape="round" routerLink="/submit-articals">
-                        <i class="material-icons dark">add</i>
+                        <i className="material-icons dark">add</i>
                      </IonButton>
                   </div>
                </IonHeader>
@@ -108,47 +130,45 @@ const Articals = () => {
                            </IonSegmentButton>
                         </IonSegment>
 
-
                         {selectedTabladder === "Submitted" && (
                            <IonGrid>
                               {submitdata && submitdata.length > 0 ? (
                                  <IonRow>
-                                    {
-                                       submitdata?.map?.((item, i) => (
-
-                                          <IonCol size="6" key={i}>
-                                             <IonCard className="ArticalCard">
-                                                {/* <div className="vegIcon">
-                                                   <img src="/assets/img/icon-veg.svg" alt="" />
-                                                </div> */}
-                                                <div className="RecentProducts">
-                                                   <img
-                                                      className="RecentUserImg"
-                                                      src={item.images}
-                                                      alt=""
-                                                   />
-                                                   <div className="bottomArtical">
+                                    {submitdata?.map?.((item, i) => (
+                                       <IonCol size="6" key={i}>
+                                          <IonCard className="ArticalCard">
+                                             <div className="RecentProducts">
+                                                <img
+                                                   className="RecentUserImg"
+                                                   src={item.images}
+                                                   alt=""
+                                                />
+                                                <div className="bottomArtical">
+                                                   <IonText>
+                                                      {truncateText(item.highlights, 30)}
+                                                   </IonText>
+                                                   <div className="productRecipe">
+                                                      <IonText className="ArticalTextName">{item.articleName}</IonText>
+                                                      <IonText className="ArticalTextDate">{item.created_at}</IonText>
+                                                   </div>
+                                                   <div className="productRecipe Articalpera">
                                                       <IonText>
-                                                         {truncateText(item.highlights, 30)}
+                                                         {truncateText(item.longDescription, 100)}
                                                       </IonText>
-                                                      <div className="productRecipe">
-                                                         <IonText className="ArticalTextName">{item.articleName}</IonText>
-                                                         <IonText className="ArticalTextDate">{item.created_at}</IonText>
-                                                      </div>
-                                                      <div className=" productRecipe Articalpera">
-                                                         <IonText>
-                                                            {truncateText(item.longDescription, 100)}
-
-                                                         </IonText>
-                                                      </div>
-                                                      <IonButton onClick={() => handleEdit(item.id)}>Edit</IonButton>
-                                                      <IonButton onClick={() => handleRemove(item.id)}>Remove</IonButton>
+                                                   </div>
+                                                   <div className="flex ion-justify-content-evenly ion-align-items-center ion-margin-top">
+                                                      <IonButton onClick={() => handleEdit(item.id)} size='default' fill='outline' shape='round'>
+                                                         <IonIcon size="default" icon={pencilOutline} />
+                                                      </IonButton>
+                                                      <IonButton onClick={() => handleRemove(item.id)} size='default' fill='outline' shape='round'>
+                                                         <IonIcon size="default" icon={close} />
+                                                      </IonButton>
                                                    </div>
                                                 </div>
-                                             </IonCard>
-                                          </IonCol>
-                                       ))}
-
+                                             </div>
+                                          </IonCard>
+                                       </IonCol>
+                                    ))}
                                  </IonRow>
                               ) : (
                                  <IonGrid className="ion-padding-vertical ion-padding-horizontal">
@@ -169,38 +189,34 @@ const Articals = () => {
                            <IonGrid>
                               {approveddata && approveddata.length > 0 ? (
                                  <IonRow>
-                                    {
-                                       approveddata?.map?.((item, i) => (
-
-                                          <IonCol size="6" key={i}>
-                                             <IonCard className="ArticalCard">
-
-                                                <div className="RecentProducts">
-                                                   <img
-                                                      className="RecentUserImg"
-                                                      src={item.images}
-                                                      alt=""
-                                                   />
-                                                   <div className="bottomArtical">
-                                                      <IonText>
-                                                         {truncateText(item.shortDescription, 25)}
-
-                                                      </IonText>
-                                                      <div className="productRecipe">
-                                                         <IonText className="ArticalTextName">{item.approvedarticleName}</IonText>
-                                                         <IonText className="ArticalTextDate">{item.created_at}</IonText>
-                                                      </div>
-                                                      <div className=" productRecipe Articalpera">
-                                                         <IonText>
-                                                            {truncateText(item.longDescription, 100)}
-                                                         </IonText>
-                                                      </div>
+                                    {approveddata?.map?.((item, i) => (
+                                       <IonCol size="6" key={i}>
+                                          <IonCard className="ArticalCard">
+                                             <div className="RecentProducts">
+                                                <img
+                                                   className="RecentUserImg"
+                                                   src={item.images}
+                                                   alt=""
+                                                />
+                                                <div className="bottomArtical">
+                                                   <IonText>
+                                                      {truncateText(item.shortDescription, 25)}
+                                                   </IonText>
+                                                   <div className="productRecipe">
+                                                      <IonText className="ArticalTextName">{item.approvedarticleName}</IonText>
+                                                      <IonText className="ArticalTextDate">{item.created_at}</IonText>
                                                    </div>
-                                                   <IonButton onClick={()=> handleView(item.slug)}>View</IonButton>
+                                                   <div className="productRecipe Articalpera">
+                                                      <IonText>
+                                                         {truncateText(item.longDescription, 100)}
+                                                      </IonText>
+                                                   </div>
                                                 </div>
-                                             </IonCard>
-                                          </IonCol>
-                                       ))}
+                                                <IonButton onClick={() => handleView(item.slug)} size="default" fill="outline" className="ion-margin-top">View</IonButton>
+                                             </div>
+                                          </IonCard>
+                                       </IonCol>
+                                    ))}
                                  </IonRow>
                               ) : (
                                  <IonGrid className="ion-padding-vertical ion-padding-horizontal">
@@ -217,14 +233,36 @@ const Articals = () => {
                               )}
                            </IonGrid>
                         )}
-
                      </IonCol>
                   </IonRow>
                </IonGrid>
             </IonContent>
+
+            <IonAlert
+               isOpen={showAlert}
+               onDidDismiss={() => setShowAlert(false)}
+               header={'Confirm Delete'}
+               message={'Are you sure you want to delete this article?'}
+               buttons={[
+                  {
+                     text: 'Cancel',
+                     role: 'cancel',
+                     handler: () => {
+                        setShowAlert(false);
+                        setArticleToDelete(null);
+                     }
+                  },
+                  {
+                     text: 'Delete',
+                     handler: () => {
+                        confirmRemove();
+                     }
+                  }
+               ]}
+            />
          </IonPage>
       </>
-   )
+   );
+};
 
-}
-export default Articals
+export default Articals;
