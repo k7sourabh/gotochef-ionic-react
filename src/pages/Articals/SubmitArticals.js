@@ -69,7 +69,7 @@ const SubmitArticles = () => {
    
 
     const handleSubmit = async (values, { resetForm }) => {
-        
+        console.log("values",values)
         try {
             const formData = new FormData();
             formData.append("article_name", values.title);
