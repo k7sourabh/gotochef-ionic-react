@@ -21,6 +21,7 @@ import React, { useEffect, useState } from "react";
 import { getApiData, postApiData } from "../../utils/Utils";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 // const validationSchema = Yup.object().shape({
 //   isVeg: Yup.string().required("required"),
@@ -45,6 +46,7 @@ const FoodAdd = () => {
   const [showRequireCusines, setShowRequireCusines] = useState(false);
   const [showRequireCooking, setShowRequireCooking] = useState(false);
   const [present] = useIonToast();
+  const history = useHistory();
 
   const handleTabChange = (event) => {
     setSelectedTab(event.detail.value);
@@ -150,6 +152,10 @@ const FoodAdd = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const readMore = (slug) => {
+    history.push(`/ingredient-detail/${slug}`);
   };
 
   const presentToast = (position, message) => {
@@ -376,11 +382,30 @@ const FoodAdd = () => {
                                     <>
                                       <span key={i}>
                                         <img
-                                          src={item.images}
+                                          src={
+                                            !item.images
+                                              ? "/assets/img/img-placeholder.jpg"
+                                              : item.images
+                                          }
+                                          onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src =
+                                              "/assets/img/img-placeholder.jpg";
+                                          }}
+                                          // src={item.images}
                                           alt={`Favorite item ${i}`}
                                         />
                                       </span>
-                                      <IonButton>Read More</IonButton>
+                                      <h4>{item?.technical_name}</h4>
+                                      <IonText>
+                                        {item?.descriptions.substring(0, 100) +
+                                          "..."}
+                                      </IonText>
+                                      <IonButton
+                                        onClick={() => readMore(item.slug)}
+                                      >
+                                        Read More
+                                      </IonButton>
                                       <IonButton
                                         onClick={() =>
                                           deleteFavIngredient(item.id)
@@ -408,12 +433,36 @@ const FoodAdd = () => {
                                     <>
                                       <span key={i}>
                                         <img
-                                          src={item.images}
+                                          src={
+                                            !item.images
+                                              ? "/assets/img/img-placeholder.jpg"
+                                              : item.images
+                                          }
                                           alt={`Negative item ${i}`}
+                                          onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src =
+                                              "/assets/img/img-placeholder.jpg";
+                                          }}
                                         />
                                       </span>
-                                      <IonButton>Read More</IonButton>
-                                      <IonButton>Delete</IonButton>
+                                      <h4>{item?.technical_name}</h4>
+                                      <IonText>
+                                        {item?.descriptions.substring(0, 100) +
+                                          "..."}
+                                      </IonText>
+                                      <IonButton
+                                        onClick={() => readMore(item.slug)}
+                                      >
+                                        Read More
+                                      </IonButton>
+                                      <IonButton
+                                        onClick={() =>
+                                          deleteFavIngredient(item.id)
+                                        }
+                                      >
+                                        Delete
+                                      </IonButton>
                                     </>
                                   )
                                 )
@@ -430,40 +479,38 @@ const FoodAdd = () => {
                       <IonRow className="d-flex ion-justify-content-center">
                         {foodSettingData &&
                           foodSettingData?.cuisines &&
-                          foodSettingData?.cuisines
-                            ?.slice(0, 6)
-                            .map((data, i) => (
-                              <IonCol size="5" key={i}>
-                                <IonItem lines="none" className="box-shadow">
-                                  <IonLabel>{data.cuisines_name}</IonLabel>
-                                  <IonCheckbox
-                                    className="ion-margin-start"
-                                    checked={checkedValues.includes(
-                                      data.cuisines_name
-                                    )}
-                                    name="cusines"
-                                    value={data.cuisines_name}
-                                    onIonChange={(event) => {
-                                      const isChecked = event.detail.checked;
-                                      const value = event.target.value;
+                          foodSettingData?.cuisines?.map((data, i) => (
+                            <IonCol size="5" key={i}>
+                              <IonItem lines="none" className="box-shadow">
+                                <IonLabel>{data.cuisines_name}</IonLabel>
+                                <IonCheckbox
+                                  className="ion-margin-start"
+                                  checked={checkedValues.includes(
+                                    data.cuisines_name
+                                  )}
+                                  name="cusines"
+                                  value={data.cuisines_name}
+                                  onIonChange={(event) => {
+                                    const isChecked = event.detail.checked;
+                                    const value = event.target.value;
 
-                                      if (isChecked) {
-                                        setCheckedValues((prevValues) => [
-                                          ...prevValues,
-                                          value,
-                                        ]);
-                                      } else {
-                                        setCheckedValues((prevValues) =>
-                                          prevValues.filter(
-                                            (item) => item !== value
-                                          )
-                                        );
-                                      }
-                                    }}
-                                  ></IonCheckbox>
-                                </IonItem>
-                              </IonCol>
-                            ))}
+                                    if (isChecked) {
+                                      setCheckedValues((prevValues) => [
+                                        ...prevValues,
+                                        value,
+                                      ]);
+                                    } else {
+                                      setCheckedValues((prevValues) =>
+                                        prevValues.filter(
+                                          (item) => item !== value
+                                        )
+                                      );
+                                    }
+                                  }}
+                                ></IonCheckbox>
+                              </IonItem>
+                            </IonCol>
+                          ))}
                         {!showRequireCusines && (
                           <IonText color="danger">
                             At least one cuisines needs to be here
@@ -476,9 +523,8 @@ const FoodAdd = () => {
                       <IonRow className="d-flex ion-justify-content-center">
                         {foodSettingData &&
                           foodSettingData?.cooking_techniques &&
-                          foodSettingData?.cooking_techniques
-                            ?.slice(0, 6)
-                            .map((data, i) => (
+                          foodSettingData?.cooking_techniques?.map(
+                            (data, i) => (
                               <IonCol size="5" key={i}>
                                 <IonItem lines="none" className="box-shadow">
                                   <IonLabel>
@@ -509,7 +555,8 @@ const FoodAdd = () => {
                                   ></IonCheckbox>
                                 </IonItem>
                               </IonCol>
-                            ))}
+                            )
+                          )}
                         {!showRequireCooking && (
                           <IonText color="danger">
                             At least one cooking techniques needs to be here
