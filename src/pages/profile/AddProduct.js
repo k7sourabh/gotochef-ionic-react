@@ -80,7 +80,7 @@ const AddProduct = () => {
             formData.append('manufacturers_name', values.Brandname);
             formData.append('product_main_category', values.Category);
             formData.append('product_sub_category', values.subCategory);
-            formData.append('image1', values.image1);
+            // formData.append('image1', values.image1);
             formData.append('image2', values.image2);
             formData.append('image3', values.image3);
             formData.append('image4', values.image4);
@@ -97,8 +97,9 @@ const AddProduct = () => {
                 setImagePreview4(null);
                 history.push('/profile');
             }
-        } catch (errors) {
-            console.errors('Error submitting the form', errors);
+        } catch (response) {
+            setIsOpen(true);
+            setResponceData(response?.data?.message)
         }
     };
     const clearForm = (resetForm) => {

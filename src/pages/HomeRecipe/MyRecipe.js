@@ -42,7 +42,7 @@ const MyRecipeComponent = () => {
   };
 
   useEffect(() => {
-    console.log('useEfff')
+  
     fetchRecipeData();
   }, [location]);
 

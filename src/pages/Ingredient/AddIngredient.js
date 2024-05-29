@@ -14,6 +14,7 @@ import {
   IonText,
   IonTextarea,
   IonTitle,
+  useIonToast,
 } from "@ionic/react";
 import { listOutline } from "ionicons/icons";
 import { ErrorMessage, Form, Formik } from "formik";
@@ -23,17 +24,24 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import AddingredientPopup from "../../modal/AddingredientPopup";
 
 const AddIngredient = () => {
+  const initialValues = {
+    image: "",
+    ingredientTitle: "",
+    category: "",
+    description: "",
+  };
+
   const [categoryIngredientData, setCategoryIngredientData] = useState([])
   const [image, setImage] = useState(null);
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
   const [responcedata, setResponceData] = useState('');
-
+  const [loader, setLoader] = useState(false);
+  const [present] = useIonToast();
 
   const CategoryIngredientlist = async () => {
     try {
       const response = await getApiData('/category-ingredient');
-      console.log(response.data.ingredient_category)
       setCategoryIngredientData(response?.data?.ingredient_category)
     } catch (e) {
       console.log(e);
@@ -44,12 +52,7 @@ const AddIngredient = () => {
     CategoryIngredientlist();
   }, []);
 
-  const initialValues = {
-    image: "",
-    ingredientTitle: "",
-    category: "",
-    description: "",
-  };
+  
 
 
   const validationSchema = Yup.object().shape({
@@ -61,7 +64,7 @@ const AddIngredient = () => {
 
 
   const handleSubmit = async (values, { resetForm }) => {
-    console.log('values', values)
+    setLoader(true);
     try {
       const formdata = new FormData();
       formdata.append("ingredient_name", values.ingredientTitle);
@@ -70,8 +73,9 @@ const AddIngredient = () => {
       formdata.append("images", values.image);
 
       const response = await postApiDataWithAuth("/ingredient-add", formdata);
-      console.log(response?.data?.message_response)
+      
       if (response.data.status === 200) {
+        presentToast("Top",response.data.message_response );
         setResponceData(response?.data?.message_response)
         setIsOpen(true);
         setCategoryIngredientData([])
@@ -81,8 +85,17 @@ const AddIngredient = () => {
       }
     } catch (err) {
       console.error(err);
+      setLoader(false);
+      presentToast("Top", );
     }
   };
+  const presentToast = (position, message) => {
+    present({
+        message: message,
+        duration: 1500,
+        position: position,
+    });
+};
 
   return (
     <IonPage>
@@ -121,8 +134,8 @@ const AddIngredient = () => {
                       : "/assets/img/camera-placeholder.png"
                   } alt="" className="ProfileImg"
                     onError={(e) => {
-                      e.target.onerror = null; // Remove the event handler to prevent an infinite loop
-                      e.target.src = "/assets/img/camera-placeholder.png"; // Placeholder image URL
+                      e.target.onerror = null; 
+                      e.target.src = "/assets/img/camera-placeholder.png"; 
                     }}
                   />
 
@@ -231,7 +244,7 @@ const AddIngredient = () => {
                   setImage(null)
                   resetForm()
                 }}>Cancel</IonButton>
-                <IonButton type="submit" value="Submit">Save</IonButton>
+                <IonButton type="submit" value="Submit" >Save</IonButton>
               </IonCol>
             </IonRow>
           </Form>)

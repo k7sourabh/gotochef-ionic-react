@@ -243,6 +243,14 @@ const Header = () => {
                   ></IonIcon>
                   <IonLabel>Category</IonLabel>
                 </IonItem>
+                <IonItem lines="none" routerLink="/articles">
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={gridOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel>My Articles</IonLabel>
+                </IonItem>
                 <IonMenuToggle>
                   <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
                     <IonIcon

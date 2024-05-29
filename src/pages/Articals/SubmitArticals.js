@@ -30,6 +30,7 @@ const SubmitArticles = () => {
     const history = useHistory();
     const [present] = useIonToast();
     const fileInputRef = useRef(null);
+
     const initialValues = {
         title: '',
         introText: '',
@@ -63,12 +64,12 @@ const SubmitArticles = () => {
             console.error(err);
         }
     };
+
     useIonViewWillEnter(() => {
         fetchArticleData();
     });
 
     const handleSubmit = async (values, { resetForm }) => {
-      
         try {
             const formData = new FormData();
             formData.append("article_name", values.title);
@@ -81,7 +82,7 @@ const SubmitArticles = () => {
             formData.append("article_section", values.section);
 
             const response = await postApiData('submit-article-post', formData);
-         
+            // console.log(response)
             if (response?.data?.status === 200) {
                 const truncatedMessage = truncateText(response?.data?.message_response, 35);
                 presentToast("Top", truncatedMessage);
@@ -104,6 +105,7 @@ const SubmitArticles = () => {
             fileInputRef.current.value = null;
         }
     };
+
     const presentToast = (position, message) => {
         present({
             message: message,
@@ -124,6 +126,15 @@ const SubmitArticles = () => {
             fileInputRef.current.click();
         }
     };
+
+    useEffect(() => {
+        // Clean up object URL when component unmounts or when imagePreview changes
+        return () => {
+            if (imagePreview) {
+                URL.revokeObjectURL(imagePreview);
+            }
+        };
+    }, [imagePreview]);
 
     return (
         <IonPage>
@@ -147,6 +158,7 @@ const SubmitArticles = () => {
                                 <IonRow>
                                     <IonCol>
                                         <div className="N-profileInput">
+                                            <label>Title</label>
                                             <IonInput
                                                 className="ion-margin-vertical"
                                                 name="title"
@@ -156,7 +168,7 @@ const SubmitArticles = () => {
                                                 onIonChange={(e) => setFieldValue('title', e.target.value)}
                                             />
                                             <ErrorMessage name="title" component="div" className="error-message error-text" />
-
+                                            <label>Intro Text</label>
                                             <IonInput
                                                 className="ion-margin-vertical"
                                                 name="introText"
@@ -166,7 +178,7 @@ const SubmitArticles = () => {
                                                 onIonChange={(e) => setFieldValue("introText", e.target.value)}
                                             />
                                             <ErrorMessage name="introText" component="div" className="error-message error-text" />
-
+                                            <label>Article Content</label>
                                             <IonTextarea
                                                 name='articleContent'
                                                 value={values.articleContent}
@@ -174,7 +186,7 @@ const SubmitArticles = () => {
                                                 onIonChange={(e) => setFieldValue("articleContent", e.target.value)}
                                             />
                                             <ErrorMessage name="articleContent" component="div" className="error-message error-text" />
-
+                                            <label>Highlights</label>
                                             <IonInput
                                                 className="ion-margin-vertical"
                                                 name="highlights"
@@ -195,20 +207,22 @@ const SubmitArticles = () => {
                                                 <img src="./assets/img/img-person.jpg" alt="Placeholder" className="ProfileImg" />
                                             )}
                                             <div className="image-upload" onClick={handleImageClick}>
-                                                <label htmlFor="file-input" className="N-EditProfile">
+                                                <label  className="N-EditProfile">
                                                     <img src="./assets/img/edit.png" alt="Edit" />
                                                 </label>
                                                 <input
                                                     ref={fileInputRef}
-                                                    // id="file-input"
                                                     type="file"
                                                     name="image1"
                                                     style={{ display: 'none' }}
                                                     onClick={(event) => { event.target.value = null }}
                                                     onChange={(e) => {
                                                         const file = e.target.files[0];
-                                                        setImagePreview(URL.createObjectURL(file));
-                                                        setFieldValue('image1', file);
+                                                        if (file) {
+                                                            const objectUrl = URL.createObjectURL(file);
+                                                            setImagePreview(objectUrl);
+                                                            setFieldValue('image1', file);
+                                                        }
                                                     }}
                                                 />
                                             </div>
@@ -218,6 +232,7 @@ const SubmitArticles = () => {
 
                                     <IonCol>
                                         <div className='N-profileInput'>
+                                            <label>Tags</label>
                                             <IonSelect
                                                 name='tags'
                                                 placeholder='Add Tags'
@@ -233,7 +248,7 @@ const SubmitArticles = () => {
                                             </IonSelect>
                                             <ErrorMessage name="tags" component="div" className="error-message error-text" />
                                         </div>
-
+                                        <label>Article Category</label>
                                         <div className='N-profileInput'>
                                             <IonSelect
                                                 name='category'
@@ -249,7 +264,7 @@ const SubmitArticles = () => {
                                             </IonSelect>
                                             <ErrorMessage name="category" component="div" className="error-message error-text" />
                                         </div>
-
+                                        <label>Article Section</label>
                                         <div className='N-profileInput'>
                                             <IonSelect
                                                 placeholder="Article Section"

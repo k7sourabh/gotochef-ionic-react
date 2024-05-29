@@ -19,7 +19,7 @@ const IngredientList = () => {
             <IonContent>
                 <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
                     <div className="TitleHead">
-                        <IonButton className="backBtn" fill="clear" routerLink="/profile">
+                        <IonButton className="backBtn" fill="clear" routerLink="/add-ingredient">
                             <i class="material-icons dark">west</i>
                         </IonButton>
                         <IonTitle color="dark">Add Ingredient</IonTitle>

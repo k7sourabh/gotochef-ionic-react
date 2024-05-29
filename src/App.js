@@ -141,8 +141,8 @@ const App = () => {
                   path="/order-details/:id"
                   component={OrderDetails}
                 />
-                <PrivateRoute path="/articles" component={Articals} />
-                <PrivateRoute path="/submit-articals" component={SubmitArticals} />
+                {/* <PrivateRoute path="/articles" component={Articals} /> */}
+                {/* <PrivateRoute path="/submit-articals" component={SubmitArticals} /> */}
                 <PrivateRoute path="/profile" component={Profile} />
                 <PrivateRoute path="/my-profile" component={MyProfile} />
                 <PrivateRoute path="/dashboard" component={Dashboard} />
@@ -158,9 +158,9 @@ const App = () => {
                 <PrivateRoute path="/order-fail" component={OrderFail} />
                 <PrivateRoute path="/add-ingredient" component={AddIngredient} />
                 <PrivateRoute path="/ingredient-detail" component={IngredientDetail} />
-                <PrivateRoute path="/artical-list" component={ArticalList}/>
+                {/* <PrivateRoute path="/artical-list" component={ArticalList}/>
                 <PrivateRoute path="/artical-detail/:slug:slug" component={ArticalDetail}/>
-                <PrivateRoute path="/edit-articals/:id" component={EditArticals}/>
+                <PrivateRoute path="/edit-articals/:id" component={EditArticals}/> */}
                
                 <PrivateRoute
                   path="/ingredient-list"
@@ -172,6 +172,20 @@ const App = () => {
                 <Route path="/" exact={true}>
                   <Redirect to="/home" />
                 </Route>
+
+                <Route path="/articles" exact={true}>
+                  <Articals/>
+                </Route>
+                <Route path="/submit-articals" exact={true}>
+                  <SubmitArticals/>
+                </Route>
+                <Route path="/artical-detail/:slug:slug" exact={true}>
+                  <ArticalDetail/>
+                </Route>
+                <Route path="/edit-articals/:id" exact={true}>
+                  <EditArticals/>
+                </Route>
+                
 
                 <Route path="/home" exact={true}>
                   <Home />
