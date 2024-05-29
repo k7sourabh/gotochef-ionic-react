@@ -84,8 +84,7 @@ const SubmitArticles = () => {
             const response = await postApiData('submit-article-post', formData);
             // console.log(response)
             if (response?.data?.status === 200) {
-                const truncatedMessage = truncateText(response?.data?.message_response, 35);
-                presentToast("Top", truncatedMessage);
+                presentToast("Top", response?.data?.message_response)
 
                 resetForm();
                 setImagePreview(null);
@@ -93,8 +92,8 @@ const SubmitArticles = () => {
                     history.push("/articles");
                 }, 3000);
             }
-        } catch (err) {
-            console.error(err);
+        } catch (response) {
+            presentToast("Top", response?.data?.message_response)
         }
     };
 
@@ -114,12 +113,7 @@ const SubmitArticles = () => {
         });
     };
 
-    const truncateText = (text, maxLength) => {
-        if (text && text.length > maxLength) {
-            return text.substr(0, maxLength) + '...';
-        }
-        return text;
-    };
+    
 
     const handleImageClick = () => {
         if (fileInputRef.current) {
@@ -128,7 +122,7 @@ const SubmitArticles = () => {
     };
 
     useEffect(() => {
-        // Clean up object URL when component unmounts or when imagePreview changes
+       
         return () => {
             if (imagePreview) {
                 URL.revokeObjectURL(imagePreview);

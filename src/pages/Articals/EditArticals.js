@@ -187,6 +187,7 @@ const EditArticles = () => {
                                     <IonRow>
                                         <IonCol>
                                             <div className="N-profileInput">
+                                                <label>Title</label>
                                                 <IonInput
                                                     className="ion-margin-vertical"
                                                     name="title"
@@ -200,6 +201,7 @@ const EditArticles = () => {
                                                     component="div"
                                                     className="error-message error-text"
                                                 />
+                                                <label>Intro Text</label>
                                                 <IonInput
                                                     className="ion-margin-vertical"
                                                     name="introText"
@@ -213,6 +215,7 @@ const EditArticles = () => {
                                                     component="div"
                                                     className="error-message error-text"
                                                 />
+                                                <label>Article Content</label>
                                                 <IonTextarea
                                                     name='articleContent'
                                                     value={values.articleContent}
@@ -224,6 +227,7 @@ const EditArticles = () => {
                                                     component="div"
                                                     className="error-message error-text"
                                                 />
+                                                <label>Highlights</label>
                                                 <IonInput
                                                     className="ion-margin-vertical"
                                                     name="highlights"
@@ -257,6 +261,7 @@ const EditArticles = () => {
                                             </div>
                                         </IonCol>
                                         <IonCol>
+                                            <label>Add Tags</label>
                                             <div className='N-profileInput'>
                                                 <IonSelect
                                                     name='tags'
@@ -272,6 +277,7 @@ const EditArticles = () => {
                                                     ))}
                                                 </IonSelect>
                                             </div>
+                                            <label>Article Category</label>
                                             <div className='N-profileInput'>
                                                 <IonSelect
                                                     name='category'
@@ -294,11 +300,11 @@ const EditArticles = () => {
 
                                             </div>
 
-
+                                          <label>Article Section</label>
                                             <div className='N-profileInput'>
                                                 <IonSelect
-                                                    name='category'
-                                                    placeholder="Article Category"
+                                                    name='section'
+                                                    placeholder="Article Section"
                                                     value={selectedSection}
                                                     onIonChange={(e) => {
                                                         const selectedSectionId = e.detail.value;
