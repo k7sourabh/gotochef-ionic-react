@@ -145,6 +145,10 @@ const ArticalDetail = () => {
                         src={item.desktopImages}
                         alt="category cover"
                         className="MainProductThumb"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/assets/img/img-placeholder.jpg"; 
+                        }}
                       />
                     </IonCardHeader>
                     <IonCardContent className="ProductDetails">
