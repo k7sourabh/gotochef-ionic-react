@@ -17,7 +17,7 @@ import {
 
 import Header from '../../components/Header';
 import { getApiData, postApiData } from '../../utils/Utils';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -29,7 +29,7 @@ const SubmitArticles = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const history = useHistory();
     const [present] = useIonToast();
-
+    const fileInputRef = useRef(null);
     const initialValues = {
         title: '',
         introText: '',
@@ -65,11 +65,10 @@ const SubmitArticles = () => {
     };
     useIonViewWillEnter(() => {
         fetchArticleData();
-     });
-   
+    });
 
     const handleSubmit = async (values, { resetForm }) => {
-        console.log("values",values)
+        console.log("values", values)
         try {
             const formData = new FormData();
             formData.append("article_name", values.title);
@@ -82,19 +81,16 @@ const SubmitArticles = () => {
             formData.append("article_section", values.section);
 
             const response = await postApiData('submit-article-post', formData);
-               console.log("response",response)
-            if (response?.data?.status===200) {
+            console.log("response", response)
+            if (response?.data?.status === 200) {
                 const truncatedMessage = truncateText(response?.data?.message_response, 35);
                 presentToast("Top", truncatedMessage);
-               
+
                 resetForm();
                 setImagePreview(null);
-                setTimeout(()=>{
-                    
+                setTimeout(() => {
                     history.push("/articles");
-                },3000)
-               
-                
+                }, 3000);
             }
         } catch (err) {
             console.error(err);
@@ -104,21 +100,29 @@ const SubmitArticles = () => {
     const handleClear = (resetForm) => {
         resetForm();
         setImagePreview(null);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = null;
+        }
     };
     const presentToast = (position, message) => {
         present({
-           message: message,
-           duration: 1500,
-           position: position,
+            message: message,
+            duration: 1500,
+            position: position,
         });
-     };
+    };
 
-     const truncateText = (text, maxLength) => {
+    const truncateText = (text, maxLength) => {
         if (text && text.length > maxLength) {
-           return text.substr(0, maxLength) + '...';
+            return text.substr(0, maxLength) + '...';
         }
         return text;
-     };
+    };
+
+    const handleImageClick = () => {
+        fileInputRef.current.click();
+    };
+
     return (
         <IonPage>
             <IonContent>
@@ -188,20 +192,20 @@ const SubmitArticles = () => {
                                             ) : (
                                                 <img src="./assets/img/img-person.jpg" alt="Placeholder" className="ProfileImg" />
                                             )}
-                                            <div className="image-upload">
+                                            <div className="image-upload" onClick={handleImageClick}>
                                                 <label htmlFor="file-input" className="N-EditProfile">
                                                     <img src="./assets/img/edit.png" alt="Edit" />
                                                 </label>
                                                 <input
-                                                    id="file-input"
+                                                    ref={fileInputRef}
+                                                    // id="file-input"
                                                     type="file"
                                                     name="image1"
+                                                    style={{ display: 'none' }}
                                                     onChange={(e) => {
                                                         const file = e.target.files[0];
                                                         setImagePreview(URL.createObjectURL(file));
-                                                        if (file) {
-                                                            setFieldValue('image1', file);
-                                                        }
+                                                        setFieldValue('image1', file);
                                                     }}
                                                 />
                                             </div>
