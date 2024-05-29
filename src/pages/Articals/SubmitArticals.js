@@ -68,7 +68,7 @@ const SubmitArticles = () => {
     });
 
     const handleSubmit = async (values, { resetForm }) => {
-        console.log("values", values)
+      
         try {
             const formData = new FormData();
             formData.append("article_name", values.title);
@@ -81,7 +81,7 @@ const SubmitArticles = () => {
             formData.append("article_section", values.section);
 
             const response = await postApiData('submit-article-post', formData);
-            console.log("response", response)
+         
             if (response?.data?.status === 200) {
                 const truncatedMessage = truncateText(response?.data?.message_response, 35);
                 presentToast("Top", truncatedMessage);
@@ -120,7 +120,9 @@ const SubmitArticles = () => {
     };
 
     const handleImageClick = () => {
-        fileInputRef.current.click();
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
     };
 
     return (
@@ -202,6 +204,7 @@ const SubmitArticles = () => {
                                                     type="file"
                                                     name="image1"
                                                     style={{ display: 'none' }}
+                                                    onClick={(event) => { event.target.value = null }}
                                                     onChange={(e) => {
                                                         const file = e.target.files[0];
                                                         setImagePreview(URL.createObjectURL(file));
