@@ -1,6 +1,6 @@
 import { IonSegment, IonSegmentButton, IonCol, IonGrid, IonPage, IonContent, IonRow, IonText, IonLabel, IonIcon, IonHeader, IonButton, IonTitle } from "@ionic/react";
 import Header from "../../components/Header";
-import { lockClosed, refreshCircleOutline, refreshOutline } from "ionicons/icons";
+import { lockClosed, refreshCircleOutline, refreshOutline, thumbsUp, thumbsUpOutline } from "ionicons/icons";
 import { useState } from "react";
 
 
@@ -151,18 +151,38 @@ const Dashboard = () => {
                                  </IonGrid>
                               </IonRow>
                               <IonRow className="MorefoodContent">
-                                 <IonCol>
+                                 <IonCol size="12" className="flex ion-justify-content-between ion-align-items-center">
                                     <div className="MorefoodBox">
-                                       <img src="/assets/img/Mysmart.png" alt="Images" class="TabIcon" />
-                                       <IonLabel>Food Enthusiast</IonLabel>
+                                       <img src="/assets/img/review.png" alt="Images" class="TabIcon" />
+                                       <IonLabel>Total Reviews</IonLabel>
                                     </div>
+                                    <div className="ReviewCount">
+                                       <IonText>16 Review</IonText>
+                                    </div>
+                                    </IonCol>
+                                    <IonCol size="12" className="flex ion-justify-content-between ion-align-items-center">
+                                    <div className="MorefoodBox">
+                                    <IonIcon
+                                                aria-hidden="true"
+                                                icon={thumbsUpOutline}
+                                                slot="start"
+                                                size="large"
+                                                className="LikeIcon">
+
+                                                </IonIcon>
+                                       <IonLabel>Like</IonLabel>
+                                    </div>
+                                    <div className="ReviewCount">
+                                       <IonText>0 Likes</IonText>
+                                    </div>
+                                    </IonCol>
+                                    <IonCol size="12" className="flex ion-justify-content-between ion-align-items-center">
                                     <div className="MorefoodBox">
                                        <img src="/assets/img/Recipes.png" alt="Images" class="TabIcon" />
-                                       <IonLabel>More than 7 times</IonLabel>
+                                       <IonLabel>Recipes</IonLabel>
                                     </div>
-                                    <div className="MorefoodBox">
-                                       <img src="/assets/img/Cart.png" alt="Images" class="TabIcon" />
-                                       <IonLabel>4 to 5 times a month</IonLabel>
+                                    <div className="ReviewCount">
+                                       <IonText>1 Recipe</IonText>
                                     </div>
                                  </IonCol>
                               </IonRow>
@@ -170,9 +190,12 @@ const Dashboard = () => {
                         )}
                         {selectedTabladder === "MyBadges" && (
                            <IonGrid className="ion-padding-vertical">
-                              <IonRow>
+                              <IonRow className="flex ion-align-items-center">
                                  <IonCol size="6">
                                     <IonText className="verticalLine">Recent Achievement</IonText>
+                                 </IonCol>
+                                 <IonCol size="6" className="flex ion-justify-content-end" >
+                                    <IonButton fill="clear"  routerLink="/badges">View Collection</IonButton>
                                  </IonCol>
                               </IonRow>
                               <IonRow className="badgesImg ion-padding-vertical">

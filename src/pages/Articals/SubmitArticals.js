@@ -8,7 +8,7 @@ const SubmitArticals = () => {
             {/* <Header /> */}
             <IonContent>
                 <IonHeader className="TitleHead bottom-shadow">
-                    <IonButton className="backBtn" fill="clear" routerLink="/profile">
+                    <IonButton className="backBtn" fill="clear" routerLink="/articles">
                         <i class="material-icons dark">west</i>
                     </IonButton>
                     <IonTitle color="dark">Submit Articals</IonTitle>

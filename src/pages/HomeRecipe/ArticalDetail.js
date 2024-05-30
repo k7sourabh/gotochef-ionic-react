@@ -97,7 +97,7 @@ const ArticalDetail = () => {
           </IonRow>
         </IonGrid>
 
-        <IonGrid className="ion-padding-horizontal">
+       <IonGrid className="ion-padding-horizontal">
           <IonRow>
            <h3>Similar Articles</h3>
           </IonRow>
@@ -175,7 +175,7 @@ const ArticalDetail = () => {
             <IonButton fill="outline" size="default">View all</IonButton>
            </IonCol>
           </IonRow>
-        </IonGrid>
+        </IonGrid> 
         
       </IonContent>
     </IonPage>

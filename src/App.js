@@ -81,6 +81,7 @@ import IngredientDetail from "./pages/Ingredient/IngredientDetail";
 import SavedContent from "./pages/profile/SavedContent";
 import ArticalList from "./pages/HomeRecipe/ArticalList";
 import ArticalDetail from "./pages/HomeRecipe/ArticalDetail";
+import Badges from "./pages/profile/Badges";
 
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
@@ -159,6 +160,7 @@ const App = () => {
                 <PrivateRoute path="/ingredient-detail" component={IngredientDetail} />
                 <PrivateRoute path="/artical-list" component={ArticalList} />
                 <PrivateRoute path="/artical-detail" component={ArticalDetail} />
+                <PrivateRoute path="/badges" component={Badges} />
                 
                
                 <PrivateRoute

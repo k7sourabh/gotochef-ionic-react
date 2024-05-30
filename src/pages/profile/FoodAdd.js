@@ -1,5 +1,5 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCheckbox, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from '@ionic/react'
-import { heartOutline } from 'ionicons/icons';
+import { heartOutline, trashBinOutline } from 'ionicons/icons';
 import React, { useState } from 'react'
 import Header from '../../components/Header'
 
@@ -105,20 +105,23 @@ const FoodAdd = () => {
                   <IonRow>
                     <IonCol size='6'>
                     <IonCard className="ProductCard">
-                      <IonCardHeader className="ProductThumb">
+                      <IonCardHeader className="">
                         <img
                           src="/assets/img/product-img.png"
                           alt="category cover"
                           className="MainProductThumb"
                          
                         />
+                         <IonButton size='default' fill='clear' shape='round' className='trashIcon'>
+                      <IonIcon size="default" icon={trashBinOutline} />
+                      </IonButton>
                       </IonCardHeader>
                       <IonCardContent className="ProductDetails">
-                        <IonText className="ProductTitle">
+                        <IonText className="CurrentPrice" color="dark">
                         Chia Seeds
                         </IonText>
                         <div className="PriceRating">
-                          <IonText color="dark" className="CurrentPrice">
+                          <IonText>
                           Edible Refined Vegetable Oil (Sunflower/Soyabean)
                           </IonText>
                           
@@ -126,28 +129,29 @@ const FoodAdd = () => {
                         <IonButton size='default' fill='outline' shape='round'>
                             Read More
                         </IonButton>
-                        <IonButton size='default' fill='outline' shape='round'>
-                            Delete
-                        </IonButton>
+                       
                       </IonCardContent>
                     </IonCard>
                     </IonCol>
                     <IonCol size='6'>
                     <IonCard className="ProductCard">
-                      <IonCardHeader className="ProductThumb">
+                      <IonCardHeader className="">
                         <img
-                          src="/assets/img/1525870462-Listing.jpg"
+                          src="/assets/img/product-img.png"
                           alt="category cover"
                           className="MainProductThumb"
                          
                         />
+                         <IonButton size='default' fill='clear' shape='round' className='trashIcon'>
+                      <IonIcon size="default" icon={trashBinOutline} />
+                      </IonButton>
                       </IonCardHeader>
                       <IonCardContent className="ProductDetails">
-                        <IonText className="ProductTitle">
+                        <IonText className="CurrentPrice" color="dark">
                         Chia Seeds
                         </IonText>
                         <div className="PriceRating">
-                          <IonText color="dark" className="CurrentPrice">
+                          <IonText>
                           Edible Refined Vegetable Oil (Sunflower/Soyabean)
                           </IonText>
                           
@@ -155,12 +159,11 @@ const FoodAdd = () => {
                         <IonButton size='default' fill='outline' shape='round'>
                             Read More
                         </IonButton>
-                        <IonButton size='default' fill='outline' shape='round'>
-                            Delete
-                        </IonButton>
+                       
                       </IonCardContent>
                     </IonCard>
                     </IonCol>
+                    
                   </IonRow>
                 </IonGrid>
                 
@@ -170,63 +173,65 @@ const FoodAdd = () => {
                 <IonGrid>
                 <IonRow>
                 <IonCol size='6'>
-                  <IonCard className="ProductCard">
-                    <IonCardHeader className="ProductThumb">
-                      <img
-                        src="/assets/img/1525870462-Listing.jpg"
-                        alt="category cover"
-                        className="MainProductThumb"
-                       
-                      />
-                    </IonCardHeader>
-                    <IonCardContent className="ProductDetails">
-                      <IonText className="ProductTitle">
-                      Chia Seeds
-                      </IonText>
-                      <div className="PriceRating">
-                        <IonText color="dark" className="CurrentPrice">
-                        Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                    <IonCard className="ProductCard">
+                      <IonCardHeader className="">
+                        <img
+                          src="/assets/img/product-img.png"
+                          alt="category cover"
+                          className="MainProductThumb"
+                         
+                        />
+                         <IonButton size='default' fill='clear' shape='round' className='trashIcon'>
+                      <IonIcon size="default" icon={trashBinOutline} />
+                      </IonButton>
+                      </IonCardHeader>
+                      <IonCardContent className="ProductDetails">
+                        <IonText className="CurrentPrice" color="dark">
+                        Chia Seeds
                         </IonText>
-                        
-                      </div>
-                      <IonButton size='default' fill='outline' shape='round'>
-                          Read More
-                      </IonButton>
-                      <IonButton size='default' fill='outline' shape='round'>
-                          Delete
-                      </IonButton>
-                    </IonCardContent>
-                  </IonCard>
-                  </IonCol>
-                  <IonCol size='6'>
-                  <IonCard className="ProductCard">
-                    <IonCardHeader className="ProductThumb">
-                      <img
-                        src="/assets/img/1525832641-Peanut-Butter-Jelly-French-Toast-Listing.jpg"
-                        alt="category cover"
-                        className="MainProductThumb"
+                        <div className="PriceRating">
+                          <IonText>
+                          Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                          </IonText>
+                          
+                        </div>
+                        <IonButton size='default' fill='outline' shape='round' routerLink='/food-setting-detail'>
+                            Read More
+                        </IonButton>
                        
-                      />
-                    </IonCardHeader>
-                    <IonCardContent className="ProductDetails">
-                      <IonText className="ProductTitle">
-                      Chia Seeds
-                      </IonText>
-                      <div className="PriceRating">
-                        <IonText color="dark" className="CurrentPrice">
-                        Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                      </IonCardContent>
+                    </IonCard>
+                    </IonCol>
+                    <IonCol size='6'>
+                    <IonCard className="ProductCard">
+                      <IonCardHeader className="">
+                        <img
+                          src="/assets/img/product-img.png"
+                          alt="category cover"
+                          className="MainProductThumb"
+                         
+                        />
+                         <IonButton size='default' fill='clear' shape='round' className='trashIcon'>
+                      <IonIcon size="default" icon={trashBinOutline} />
+                      </IonButton>
+                      </IonCardHeader>
+                      <IonCardContent className="ProductDetails">
+                        <IonText className="CurrentPrice" color="dark">
+                        Chia Seeds
                         </IonText>
-                        
-                      </div>
-                      <IonButton size='default' fill='outline' shape='round'>
-                          Read More
-                      </IonButton>
-                      <IonButton size='default' fill='outline' shape='round'>
-                          Delete
-                      </IonButton>
-                    </IonCardContent>
-                  </IonCard>
-                  </IonCol>
+                        <div className="PriceRating">
+                          <IonText>
+                          Edible Refined Vegetable Oil (Sunflower/Soyabean)
+                          </IonText>
+                          
+                        </div>
+                        <IonButton size='default' fill='outline' shape='round'>
+                            Read More
+                        </IonButton>
+                       
+                      </IonCardContent>
+                    </IonCard>
+                    </IonCol>
                 </IonRow>
               </IonGrid>
               )}
@@ -238,56 +243,57 @@ const FoodAdd = () => {
           <IonRow className='d-flex ion-justify-content-center'>
             <IonCol size='5'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>African</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="African">African</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='African'></IonCheckbox>
               </IonItem>
+             
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>French</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="French">French</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='French'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Mughlai</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Mughlai">Mughlai</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Mughlai'></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Chinese</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Chinese">Chinese</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Chinese'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Italian</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Italian">Italian</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Italian'></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Madhya Pradesh</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="mp">Madhya Pradesh</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='mp'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Italian</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Italian">Italian</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Italian'></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Madhya Pradesh</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="madhya">Madhya Pradesh</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='madhya'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
@@ -297,64 +303,64 @@ const FoodAdd = () => {
           <IonRow className='d-flex ion-justify-content-center'>
             <IonCol size='5'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Baking</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Baking">Baking</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Baking'></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Deep Frying</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Deep">Deep Frying</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Deep'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Grill/BBQ</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Grill">Grill/BBQ</IonLabel>
+                <IonCheckbox className='ion-margin-start'  id='Grill'></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Roasting</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Roasting">Roasting</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Roasting'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Boiling</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Boiling">Boiling</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Boiling'></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Microwave</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Microwave">Microwave</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Microwave'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className='d-flex ion-justify-content-center ion-padding-top'>
             <IonCol size='5'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Slow Cooking</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Slow">Slow Cooking</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Slow'></IonCheckbox>
               </IonItem>
             </IonCol>
             <IonCol size='5' className='ion-margin-start'>
               <IonItem lines='none' className='box-shadow'>
-                <IonLabel>Steaming</IonLabel>
-                <IonCheckbox className='ion-margin-start'></IonCheckbox>
+                <IonLabel for="Steaming">Steaming</IonLabel>
+                <IonCheckbox className='ion-margin-start' id='Steaming'></IonCheckbox>
               </IonItem>
             </IonCol>
           </IonRow>
         </IonGrid>
         <IonGrid className='ion-padding-horizontal ion-padding-vertical'>
           <IonRow>
-            <IonCol>
-              <IonButton>SAVE</IonButton>
+            <IonCol className='flex ion-justify-content-center'>
+              <IonButton size='deafult' fill='outline' >SAVE</IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>

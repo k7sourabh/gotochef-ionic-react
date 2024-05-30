@@ -17,7 +17,7 @@ import {
     IonChip,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
-import { add, closeCircle, remove, removeCircleOutline, star } from "ionicons/icons";
+import { add, close, closeCircle, remove, removeCircleOutline, star } from "ionicons/icons";
 
 
 const SavedContent = () => {
@@ -102,7 +102,7 @@ const SavedContent = () => {
                                                     shape="round"
                                                     fill="outline">
                                                     <div className="addText">Remove
-                                                        <IonIcon slot="end" size="small" icon={remove} />
+                                                        <IonIcon slot="end" size="small" icon={close} />
                                                     </div>
                                                 </IonButton>
                                             </IonCardContent>
@@ -161,7 +161,7 @@ const SavedContent = () => {
                                                 >
                                                     <div className="addText">
                                                         Remove
-                                                        <IonIcon slot="end" size="small" icon={remove} />
+                                                        <IonIcon slot="end" size="small" icon={close} />
                                                     </div>
                                                 </IonButton>
                                             </IonCardContent>
@@ -231,7 +231,7 @@ const SavedContent = () => {
                                                 >
                                                     <div className="addText">
                                                         Remove
-                                                        <IonIcon slot="end" size="small" icon={remove} />
+                                                        <IonIcon slot="end" size="small" icon={close} />
                                                     </div>
                                                 </IonButton>
                                             </IonCardContent>
@@ -295,7 +295,7 @@ const SavedContent = () => {
                                                 >
                                                     <div className="addText">
                                                         Remove
-                                                        <IonIcon slot="end" size="small" icon={remove} />
+                                                        <IonIcon slot="end" size="small" icon={close} />
                                                     </div>
                                                 </IonButton>
                                             </IonCardContent>
@@ -365,7 +365,7 @@ const SavedContent = () => {
                                                 >
                                                     <div className="addText">
                                                         Remove
-                                                        <IonIcon slot="end" size="small" icon={remove} />
+                                                        <IonIcon slot="end" size="small" icon={close} />
                                                     </div>
                                                 </IonButton>
                                             </IonCardContent>
@@ -429,7 +429,7 @@ const SavedContent = () => {
                                                 >
                                                     <div className="addText">
                                                         Remove
-                                                        <IonIcon slot="end" size="small" icon={remove} />
+                                                        <IonIcon slot="end" size="small" icon={close} />
                                                     </div>
                                                 </IonButton>
 
