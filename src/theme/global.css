@@ -2095,7 +2095,6 @@ ul.ProHomeList li::before {
   align-items: center;
   gap: 20px;
   padding: 10px 0px;
-  width: 100%;
 }
 
 .MorefoodBox .TabIcon {
@@ -3805,4 +3804,12 @@ label.cover-img-upload ion-text {
 }
 .SocialArtical ion-button img {
   height: 28px;
+}
+.trashIcon{
+  position: absolute;
+  top: 0px;
+  right: -30px;
+}
+.LikeIcon{
+  color: #9a1504;
 }
