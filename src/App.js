@@ -157,7 +157,7 @@ const App = () => {
                 <PrivateRoute path="/order-confirm" component={OrderConfirm} />
                 <PrivateRoute path="/order-fail" component={OrderFail} />
                 <PrivateRoute path="/add-ingredient" component={AddIngredient} />
-                <PrivateRoute path="/ingredient-detail" component={IngredientDetail} />
+                <PrivateRoute path="/ingredient-detail/:slug" component={IngredientDetail} />
                 <PrivateRoute path="/artical-list" component={ArticalList} />
                 <PrivateRoute path="/artical-detail" component={ArticalDetail} />
                 <PrivateRoute path="/badges" component={Badges} />

@@ -497,6 +497,7 @@ const EditProfile = () => {
               )}
             </Formik>
           )}
+           {!formValues && (<IonText>Something went wrong</IonText>)}
         </IonContent>
       </IonPage>
     </>
