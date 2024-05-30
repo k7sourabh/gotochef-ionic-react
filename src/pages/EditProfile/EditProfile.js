@@ -22,6 +22,7 @@ import {
   IonTitle,
   IonModal,
   useIonToast,
+  IonSpinner,
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
@@ -36,6 +37,7 @@ const EditProfile = () => {
   const [cityListData, setCityListData] = useState([]);
   const [stateListtData, setStateListtData] = useState([]);
   const [present] = useIonToast();
+  const [loader, setLoader] = useState(false);
   const [formValues, setFormValues] = useState({
     avatar: "",
     name: "",
@@ -132,6 +134,7 @@ const EditProfile = () => {
 
   const profileSettingPost = async (values) => {
     // console.log("values", values)
+    setLoader(true)
     try {
       const formdata = new FormData();
       formdata.append("firstName", values.name);
@@ -156,6 +159,7 @@ const EditProfile = () => {
     } catch (err) {
       console.error(err);
     }
+    setLoader(false)
   };
   const presentToast = (position, message) => {
     present({
@@ -517,7 +521,7 @@ const EditProfile = () => {
                                     onIonChange={(e) =>
                                       setFieldValue("about_us", e.detail.value)
                                     }
-                                     
+
                                     label="Outline textarea"
                                     placeholder="I am food of cooking and love cooking so i am think this will help me a lot"
                                   ></IonTextarea>
@@ -531,6 +535,11 @@ const EditProfile = () => {
                           <IonButton expand="full" type="submit">
                             Update
                           </IonButton>
+                          {loader && (
+                            <div className="loader-container">
+                              <IonSpinner name="crescent" />
+                            </div>
+                          )}
                         </div>
                       </IonCol>
                     </IonRow>

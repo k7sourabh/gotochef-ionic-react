@@ -243,7 +243,7 @@ const Header = () => {
                   ></IonIcon>
                   <IonLabel>Category</IonLabel>
                 </IonItem>
-                <IonItem lines="none" routerLink="/articles">
+                <IonItem lines="none" routerLink="/artical-list">
                   <IonIcon
                     aria-hidden="true"
                     icon={gridOutline}

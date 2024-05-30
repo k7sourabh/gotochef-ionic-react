@@ -12,7 +12,8 @@ import {
     IonTitle,
     IonGrid,
     useIonToast,
-    useIonViewWillEnter
+    useIonViewWillEnter,
+    IonSpinner
 } from '@ionic/react';
 
 import Header from '../../components/Header';
@@ -29,6 +30,7 @@ const SubmitArticles = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const history = useHistory();
     const [present] = useIonToast();
+    const [loader, setLoader] = useState(false);
     const fileInputRef = useRef(null);
 
     const initialValues = {
@@ -70,6 +72,7 @@ const SubmitArticles = () => {
     });
 
     const handleSubmit = async (values, { resetForm }) => {
+        setLoader(true)
         try {
             const formData = new FormData();
             formData.append("article_name", values.title);
@@ -95,6 +98,7 @@ const SubmitArticles = () => {
         } catch (response) {
             presentToast("Top", response?.data?.message_response)
         }
+        setLoader(false)
     };
 
     const handleClear = (resetForm) => {
@@ -278,6 +282,11 @@ const SubmitArticles = () => {
                                         <div className="flex ion-padding-top">
                                             <IonButton onClick={() => handleClear(resetForm)}>CANCEL</IonButton>
                                             <IonButton className='ion-padding-start' type='submit'>SUBMIT</IonButton>
+                                            {loader && (
+                                                    <div className="loader-container">
+                                                        <IonSpinner name="crescent" />
+                                                    </div>
+                                                )}
                                         </div>
                                     </IonCol>
                                 </IonRow>
