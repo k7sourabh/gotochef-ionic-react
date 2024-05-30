@@ -82,6 +82,7 @@ import SavedContent from "./pages/profile/SavedContent";
 import ArticalList from "./pages/Articals/ArticalList";
 import ArticalDetail from "./pages/Articals/ArticalDetail";
 import EditArticals from "./pages/Articals/EditArticals";
+import LocalArticalDetail from "./pages/Articals/LocalArticalDetail";
 
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
@@ -174,6 +175,9 @@ const App = () => {
 
                 <Route path="/artical-list" exact={true}>
                   <ArticalList/>
+                </Route>
+                <Route path="/artical-detail/:slug:slug" exact={true}>
+                  <LocalArticalDetail/>
                 </Route>
                
                 
