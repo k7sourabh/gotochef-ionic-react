@@ -11,8 +11,9 @@ import {
     IonSelectOption,
     IonTitle,
     IonGrid,
+    IonSpinner,
 } from '@ionic/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getApiData, postApiData } from '../../utils/Utils';
 import { ErrorMessage, Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -27,8 +28,10 @@ const AddProduct = () => {
     const [imagePreview3, setImagePreview3] = useState(null);
     const [imagePreview4, setImagePreview4] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
-    const [responcedata, setResponceData] = useState({})
+    const [responcedata, setResponceData] = useState({});
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
+    const fileInputRef = useRef(null);
 
     const initialValues = {
         Productname: '',
@@ -74,13 +77,14 @@ const AddProduct = () => {
     };
 
     const handleSubmit = async (values, { resetForm }) => {
+        setLoading(true);
         try {
             const formData = new FormData();
             formData.append('product_name', values.Productname);
             formData.append('manufacturers_name', values.Brandname);
             formData.append('product_main_category', values.Category);
             formData.append('product_sub_category', values.subCategory);
-            // formData.append('image1', values.image1);
+            formData.append('image1', values.image1);
             formData.append('image2', values.image2);
             formData.append('image3', values.image3);
             formData.append('image4', values.image4);
@@ -88,7 +92,7 @@ const AddProduct = () => {
             const response = await postApiData('user-add-product', formData);
 
             if (response.data.status === 200) {
-                setResponceData(response?.data?.message_response)
+                setResponceData(response?.data?.message_response);
                 setIsOpen(true);
                 resetForm();
                 setImagePreview(null);
@@ -99,9 +103,11 @@ const AddProduct = () => {
             }
         } catch (response) {
             setIsOpen(true);
-            setResponceData(response?.data?.message)
-        }
+            setResponceData(response?.data?.message);
+        } 
+        setLoading(false)
     };
+
     const clearForm = (resetForm) => {
         resetForm();
         setImagePreview(null);
@@ -109,8 +115,13 @@ const AddProduct = () => {
         setImagePreview3(null);
         setImagePreview4(null);
         history.push('/profile');
-    }
-  
+    };
+
+    const handleImageClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
 
     return (
         <IonPage>
@@ -177,11 +188,8 @@ const AddProduct = () => {
                                                     value={values.Category}
                                                     onIonChange={(e) => {
                                                         const value = e.target.value;
-                                                        handleStateChange(
-                                                            value
-                                                        )
+                                                        handleStateChange(value);
                                                         setFieldValue('Category', value);
-
                                                     }}
                                                 >
                                                     {Categorydata &&
@@ -227,11 +235,13 @@ const AddProduct = () => {
                                             <div className="EditprofileImg N-ProfileEdit">
                                                 <img src={imagePreview ? imagePreview : "./assets/img/camera-placeholder.png"}
                                                     alt="" className="ProfileImg" />
-                                                <div className="image-upload">
-                                                    <label htmlFor="file-input" className="N-EditProfile">
+                                                <div className="image-upload" onClick={handleImageClick}>
+                                                    <label className="N-EditProfile">
                                                         <img src="./assets/img/edit.png" alt="" />
                                                     </label>
-                                                    <input id="file-input" type="file" name='image1'
+                                                    <input
+                                                        ref={fileInputRef}
+                                                        type="file" name='image1'
                                                         onChange={(e) => {
                                                             const file = e.target.files[0];
                                                             setImagePreview(URL.createObjectURL(file));
@@ -329,7 +339,7 @@ const AddProduct = () => {
                                                     CANCEL
                                                 </IonButton>
                                                 <IonButton type="submit" className="ion-padding-start">
-                                                    SAVE & FINISH
+                                                SAVE & FINISH
                                                 </IonButton>
                                             </div>
                                         </IonCol>
@@ -341,6 +351,11 @@ const AddProduct = () => {
                 </Formik>
 
                 <AddProductPopup isOpen={isOpen} setIsOpen={setIsOpen} responcedata={responcedata} />
+                {loading && (
+                    <div className="loading-overlay">
+                        <IonSpinner name="crescent" />
+                    </div>
+                )}
             </IonContent>
         </IonPage>
     );

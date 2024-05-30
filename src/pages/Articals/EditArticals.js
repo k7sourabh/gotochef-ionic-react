@@ -9,6 +9,7 @@ import {
     IonRow,
     IonSelect,
     IonSelectOption,
+    IonSpinner,
     IonTextarea,
     IonTitle,
     useIonToast
@@ -30,6 +31,7 @@ const EditArticles = () => {
     const history = useHistory();
     const { id } = useParams();
     const [present] = useIonToast();
+    const [loader, setLoader] = useState(false);
     const [formValues, setFormValues] = useState({
         title: '',
         introText: '',
@@ -46,34 +48,21 @@ const EditArticles = () => {
         if (sections.length > 0) {
             sections.forEach((item, i) => {
                 if (item.id == formValues.section)
-
                     setSelectedSection(sections[i].id);
-
-
             })
-
         }
     }, [sections])
 
     const [selectedCategory, setSelectedCategory] = useState(categories.length > 0 ? categories[0].id : '');
     useEffect(() => {
-        // Update the state if the categories array changes and has items
         if (categories.length > 0) {
             categories.forEach((item, i) => {
                 if (item.id == formValues.category) {
                     setSelectedCategory(categories[i].id);
                 }
-
             })
-
         }
-
     }, [categories, selectedCategory, sections]);
-
-
-
-
-
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Title is required'),
         introText: Yup.string().required('Intro Text is required'),
@@ -125,6 +114,7 @@ const EditArticles = () => {
     }, [id]);
 
     const handleSubmit = async (values) => {
+        setLoader(true)
         try {
             const formData = new FormData();
             formData.append("articleName", values.title);
@@ -149,8 +139,8 @@ const EditArticles = () => {
         } catch (error) {
             const errorMessage = error?.response?.data?.errors?.message_response || "An error occurred";
             presentToast("Top", errorMessage);
+            setLoader(false);
         }
-
     };
 
     const handleClear = () => {
@@ -300,7 +290,7 @@ const EditArticles = () => {
 
                                             </div>
 
-                                          <label>Article Section</label>
+                                            <label>Article Section</label>
                                             <div className='N-profileInput'>
                                                 <IonSelect
                                                     name='section'
@@ -326,6 +316,11 @@ const EditArticles = () => {
                                             <div className="flex ion-padding-top">
                                                 <IonButton onClick={() => handleClear()}>CANCEL</IonButton>
                                                 <IonButton className='ion-padding-start' type='submit'>SUBMIT</IonButton>
+                                                {loader && (
+                                                    <div className="loader-container">
+                                                        <IonSpinner name="crescent" />
+                                                    </div>
+                                                )}
                                             </div>
                                         </IonCol>
                                     </IonRow>

@@ -249,7 +249,7 @@ const Header = () => {
                     icon={gridOutline}
                     slot="start"
                   ></IonIcon>
-                  <IonLabel>My Articles</IonLabel>
+                  <IonLabel>Articles</IonLabel>
                 </IonItem>
                 <IonMenuToggle>
                   <IonItem lines="none" onClick={() => setIsOpenLogin(true)}>
