@@ -146,6 +146,19 @@ const FoodAdd = () => {
   const deleteFavIngredient = async (id) => {
     try {
       const response = await getApiData(`/delete-fav-ingredient/${id}`);
+      getFoodSetting();
+      if (response?.data?.status === 200) {
+        presentToast("Top", response?.data?.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteNagIngredient = async (id) => {
+    try {
+      const response = await getApiData(`/delete-neg-ingredient/${id}`);
+      getFoodSetting();
       if (response?.data?.status === 200) {
         presentToast("Top", response?.data?.message);
       }
@@ -458,7 +471,7 @@ const FoodAdd = () => {
                                       </IonButton>
                                       <IonButton
                                         onClick={() =>
-                                          deleteFavIngredient(item.id)
+                                          deleteNagIngredient(item.id)
                                         }
                                       >
                                         Delete

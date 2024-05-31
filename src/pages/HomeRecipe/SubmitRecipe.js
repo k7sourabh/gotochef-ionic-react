@@ -68,7 +68,7 @@ const SubmitRecipe = (props) => {
       {/* <Header /> */}
       <IonContent>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="backBtn" fill="clear" routerLink="/home">
+          <IonButton className="backBtn" fill="clear" routerLink="/my-recipe">
             <i class="material-icons dark">west</i>
           </IonButton>
           <IonTitle color="dark">Submit Your Tasty Recipe</IonTitle>
