@@ -104,7 +104,7 @@ const AddProduct = () => {
         } catch (response) {
             setIsOpen(true);
             setResponceData(response?.data?.message);
-        } 
+        }
         setLoading(false)
     };
 
@@ -339,8 +339,13 @@ const AddProduct = () => {
                                                     CANCEL
                                                 </IonButton>
                                                 <IonButton type="submit" className="ion-padding-start">
-                                                SAVE & FINISH
+                                                    SAVE & FINISH
                                                 </IonButton>
+                                                {loading && (
+                                                    <div className="loading-overlay">
+                                                        <IonSpinner name="crescent" />
+                                                    </div>
+                                                )}
                                             </div>
                                         </IonCol>
                                     </IonRow>
@@ -351,11 +356,7 @@ const AddProduct = () => {
                 </Formik>
 
                 <AddProductPopup isOpen={isOpen} setIsOpen={setIsOpen} responcedata={responcedata} />
-                {loading && (
-                    <div className="loading-overlay">
-                        <IonSpinner name="crescent" />
-                    </div>
-                )}
+
             </IonContent>
         </IonPage>
     );

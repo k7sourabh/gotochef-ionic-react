@@ -132,6 +132,7 @@ const EditArticles = () => {
             const response = await postApiData("update-article", formData);
 
             presentToast("Top", response?.data?.message_response);
+            
             setTimeout(() => {
                 history.push("/articles");
             }, 2000);
@@ -141,6 +142,7 @@ const EditArticles = () => {
             presentToast("Top", errorMessage);
             setLoader(false);
         }
+        setLoader(false);
     };
 
     const handleClear = () => {

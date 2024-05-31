@@ -81,9 +81,8 @@ const AddIngredient = () => {
       }
     } catch (err) {
       console.error(err);
-      setLoader(false);
-      
     }
+    setLoader(false);
   };
 
  

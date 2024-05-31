@@ -7,6 +7,7 @@ import {
     IonLabel,
     IonPage,
     IonRow,
+    IonSpinner,
     IonText,
     IonTitle,
     useIonToast
@@ -20,6 +21,7 @@ import * as Yup from 'yup';
 const LifeStyleSetting = () => {
     const [lifestyleHealth, setLifestyleHealth] = useState([]);
     const [lifestyleActivity, setLifestyleActivity] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [initialValues, setInitialValues] = useState(
         {
             health: [],
@@ -47,7 +49,7 @@ const LifeStyleSetting = () => {
 
     useEffect(() => {
         fetchLifeStyleData();
-    }, []);
+    },[]);
 
     const presentToast = (position, message) => {
         present({
@@ -63,6 +65,8 @@ const LifeStyleSetting = () => {
     });
 
     const handleSubmit = async (values) => {
+         setLoading(true)
+
         try {
             const response = await postApiData('lifestyle-setting-post', values);
             if (response?.data?.status === 200) {
@@ -73,7 +77,10 @@ const LifeStyleSetting = () => {
             }
         } catch (err) {
             console.log(err);
+            setLoading(false)
         }
+   
+        setLoading(false);
     };
 
     return (
@@ -146,6 +153,11 @@ const LifeStyleSetting = () => {
                                 <IonRow>
                                     <IonCol>
                                         <IonButton type="submit">Save</IonButton>
+                                        {loading && (
+                                                    <div className="loading-overlay">
+                                                        <IonSpinner name="crescent" />
+                                                    </div>
+                                                )}
                                     </IonCol>
                                 </IonRow>
                             </IonGrid>
