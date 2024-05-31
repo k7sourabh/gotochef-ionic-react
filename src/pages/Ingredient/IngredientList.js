@@ -26,11 +26,8 @@ import {
   sunnyOutline,
 } from "ionicons/icons";
 import React, { useEffect } from "react";
-import Header from "../../components/Header";
 import { menuController } from "@ionic/core/components";
-import WishList from "../wishList/WishList";
 import IngredientProduct from "./IngredientProduct";
-import { getApiData } from "../../utils/Utils";
 
 const IngredientList = () => {
   async function openSecondMenu() {
