@@ -1,22 +1,45 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from '@ionic/react';
 import { closeCircleOutline, heart, heartOutline, removeCircle, removeOutline, shareSocialOutline } from 'ionicons/icons';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/Header';
 import { useState } from "react";
 import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { getApiData, postApiDataWithAuth } from "../../utils/Utils";
+import { useParams } from 'react-router';
+
 
 const IngredientDetail = () => {
+    const [ingredientData, setingredientData] = useState({})
+    console.log('ingredientData11', ingredientData)
+    const { slug } = useParams();
     const [selectedTabDetail, setSelectedTabDetail] = useState("DetailStatus");
     const handleTabChangeDetail = (event) => {
         setSelectedTabDetail(event.detail.value);
     };
+    console.log('slug', slug)
+
+    const fetchApidata = async () => {
+        try {
+            const responce = await getApiData(`ingredients_details/${slug}`);
+            console.log('responce', responce);
+            setingredientData(responce?.data?.ingredient_details)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    useEffect(() => {
+        fetchApidata();
+    }, [slug])
     return (
         <IonPage>
             {/* <Header/> */}
+
             <IonContent>
                 <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
                     <div className="TitleHead">
-                        <IonButton className="backBtn" fill="clear" routerLink="/profile">
+                        <IonButton className="backBtn" fill="clear" routerLink="/ingredient-list">
                             <i class="material-icons dark">west</i>
                         </IonButton>
                         <IonTitle color="dark">Ingredient Details</IonTitle>
@@ -26,18 +49,24 @@ const IngredientDetail = () => {
                 <IonGrid class='ion-padding'>
                     <IonRow>
                         <div className='topImage'>
-                            <img src="./assets/img/Dried Blueberries- landing GTC.png" alt="" className="ProfileImg" />
+                            <img src={ingredientData.images} alt="" className="ProfileImg"
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/assets/img/img-placeholder.jpg";
+                                }} />
                             <div className='topIcon'>
-                                <div className='iconTop'><IonIcon size="default" fill="clear" icon={heartOutline} /><span>2</span></div>
-                                <div className='iconTop'><IonIcon size="default" fill="clear" icon={shareSocialOutline} /><span className='ion-no-padding'>2</span></div>
+                                <div className='iconTop'><IonIcon size="default" fill="clear" icon={heartOutline} />
+                                    <span>{ingredientData.total_fav_num}</span></div>
+                                <div className='iconTop'><IonIcon size="default" fill="clear" icon={shareSocialOutline} />
+                                    <span className='ion-no-padding'>{ingredientData.imk_count}</span></div>
                             </div>
                         </div>
                     </IonRow>
 
                     <IonRow className='ion-padding-vertical'>
-                        <IonTitle className='ion-no-padding'>Dried Blueberries</IonTitle>
-                        <IonText><span>Also Known As :</span> Dehyrated blueberries, Dry blueberries</IonText>
-                        <IonText><span>Technical Name :</span>Cyanococcus</IonText>
+                        <IonTitle className='ion-no-padding'>{ingredientData.ingredients_name}</IonTitle>
+                        <IonText><span>Also Known As :</span>{ingredientData.known_as}</IonText>
+                        <IonText><span>Technical Name :</span>{ingredientData.technical_name}</IonText>
                     </IonRow>
 
 
@@ -53,9 +82,13 @@ const IngredientDetail = () => {
                                     className="mr-05"
                                     src="/assets/img/Mysmart.png"
                                     alt="Images"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "/assets/img/img-placeholder.jpg";
+                                    }}
                                 />
                                 MySmartKitchen
-                                <span>(2)</span>
+                                <span>({ingredientData.imk_count})</span>
                             </IonButton>
 
                             <IonButton
@@ -65,7 +98,7 @@ const IngredientDetail = () => {
                                 className="chefbutton"
                             >
                                 <IonIcon size="default" fill="clear" icon={closeCircleOutline} />
-                                Avoid
+                                Avoid({ingredientData.is_negative})
                             </IonButton>
                         </div>
                     </IonRow>
@@ -73,7 +106,7 @@ const IngredientDetail = () => {
 
                 <IonGrid>
                     <IonRow>
-                        <ion-title color="dark" class="ion-color ion-color-dark md title-default">Vegetarian</ion-title>
+                        <ion-title color="dark" class="ion-color ion-color-dark md title-default">{ingredientData.food_type}</ion-title>
                         <IonCol size="12">
                             <IonSegment
                                 value={selectedTabDetail}
@@ -94,7 +127,7 @@ const IngredientDetail = () => {
                                 <IonGrid class='ion-padding-vertical'>
                                     <IonRow>
                                         <IonCol>
-                                            <IonText>Dried blueberries are sweet with a slightly tangy taste.</IonText>
+                                            <IonText>{ingredientData.taste_profile}</IonText>
                                         </IonCol>
                                     </IonRow>
                                 </IonGrid>
@@ -107,11 +140,11 @@ const IngredientDetail = () => {
                                             <IonText>
                                                 <IonList>
                                                     <ol className='ion-no-padding'>
-                                                        <li className='ion-margin-horizontal '>Dried blueberries are added to cakes, muffins, bread, puddings,ice-creams and breakfast cereals like muesli and granola.</li>
+                                                        <li className='ion-margin-horizontal '>{ingredientData.tips[0]}</li>
 
-                                                        <li className='ion-margin-horizontal ion-padding-top'>They are best stored in a cool, dry place in a tightly sealed container.</li>
+                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.tips[1]}</li>
 
-                                                        <li className='ion-margin-horizontal ion-padding-top'>In hot and humid weather they are stored best in the refrigerator or freezer.</li>
+                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.tips[2]}</li>
                                                     </ol>
                                                 </IonList>
                                             </IonText>
@@ -127,11 +160,11 @@ const IngredientDetail = () => {
                                             <IonText>
                                                 <IonList>
                                                     <ol className='ion-no-padding'>
-                                                        <li className='ion-margin-horizontal'>Blueberries (American Dried)</li>
-                                                        <li className='ion-margin-horizontal ion-padding-top'>Blueberry Dry</li>
-                                                        <li className='ion-margin-horizontal ion-padding-top'>Dried Blueberry</li>
-                                                        <li className='ion-margin-horizontal ion-padding-top'>Premium Exotic Blueberries Dried</li>
-                                                        <li className='ion-margin-horizontal ion-padding-top'>Whole Dried Blueberries</li>
+                                                        <li className='ion-margin-horizontal'>{ingredientData.common_names_and_forms[0]}</li>
+                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.common_names_and_forms[1]}</li>
+                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.common_names_and_forms[2]}</li>
+                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.common_names_and_forms[3]}</li>
+                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.common_names_and_forms[4]}</li>
                                                     </ol>
                                                 </IonList>
                                             </IonText>
@@ -148,36 +181,34 @@ const IngredientDetail = () => {
                     <IonRow>
                         <IonCol size='12'>
                             <IonTitle className='ion-no-padding ion-margin-bottom    '>Description</IonTitle>
-                            <IonText className='ion-margin-vertical'>Blueberries are tiny berries that are quite sweet and juicy, with a color ranging from indigo to purple. Their origin lies in North America but now they are consumed almost everywhere around the world. Blueberries are eaten raw but due to its popularity and increased demand all over the world, they are very common now dried and sold. They are either sun-dried or dried in dehydrators. On drying they develop a darker colour, sweeter taste, and a firm texture. Dried blueberries are mostly preferred for baking and in desserts.</IonText>
+                            <IonText className='ion-margin-vertical'>{ingredientData.descriptions}</IonText>
                         </IonCol>
 
                         <IonCol size='12'>
                             <IonTitle className='ion-no-padding ion-margin-vertical'>Health benefits</IonTitle>
                             <ol className='ion-no-padding'>
-                                <li className='ion-margin-horizontal'>Dried blueberries are a rich source of vitamin K, which plays a very vital role in normal blood clotting. Vitamin k also helps build bones and prevents bone loss as in the case of osteoporosis.(1)</li>
-                                <li className='ion-margin-horizontal'>They are low in carbohydrates and glycemic index along with being high in fibre, making them an ideal option for diabetics.(1)</li>
-                                <li className='ion-margin-horizontal'>They are a good source of vitamin C that builds collagen in the body which plays an important part in the formation of ligaments, tendons, cartilage, skin and blood vessels in the body. Collagen also limits free radicals and their damage to the DNA that causes heart disease or cancer.(1)</li>
+                                <li className='ion-margin-horizontal'>{ingredientData.nutritional_benefits}</li>
+
                             </ol>
                         </IonCol>
 
                         <IonCol size='12'>
                             <IonTitle className='ion-no-padding ion-margin-vertical'>Selection Guide</IonTitle>
-                            <IonText className='ion-margin-vertical'>Choose dried blueberries that are well-sealed and are free from moisture and moulds.</IonText>
+                            <IonText className='ion-margin-vertical'>{ingredientData.selection_guide}</IonText>
                         </IonCol>
                         <IonCol size='12'>
                             <IonTitle className='ion-no-padding ion-margin-vertical'>Resource & Links</IonTitle>
-                            <IonText className='ion-margin-vertical'><a href="#">https://www.livestrong.com/article/429510-what-are-the-benefits-of-dried-blueberries/</a></IonText>
+                            <IonText className='ion-margin-vertical'><a href="#">{ingredientData.resource_links}</a></IonText>
                         </IonCol>
                     </IonRow>
                 </IonGrid>
-
-
                 <IonGrid className='ion-padding'>
                     <IonRow>
                         <IonCol size='12'>
                             <IonTitle className='ion-no-padding'>Disclaimer</IonTitle>
                             <IonText>
-                                "Information here is provided for discussion and educational purposes only. It is not intended as medical advice or product or ingredient review/rating. The information may not apply to you and before you use or take any action, you should contact the manufacturer, seller, medical, dietary, fitness or other professional. If you utilize any information provided here, you do so at your own risk and you waive any right against Culinary Communications Private Limited, its affiliates, officers, directors, employees or representatives.”</IonText>
+                                {ingredientData.disclaimer}
+                            </IonText>
                         </IonCol>
                     </IonRow>
                 </IonGrid>

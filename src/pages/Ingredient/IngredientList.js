@@ -22,7 +22,7 @@ const IngredientList = () => {
                         <IonButton className="backBtn" fill="clear" routerLink="/add-ingredient">
                             <i class="material-icons dark">west</i>
                         </IonButton>
-                        <IonTitle color="dark">Add Ingredient</IonTitle>
+                        <IonTitle color="dark">Ingredient List</IonTitle>
                     </div>
                     <div className="flex ion-justify-content-end ion-align-items-end ion-padding-end">
                         <IonButton expand="block" onClick={openSecondMenu}>
@@ -71,15 +71,6 @@ const IngredientList = () => {
            
                 <IonGrid>
                     <IonRow>
-                     <IonCol size="6">
-                     <IngredientProduct/>
-                     </IonCol>
-                     <IonCol size="6">
-                     <IngredientProduct/>
-                     </IonCol>
-                     <IonCol size="6">
-                     <IngredientProduct/>
-                     </IonCol>
                      <IonCol size="6">
                      <IngredientProduct/>
                      </IonCol>
