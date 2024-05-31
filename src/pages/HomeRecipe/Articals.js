@@ -24,7 +24,6 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { close, pencilOutline } from "ionicons/icons";
 
 const Articals = () => {
-
    const [selectedTabladder, setSelectedTabladder] = useState("Submitted");
    const handleTabChangeladder = (event) => {
       setSelectedTabladder(event.detail.value);

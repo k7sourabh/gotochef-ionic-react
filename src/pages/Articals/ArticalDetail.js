@@ -64,7 +64,7 @@ const ArticalDetail = () => {
           <IonButton className="backBtn" fill="clear" routerLink="/profile">
             <i class="material-icons dark">west</i>
           </IonButton>
-          <IonTitle color="dark">articals Details</IonTitle>
+          <IonTitle color="dark">Article Details</IonTitle>
         </IonHeader>
 
         <IonGrid className="ion-padding-horizontal ion-padding-top">
