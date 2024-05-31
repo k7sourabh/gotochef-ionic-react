@@ -176,7 +176,7 @@ const App = () => {
                 <Route path="/artical-list" exact={true}>
                   <ArticalList/>
                 </Route>
-                <Route path="/artical-detail/:slug:slug" exact={true}>
+                <Route path="/localartical-detail/:slug:slug" exact={true}>
                   <LocalArticalDetail/>
                 </Route>
                

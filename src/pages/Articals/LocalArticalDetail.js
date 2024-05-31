@@ -52,7 +52,7 @@ const LocalArticalDetail = () => {
   };
 
   const HandleSimilar=(slug)=>{
-    history.push(`/artical-detail/:${slug}`)
+    history.push(`/localartical-detail/:${slug}`)
   }
 
 

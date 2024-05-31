@@ -55,7 +55,7 @@ const ArticalList = () => {
   };
 
   const handleView = (slug) => {
-    history.push(`/artical-detail/:${slug}`);
+    history.push(`/localartical-detail/:${slug}`);
   };
 
   const showAllPage = () => {
