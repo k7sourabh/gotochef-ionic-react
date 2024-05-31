@@ -15,6 +15,7 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
+  IonSpinner,
   IonText,
   IonTextarea,
   IonTitle,
@@ -31,15 +32,20 @@ const ArticalList = () => {
   const [viewState, setViewState] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const history = useHistory();
+  const [loader, setLoader] = useState(false);
+
 
   const fetchArticals = async (page) => {
+    setLoader(true)
     try {
       const responce = await getApiData(`articleListApi/10/${page}`);
       setArticalList(prevList => [...prevList, ...responce.data.articlelist]);
       setViewState(page);
       setTotalPage(responce.data.total_page);
+      setLoader(false)
     } catch (err) {
       console.log(err);
+      setLoader(false)
     }
   }
 
@@ -59,14 +65,16 @@ const ArticalList = () => {
   };
 
   const showAllPage = () => {
-  
+
     if (viewState < totalPage - 1) {
       fetchArticals(viewState + 1);
     }
   };
+ 
 
   return (
     <IonPage>
+      
       <IonContent fullscreen>
         <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
           <div className="TitleHead">
@@ -118,10 +126,16 @@ const ArticalList = () => {
             <IonRow>
               <IonCol className="flex ion-justify-content-center ion-align-items-center">
                 <IonButton fill="outline" size="default" onClick={showAllPage}>View all</IonButton>
+               
               </IonCol>
             </IonRow>
           )}
         </IonGrid>
+        {loader && (
+    <div className="loader-container">
+      <IonSpinner name="crescent" />
+    </div>
+  )}
       </IonContent>
     </IonPage>
   );
