@@ -42,11 +42,11 @@ const ArticalList = () => {
       setArticalList(prevList => [...prevList, ...responce.data.articlelist]);
       setViewState(page);
       setTotalPage(responce.data.total_page);
-      setLoader(false)
+      
     } catch (err) {
       console.log(err);
-      setLoader(false)
     }
+    setLoader(false)
   }
 
   useEffect(() => {

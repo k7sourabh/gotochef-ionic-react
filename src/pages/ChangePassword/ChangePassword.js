@@ -51,7 +51,6 @@ const ChangePassword = () => {
          console.error(err);
       }
       setLoader(false)
-
    }
 
    const presentToast = (position, message) => {
