@@ -1,146 +1,323 @@
-import React from 'react'
-import { IonButton, IonCheckbox, IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonImg, IonItemOption, IonItemOptions, IonItemSliding, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonSelect, IonSelectOption, IonSlide, IonSlides, IonText, IonTitle } from "@ionic/react"
-import { useEffect, useState } from "react";
-import { IonItem, IonLabel, IonInput } from '@ionic/react';
-import { add, flashlight, flashlightOutline, sunnyOutline } from "ionicons/icons";
+import React, { useEffect, useState } from 'react';
+import {
+    IonButton, IonCheckbox, IonCol, IonGrid, IonLabel, IonRange, IonRow, IonText, IonInput, IonIcon
+} from '@ionic/react';
+import { add } from 'ionicons/icons';
+import { getApiDataWithAuth ,postApiData} from '../../../utils/Utils';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 const NutriBudyStep3 = () => {
+    const [stepthirdData, setStepthirdData] = useState({});
+    const [formvalue, setFormvalue] = useState({
+        sweet: 0,
+        sour: 0,
+        bitter: 0,
+        salty: 0,
+        umami: 0,
+        diet_pref: [],
+        id:"",
+        food_like:[],
+        food_icons:[]
+    });
+useEffect(()=>{
+    console.log('formvalue',formvalue)
+},[formvalue])
+ 
+    const validationSchema = Yup.object().shape({
+        sweet: Yup.number().min(0).max(100),
+        sour: Yup.number().min(0).max(100),
+        bitter: Yup.number().min(0).max(100),
+        salty: Yup.number().min(0).max(100),
+        umami: Yup.number().min(0).max(100),
+        diet_pref: Yup.array(),
+        id:"",
+
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await getApiDataWithAuth('/getNutribuddy');
+                if (response?.status === 200) {
+                    const data = response.data.data;
+                    setStepthirdData(data);
+                    setFormvalue({
+                        sweet: data.sweet || 0,
+                        sour: data.sour || 0,
+                        bitter: data.bitter || 0,
+                        salty: data.salty || 0,
+                        umami: data.umami || 0,
+                        diet_pref: data.diet_pref || [],
+                        id:data.id||"",
+                        food_like: data.food_like ||[],
+                        food_icons:data.food_icons||[]
+
+
+
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const handleSubmit = async (values) => {
+        console.log("Submitted values", values);
+        try{
+            const formData= new FormData()
+            formData.append("sweet",values.sweet);
+            formData.append("sour",values.sour);
+            formData.append("bitter",values.bitter);
+            formData.append("salty",values.salty);
+            formData.append("umami",values.umami);
+            formData.append("diet_pref",values.diet_pref);
+            formData.append("id",values.id);
+            formData.append("food_like",values.food_like);
+            formData.append("food_icons",values.food_icons)
+
+            const response= await postApiData('postStepThird',formData);
+            console.log('responsepost',response)
+        }catch(err) {
+            console.log(err)
+        }
+    };
+
+    
     return (
         <IonGrid className="ion-padding-bottom">
             <IonRow>
                 <IonCol size="12" className="ion-no-padding">
                     <h3>Taste Preferences</h3>
-                    <div className="progressBar">
-                        <div className='flex ion-justify-content-between ion-align-items-center'>
-                        <IonLabel>Sweet</IonLabel>
-                        <IonLabel>20%</IonLabel>
-                        </div>
-                        <IonRange min={0} max={100} color="success" className="ion-no-padding range-custom-height" >
-                        </IonRange>
-                        <div className="bottomText flex ion-justify-content-between ion-align-items-center">
-                            <span>I don’t like spicy food</span>
-                            <span>I love spicy food</span>
-                        </div>
-                    </div>
-                    <div className="progressBar ion-padding-top">
-                    <div className='flex ion-justify-content-between ion-align-items-center'>
-                        <IonLabel>Sour</IonLabel>
-                        <IonLabel>50%</IonLabel>
-                        </div>
-                        <IonRange min={0} max={100} color="warning" className="ion-no-padding range-custom-height" > </IonRange>
-                        <div className="bottomText flex ion-justify-content-between ion-align-items-center">
-                            <span>I don’t like spicy food</span>
-                            <span>I love spicy food</span>
-                        </div>
-                    </div>
-                    <div className="progressBar ion-padding-top">
-                    <div className='flex ion-justify-content-between ion-align-items-center'>
-                        <IonLabel>Bitter</IonLabel>
-                        <IonLabel>40%</IonLabel>
-                        </div>
-                        <IonRange min={0} max={100} color="primary" className="ion-no-padding range-custom-height"  > </IonRange>
-                        <div className="bottomText flex ion-justify-content-between ion-align-items-center">
-                            <span>I don't eat sweets</span>
-                            <span>I love sweets alot</span>
-                        </div>
-                    </div>
-                    <div className="progressBar ion-padding-top">
-                    <div className='flex ion-justify-content-between ion-align-items-center'>
-                        <IonLabel>Salty</IonLabel>
-                        <IonLabel>30%</IonLabel>
-                        </div>
-                        <IonRange min={0} max={100} color="primary" className="ion-no-padding range-custom-height" > </IonRange>
-                        <div className="bottomText flex ion-justify-content-between ion-align-items-center">
-                            <span>I like my food bland</span>
-                            <span>I love salty food</span>
-                        </div>
-                    </div>
-                    <div className="progressBar ion-padding-top">
-                        <div className='flex ion-justify-content-between ion-align-items-center'>
-                        <IonLabel>Umami/Savoury</IonLabel>
-                        <IonLabel>10%</IonLabel>
-                        </div>
-                        <IonRange min={0} max={100} color="warning" className="ion-no-padding range-custom-height"></IonRange>
-                        <div className="bottomText flex ion-justify-content-between ion-align-items-center">
-                            <span>I don’t like savoury food</span>
-                            <span>I love savoury food</span>
-                        </div>
-                    </div>
-                </IonCol>
-                <IonCol size="12" className="ion-padding-top">
-                    <h3>Diet Preferences (If Any)</h3>
-                    <div className="flex DietPreFerns">
-                        <div className="FillCheckBox ImgCheck">
-                            <input type="checkbox" id="myCheckImg51" />
-                            <label for="myCheckImg51">
-                                <img src="./assets/img/imagesketo.png" alt="" className="ProfileImg" />
-                                <IonText>Keto</IonText>
-                            </label>
-                        </div>
-                        <div className="FillCheckBox ImgCheck">
-                            <input type="checkbox" id="myCheckImg52" />
-                            <label for="myCheckImg52">
-                                <img src="./assets/img/imagesGluten.jpg" alt="" className="ProfileImg" />
-                                <IonText>Gluten Free</IonText>
-                            </label>
-                        </div>
-                        <div className="FillCheckBox ImgCheck">
-                            <input type="checkbox" id="myCheckImg53" />
-                            <label for="myCheckImg53">
-                                <img src="./assets/img/pngwing.png" alt="" className="ProfileImg" />
-                                <IonText>Jain Friedndly</IonText>
-                            </label>
-                        </div>
-                    </div>
-                </IonCol>
-                <IonCol size="12" className="ion-padding-top">
-                    <h3>Which kind of food products would You like NB to recommend you?</h3>
-                    <div className="AllergyBox">
-                    <div className="ImgIcon">
-                            <input type="checkbox" id="myCheck2" />
-                            <label for="myCheck2">
-                            <img src="./assets/img/No PreservativesWhite_Icons.png" alt="" className="ProfileImg" />
-                                <IonText>No Preservative and Chemicals</IonText>
-                            </label>
-                        </div>
-                        <div className="ImgIcon">
-                            <input type="checkbox" id="myCheck4" />
-                            <label for="myCheck4">
-                            <img src="./assets/img/No added sugarWhite_Icons.png" alt="" className="ProfileImg" />
-                                <IonText>No Added Sugar</IonText>
-                            </label>
-                        </div>
-                        <div className="ImgIcon">
-                            <input type="checkbox" id="myCheck3" />
-                            <label for="myCheck3">
-                            <img src="./assets/img/All Natural OnlyWhite_Icons.png" alt="" className="ProfileImg" />
-                                <IonText>All Natural Only</IonText>
-                            </label>
-                        </div>
-                        
-                        <div className="ImgBtn">
-                            <IonButton fill="clear">
-                                <IonIcon size="large" icon={add} />
-                            </IonButton>
-                        </div>
-                    </div>
-                </IonCol>
-                <IonCol size="12"  className='ion-padding-vertical'>
-                    <div class="uploadPicture-button">
-                        <label for="" class="UploadBtn">Upload Picture</label>
-                        <input type="file" id="AllergyPicture" accept="image/*" />
-                        <IonInput type="text"></IonInput>
-                    </div>
-                </IonCol>
-                <IonCol>
-                    <div className="SkipBtn ion-padding-vertical ">
-                        <IonButton className="Orangebtn" fill="clear">SAVE</IonButton>
-                        <IonButton>Skip Process</IonButton>
-                    </div>
+                    <Formik
+                        initialValues={formvalue}
+                        enableReinitialize
+                        validationSchema={validationSchema}
+                        onSubmit={(values) => {
+                            handleSubmit(values);
+                        }}
+                    >
+                        {({ values, setFieldValue }) => (
+                            <Form>
+                                <div className="progressBar">
+                                    <div className="flex ion-justify-content-between ion-align-items-center">
+                                        <IonLabel>Sweet</IonLabel>
+                                        <IonLabel>{values.sweet}%</IonLabel>
+                                    </div>
+                                    <IonRange
+                                        min={0}
+                                        max={100}
+                                        color="success"
+                                        value={values.sweet}
+                                        onIonChange={(e) => setFieldValue('sweet', e.detail.value)}
+                                    />
+                                    <div className="bottomText flex ion-justify-content-between ion-align-items-center">
+                                        <span>I don’t like spicy food</span>
+                                        <span>I love spicy food</span>
+                                    </div>
+                                </div>
+                                <div className="progressBar ion-padding-top">
+                                    <div className="flex ion-justify-content-between ion-align-items-center">
+                                        <IonLabel>Sour</IonLabel>
+                                        <IonLabel>{values.sour}%</IonLabel>
+                                    </div>
+                                    <IonRange
+                                        min={0}
+                                        max={100}
+                                        color="warning"
+                                        value={values.sour}
+                                        onIonChange={(e) => setFieldValue('sour', e.detail.value)}
+                                    />
+                                    <div className="bottomText flex ion-justify-content-between ion-align-items-center">
+                                        <span>I don’t like spicy food</span>
+                                        <span>I love spicy food</span>
+                                    </div>
+                                </div>
+                                <div className="progressBar ion-padding-top">
+                                    <div className="flex ion-justify-content-between ion-align-items-center">
+                                        <IonLabel>Bitter</IonLabel>
+                                        <IonLabel>{values.bitter}%</IonLabel>
+                                    </div>
+                                    <IonRange
+                                        min={0}
+                                        max={100}
+                                        color="primary"
+                                        value={values.bitter}
+                                        onIonChange={(e) => setFieldValue('bitter', e.detail.value)}
+                                    />
+                                    <div className="bottomText flex ion-justify-content-between ion-align-items-center">
+                                        <span>I don't eat sweets</span>
+                                        <span>I love sweets a lot</span>
+                                    </div>
+                                </div>
+                                <div className="progressBar ion-padding-top">
+                                    <div className="flex ion-justify-content-between ion-align-items-center">
+                                        <IonLabel>Salty</IonLabel>
+                                        <IonLabel>{values.salty}%</IonLabel>
+                                    </div>
+                                    <IonRange
+                                        min={0}
+                                        max={100}
+                                        color="primary"
+                                        value={values.salty}
+                                        onIonChange={(e) => setFieldValue('salty', e.detail.value)}
+                                    />
+                                    <div className="bottomText flex ion-justify-content-between ion-align-items-center">
+                                        <span>I like my food bland</span>
+                                        <span>I love salty food</span>
+                                    </div>
+                                </div>
+                                <div className="progressBar ion-padding-top">
+                                    <div className="flex ion-justify-content-between ion-align-items-center">
+                                        <IonLabel>Umami/Savoury</IonLabel>
+                                        <IonLabel>{values.umami}%</IonLabel>
+                                    </div>
+                                    <IonRange
+                                        min={0}
+                                        max={100}
+                                        color="warning"
+                                        value={values.umami}
+                                        onIonChange={(e) => setFieldValue('umami', e.detail.value)}
+                                    />
+                                    <div className="bottomText flex ion-justify-content-between ion-align-items-center">
+                                        <span>I don’t like savoury food</span>
+                                        <span>I love savoury food</span>
+                                    </div>
+                                </div>
+                                <IonCol size="12" className="ion-padding-top">
+                                    <h3>Diet Preferences (If Any)</h3>
+                                    <div className="flex DietPreFerns">
+                                        <div className="FillCheckBox ImgCheck">
+                                            <input
+                                                type="checkbox"
+                                                id="myCheckImg51"
+                                                checked={values.diet_pref.includes('Keto')}
+                                                onChange={() => {
+                                                    const newDietPref = values.diet_pref.includes('Keto')
+                                                        ? values.diet_pref.filter(pref => pref !== 'Keto')
+                                                        : [...values.diet_pref, 'Keto'];
+                                                    setFieldValue('diet_pref', newDietPref);
+                                                }}
+                                            />
+                                            <label htmlFor="myCheckImg51">
+                                                <img src="./assets/img/imagesketo.png" alt="" className="ProfileImg" />
+                                                <IonText>Keto</IonText>
+                                            </label>
+                                        </div>
+                                        <div className="FillCheckBox ImgCheck">
+                                            <input
+                                                type="checkbox"
+                                                id="myCheckImg52"
+                                                checked={values.diet_pref.includes('Gluten Free')}
+                                                onChange={() => {
+                                                    const newDietPref = values.diet_pref.includes('Gluten Free')
+                                                        ? values.diet_pref.filter(pref => pref !== 'Gluten Free')
+                                                        : [...values.diet_pref, 'Gluten Free'];
+                                                    setFieldValue('diet_pref', newDietPref);
+                                                }}
+                                            />
+                                            <label htmlFor="myCheckImg52">
+                                                <img src="./assets/img/imagesGluten.jpg" alt="" className="ProfileImg" />
+                                                <IonText>Gluten Free</IonText>
+                                            </label>
+                                        </div>
+                                        <div className="FillCheckBox ImgCheck">
+                                            <input
+                                                type="checkbox"
+                                                id="myCheckImg53"
+                                                checked={values.diet_pref.includes('Jain Friendly')}
+                                                onChange={() => {
+                                                    const newDietPref = values.diet_pref.includes('Jain Friendly')
+                                                        ? values.diet_pref.filter(pref => pref !== 'Jain Friendly')
+                                                        : [...values.diet_pref, 'Jain Friendly'];
+                                                    setFieldValue('diet_pref', newDietPref);
+                                                }}
+                                            />
+                                            <label htmlFor="myCheckImg53">
+                                                <img src="./assets/img/pngwing.png" alt="" className="ProfileImg" />
+                                                <IonText>Jain Friendly</IonText>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </IonCol>
+                                <IonCol size="12" className="ion-padding-top">
+                                    <h3>Which kind of food products would you like NB to recommend you?</h3>
+                                    <div className="AllergyBox">
+                                        <div className="ImgIcon">
+                                            <input type="checkbox" id="myCheck2"
+                                            checked={values.food_like.includes('NoPreservative')}
+                                            onChange={() => {
+                                                const newfoodlike = values.food_like.includes('NoPreservative')
+                                                    ? values.food_like.filter(pref => pref !== 'NoPreservative')
+                                                    : [...values.food_like, 'NoPreservative'];
+                                                setFieldValue('food_like', newfoodlike);
+                                            }}
+                                            />
+                                            <label htmlFor="myCheck2">
+                                                <img src="./assets/img/No PreservativesWhite_Icons.png" alt="" className="ProfileImg" />
+                                                <IonText>No Preservative and Chemicals</IonText>
+                                            </label>
+                                        </div>
+                                        <div className="ImgIcon">
+                                            <input type="checkbox" id="myCheck4" 
+                                             checked={values.food_like.includes('NoSugar')}
+                                             onChange={() => {
+                                                 const newfoodlike = values.food_like.includes('NoSugar')
+                                                     ? values.food_like.filter(pref => pref !== 'NoSugar')
+                                                     : [...values.food_like, 'NoSugar'];
+                                                 setFieldValue('food_like', newfoodlike);
+                                             }}
+                                            />
+                                            <label htmlFor="myCheck4">
+                                                <img src="./assets/img/No added sugarWhite_Icons.png" alt="" className="ProfileImg" />
+                                                <IonText>No Added Sugar</IonText>
+                                            </label>
+                                        </div>
+                                        <div className="ImgIcon">
+                                            <input type="checkbox" id="myCheck3" 
+                                             checked={values.food_like.includes('NaturalOnly')}
+                                             onChange={() => {
+                                                 const newfoodlike = values.food_like.includes('NaturalOnly')
+                                                     ? values.food_like.filter(pref => pref !== 'NaturalOnly')
+                                                     : [...values.food_like, 'NaturalOnly'];
+                                                 setFieldValue('food_like', newfoodlike);
+                                             }}
+                                            />
+                                            <label htmlFor="myCheck3">
+                                                <img src="./assets/img/All Natural OnlyWhite_Icons.png" alt="" className="ProfileImg" />
+                                                <IonText>All Natural Only</IonText>
+                                            </label>
+                                        </div>
+                                        <div className="ImgBtn">
+                                            <IonButton fill="clear">
+                                                <IonIcon size="large" icon={add} />
+                                            </IonButton>
+                                        </div>
+                                    </div>
+                                </IonCol>
+                                <IonCol size="12" className='ion-padding-vertical'>
+                                    <div className="uploadPicture-button">
+                                        <label className="UploadBtn">Upload Picture</label>
+                                        <input type="file" id="AllergyPicture" accept="image/*" />
+                                        <IonInput type="text"></IonInput>
+                                    </div>
+                                </IonCol>
+                                <IonCol>
+                                    <div className="SkipBtn ion-padding-vertical">
+                                        <IonButton className="Orangebtn" type="submit" fill="clear">SAVE</IonButton>
+                                        <IonButton>Skip Process</IonButton>
+                                    </div>
+                                </IonCol>
+                            </Form>
+                        )}
+                    </Formik>
                 </IonCol>
             </IonRow>
         </IonGrid>
-    )
-}
+    );
+};
 
-export default NutriBudyStep3
+export default NutriBudyStep3;

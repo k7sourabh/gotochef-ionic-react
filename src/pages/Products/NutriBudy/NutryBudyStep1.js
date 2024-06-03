@@ -89,7 +89,7 @@ const NutryBudyStep1 = () => {
     }
   };
 
-  useIonViewWillEnter(() => {
+  useEffect(() => {
     stateList();
   }, []);
 
@@ -105,7 +105,7 @@ const NutryBudyStep1 = () => {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
-    console.log('values',values)
+    // console.log('values',values)
     try {
       const formData = new FormData();
       formData.append("name", values.name);
