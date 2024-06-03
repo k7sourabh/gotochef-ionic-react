@@ -11,11 +11,9 @@ import { useHistory } from 'react-router'
 const IngredientProduct = () => {
   const [Ingredientdata, setIngredientData] = useState();
  const history=useHistory();
-  console.log('Ingredientdata', Ingredientdata)
   const fatchdata = async () => {
     try {
       const responce = await getApiData("ingredients-list/10/0");
-      console.log('responce', responce)
       setIngredientData(responce.data.ingredients)
     } catch (err) {
       console.log(err)
@@ -27,7 +25,7 @@ const IngredientProduct = () => {
  });
 
   const handleDetails=(slug)=>{
-          console.log("slug",slug)
+         
           history.push(`/ingredient-detail/${slug}`)
   }
 

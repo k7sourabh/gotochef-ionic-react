@@ -1,27 +1,28 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonRow, IonSegment, IonSegmentButton, IonText, IonTitle } from '@ionic/react';
-import { closeCircleOutline, heart, heartOutline, removeCircle, removeOutline, shareSocialOutline } from 'ionicons/icons';
+import { closeCircleOutline, heart, heartOutline, removeCircle, removeOutline, shareSocialOutline, } from 'ionicons/icons';
 import React, { useEffect } from 'react'
 import Header from '../../components/Header';
 import { useState } from "react";
 import { Link } from 'react-router-dom/cjs/react-router-dom';
 import { getApiData, postApiDataWithAuth } from "../../utils/Utils";
 import { useParams } from 'react-router';
+import he from 'he'; // Library for decoding HTML entities
 
 
 const IngredientDetail = () => {
-    const [ingredientData, setingredientData] = useState({})
-    console.log('ingredientData11', ingredientData)
+    const [ingredientData, setingredientData] = useState([])
     const { slug } = useParams();
     const [selectedTabDetail, setSelectedTabDetail] = useState("DetailStatus");
+    console.log(ingredientData)
     const handleTabChangeDetail = (event) => {
         setSelectedTabDetail(event.detail.value);
     };
-    console.log('slug', slug)
+
 
     const fetchApidata = async () => {
         try {
             const responce = await getApiData(`ingredients_details/${slug}`);
-            console.log('responce', responce);
+            // console.log('responce', responce);
             setingredientData(responce?.data?.ingredient_details)
         } catch (err) {
             console.log(err)
@@ -139,13 +140,15 @@ const IngredientDetail = () => {
                                             <IonTitle>Usage Tips</IonTitle>
                                             <IonText>
                                                 <IonList>
-                                                    <ol className='ion-no-padding'>
-                                                        <li className='ion-margin-horizontal '>{ingredientData.tips[0]}</li>
-
-                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.tips[1]}</li>
-
-                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.tips[2]}</li>
-                                                    </ol>
+                                                    {ingredientData.tips && ingredientData.tips.length > 1 ? (
+                                                        <ol className='ion-no-padding'>
+                                                            <li className='ion-margin-horizontal'>{ingredientData.tips[0]}</li>
+                                                            <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.tips[1]}</li>
+                                                            <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.tips[2]}</li>
+                                                        </ol>
+                                                    ) : (
+                                                        <p>No data Found</p>
+                                                    )}
                                                 </IonList>
                                             </IonText>
                                         </IonCol>
@@ -160,11 +163,13 @@ const IngredientDetail = () => {
                                             <IonText>
                                                 <IonList>
                                                     <ol className='ion-no-padding'>
-                                                        <li className='ion-margin-horizontal'>{ingredientData.common_names_and_forms[0]}</li>
-                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.common_names_and_forms[1]}</li>
-                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.common_names_and_forms[2]}</li>
-                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.common_names_and_forms[3]}</li>
-                                                        <li className='ion-margin-horizontal ion-padding-top'>{ingredientData.common_names_and_forms[4]}</li>
+                                                        {ingredientData.common_names_and_forms && ingredientData.common_names_and_forms.length > 0 ? (
+                                                            <ul className='ion-no-padding'>
+                                                                <li className='ion-margin-horizontal'>{ingredientData.common_names_and_forms[0].ingredients_name}</li>
+                                                            </ul>
+                                                        ) : (
+                                                            <p>No data Found</p>
+                                                        )}
                                                     </ol>
                                                 </IonList>
                                             </IonText>
@@ -172,7 +177,6 @@ const IngredientDetail = () => {
                                     </IonRow>
                                 </IonGrid>
                             )}
-
                         </IonCol>
                     </IonRow>
                 </IonGrid>
@@ -187,8 +191,8 @@ const IngredientDetail = () => {
                         <IonCol size='12'>
                             <IonTitle className='ion-no-padding ion-margin-vertical'>Health benefits</IonTitle>
                             <ol className='ion-no-padding'>
-                                <li className='ion-margin-horizontal'>{ingredientData.nutritional_benefits}</li>
-
+                                {/* <li className='ion-margin-horizontal'> {ingredientData.nutritional_benefits}</li> */}
+                                    <div dangerouslySetInnerHTML={{ __html: ingredientData.nutritional_benefits }}></div>
                             </ol>
                         </IonCol>
 
@@ -198,7 +202,10 @@ const IngredientDetail = () => {
                         </IonCol>
                         <IonCol size='12'>
                             <IonTitle className='ion-no-padding ion-margin-vertical'>Resource & Links</IonTitle>
-                            <IonText className='ion-margin-vertical'><a href="#">{ingredientData.resource_links}</a></IonText>
+                            <IonText className='ion-margin-vertical'>
+                                <a href="#" dangerouslySetInnerHTML={{ __html: ingredientData.resource_links }}></a>
+                            </IonText>
+
                         </IonCol>
                     </IonRow>
                 </IonGrid>
