@@ -66,7 +66,6 @@ const LifeStyleSetting = () => {
 
     const handleSubmit = async (values) => {
          setLoading(true)
-
         try {
             const response = await postApiData('lifestyle-setting-post', values);
             if (response?.data?.status === 200) {
@@ -157,7 +156,7 @@ const LifeStyleSetting = () => {
                                                     <div className="loading-overlay">
                                                         <IonSpinner name="crescent" />
                                                     </div>
-                                                )}
+                                                )} 
                                     </IonCol>
                                 </IonRow>
                             </IonGrid>

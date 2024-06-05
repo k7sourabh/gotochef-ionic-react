@@ -78,7 +78,10 @@ const NutriBudyStep3 = () => {
             formData.append("id", values.id);
             formData.append("food_like", values.food_like);
             values.food_icons.forEach((icon, index) => {
-                formData.append(`food_icons[${index}]`, JSON.stringify(icon));
+                if (!icon.icon_food.startsWith("http:")) {
+                    formData.append(`food_icons[${index}][icon_food]`, icon.icon_food);
+                    formData.append(`food_icons[${index}][name]`, icon.name);
+                }
             });
            
 

@@ -7,6 +7,7 @@ import {
   IonIcon,
   IonPage,
   IonRow,
+  IonSpinner,
   IonText,
   IonTitle,
 } from "@ionic/react";
@@ -16,11 +17,13 @@ import { getApiData } from "../../utils/Utils";
 
 const Badges = () => {
   const [badgesData, setBadgesData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const recipeDetails = async () => {
     try {
+      setIsLoading(true);
       const response = await getApiData(`/badges-collection`);
-      console.log(response?.data);
+      setIsLoading(false);
       setBadgesData(response?.data);
     } catch (e) {
       console.log(e);
@@ -72,7 +75,11 @@ const Badges = () => {
           </IonRow>
 
           <IonRow className="ion-padding-vertical">
-            {badgesData &&
+            {isLoading ? (
+              <div className="loader-container">
+                <IonSpinner name="crescent" />
+              </div>
+            ) : badgesData && badgesData?.up_coming_badges?.length > 0 ? (
               badgesData?.up_coming_badges?.map((data, i) => (
                 <IonCol size="6">
                   <div className="review-award">
@@ -99,7 +106,10 @@ const Badges = () => {
                     <IonText>Review</IonText>
                   </div>
                 </IonCol>
-              ))}
+              ))
+            ) : (
+              <IonText>Data not found</IonText>
+            )}
           </IonRow>
         </IonGrid>
       </IonContent>

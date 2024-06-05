@@ -16,6 +16,7 @@ import {
   IonTitle,
   useIonModal,
   useIonLoading,
+  IonSpinner,
 } from "@ionic/react";
 import styles from "./Home.module.css";
 import "./Home.css";
@@ -43,7 +44,7 @@ import { useAuth } from "../context/AuthContext";
 const Home = () => {
   const { wishListPost, wishListedItems, bookMarkPost, bookMarkedItems } =
     useCart();
-    const {notifyStatus} = useAuth();
+  const { notifyStatus } = useAuth();
   const [exclusiveProductData, setExclusiveProduct] = useState([]);
   const [trendingProductsData, setTrendingProductsData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -56,6 +57,8 @@ const Home = () => {
   const [presentLoading] = useIonLoading();
   const { headerImage } = useLogo();
   const history = useHistory();
+  const [isloading, setisloading] = useState(false);
+  const [isloadingTrands, setisloadingTrands] = useState(false);
 
   function openModal(item) {
     setSelectedProduct(item);
@@ -75,9 +78,12 @@ const Home = () => {
 
   const exclusiveProduct = async () => {
     try {
+      setisloading(true);
       const response = await getApiData("/getExclusiveProducts");
+      setisloading(false);
       setExclusiveProduct(response?.data?.data);
     } catch (err) {
+      setisloading(false);
       setExclusiveProduct([]);
       console.log(err);
     }
@@ -89,9 +95,12 @@ const Home = () => {
 
   const trendingProducts = async () => {
     try {
+      setisloadingTrands(true);
       const response = await getApiData("/getTrendingProducts/5/0");
+      setisloadingTrands(false);
       setTrendingProductsData(response?.data?.data);
     } catch (err) {
+      setisloadingTrands(false);
       setTrendingProductsData([]);
       console.log(err);
     }
@@ -141,147 +150,155 @@ const Home = () => {
             </IonButton>
           </IonHeader>
           <Swiper slidesPerView={2}>
-            {exclusiveProductData?.map((category, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <IonCard className="ProductCard">
-                    <IonCardHeader className="ProductThumb">
-                      <div className="SmartKitchen">
-                        <div className="counter">
-                          <img
-                            src="/assets/img/Mysmart.png"
-                            alt="Images"
-                            className="icon-img"
-                          />
-                          <span>{category?.imk_num}</span>
+            {isloading ? (
+              <div className="loader-container">
+                <IonSpinner name="crescent" />
+              </div>
+            ) : exclusiveProductData && exclusiveProductData?.length > 0 ? (
+              exclusiveProductData?.map((category, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <IonCard className="ProductCard">
+                      <IonCardHeader className="ProductThumb">
+                        <div className="SmartKitchen">
+                          <div className="counter">
+                            <img
+                              src="/assets/img/Mysmart.png"
+                              alt="Images"
+                              className="icon-img"
+                            />
+                            <span>{category?.imk_num}</span>
+                          </div>
+                          {category?.foodtype === "vegetarian" ? (
+                            <img
+                              src="/assets/img/veg-icon.svg"
+                              alt="Images"
+                              className="icon-img"
+                            />
+                          ) : (
+                            <img
+                              src="/assets/img/non-veg-icon.svg"
+                              alt="Images"
+                              className="icon-img"
+                            />
+                          )}
                         </div>
-                        {category?.foodtype === "vegetarian" ? (
-                          <img
-                            src="/assets/img/veg-icon.svg"
-                            alt="Images"
-                            className="icon-img"
-                          />
-                        ) : (
-                          <img
-                            src="/assets/img/non-veg-icon.svg"
-                            alt="Images"
-                            className="icon-img"
-                          />
-                        )}
-                      </div>
 
-                      <img
-                        src={
-                          !category?.images
-                            ? "/assets/img/img-placeholder.jpg"
-                            : category?.images
-                        }
-                        alt=""
-                        onClick={() =>
-                          history.push(
-                            `/product-details/${category?.product_id}`
-                          )
-                        }
-                        className="MainProductThumb"
-                      />
-                      <div className="BookMark">
-                        <IonIcon
-                          color="primary"
-                          size="small"
-                          icon={
-                            bookMarkedItems.indexOf(category?.product_id) < 0
-                              ? bookmarkOutline
-                              : bookmark
+                        <img
+                          src={
+                            !category?.images
+                              ? "/assets/img/img-placeholder.jpg"
+                              : category?.images
                           }
-                          onClick={() => bookMarkPost(category)}
-                        />
-                        <IonIcon
-                          color="primary"
-                          size="small"
-                          icon={
-                            wishListedItems.indexOf(category?.product_id) < 0
-                              ? heartOutline
-                              : heart
+                          alt=""
+                          onClick={() =>
+                            history.push(
+                              `/product-details/${category?.product_id}`
+                            )
                           }
-                          onClick={() => wishListPost(category)}
+                          className="MainProductThumb"
                         />
-                      </div>
-                    </IonCardHeader>
+                        <div className="BookMark">
+                          <IonIcon
+                            color="primary"
+                            size="small"
+                            icon={
+                              bookMarkedItems.indexOf(category?.product_id) < 0
+                                ? bookmarkOutline
+                                : bookmark
+                            }
+                            onClick={() => bookMarkPost(category)}
+                          />
+                          <IonIcon
+                            color="primary"
+                            size="small"
+                            icon={
+                              wishListedItems.indexOf(category?.product_id) < 0
+                                ? heartOutline
+                                : heart
+                            }
+                            onClick={() => wishListPost(category)}
+                          />
+                        </div>
+                      </IonCardHeader>
 
-                    <IonCardContent className="ProductDetails">
-                      <IonText
-                        onClick={() =>
-                          history.push(
-                            `/product-details/${category?.product_id}`
-                          )
-                        }
-                        className="ProductTitle"
-                      >
-                        {category?.productName}
-                      </IonText>
-                      <IonText className="ProductBrandname">
-                        {category?.brand_name}
-                      </IonText>
-                      <div className="PriceRating">
-                        <div className="PriceText">
-                          <IonText color="dark" className="CurrentPrice">
-                            ₹ {category?.product_variant[0]?.offer_price}
-                          </IonText>
-                          <div className="OfferInfo">
-                            <IonText color="dark" className="OldPrice">
-                              {category?.product_variant[0]?.main_price}
+                      <IonCardContent className="ProductDetails">
+                        <IonText
+                          onClick={() =>
+                            history.push(
+                              `/product-details/${category?.product_id}`
+                            )
+                          }
+                          className="ProductTitle"
+                        >
+                          {category?.productName}
+                        </IonText>
+                        <IonText className="ProductBrandname">
+                          {category?.brand_name}
+                        </IonText>
+                        <div className="PriceRating">
+                          <div className="PriceText">
+                            <IonText color="dark" className="CurrentPrice">
+                              ₹ {category?.product_variant[0]?.offer_price}
                             </IonText>
+                            <div className="OfferInfo">
+                              <IonText color="dark" className="OldPrice">
+                                {category?.product_variant[0]?.main_price}
+                              </IonText>
 
-                            <IonChip className="offerBedge">
-                              {(
-                                ((category?.product_variant[0]?.main_price -
-                                  category?.product_variant[0]?.offer_price) /
-                                  category?.product_variant[0]?.main_price) *
-                                100
-                              ).toFixed(0)}
-                              % OFF
-                            </IonChip>
+                              <IonChip className="offerBedge">
+                                {(
+                                  ((category?.product_variant[0]?.main_price -
+                                    category?.product_variant[0]?.offer_price) /
+                                    category?.product_variant[0]?.main_price) *
+                                  100
+                                ).toFixed(0)}
+                                % OFF
+                              </IonChip>
+                            </div>
                           </div>
+
+                          <IonChip className="RateDesign">
+                            <span>{category?.star_rating}</span>
+                            <IonIcon color="light" size="small" icon={star} />
+                          </IonChip>
                         </div>
 
-                        <IonChip className="RateDesign">
-                          <span>{category?.star_rating}</span>
-                          <IonIcon color="light" size="small" icon={star} />
-                        </IonChip>
-                      </div>
-
-                      {category?.status === notifyStatus ? (
-                        <IonButton
-                          onClick={() => openModal(category)}
-                          className="AddToCartBtn"
-                          size="default"
-                          shape="round"
-                          fill="outline"
-                        >
-                          <div className="addText">
-                            Add
-                            <IonIcon slot="end" size="small" icon={add} />
-                          </div>
-                        </IonButton>
-                      ) : (
-                        <IonButton
-                          onClick={() => {
-                            setNotifyData(category);
-                            setIsNotifyMe(true);
-                          }}
-                          className="AddToCartBtn"
-                          size="default"
-                          shape="round"
-                          fill="outline"
-                        >
-                          <div className="addText">Notify Me</div>
-                        </IonButton>
-                      )}
-                    </IonCardContent>
-                  </IonCard>
-                </SwiperSlide>
-              );
-            })}
+                        {category?.status === notifyStatus ? (
+                          <IonButton
+                            onClick={() => openModal(category)}
+                            className="AddToCartBtn"
+                            size="default"
+                            shape="round"
+                            fill="outline"
+                          >
+                            <div className="addText">
+                              Add
+                              <IonIcon slot="end" size="small" icon={add} />
+                            </div>
+                          </IonButton>
+                        ) : (
+                          <IonButton
+                            onClick={() => {
+                              setNotifyData(category);
+                              setIsNotifyMe(true);
+                            }}
+                            className="AddToCartBtn"
+                            size="default"
+                            shape="round"
+                            fill="outline"
+                          >
+                            <div className="addText">Notify Me</div>
+                          </IonButton>
+                        )}
+                      </IonCardContent>
+                    </IonCard>
+                  </SwiperSlide>
+                );
+              })
+            ) : (
+              <IonText>No data found</IonText>
+            )}
           </Swiper>
 
           <IonRow className="ion-padding">
@@ -315,145 +332,153 @@ const Home = () => {
           </IonHeader>
 
           <Swiper slidesPerView={2} className={styles.swipertab}>
-            {trendingProductsData?.map((category, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <IonCard className="ProductCard">
-                    <IonCardHeader className="ProductThumb">
-                      <div className="SmartKitchen">
-                        <div className="counter">
-                          <img
-                            src="/assets/img/Mysmart.png"
-                            alt="Images"
-                            className="icon-img"
-                          />
-                          <span>{category?.imk_num}</span>
+            {isloadingTrands ? (
+              <div className="loader-container">
+                <IonSpinner name="crescent" />
+              </div>
+            ) : trendingProductsData && trendingProductsData?.length > 0 ? (
+              trendingProductsData?.map((category, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <IonCard className="ProductCard">
+                      <IonCardHeader className="ProductThumb">
+                        <div className="SmartKitchen">
+                          <div className="counter">
+                            <img
+                              src="/assets/img/Mysmart.png"
+                              alt="Images"
+                              className="icon-img"
+                            />
+                            <span>{category?.imk_num}</span>
+                          </div>
+                          {category?.foodtype === "vegetarian" ? (
+                            <img
+                              src="/assets/img/veg-icon.svg"
+                              alt="Images"
+                              className="icon-img"
+                            />
+                          ) : (
+                            <img
+                              src="/assets/img/non-veg-icon.svg"
+                              alt="Images"
+                              className="icon-img"
+                            />
+                          )}
                         </div>
-                        {category?.foodtype === "vegetarian" ? (
-                          <img
-                            src="/assets/img/veg-icon.svg"
-                            alt="Images"
-                            className="icon-img"
-                          />
-                        ) : (
-                          <img
-                            src="/assets/img/non-veg-icon.svg"
-                            alt="Images"
-                            className="icon-img"
-                          />
-                        )}
-                      </div>
 
-                      <img
-                        src={
-                          !category?.images
-                            ? "/assets/img/img-placeholder.jpg"
-                            : category?.images
-                        }
-                        alt={category?.slug}
-                        onClick={() =>
-                          history.push(
-                            `/product-details/${category?.product_id}`
-                          )
-                        }
-                        className="MainProductThumb"
-                      />
-                      <div className="BookMark">
-                        <IonIcon
-                          color="primary"
-                          size="small"
-                          icon={
-                            bookMarkedItems.indexOf(category?.product_id) < 0
-                              ? bookmarkOutline
-                              : bookmark
+                        <img
+                          src={
+                            !category?.images
+                              ? "/assets/img/img-placeholder.jpg"
+                              : category?.images
                           }
-                          onClick={() => bookMarkPost(category)}
-                        />
-                        <IonIcon
-                          color="primary"
-                          size="small"
-                          icon={
-                            wishListedItems.indexOf(category?.product_id) < 0
-                              ? heartOutline
-                              : heart
+                          alt={category?.slug}
+                          onClick={() =>
+                            history.push(
+                              `/product-details/${category?.product_id}`
+                            )
                           }
-                          onClick={() => wishListPost(category)}
+                          className="MainProductThumb"
                         />
-                      </div>
-                    </IonCardHeader>
+                        <div className="BookMark">
+                          <IonIcon
+                            color="primary"
+                            size="small"
+                            icon={
+                              bookMarkedItems.indexOf(category?.product_id) < 0
+                                ? bookmarkOutline
+                                : bookmark
+                            }
+                            onClick={() => bookMarkPost(category)}
+                          />
+                          <IonIcon
+                            color="primary"
+                            size="small"
+                            icon={
+                              wishListedItems.indexOf(category?.product_id) < 0
+                                ? heartOutline
+                                : heart
+                            }
+                            onClick={() => wishListPost(category)}
+                          />
+                        </div>
+                      </IonCardHeader>
 
-                    <IonCardContent className="ProductDetails">
-                      <IonText
-                        onClick={() =>
-                          history.push(
-                            `/product-details/${category?.product_id}`
-                          )
-                        }
-                        className="ProductTitle"
-                      >
-                        {category?.productName}
-                      </IonText>
-                      <IonText className="ProductBrandname">
-                        {category?.brand_name}
-                      </IonText>
-                      <div className="PriceRating">
-                        <div className="PriceText">
-                          <IonText color="dark" className="CurrentPrice">
-                            ₹ {category?.product_variant[0].offer_price}
-                          </IonText>
-                          <div className="OfferInfo">
-                            <IonText color="dark" className="OldPrice">
-                              {category?.product_variant[0]?.main_price}
+                      <IonCardContent className="ProductDetails">
+                        <IonText
+                          onClick={() =>
+                            history.push(
+                              `/product-details/${category?.product_id}`
+                            )
+                          }
+                          className="ProductTitle"
+                        >
+                          {category?.productName}
+                        </IonText>
+                        <IonText className="ProductBrandname">
+                          {category?.brand_name}
+                        </IonText>
+                        <div className="PriceRating">
+                          <div className="PriceText">
+                            <IonText color="dark" className="CurrentPrice">
+                              ₹ {category?.product_variant[0].offer_price}
                             </IonText>
-                            <IonChip className="offerBedge">
-                              {(
-                                ((category?.product_variant[0]?.main_price -
-                                  category?.product_variant[0]?.offer_price) /
-                                  category?.product_variant[0]?.main_price) *
-                                100
-                              ).toFixed(0)}
-                              % OFF
-                            </IonChip>
+                            <div className="OfferInfo">
+                              <IonText color="dark" className="OldPrice">
+                                {category?.product_variant[0]?.main_price}
+                              </IonText>
+                              <IonChip className="offerBedge">
+                                {(
+                                  ((category?.product_variant[0]?.main_price -
+                                    category?.product_variant[0]?.offer_price) /
+                                    category?.product_variant[0]?.main_price) *
+                                  100
+                                ).toFixed(0)}
+                                % OFF
+                              </IonChip>
+                            </div>
                           </div>
+                          <IonChip className="RateDesign">
+                            <span>{category?.star_rating}</span>
+                            <IonIcon color="light" size="small" icon={star} />
+                          </IonChip>
                         </div>
-                        <IonChip className="RateDesign">
-                          <span>{category?.star_rating}</span>
-                          <IonIcon color="light" size="small" icon={star} />
-                        </IonChip>
-                      </div>
 
-                      {category?.status === notifyStatus ? (
-                        <IonButton
-                          onClick={() => openModal(category)}
-                          className="AddToCartBtn"
-                          size="default"
-                          shape="round"
-                          fill="outline"
-                        >
-                          <div className="addText">
-                            Add
-                            <IonIcon slot="end" size="small" icon={add} />
-                          </div>
-                        </IonButton>
-                      ) : (
-                        <IonButton
-                          onClick={() => {
-                            setNotifyData(category);
-                            setIsNotifyMe(true);
-                          }}
-                          className="AddToCartBtn"
-                          size="default"
-                          shape="round"
-                          fill="outline"
-                        >
-                          <div className="addText">Notify Me</div>
-                        </IonButton>
-                      )}
-                    </IonCardContent>
-                  </IonCard>
-                </SwiperSlide>
-              );
-            })}
+                        {category?.status === notifyStatus ? (
+                          <IonButton
+                            onClick={() => openModal(category)}
+                            className="AddToCartBtn"
+                            size="default"
+                            shape="round"
+                            fill="outline"
+                          >
+                            <div className="addText">
+                              Add
+                              <IonIcon slot="end" size="small" icon={add} />
+                            </div>
+                          </IonButton>
+                        ) : (
+                          <IonButton
+                            onClick={() => {
+                              setNotifyData(category);
+                              setIsNotifyMe(true);
+                            }}
+                            className="AddToCartBtn"
+                            size="default"
+                            shape="round"
+                            fill="outline"
+                          >
+                            <div className="addText">Notify Me</div>
+                          </IonButton>
+                        )}
+                      </IonCardContent>
+                    </IonCard>
+                  </SwiperSlide>
+                );
+              })
+            ) : (
+              <IonText>No data found</IonText>
+            )}
           </Swiper>
 
           <IonRow className="ion-padding">

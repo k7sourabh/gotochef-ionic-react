@@ -186,8 +186,6 @@ const App = () => {
                   <LocalArticalDetail/>
                 </Route>
                
-                
-
                 <Route path="/home" exact={true}>
                   <Home />
                 </Route>

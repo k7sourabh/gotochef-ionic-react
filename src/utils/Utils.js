@@ -1,12 +1,7 @@
 /* eslint-disable arrow-body-style */
 import axios from "axios";
 
-<<<<<<< HEAD
 // const host = window.location.origin;
-=======
-// const host = window.location.origin;    
-// export const GOTO_CHEF_API_URL = "http://20.207.207.62/api"
->>>>>>> 82577154b50dfaf57f0fdccb3c27d74e4b0b4d8f
 export const GOTO_CHEF_API_URL = "http://13.251.201.255/api"
 const axiosInstance = axios.create({
   baseURL: GOTO_CHEF_API_URL,
