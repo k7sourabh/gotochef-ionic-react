@@ -21,33 +21,29 @@ import {
   IonTitle,
 } from "@ionic/react";
 import { listOutline } from "ionicons/icons";
-import { getApiData, postApiData } from '../../utils/Utils';
+import { getApiData, postApiData } from "../../utils/Utils";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
-
 const ArticalList = () => {
-
   const [ArticalList, setArticalList] = useState([]);
   const [viewState, setViewState] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const history = useHistory();
   const [loader, setLoader] = useState(false);
 
-
   const fetchArticals = async (page) => {
-    setLoader(true)
+    setLoader(true);
     try {
       const responce = await getApiData(`articleListApi/10/${page}`);
-      setArticalList(prevList => [...prevList, ...responce.data.articlelist]);
+      setArticalList((prevList) => [...prevList, ...responce.data.articlelist]);
       setViewState(page);
       setTotalPage(responce.data.total_page);
-      
     } catch (err) {
       console.log(err);
     }
-    setLoader(false)
-  }
+    setLoader(false);
+  };
 
   useEffect(() => {
     fetchArticals(viewState);
@@ -55,39 +51,36 @@ const ArticalList = () => {
 
   const truncateText = (text, maxLength) => {
     if (text && text.length > maxLength) {
-      return text.substr(0, maxLength) + '...';
+      return text.substr(0, maxLength) + "...";
     }
     return text;
   };
 
   const handleView = (slug) => {
-    history.push(`/localartical-detail/:${slug}`);
+    history.push(`/localartical-detail/${slug}`);
   };
 
   const showAllPage = () => {
-
     if (viewState < totalPage - 1) {
       fetchArticals(viewState + 1);
     }
   };
- 
 
   return (
     <IonPage>
-      
       <IonContent fullscreen>
         <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
           <div className="TitleHead">
             <IonButton className="backBtn" fill="clear" routerLink="/profile">
               <i className="material-icons dark">west</i>
             </IonButton>
-            <IonTitle color="dark">Artical List</IonTitle>
+            <IonTitle color="dark">Article List</IonTitle>
           </div>
         </IonHeader>
         <IonGrid>
           <IonRow>
             {ArticalList?.map?.((item, i) => (
-              <IonCol size='6' key={i}>
+              <IonCol size="6" key={i}>
                 <IonCard className="ProductCard">
                   <IonCardHeader className="ProductThumb">
                     <img
@@ -114,7 +107,12 @@ const ArticalList = () => {
                         {truncateText(item.longDescription, 30)}
                       </IonText>
                     </div>
-                    <IonButton size='default' fill='outline' shape='round' onClick={() => handleView(item.slug)} >
+                    <IonButton
+                      size="default"
+                      fill="outline"
+                      shape="round"
+                      onClick={() => handleView(item.slug)}
+                    >
                       Read More
                     </IonButton>
                   </IonCardContent>
@@ -125,17 +123,18 @@ const ArticalList = () => {
           {viewState < totalPage - 1 && (
             <IonRow>
               <IonCol className="flex ion-justify-content-center ion-align-items-center">
-                <IonButton fill="outline" size="default" onClick={showAllPage}>View all</IonButton>
-               
+                <IonButton fill="outline" size="default" onClick={showAllPage}>
+                  View all
+                </IonButton>
               </IonCol>
             </IonRow>
           )}
         </IonGrid>
         {loader && (
-    <div className="loader-container">
-      <IonSpinner name="crescent" />
-    </div>
-  )}
+          <div className="loader-container">
+            <IonSpinner name="crescent" />
+          </div>
+        )}
       </IonContent>
     </IonPage>
   );

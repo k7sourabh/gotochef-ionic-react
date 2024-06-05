@@ -79,6 +79,7 @@ import LoginPopup from "./modal/LoginPopup";
 import OTPPopup from "./modal/OTPPopup";
 import IngredientDetail from "./pages/Ingredient/IngredientDetail";
 import SavedContent from "./pages/profile/SavedContent";
+import Badges from "./pages/profile/Badges";
 import ArticalList from "./pages/Articals/ArticalList";
 import ArticalDetail from "./pages/Articals/ArticalDetail";
 import EditArticals from "./pages/Articals/EditArticals";
@@ -159,6 +160,11 @@ const App = () => {
                 <PrivateRoute path="/order-fail" component={OrderFail} />
                 <PrivateRoute path="/add-ingredient" component={AddIngredient} />
                 <PrivateRoute path="/ingredient-detail/:slug" component={IngredientDetail} />
+
+                {/* <PrivateRoute path="/artical-list" component={ArticalList} /> */}
+                <PrivateRoute path="/badges" component={Badges} />
+                
+                <PrivateRoute path="/ingredient-detail" component={IngredientDetail} />
                 <PrivateRoute path="/artical-detail/:slug:slug" component={ArticalDetail}/>
                 <PrivateRoute path="/edit-articals/:id" component={EditArticals}/>
                
@@ -176,7 +182,7 @@ const App = () => {
                 <Route path="/artical-list" exact={true}>
                   <ArticalList/>
                 </Route>
-                <Route path="/localartical-detail/:slug:slug" exact={true}>
+                <Route path="/localartical-detail/:slug" exact={true}>
                   <LocalArticalDetail/>
                 </Route>
                

@@ -35,7 +35,7 @@ const EditSubmitRecipeStep2 = (props) => {
         ...prev,
         ingredients: (quantity &&
           quantity?.map((item) => ({
-            data: item.data,
+            data: item.item,
             qty: item.qty,
           }))) || [{ data: "", qty: "" }],
         steps: directions || [""],

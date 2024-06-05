@@ -349,6 +349,7 @@ iframe {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: left;
 }
 
 .CurrentPrice {
@@ -1869,6 +1870,8 @@ label.EditProfile img {
 .personalTab {
   background-color: transparent;
   border-radius: 0px;
+  display: flex;
+  justify-content: center;
 }
 
 .personalTab .segment-button-checked {
@@ -2092,7 +2095,6 @@ ul.ProHomeList li::before {
   align-items: center;
   gap: 20px;
   padding: 10px 0px;
-  width: 100%;
 }
 
 .MorefoodBox .TabIcon {
@@ -2204,7 +2206,6 @@ ul.ProHomeList li::before {
   position: relative;
   border-radius: 25px;
   width: 100%;
-  height: 100%;
   border: 1px solid #00000026;
 }
 
@@ -3794,4 +3795,28 @@ label.cover-img-upload ion-text {
 
 .about-name {
   color: #9a1504;
+}
+.SocialArtical{
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 13px;
+}
+.SocialArtical ion-button img {
+  height: 28px;
+}
+.trashIcon{
+  position: absolute;
+  top: 0px;
+  right: -30px;
+}
+.LikeIcon{
+  color: #9a1504;
+}
+
+.TextGray{
+  color: #0000007a;
+}
+.TextDanger{
+  color:  #9a1504;
 }

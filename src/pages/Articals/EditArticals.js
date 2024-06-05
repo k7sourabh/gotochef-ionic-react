@@ -51,7 +51,7 @@ const EditArticles = () => {
                     setSelectedSection(sections[i].id);
             })
         }
-    }, [sections,selectedSection])
+    }, [sections, selectedSection])
 
     const [selectedCategory, setSelectedCategory] = useState(categories.length > 0 ? categories[0].id : '');
     useEffect(() => {

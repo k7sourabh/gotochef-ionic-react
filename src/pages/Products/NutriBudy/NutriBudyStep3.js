@@ -3,12 +3,14 @@ import {
     IonButton, IonCheckbox, IonCol, IonGrid, IonLabel, IonRange, IonRow, IonText, IonInput, IonIcon
 } from '@ionic/react';
 import { add } from 'ionicons/icons';
-import { getApiDataWithAuth ,postApiData} from '../../../utils/Utils';
+import { getApiDataWithAuth, postApiData } from '../../../utils/Utils';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 const NutriBudyStep3 = () => {
     const [stepthirdData, setStepthirdData] = useState({});
+    const [imagePreview, setImagePreview] = useState(null);
+
     const [formvalue, setFormvalue] = useState({
         sweet: 0,
         sour: 0,
@@ -16,14 +18,15 @@ const NutriBudyStep3 = () => {
         salty: 0,
         umami: 0,
         diet_pref: [],
-        id:"",
-        food_like:[],
-        food_icons:[]
+        id: "",
+        food_like: [],
+        food_icons: []
     });
-useEffect(()=>{
-    console.log('formvalue',formvalue)
-},[formvalue])
- 
+
+    useEffect(() => {
+        console.log('formvalue', formvalue);
+    }, [formvalue]);
+
     const validationSchema = Yup.object().shape({
         sweet: Yup.number().min(0).max(100),
         sour: Yup.number().min(0).max(100),
@@ -31,8 +34,7 @@ useEffect(()=>{
         salty: Yup.number().min(0).max(100),
         umami: Yup.number().min(0).max(100),
         diet_pref: Yup.array(),
-        id:"",
-
+        id: "",
     });
 
     useEffect(() => {
@@ -49,13 +51,11 @@ useEffect(()=>{
                         salty: data.salty || 0,
                         umami: data.umami || 0,
                         diet_pref: data.diet_pref || [],
-                        id:data.id||"",
-                        food_like: data.food_like ||[],
-                        food_icons:data.food_icons||[]
-
-
-
+                        id: data.id || "",
+                        food_like: data.food_like || [],
+                        food_icons: data.food_icons || []
                     });
+                    setImagePreview(data.food_icons || null);
                 }
             } catch (err) {
                 console.error(err);
@@ -67,26 +67,28 @@ useEffect(()=>{
 
     const handleSubmit = async (values) => {
         console.log("Submitted values", values);
-        try{
-            const formData= new FormData()
-            formData.append("sweet",values.sweet);
-            formData.append("sour",values.sour);
-            formData.append("bitter",values.bitter);
-            formData.append("salty",values.salty);
-            formData.append("umami",values.umami);
-            formData.append("diet_pref",values.diet_pref);
-            formData.append("id",values.id);
-            formData.append("food_like",values.food_like);
-            formData.append("food_icons",values.food_icons)
+        try {
+            const formData = new FormData();
+            formData.append("sweet", values.sweet);
+            formData.append("sour", values.sour);
+            formData.append("bitter", values.bitter);
+            formData.append("salty", values.salty);
+            formData.append("umami", values.umami);
+            formData.append("diet_pref", values.diet_pref);
+            formData.append("id", values.id);
+            formData.append("food_like", values.food_like);
+            values.food_icons.forEach((icon, index) => {
+                formData.append(`food_icons[${index}]`, JSON.stringify(icon));
+            });
+           
 
-            const response= await postApiData('postStepThird',formData);
-            console.log('responsepost',response)
-        }catch(err) {
-            console.log(err)
+            const response = await postApiData('postStepThird', formData);
+            console.log('responsepost', response);
+        } catch (err) {
+            console.log(err);
         }
     };
 
-    
     return (
         <IonGrid className="ion-padding-bottom">
             <IonRow>
@@ -248,13 +250,13 @@ useEffect(()=>{
                                     <div className="AllergyBox">
                                         <div className="ImgIcon">
                                             <input type="checkbox" id="myCheck2"
-                                            checked={values.food_like.includes('NoPreservative')}
-                                            onChange={() => {
-                                                const newfoodlike = values.food_like.includes('NoPreservative')
-                                                    ? values.food_like.filter(pref => pref !== 'NoPreservative')
-                                                    : [...values.food_like, 'NoPreservative'];
-                                                setFieldValue('food_like', newfoodlike);
-                                            }}
+                                                checked={values.food_like.includes('NoPreservative')}
+                                                onChange={() => {
+                                                    const newfoodlike = values.food_like.includes('NoPreservative')
+                                                        ? values.food_like.filter(pref => pref !== 'NoPreservative')
+                                                        : [...values.food_like, 'NoPreservative'];
+                                                    setFieldValue('food_like', newfoodlike);
+                                                }}
                                             />
                                             <label htmlFor="myCheck2">
                                                 <img src="./assets/img/No PreservativesWhite_Icons.png" alt="" className="ProfileImg" />
@@ -262,14 +264,14 @@ useEffect(()=>{
                                             </label>
                                         </div>
                                         <div className="ImgIcon">
-                                            <input type="checkbox" id="myCheck4" 
-                                             checked={values.food_like.includes('NoSugar')}
-                                             onChange={() => {
-                                                 const newfoodlike = values.food_like.includes('NoSugar')
-                                                     ? values.food_like.filter(pref => pref !== 'NoSugar')
-                                                     : [...values.food_like, 'NoSugar'];
-                                                 setFieldValue('food_like', newfoodlike);
-                                             }}
+                                            <input type="checkbox" id="myCheck4"
+                                                checked={values.food_like.includes('NoSugar')}
+                                                onChange={() => {
+                                                    const newfoodlike = values.food_like.includes('NoSugar')
+                                                        ? values.food_like.filter(pref => pref !== 'NoSugar')
+                                                        : [...values.food_like, 'NoSugar'];
+                                                    setFieldValue('food_like', newfoodlike);
+                                                }}
                                             />
                                             <label htmlFor="myCheck4">
                                                 <img src="./assets/img/No added sugarWhite_Icons.png" alt="" className="ProfileImg" />
@@ -277,19 +279,41 @@ useEffect(()=>{
                                             </label>
                                         </div>
                                         <div className="ImgIcon">
-                                            <input type="checkbox" id="myCheck3" 
-                                             checked={values.food_like.includes('NaturalOnly')}
-                                             onChange={() => {
-                                                 const newfoodlike = values.food_like.includes('NaturalOnly')
-                                                     ? values.food_like.filter(pref => pref !== 'NaturalOnly')
-                                                     : [...values.food_like, 'NaturalOnly'];
-                                                 setFieldValue('food_like', newfoodlike);
-                                             }}
+                                            <input type="checkbox" id="myCheck3"
+                                                checked={values.food_like.includes('NaturalOnly')}
+                                                onChange={() => {
+                                                    const newfoodlike = values.food_like.includes('NaturalOnly')
+                                                        ? values.food_like.filter(pref => pref !== 'NaturalOnly')
+                                                        : [...values.food_like, 'NaturalOnly'];
+                                                    setFieldValue('food_like', newfoodlike);
+                                                }}
                                             />
                                             <label htmlFor="myCheck3">
                                                 <img src="./assets/img/All Natural OnlyWhite_Icons.png" alt="" className="ProfileImg" />
                                                 <IonText>All Natural Only</IonText>
                                             </label>
+                                            <IonCol size="12" className="ion-padding-vertical">
+                                                {values.food_icons.map((icon, index) => (
+                                                    <div key={index} className="foodIcon">
+                                                        <input
+                                                            type="checkbox"
+                                                            id={`myCheck${index}`} // Ensure each checkbox has a unique ID
+                                                            checked={values.food_like.includes(icon.name)} // Check if the current icon is included in food_like
+                                                            onChange={() => {
+                                                                const newfoodlike = values.food_like.includes(icon.name)
+                                                                    ? values.food_like.filter(pref => pref !== icon.name) // Remove icon if already selected
+                                                                    : [...values.food_like, icon.name]; // Add icon if not already selected
+                                                                setFieldValue('food_like', newfoodlike); // Update food_like array in form values
+                                                            }}
+                                                        />
+                                                        <label htmlFor={`myCheck${index}`}>
+                                                            <img src={icon.icon_food} alt={icon.name} className="ProfileImg" />
+                                                            <IonText>{icon.name}</IonText>
+                                                        </label>
+                                                    </div>
+                                                ))}
+
+                                            </IonCol>
                                         </div>
                                         <div className="ImgBtn">
                                             <IonButton fill="clear">
@@ -297,14 +321,36 @@ useEffect(()=>{
                                             </IonButton>
                                         </div>
                                     </div>
+                                  
                                 </IonCol>
-                                <IonCol size="12" className='ion-padding-vertical'>
+                                <IonCol size="12" className="ion-padding-vertical">
+                                
                                     <div className="uploadPicture-button">
                                         <label className="UploadBtn">Upload Picture</label>
-                                        <input type="file" id="AllergyPicture" accept="image/*" />
-                                        <IonInput type="text"></IonInput>
+                                        <input
+                                            id="AllergyPicture"
+                                            type="file"
+                                            name="food_icons"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                if (file) {
+                                                    const newName = document.getElementById('ImageNameInput').value;
+                                                    const newFoodIcon = { icon_food: URL.createObjectURL(file), name: newName };
+                                                    const newFoodIcons = [...values.food_icons, newFoodIcon];
+                                                    setFieldValue('food_icons', newFoodIcons);
+                                                }
+                                            }}
+                                        />
+                                     
+                                        <IonInput type="text" id="ImageNameInput" placeholder="Enter image name" 
+                                        />
                                     </div>
                                 </IonCol>
+
+
+
+
                                 <IonCol>
                                     <div className="SkipBtn ion-padding-vertical">
                                         <IonButton className="Orangebtn" type="submit" fill="clear">SAVE</IonButton>

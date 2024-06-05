@@ -47,8 +47,6 @@ const Header = () => {
   const history = useHistory();
   const { id } = useParams;
 
-
-
   const startScan = async () => {
     // Check camera permission
     // This is just a simple example, check out the better checks below
@@ -120,7 +118,7 @@ const Header = () => {
                     <IonButton
                       className="IconBtn"
                       routerLink={`/submit-recipe/${id ? id : ""}`}
-                    // routerLink="/submit-recipe"
+                      // routerLink="/submit-recipe"
                     >
                       <img
                         src="/assets/img/edit.png"
@@ -187,7 +185,14 @@ const Header = () => {
                   ></IonIcon>
                   <IonLabel>Category</IonLabel>
                 </IonItem>
-
+                <IonItem lines="none" routerLink="/artical-list">
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={gridOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel>Articles</IonLabel>
+                </IonItem>
                 <IonItem lines="none" routerLink="/order-list">
                   <IonIcon
                     aria-hidden="true"

@@ -19,12 +19,11 @@ import {
   IonTitle,
 } from "@ionic/react";
 
-import { getApiData, postApiData } from '../../utils/Utils';
+import { getApiData, postApiData } from "../../utils/Utils";
 
 import "swiper/swiper-bundle.css";
 import "@ionic/react/css/ionic-swiper.css";
 import { useHistory, useParams } from "react-router";
-
 
 const LocalArticalDetail = () => {
   const [ArticalDetaildata, setArticalDetaildata] = useState({});
@@ -34,61 +33,73 @@ const LocalArticalDetail = () => {
   const fetchArticalsData = async () => {
     try {
       const responce = await getApiData(`articledetails_json/${slug}`);
-      setArticalDetaildata(responce?.data?.artciledetails?.artcile_details)
-      setSimilerarticle(responce?.data?.artciledetails?.similer_article)
+      setArticalDetaildata(responce?.data?.artciledetails?.artcile_details);
+      setSimilerarticle(responce?.data?.artciledetails?.similer_article);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   useEffect(() => {
     fetchArticalsData();
-  }, [slug])
+  }, [slug]);
 
   const truncateText = (text, maxLength) => {
     if (text && text.length > maxLength) {
-      return text.substr(0, maxLength) + '...';
+      return text.substr(0, maxLength) + "...";
     }
     return text;
   };
 
-  const HandleSimilar=(slug)=>{
-    history.push(`/localartical-detail/:${slug}`)
-  }
-
+  const HandleSimilar = (slug) => {
+    history.push(`/localartical-detail/${slug}`);
+  };
 
   return (
     <IonPage>
       {/* <Header /> */}
       <IonContent>
         <IonHeader className="TitleHead bottom-shadow">
-          <IonButton className="backBtn" fill="clear" routerLink="/artical-list">
+          <IonButton
+            className="backBtn"
+            fill="clear"
+            routerLink="/artical-list"
+          >
             <i class="material-icons dark">west</i>
           </IonButton>
-          <IonTitle color="dark">articals Details</IonTitle>
+          <IonTitle color="dark">Article Details</IonTitle>
         </IonHeader>
 
         <IonGrid className="ion-padding-horizontal ion-padding-top">
           <IonRow className="ion-justify-content-center">
             <IonCol>
               <img
+                src={
+                  !ArticalDetaildata.desktopImages
+                    ? "/assets/img/img-placeholder.jpg"
+                    : ArticalDetaildata.desktopImages
+                }
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/assets/img/img-placeholder.jpg";
+                }}
+                alt=""
+                className="RecipeImage"
+              />
+              {/* <img
                 alt=""
                 className="RecipeImage"
                 src={ArticalDetaildata.desktopImages}
-              />
+              /> */}
             </IonCol>
           </IonRow>
-         
-         <IonRow>
-          <IonCol>
-          <div className="RecipeProName">
+
+          <IonRow>
+            <IonCol>
+              <div className="RecipeProName">
                 <h1>{ArticalDetaildata.slug}</h1>
                 <div className="RecipeProfile">
-                  <div className="ReciRow">
-                    {ArticalDetaildata.f_name}
-                  </div>
-                  <div className="ReciRow">
-                    {ArticalDetaildata.articleDate}
-                  </div>
+                  <div className="ReciRow">{ArticalDetaildata.f_name}</div>
+                  <div className="ReciRow">{ArticalDetaildata.articleDate}</div>
                 </div>
               </div>
               <div className="SignupSocials SocialArtical">
@@ -108,16 +119,13 @@ const LocalArticalDetail = () => {
                   <img src="/assets/img/linkedin.png" alt="Images" />
                 </IonButton>
               </div>
-          </IonCol>
-         </IonRow>
-          <IonRow className="ion-padding-top">
-            <IonCol>
-              <IonText>
-                {ArticalDetaildata.shortDescription}
-              </IonText>
             </IonCol>
           </IonRow>
-
+          <IonRow className="ion-padding-top">
+            <IonCol>
+              <IonText>{ArticalDetaildata.shortDescription}</IonText>
+            </IonCol>
+          </IonRow>
 
           <IonRow className="ion-padding-top">
             <IonCol>
@@ -130,57 +138,58 @@ const LocalArticalDetail = () => {
             <h3>Similar Articles</h3>
           </IonRow>
           <IonRow>
-            {
-              similerarticle?.map?.((item, i) => (
-                <IonCol size='6' key={i}>
-                  <IonCard className="ProductCard">
-                    <IonCardHeader className="ProductThumb">
-                      <img
-                        src={item.desktopImages}
-                        alt="category cover"
-                        className="MainProductThumb"
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = "/assets/img/img-placeholder.jpg"; 
-                        }}
-                      />
-                    </IonCardHeader>
-                    <IonCardContent className="ProductDetails">
-                      <div className="d-flex">
-                        <IonText className="ProductTitle">
-                          {item.f_name}
-                        </IonText>
-                        <IonText className="ProductTitle">
-                          {item.articleName}
-                        </IonText>
-                      </div>
-                      <div className="PriceRating">
-                        <IonText color="dark">
-                          {truncateText(item.shortDescription, 30)}
-                        </IonText>
-
-                      </div>
-                      <IonButton size='default'
-                        fill='outline'
-                        shape='round'
-                        onClick={() => HandleSimilar(item.slug)}>
-                        Read More
-                      </IonButton>
-
-                    </IonCardContent>
-                  </IonCard>
-                </IonCol>
-              ))
-            }
+            {similerarticle?.map?.((item, i) => (
+              <IonCol size="6" key={i}>
+                <IonCard className="ProductCard">
+                  <IonCardHeader className="ProductThumb">
+                    <img
+                      src={item.desktopImages}
+                      alt="category cover"
+                      className="MainProductThumb"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/assets/img/img-placeholder.jpg";
+                      }}
+                    />
+                  </IonCardHeader>
+                  <IonCardContent className="ProductDetails">
+                    <div className="d-flex">
+                      <IonText className="ProductTitle">{item.f_name}</IonText>
+                      <IonText className="ProductTitle">
+                        {item.articleName}
+                      </IonText>
+                    </div>
+                    <div className="PriceRating">
+                      <IonText color="dark">
+                        {truncateText(item.shortDescription, 30)}
+                      </IonText>
+                    </div>
+                    <IonButton
+                      size="default"
+                      fill="outline"
+                      shape="round"
+                      onClick={() => HandleSimilar(item.slug)}
+                    >
+                      Read More
+                    </IonButton>
+                  </IonCardContent>
+                </IonCard>
+              </IonCol>
+            ))}
           </IonRow>
 
           <IonRow>
             <IonCol className="flex ion-justify-content-center  ion-align-items-center">
-              <IonButton fill="outline" size="default" routerLink="/artical-list">View all</IonButton>
+              <IonButton
+                fill="outline"
+                size="default"
+                routerLink="/artical-list"
+              >
+                View all
+              </IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
-
       </IonContent>
     </IonPage>
   );

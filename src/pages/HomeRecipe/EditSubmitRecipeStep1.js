@@ -174,7 +174,7 @@ const EditSubmitRecipeStep1 = (props) => {
     }
   };
   useEffect(() => {
-    if (showTeq.length > 0) {
+    if (showTeq && showTeq?.length > 0) {
       setIsOpen(true);
     }
   }, [showTeq]);
@@ -459,24 +459,24 @@ const EditSubmitRecipeStep1 = (props) => {
                       ></IonInput>
                       {isOpen && (
                         <IonList className="suggestionList">
-                          {showTeq.map((data, index) => (
-                            <IonItem
-                              className="ion-no-padding"
-                              value={data.technique_name}
-                              onClick={() => {
-                                setTechniquesArr((prev) => [
-                                  ...prev,
-                                  data.technique_name,
-                                ])
-                                setShowTeq([])
-                                setIsOpen(false)
-                              }
-                              }
-                              key={index}
-                            >
-                              {data.technique_name}
-                            </IonItem>
-                          ))}
+                          {showTeq &&
+                            showTeq?.map((data, index) => (
+                              <IonItem
+                                className="ion-no-padding"
+                                value={data.technique_name}
+                                onClick={() => {
+                                  setTechniquesArr((prev) => [
+                                    ...prev,
+                                    data.technique_name,
+                                  ]);
+                                  setShowTeq([]);
+                                  setIsOpen(false);
+                                }}
+                                key={index}
+                              >
+                                {data.technique_name}
+                              </IonItem>
+                            ))}
                         </IonList>
                       )}
                     </IonCol>

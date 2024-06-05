@@ -27,7 +27,10 @@ import {
 import SubmitArticals from "../Articals/SubmitArticals";
 import { getApiDataWithAuth } from "../../utils/Utils";
 import SubmitRecipe from "./SubmitRecipe";
-import { useLocation, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useLocation,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 const MyRecipeComponent = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -42,7 +45,6 @@ const MyRecipeComponent = () => {
   };
 
   useEffect(() => {
-  
     fetchRecipeData();
   }, [location]);
 
@@ -56,9 +58,11 @@ const MyRecipeComponent = () => {
   };
 
   const showPreprationTime = (data) => {
-    let arr = data.split("-")
-    return `${arr[0] ? arr[0] : "0"} : ${arr[1] ? arr[1] : "0"}`
-  }
+    if (data) {
+      let arr = data.split("-");
+      return `${arr[0] ? arr[0] : "0"} : ${arr[1] ? arr[1] : "0"}`;
+    }
+  };
 
   return (
     <IonPage>
@@ -93,7 +97,9 @@ const MyRecipeComponent = () => {
             <IonTitle color="dark">Recipes Draft</IonTitle>
           </IonRow>
           <IonRow className="ion-padding-vertical">
-            {recipeData && recipeData?.recipes_draft && recipeData?.recipes_draft.length > 0 ? (
+            {recipeData &&
+            recipeData?.recipes_draft &&
+            recipeData?.recipes_draft.length > 0 ? (
               recipeData?.recipes_draft?.map((data, index) => (
                 <IonCol size="6" key={index}>
                   <IonCard className="ProductCard MyRecipeCard">
@@ -138,10 +144,6 @@ const MyRecipeComponent = () => {
                           <i class="material-icons">edit</i>
                         </IonButton>
                       </div>
-
-
-
-
                     </div>
                     <div className="RecentProducts">
                       <div className="RecipePro">
@@ -165,7 +167,9 @@ const MyRecipeComponent = () => {
                           </div>
                           <div className="ReciRow">
                             <IonIcon icon={timeOutline}></IonIcon>
-                            <IonLabel>{showPreprationTime(data?.prep_time)}</IonLabel>
+                            <IonLabel>
+                              {showPreprationTime(data?.prep_time)}
+                            </IonLabel>
                           </div>
                         </div>
                       </div>
@@ -220,8 +224,7 @@ const MyRecipeComponent = () => {
               <IonCol size="12" className="ion-padding-horizontal">
                 <IonText>No draft recipe found</IonText>
               </IonCol>
-            )
-            }
+            )}
           </IonRow>
         </IonGrid>
 
@@ -279,7 +282,9 @@ const MyRecipeComponent = () => {
                           </div>
                           <div className="ReciRow">
                             <IonIcon icon={timeOutline}></IonIcon>
-                            <IonLabel>{showPreprationTime(data?.prep_time)}</IonLabel>
+                            <IonLabel>
+                              {showPreprationTime(data?.prep_time)}
+                            </IonLabel>
                           </div>
                         </div>
                       </div>
@@ -387,7 +392,9 @@ const MyRecipeComponent = () => {
                           </div>
                           <div className="ReciRow">
                             <IonIcon icon={timeOutline}></IonIcon>
-                            <IonLabel>{showPreprationTime(data?.prep_time)}</IonLabel>
+                            <IonLabel>
+                              {showPreprationTime(data?.prep_time)}
+                            </IonLabel>
                           </div>
                         </div>
                       </div>
