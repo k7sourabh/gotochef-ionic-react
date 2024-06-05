@@ -25,14 +25,56 @@ import {
   personOutline,
   sunnyOutline,
 } from "ionicons/icons";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { menuController } from "@ionic/core/components";
 import IngredientProduct from "./IngredientProduct";
+import { getApiData, postApiData } from "../../utils/Utils";
 
 const IngredientList = () => {
+  const [ingredientData, setIngredientData] = useState({});
+  const [ingredienObject, setIngredienObject] = useState({
+    foodType: "",
+    category: "",
+    cuisines: "",
+    most_like_ingredient: "",
+    sortBy: "",
+    date_time: "",
+  });
+  const [productData, setProductData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   async function openSecondMenu() {
     await menuController.open("second-menu");
   }
+
+  const getIngredient = async () => {
+    try {
+      const response = await getApiData("ingredient-get-filter");
+      console.log(response.data);
+      setIngredientData(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getIngredient();
+  }, []);
+
+  const searchIngredient = async () => {
+    console.log("ingredienObject", ingredienObject);
+    menuController.close("second-menu");
+    try {
+      setIsLoading(true)
+      const response = await postApiData(
+        "new-ingredient-post-response",
+        ingredienObject
+      );
+      console.log(response.data.data);
+      setIsLoading(false)
+      setProductData(response?.data?.data);
+    } catch (error) {
+      console.error("Error while saving data:", error);
+    }
+  };
 
   return (
     <IonPage>
@@ -63,10 +105,20 @@ const IngredientList = () => {
                 label="Fixed label"
                 labelPlacement="fixed"
                 placeholder="Veg"
+                onIonChange={(e) => {
+                  setIngredienObject({
+                    ...ingredienObject,
+                    foodType: e.target.value,
+                  });
+                }}
               >
-                <IonSelectOption value="apple">All</IonSelectOption>
-                <IonSelectOption value="banana">Veg</IonSelectOption>
-                <IonSelectOption value="orange">Non-veg</IonSelectOption>
+                {ingredientData &&
+                  ingredientData?.veg_non &&
+                  ingredientData?.veg_non?.map((data, i) => (
+                    <IonSelectOption value={data} key={i}>
+                      {data}
+                    </IonSelectOption>
+                  ))}
               </IonSelect>
             </IonItem>
             <IonItem>
@@ -74,10 +126,20 @@ const IngredientList = () => {
                 label="Fixed label"
                 labelPlacement="fixed"
                 placeholder="By Cuisines"
+                onIonChange={(e) =>
+                  setIngredienObject({
+                    ...ingredienObject,
+                    cuisines: e.target.value,
+                  })
+                }
               >
-                <IonSelectOption value="apple">All</IonSelectOption>
-                <IonSelectOption value="banana">Veg</IonSelectOption>
-                <IonSelectOption value="orange">Non-veg</IonSelectOption>
+                {ingredientData &&
+                  ingredientData?.cuisines &&
+                  ingredientData?.cuisines?.map((data, i) => (
+                    <IonSelectOption value={data.id} key={i}>
+                      {data.sub_category_name}
+                    </IonSelectOption>
+                  ))}
               </IonSelect>
             </IonItem>
             <IonItem>
@@ -85,10 +147,20 @@ const IngredientList = () => {
                 label="Fixed label"
                 labelPlacement="fixed"
                 placeholder="By Category"
+                onIonChange={(e) =>
+                  setIngredienObject({
+                    ...ingredienObject,
+                    category: e.target.value,
+                  })
+                }
               >
-                <IonSelectOption value="apple">All</IonSelectOption>
-                <IonSelectOption value="banana">Veg</IonSelectOption>
-                <IonSelectOption value="orange">Non-veg</IonSelectOption>
+                {ingredientData &&
+                  ingredientData?.ingredient_category &&
+                  ingredientData?.ingredient_category?.map((data, i) => (
+                    <IonSelectOption value={data.id} key={i}>
+                      {data.sub_category_name}
+                    </IonSelectOption>
+                  ))}
               </IonSelect>
             </IonItem>
             <IonItem>
@@ -96,32 +168,54 @@ const IngredientList = () => {
                 label="Fixed label"
                 labelPlacement="fixed"
                 placeholder="Sort by"
+                onIonChange={(e) => {
+                  if (e.target.value === "A-Z" || e.target.value === "Z-A") {
+                    setIngredienObject({
+                      ...ingredienObject,
+                      sortBy: e.target.value || "",
+                      most_like_ingredient: "",
+                      date_time: "",
+                    });
+                  } else if (e.target.value === "latest") {
+                    setIngredienObject({
+                      ...ingredienObject,
+                      date_time: "1",
+                      sortBy: "",
+                      most_like_ingredient: "",
+                    });
+                  } else if (e.target.value === "most_like") {
+                    setIngredienObject({
+                      ...ingredienObject,
+                      most_like_ingredient: "1",
+                      sortBy: "",
+                      date_time: "",
+                    });
+                  } else {
+                    setIngredienObject({
+                      ...ingredienObject,
+                      sortBy: "",
+                      most_like_ingredient: "",
+                      date_time: "",
+                    });
+                  }
+                }}
               >
-                <IonSelectOption value="apple">All</IonSelectOption>
-                <IonSelectOption value="banana">Veg</IonSelectOption>
-                <IonSelectOption value="orange">Non-veg</IonSelectOption>
+                {ingredientData &&
+                  ingredientData?.Sort_by &&
+                  ingredientData?.Sort_by?.map((data, i) => (
+                    <IonSelectOption value={data} key={i}>
+                      {data}
+                    </IonSelectOption>
+                  ))}
               </IonSelect>
             </IonItem>
+            <IonButton onClick={searchIngredient}>Search</IonButton>
           </IonContent>
         </IonMenu>
 
         <IonGrid>
           <IonRow>
-            <IonCol size="6">
-              <IngredientProduct />
-            </IonCol>
-            <IonCol size="6">
-              <IngredientProduct />
-            </IonCol>
-            <IonCol size="6">
-              <IngredientProduct />
-            </IonCol>
-            <IonCol size="6">
-              <IngredientProduct />
-            </IonCol>
-            <IonCol size="6">
-              <IngredientProduct />
-            </IonCol>
+            <IngredientProduct productData={productData} isLoading={isLoading}/>
           </IonRow>
         </IonGrid>
       </IonContent>

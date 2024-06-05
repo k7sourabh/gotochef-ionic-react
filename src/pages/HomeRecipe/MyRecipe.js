@@ -12,6 +12,7 @@ import {
   IonLabel,
   IonPage,
   IonRow,
+  IonSpinner,
   IonText,
   IonTitle,
 } from "@ionic/react";
@@ -39,6 +40,7 @@ const MyRecipeComponent = () => {
   const [recipeObj, setRecipeObj] = useState({});
   const param = useParams();
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -50,7 +52,9 @@ const MyRecipeComponent = () => {
 
   const fetchRecipeData = async () => {
     try {
+      setIsLoading(true);
       const response = await getApiDataWithAuth("/myRecipes");
+      setIsLoading(false);
       setRecipeData(response.data.data);
     } catch (err) {
       console.error(err);
@@ -97,9 +101,13 @@ const MyRecipeComponent = () => {
             <IonTitle color="dark">Recipes Draft</IonTitle>
           </IonRow>
           <IonRow className="ion-padding-vertical">
-            {recipeData &&
-            recipeData?.recipes_draft &&
-            recipeData?.recipes_draft.length > 0 ? (
+            {isLoading ? (
+              <div className="loader-container">
+                <IonSpinner name="crescent" />
+              </div>
+            ) : recipeData &&
+              recipeData?.recipes_draft &&
+              recipeData?.recipes_draft.length > 0 ? (
               recipeData?.recipes_draft?.map((data, index) => (
                 <IonCol size="6" key={index}>
                   <IonCard className="ProductCard MyRecipeCard">

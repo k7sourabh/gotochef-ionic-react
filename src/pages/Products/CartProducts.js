@@ -207,9 +207,16 @@ const CartProducts = () => {
                             <div className={styles.productThumb}>
                               <img
                                 src={
-                                  item.prod_details.image ||
-                                  "/assets/img/product-img.png"
+                                  !item.prod_details.image
+                                    ? "/assets/img/img-placeholder.jpg"
+                                    : item.prod_details.image
                                 }
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src =
+                                    "/assets/img/img-placeholder.jpg";
+                                }}
+                                // src={item.images}
                                 alt="Images"
                               />
                             </div>
