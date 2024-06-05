@@ -1,8 +1,9 @@
-import { IonContent, IonGrid, IonPage, IonInput, IonRow, IonButton, IonHeader, IonTitle, useIonToast } from "@ionic/react";
+import { IonContent, IonGrid, IonPage, IonInput, IonRow, IonButton, IonHeader, IonTitle, useIonToast, IonSpinner } from "@ionic/react";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { postApiDataWithAuth } from "../../utils/Utils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useState } from "react";
 
 const validationSchema = Yup.object().shape({
    oldPassword: Yup.string().required("Confirm password title is required"),
@@ -20,6 +21,8 @@ const validationSchema = Yup.object().shape({
 const ChangePassword = () => {
    const [present] = useIonToast();
    const history = useHistory();
+   const [loader, setLoader] = useState(false);
+
 
    const initialValues = {
       oldPassword: "",
@@ -28,7 +31,7 @@ const ChangePassword = () => {
    };
 
    const handleSubmit = async (values, { resetForm }) => {
-      console.log(values)
+      setLoader(true)
       try {
          const obj = {
             old_password: values.oldPassword,
@@ -47,6 +50,7 @@ const ChangePassword = () => {
       } catch (err) {
          console.error(err);
       }
+      setLoader(false)
    }
 
    const presentToast = (position, message) => {
@@ -137,6 +141,11 @@ const ChangePassword = () => {
                                     />
                                     <div className="reset-btn">
                                        <IonButton size="small" type="submit" value="Submit">Reset Password</IonButton>
+                                       {loader && (
+                                          <div className="loader-container">
+                                             <IonSpinner name="crescent" />
+                                          </div>
+                                       )}
                                     </div>
                                  </div>
                               </div>

@@ -236,7 +236,11 @@ const Product = () => {
                   >
                     <SwiperSlide>
                       <img
-                        src={productData && productData?.images}
+                        src={
+                          !productData.images
+                            ? "/assets/img/img-placeholder.jpg"
+                            : productData.images
+                        }
                         alt="product pic"
                         onError={(e) => {
                           e.target.onerror = null; // Remove the event handler to prevent an infinite loop
@@ -247,7 +251,11 @@ const Product = () => {
 
                     <SwiperSlide>
                       <img
-                        src={productData && productData?.images}
+                        src={
+                          !productData.images
+                            ? "/assets/img/img-placeholder.jpg"
+                            : productData.images
+                        }
                         alt="product pic"
                         onError={(e) => {
                           e.target.onerror = null; // Remove the event handler to prevent an infinite loop
@@ -633,6 +641,7 @@ const Product = () => {
 
                     <IonCol size="12" className={styles.nutritionListBlock}>
                       {productData &&
+                        productData.length > 0 &&
                         productData?.ingredient_data.map(
                           (ingredients, index) => (
                             <div className={styles.listIngredients} key={index}>
@@ -846,7 +855,11 @@ const Product = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
-      <WriteReview isOpen={isOpen} setIsOpen={setIsOpen} productData={productData}/>
+      <WriteReview
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        productData={productData}
+      />
     </IonPage>
   );
 };

@@ -3816,3 +3816,10 @@ label.cover-img-upload ion-text {
 .LikeIcon{
   color: #9a1504;
 }
+
+.TextGray{
+  color: #0000007a;
+}
+.TextDanger{
+  color:  #9a1504;
+}
