@@ -78,12 +78,18 @@ import { useAuth } from "./context/AuthContext";
 import LoginPopup from "./modal/LoginPopup";
 import OTPPopup from "./modal/OTPPopup";
 import IngredientDetail from "./pages/Ingredient/IngredientDetail";
-import SavedContent from "./pages/profile/SavedContent";
 import Badges from "./pages/profile/Badges";
 import ArticalList from "./pages/Articals/ArticalList";
 import ArticalDetail from "./pages/Articals/ArticalDetail";
 import EditArticals from "./pages/Articals/EditArticals";
 import LocalArticalDetail from "./pages/Articals/LocalArticalDetail";
+import SavedContentRecipe from "./pages/profile/SavedContentRecipe";
+import SavedContentCollection from "./pages/profile/SavedContentCollection";
+import BadgesCollection from "./pages/profile/BadgesCollection";
+import EarnPoint from "./pages/profile/EarnPoint";
+import Ranking from "./pages/profile/Ranking";
+
+
 
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
@@ -159,7 +165,17 @@ const App = () => {
                 <PrivateRoute path="/order-confirm" component={OrderConfirm} />
                 <PrivateRoute path="/order-fail" component={OrderFail} />
                 <PrivateRoute path="/add-ingredient" component={AddIngredient} />
+                <PrivateRoute path="/saved-content-recipe" component={SavedContentRecipe} />
                 <PrivateRoute path="/ingredient-detail/:slug" component={IngredientDetail} />
+                <PrivateRoute path="/saved-content-collection" component={SavedContentCollection} />
+                <PrivateRoute path="/badges-collection" component={BadgesCollection} />
+                <PrivateRoute path="/earn-point" component={EarnPoint} />
+                <PrivateRoute path="/ranking" component={Ranking} />
+                
+               
+               
+                
+               
 
                 {/* <PrivateRoute path="/artical-list" component={ArticalList} /> */}
                 <PrivateRoute path="/badges" component={Badges} />

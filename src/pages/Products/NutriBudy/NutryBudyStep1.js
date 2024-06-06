@@ -1,14 +1,10 @@
 import React from "react";
 import {
   IonButton,
-  IonCheckbox,
   IonCol,
-  IonDatetime,
   IonGrid,
-  IonPopover,
   IonRadio,
   IonRadioGroup,
-  IonRange,
   IonRow,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
