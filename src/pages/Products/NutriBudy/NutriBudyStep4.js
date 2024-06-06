@@ -266,90 +266,90 @@ const NutriBudyStep4 = () => {
                                         <h4>Tell us which of these statements suit your current life situation the best</h4>
                                         <IonItem>
                                             <IonLabel className="StatementInfo">I am working professional, who has limited time to focus on health.</IonLabel>
-                                            <IonCheckbox
+                                            <input type='checkbox'
                                                
-                                                checked={formvalue.focus_health.includes('I am working professional, who has limited time to focus on health.')}
-                                                onIonChange={() => {
+                                                checked={values.focus_health.includes('I am working professional, who has limited time to focus on health.')}
+                                                onChange={() => {
                                                     const newfocus_health = values.focus_health.includes('I am working professional, who has limited time to focus on health.')
                                                         ? values.focus_health.filter(pref => pref !== 'I am working professional, who has limited time to focus on health.')
                                                         : [...values.focus_health, 'I am working professional, who has limited time to focus on health.'];
                                                     setFieldValue('focus_health', newfocus_health)
                                                 }}>
-                                            </IonCheckbox>
+                                            </input>
                                         </IonItem>
                                         <IonItem>
                                             <IonLabel className="StatementInfo">I am mother who has a career and kid(s) to focus on.</IonLabel>
-                                            <IonCheckbox
+                                            <input type='checkbox'
                                                 checked={values.focus_health.includes('I am mother who has a career and kid(s) to focus on.')}
-                                                onIonChange={() => {
+                                                onChange={() => {
                                                     const newfocus_health = values.focus_health.includes('I am mother who has a career and kid(s) to focus on.')
                                                         ? values.focus_health.filter(pref => pref !== 'I am mother who has a career and kid(s) to focus on.')
                                                         : [...values.focus_health, 'I am mother who has a career and kid(s) to focus on.'];
                                                     setFieldValue('focus_health', newfocus_health)
                                                 }}>
-                                            </IonCheckbox>
+                                            </input>
                                         </IonItem>
                                 
 
                                         <IonItem >
                                             <IonLabel className="StatementInfo">I am an active sports person. No matter how busy I am, I do play a sport or workout frequently.</IonLabel>
-                                            <IonCheckbox
+                                            <input type='checkbox'
                                                 checked={values.focus_health.includes('I am an active sports person. No matter how busy I am, I do play a sport or workout frequently.')}
-                                                onIonChange={() => {
+                                                onChange={() => {
                                                     const newfocus_health = values.focus_health.includes('I am an active sports person. No matter how busy I am, I do play a sport or workout frequently.')
                                                         ? values.focus_health.filter(pref => pref !== 'I am an active sports person. No matter how busy I am, I do play a sport or workout frequently.')
                                                         : [...values.focus_health, 'I am an active sports person. No matter how busy I am, I do play a sport or workout frequently.'];
                                                     setFieldValue('focus_health', newfocus_health)
                                                 }}
-                                            ></IonCheckbox>
+                                            ></input>
                                         </IonItem>
                                         <IonItem >
                                             <IonLabel className="StatementInfo">I live away from family and have to do all the cooking either by myself or my domestic help does it.</IonLabel>
-                                            <IonCheckbox
+                                            <input type='checkbox'
                                                 checked={values.focus_health.includes('I live away from family and have to do all the cooking either by myself or my domestic help does it.')}
-                                                onIonChange={() => {
+                                                onChange={() => {
                                                     const newfocus_health = values.focus_health.includes('I live away from family and have to do all the cooking either by myself or my domestic help does it.')
                                                         ? values.focus_health.filter(pref => pref !== 'I live away from family and have to do all the cooking either by myself or my domestic help does it.')
                                                         : [...values.focus_health, 'I live away from family and have to do all the cooking either by myself or my domestic help does it.'];
                                                     setFieldValue('focus_health', newfocus_health)
                                                 }}
-                                            ></IonCheckbox>
+                                            ></input>
                                         </IonItem>
                                         <IonItem>
                                             <IonLabel className="StatementInfo">I am studying and do not workout or play a sport.</IonLabel>
-                                            <IonCheckbox
+                                            <input type='checkbox'
                                                 checked={values.focus_health.includes('I am studying and do not workout or play a sport.')}
-                                                onIonChange={() => {
+                                                onChange={() => {
                                                     const newfocus_health = values.focus_health.includes('I am studying and do not workout or play a sport.')
                                                         ? values.focus_health.filter(pref => pref !== 'I am studying and do not workout or play a sport.')
                                                         : [...values.focus_health, 'I am studying and do not workout or play a sport.'];
                                                     setFieldValue('focus_health', newfocus_health)
                                                 }}
-                                            ></IonCheckbox>
+                                            ></input>
                                         </IonItem>
                                         <IonItem >
-                                            <IonLabel className="StatementInfo">I am focussed on my health and buy only healthy food products.</IonLabel>
-                                            <IonCheckbox
+                                        <IonLabel className="StatementInfo">I am focussed on my health and buy only healthy food products.</IonLabel>
+                                            <input type='checkbox'
                                                 checked={values.focus_health.includes('I am focussed on my health and buy only healthy food products.')}
-                                                onIonChange={() => {
+                                                onChange={() => {
                                                     const newfocus_health = values.focus_health.includes('I am focussed on my health and buy only healthy food products.')
                                                         ? values.focus_health.filter(pref => pref !== 'I am focussed on my health and buy only healthy food products.')
                                                         : [...values.focus_health, 'I am focussed on my health and buy only healthy food products.'];
                                                     setFieldValue('focus_health', newfocus_health)
                                                 }}
-                                            ></IonCheckbox>
+                                            ></input>
                                         </IonItem>
                                         <IonItem lines='none'>
                                             <IonLabel className="StatementInfo">I am homemaker and love to bake.</IonLabel>
-                                            <IonCheckbox
+                                            <input type='checkbox'
                                                 checked={values.focus_health.includes('I am homemaker and love to bake.')}
-                                                onIonChange={() => {
+                                                onChange={() => {
                                                     const newfocus_health = values.focus_health.includes('I am homemaker and love to bake.')
                                                         ? values.focus_health.filter(pref => pref !== 'I am homemaker and love to bake.')
                                                         : [...values.focus_health, 'I am homemaker and love to bake.'];
                                                     setFieldValue('focus_health', newfocus_health)
                                                 }}
-                                            ></IonCheckbox>
+                                            ></input>
                                         </IonItem>
                                     </IonCol>
                                     <IonCol>
@@ -374,3 +374,4 @@ const NutriBudyStep4 = () => {
 }
 
 export default NutriBudyStep4
+          

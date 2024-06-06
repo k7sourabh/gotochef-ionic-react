@@ -18,6 +18,7 @@ import {
   IonSelectOption,
   IonRow,
   IonCol,
+  useIonViewWillLeave,
 } from "@ionic/react";
 import {
   add,
@@ -81,6 +82,9 @@ const IngredientList = () => {
       console.error("Error while saving data:", error);
     }
   };
+  useIonViewWillLeave(() => {
+    setProductData([]);
+  });
 
   return (
     <IonPage>
