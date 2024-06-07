@@ -16,12 +16,11 @@ const IngredientProduct = (props) => {
   const fetchData = async () => {
     try {
       if (productData.length > 0) {
-        // If productData is available, use it directly
+     
         setIngredientData(productData);
       } else {
-        // Otherwise, fetch data from the API
+       
         const response = await getApiData("ingredients-list/10/0");
-        console.log("response", response);
         setIngredientData(response.data.ingredients);
       }
     } catch (error) {
@@ -52,6 +51,10 @@ const IngredientProduct = (props) => {
                   src="/assets/img/Mysmart.png"
                   alt="Images"
                   className="icon-img"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/assets/img/img-placeholder.jpg"; 
+                  }}
                 />
                 <span>{item.imk_count}</span>
               </div>
@@ -60,6 +63,10 @@ const IngredientProduct = (props) => {
               src={item.images}
               alt="category cover"
               className="MainProductThumb"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/assets/img/img-placeholder.jpg"; 
+              }}
             />
             <div className="BookMark">
               <IonIcon

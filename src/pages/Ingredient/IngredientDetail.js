@@ -42,7 +42,6 @@ const IngredientDetail = () => {
   const ingredientsDetails = async () => {
     try {
       const response = await getApiData(`/ingredients_details/${slug}`);
-      console.log(response?.data?.ingredient_details);
       setIngredientData(response?.data?.ingredient_details);
     } catch (err) {
       console.log(err);
@@ -54,7 +53,6 @@ const IngredientDetail = () => {
       ingredientsDetails();
     }
   }, [slug]);
-  //   console.log(ingredientData?.nutritional_benefits);
 
   const renderNutritionalBenefits = (data) => {
     if (!data) {
@@ -75,7 +73,6 @@ const IngredientDetail = () => {
 
     return listItems;
   };
-  //   console.log(ingredientData, ingredientData?.resource_links.split('&nbsp;'));
 
   const renderLinks = (links) => {
     if (!links) {
@@ -105,7 +102,7 @@ const IngredientDetail = () => {
       <IonContent>
         <IonHeader className=" bottom-shadow flex ion-justify-content-between ion-align-items-center">
           <div className="TitleHead">
-            <IonButton className="backBtn" fill="clear" routerLink="/food-add">
+            <IonButton className="backBtn" fill="clear" routerLink="/ingredient-list">
               <i class="material-icons dark">west</i>
             </IonButton>
             <IonTitle color="dark">Ingredient Details</IonTitle>
@@ -159,11 +156,6 @@ const IngredientDetail = () => {
                       {data.ingredients_name},
                     </IonText>
                   ))}
-              {/* {ingredientData && ingredientData?.common_names_and_forms[0] &&
-                ingredientData?.common_names_and_forms[0]?.ingredients_name}
-              ,
-              {ingredientData && ingredientData?.common_names_and_forms[1] &&
-                ingredientData?.common_names_and_forms[1]?.ingredients_name} */}
             </IonText>
             <IonText>
               <span>Technical Name :</span>
@@ -200,6 +192,7 @@ const IngredientDetail = () => {
                   icon={closeCircleOutline}
                 />
                 Avoid
+                <span>{ }</span>
               </IonButton>
             </div>
           </IonRow>
@@ -268,7 +261,6 @@ const IngredientDetail = () => {
                         </IonTitle>
                         <IonText className="ion-margin-vertical">
                           <a href={ingredientData?.resource_links}>
-                            {/* {renderLinks()} */}
                             {renderLinks(ingredientData?.resource_links)}
                           </a>
                         </IonText>
@@ -283,17 +275,7 @@ const IngredientDetail = () => {
                           Disclaimer
                         </IonTitle>
                         <IonText>
-                          "Information here is provided for discussion and
-                          educational purposes only. It is not intended as
-                          medical advice or product or ingredient review/rating.
-                          The information may not apply to you and before you
-                          use or take any action, you should contact the
-                          manufacturer, seller, medical, dietary, fitness or
-                          other professional. If you utilize any information
-                          provided here, you do so at your own risk and you
-                          waive any right against Culinary Communications
-                          Private Limited, its affiliates, officers, directors,
-                          employees or representatives.”
+                          {ingredientData.disclaimer}
                         </IonText>
                       </IonCol>
                     </IonRow>
@@ -308,13 +290,17 @@ const IngredientDetail = () => {
                       <IonText>
                         <IonList>
                           <ol className="ion-no-padding">
-                            {ingredientData &&
-                              ingredientData?.tips?.map((data, i) => (
+                            {ingredientData && ingredientData.tips && ingredientData.tips.length > 0 ? (
+                              ingredientData.tips.map((tip, i) => (
                                 <li className="ion-margin-horizontal" key={i}>
-                                  {data}
+                                  {tip}
                                 </li>
-                              ))}
+                              ))
+                            ) : (
+                              <li>No data found</li>
+                            )}
                           </ol>
+
                         </IonList>
                       </IonText>
                     </IonCol>
@@ -331,15 +317,17 @@ const IngredientDetail = () => {
                       <IonText>
                         <IonList>
                           <ol className="ion-no-padding">
-                            {ingredientData &&
-                              ingredientData?.common_names_and_forms.map(
-                                (data, i) => (
-                                  <li className="ion-margin-horizontal" key={i}>
-                                    {data.ingredients_name}
-                                  </li>
-                                )
-                              )}
+                            {ingredientData && ingredientData.common_names_and_forms.length > 0 ? (
+                              ingredientData.common_names_and_forms.map((data, i) => (
+                                <li className="ion-margin-horizontal" key={i}>
+                                  {data.ingredients_name}
+                                </li>
+                              ))
+                            ) : (
+                              <li>No data found</li>
+                            )}
                           </ol>
+
                         </IonList>
                       </IonText>
                     </IonCol>

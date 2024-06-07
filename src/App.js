@@ -163,8 +163,6 @@ const App = () => {
 
                 {/* <PrivateRoute path="/artical-list" component={ArticalList} /> */}
                 <PrivateRoute path="/badges" component={Badges} />
-                
-                <PrivateRoute path="/ingredient-detail" component={IngredientDetail} />
                 <PrivateRoute path="/artical-detail/:slug:slug" component={ArticalDetail}/>
                 <PrivateRoute path="/edit-articals/:id" component={EditArticals}/>
                

@@ -50,7 +50,6 @@ const IngredientList = () => {
   const getIngredient = async () => {
     try {
       const response = await getApiData("ingredient-get-filter");
-      console.log("getdata",response.data);
       setIngredientData(response.data);
     } catch (err) {
       console.error(err);
@@ -61,7 +60,6 @@ const IngredientList = () => {
   }, []);
 
   const searchIngredient = async () => {
-    console.log("ingredienObject", ingredienObject);
     menuController.close("second-menu");
     try {
       const obj = {
@@ -70,12 +68,10 @@ const IngredientList = () => {
         "cuisines": ingredienObject.cuisines || "",
         "sortBy": ingredienObject.sortBy || ""
         };
-        console.log("obj",obj)
       setIsLoading(true)
       const response = await postApiData(
         "new-ingredient-post-response",obj
       );
-      console.log("postdata",response.data.data);
       setIsLoading(false)
       setProductData(response?.data?.data);
     } catch (error) {

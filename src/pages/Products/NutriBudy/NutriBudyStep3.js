@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import {
-    IonButton, IonCheckbox, IonCol, IonGrid, IonLabel, IonRange, IonRow, IonText, IonInput, IonIcon
+    IonButton, IonCheckbox, IonCol, IonGrid, IonLabel, IonRange, IonRow, IonText, IonInput, IonIcon,
+    useIonToast,
+    IonSpinner
 } from '@ionic/react';
 import { add } from 'ionicons/icons';
 import { getApiDataWithAuth, postApiData } from '../../../utils/Utils';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
+
 const NutriBudyStep3 = () => {
     const [stepthirdData, setStepthirdData] = useState({});
     const [imagePreview, setImagePreview] = useState(null);
+    const [loader, setLoader] = useState(false);
+    const [present] = useIonToast();
+
+
 
     const [formvalue, setFormvalue] = useState({
         sweet: 0,
@@ -67,6 +74,7 @@ const NutriBudyStep3 = () => {
 
     const handleSubmit = async (values) => {
         console.log("Submitted values", values);
+        setLoader(true)
         try {
             const formData = new FormData();
             formData.append("sweet", values.sweet);
@@ -87,9 +95,19 @@ const NutriBudyStep3 = () => {
 
             const response = await postApiData('postStepThird', formData);
             console.log('responsepost', response);
+            presentToast("Top", response?.data?.message);
+            setLoader(false)
         } catch (err) {
             console.log(err);
         }
+        setLoader(false);
+    };
+    const presentToast = (position, message) => {
+        present({
+            message: message,
+            duration: 1500,
+            position: position,
+        });
     };
 
     return (
@@ -216,11 +234,11 @@ const NutriBudyStep3 = () => {
                                             <input
                                                 type="checkbox"
                                                 id="myCheckImg52"
-                                                checked={values.diet_pref.includes('Gluten Free')}
+                                                checked={values.diet_pref.includes('GlutenFree')}
                                                 onChange={() => {
-                                                    const newDietPref = values.diet_pref.includes('Gluten Free')
-                                                        ? values.diet_pref.filter(pref => pref !== 'Gluten Free')
-                                                        : [...values.diet_pref, 'Gluten Free'];
+                                                    const newDietPref = values.diet_pref.includes('GlutenFree')
+                                                        ? values.diet_pref.filter(pref => pref !== 'GlutenFree')
+                                                        : [...values.diet_pref, 'GlutenFree'];
                                                     setFieldValue('diet_pref', newDietPref);
                                                 }}
                                             />
@@ -233,11 +251,11 @@ const NutriBudyStep3 = () => {
                                             <input
                                                 type="checkbox"
                                                 id="myCheckImg53"
-                                                checked={values.diet_pref.includes('Jain Friendly')}
+                                                checked={values.diet_pref.includes('JainFriedndly')}
                                                 onChange={() => {
-                                                    const newDietPref = values.diet_pref.includes('Jain Friendly')
-                                                        ? values.diet_pref.filter(pref => pref !== 'Jain Friendly')
-                                                        : [...values.diet_pref, 'Jain Friendly'];
+                                                    const newDietPref = values.diet_pref.includes('JainFriedndly')
+                                                        ? values.diet_pref.filter(pref => pref !== 'JainFriedndly')
+                                                        : [...values.diet_pref, 'JainFriedndly'];
                                                     setFieldValue('diet_pref', newDietPref);
                                                 }}
                                             />
@@ -357,6 +375,11 @@ const NutriBudyStep3 = () => {
                                 <IonCol>
                                     <div className="SkipBtn ion-padding-vertical">
                                         <IonButton className="Orangebtn" type="submit" fill="clear">SAVE</IonButton>
+                                        {loader && (
+                                                    <div className="loader-container">
+                                                        <IonSpinner name="crescent" />
+                                                    </div>
+                                                )}
                                         <IonButton>Skip Process</IonButton>
                                     </div>
                                 </IonCol>
