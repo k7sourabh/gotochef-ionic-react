@@ -1,9 +1,8 @@
-import { IonButton, IonCheckbox, IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonImg, IonItemOption, IonItemOptions, IonItemSliding, IonPage, IonRange, IonRow, IonSegment, IonSegmentButton, IonSelect, IonSelectOption, IonSlide, IonSlides, IonText, IonTitle } from "@ionic/react"
-import Header from "../../../components/Header"
+import { IonButton, IonCol, IonContent,  IonGrid, IonHeader,IonPage, IonRow, IonSegment, IonSegmentButton, IonTitle } from "@ionic/react"
+
 import { useEffect, useState } from "react";
-import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonInput } from '@ionic/react';
+import {  IonLabel } from '@ionic/react';
 import { IonProgressBar } from '@ionic/react';
-import { add, flashlight, flashlightOutline, sunnyOutline } from "ionicons/icons";
 import NutryBudyStep1 from "./NutryBudyStep1";
 import NutryBudyStep2 from "./NutryBudyStep2";
 import NutriBudyStep4 from "./NutriBudyStep4";
@@ -57,11 +56,10 @@ const NutriBudy = () => {
                     </div>
                         </IonCol>
                     </IonRow>
-
                     <IonRow>
                         <IonCol>
                             <div>
-                                <div className="ion-padding" slot="content">
+                                <div  slot="content">
                                     <IonSegment
                                         scrollable
                                         value={selectedTab}
@@ -96,8 +94,6 @@ const NutriBudy = () => {
                                     )}
                                 </div>
                             </div>
-
-
                         </IonCol>
                     </IonRow>
                 </IonGrid>

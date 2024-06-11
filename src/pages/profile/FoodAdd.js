@@ -16,7 +16,6 @@ import {
   IonTitle,
   useIonToast,
 } from "@ionic/react";
-
 import React, { useEffect, useState } from "react";
 import { getApiData, postApiData } from "../../utils/Utils";
 import { Form, Formik } from "formik";

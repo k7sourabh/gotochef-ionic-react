@@ -262,10 +262,97 @@ const Profile = () => {
                 </IonGrid>
               )}
               {selectedTab === "SavedContent" && (
-                <SavedContent />
+                
+                <IonGrid>
+                  <IonRow className="">
+                    <IonCol size="4">
+                      <IonButton
+                        fill="clear"
+                        routerLink="/saved-content-recipe"
+                        className="CardBtn"
+                      >
+                        <div className="DashBoardImg">
+                          <img
+                            src="/assets/img/Recipes.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
+                          <IonText>Recipe</IonText>
+                        </div>
+                      </IonButton>
+                    </IonCol>
+                    <IonCol size="4">
+                      <IonButton
+                        fill="clear"
+                        routerLink="/saved-content-collection"
+                        className="CardBtn"
+                      >
+                        <div className="DashBoardImg">
+                          <img
+                            src="/assets/img/addproduct.png"
+                            alt="Images"
+                            className="personalimages"
+                          />
+                          <IonText>Collection</IonText>
+                        </div>
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
               )}
               {selectedTab === "Leaderboard" && (
-                <Leaderboard />
+                <IonGrid>
+                <IonRow className="">
+                  <IonCol size="4">
+                    <IonButton
+                      fill="clear"
+                      routerLink="/badges-collection"
+                      className="CardBtn"
+                    >
+                      <div className="DashBoardImg">
+                        <img
+                          src="/assets/img/Food.png"
+                          alt="Images"
+                          className="personalimages"
+                        />
+                        <IonText>Achive and Badges</IonText>
+                      </div>
+                    </IonButton>
+                  </IonCol>
+                  <IonCol size="4">
+                    <IonButton
+                      fill="clear"
+                      routerLink="/earn-point"
+                      className="CardBtn"
+                    >
+                      <div className="DashBoardImg">
+                        <img
+                          src="/assets/img/addproduct.png"
+                          alt="Images"
+                          className="personalimages"
+                        />
+                        <IonText>How to earn point</IonText>
+                      </div>
+                    </IonButton>
+                  </IonCol>
+                  <IonCol size="4">
+                    <IonButton
+                      fill="clear"
+                      routerLink="/ranking"
+                      className="CardBtn"
+                    >
+                      <div className="DashBoardImg">
+                        <img
+                          src="/assets/img/ingrediant.png"
+                          alt="Images"
+                          className="personalimages"
+                        />
+                        <IonText>Ranking</IonText>
+                      </div>
+                    </IonButton>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
               )}
             </IonCol>
           </IonRow>

@@ -1,14 +1,10 @@
 import React, { useRef } from "react";
 import {
   IonButton,
-  IonCheckbox,
   IonCol,
-  IonDatetime,
   IonGrid,
-  IonPopover,
   IonRadio,
   IonRadioGroup,
-  IonRange,
   IonRow,
   IonItem,
   IonLabel,

@@ -304,11 +304,6 @@ const WriteReview = (props) => {
                     ) : null}
                   </IonItem>
 
-
-
-
-
-
                   {/* <IonItem lines="none" className="ion-no-padding">
                     <IonRadioGroup
                       onIonChange={(e) =>
