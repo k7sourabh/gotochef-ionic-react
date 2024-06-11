@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
-    IonButton, IonCol, IonGrid, IonRow, IonText, IonItem, IonLabel, IonSpinner, useIonToast
+    IonButton, IonCol, IonGrid, IonRow, IonText, IonItem, IonLabel, IonSpinner, useIonToast,
+    IonCheckbox
 } from "@ionic/react";
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -8,6 +9,8 @@ import { getApiDataWithAuth, postApiData } from '../../../utils/Utils';
 
 const NutriBudyStep4 = () => {
     const [stepFourthData, setStepFourthData] = useState([]);
+    const [showRequireCusines, setShowRequireCusines] = useState(false);
+    const [checkedValues, setCheckedValues] = useState([]);
     const [present] = useIonToast();
     const [loader, setLoader] = useState(false);
     const [formValue, setFormValue] = useState({
@@ -22,7 +25,6 @@ const NutriBudyStep4 = () => {
     const fetchData = async () => {
         try {
             const response = await getApiDataWithAuth("/getNutribuddy");
-            console.log("stepFour", response);
             if (response?.status === 200) {
                 const data = response.data.data;
                 setStepFourthData(data);
@@ -32,6 +34,7 @@ const NutriBudyStep4 = () => {
                     focus_health: data.focus_health || [],
                     id: data.id || ""
                 });
+                setCheckedValues(data.focus_health || []);
             }
         } catch (err) {
             console.log(err);
@@ -42,17 +45,24 @@ const NutriBudyStep4 = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        if (checkedValues.length > 0) {
+            setShowRequireCusines(true);
+        } else {
+            setShowRequireCusines(false);
+        }
+    }, [checkedValues]);
+
     const handleSubmit = async (values) => {
         setLoader(true);
         try {
             const obj = {
                 id: values.id,
                 activity: values.activity,
-                focus_health: values.focus_health,
+                focus_health: checkedValues,
                 health: values.health,
             };
             const response = await postApiData("/postStepFourth", obj);
-            console.log("post", response);
             presentToast("Top", response?.data?.message);
         } catch (err) {
             console.log(err);
@@ -67,6 +77,16 @@ const NutriBudyStep4 = () => {
             position,
         });
     };
+
+    const focusHealthOptions = [
+        "I am homemaker and love to bake.",
+        "I am studying and do not workout or play a sport.",
+        "I am an active sports person. No matter how busy I am, I do play a sport or workout frequently.",
+        "I am working professional, who has limited time to focus on health.",
+        "I am mother who has a career and kid(s) to focus on.",
+        "I am focussed on my health and buy only healthy food products.",
+        "I live away from family and have to do all the cooking either by myself or my domestic help does it."
+    ];
 
     const checkboxes = [
         {
@@ -91,16 +111,6 @@ const NutriBudyStep4 = () => {
                 { value: 'Student', label: 'Student', imgSrc: './assets/img/StudentRed_Icons.png' },
             ]
         }
-    ];
-
-    const focusHealthOptions = [
-        "I am working professional, who has limited time to focus on health.",
-        "I am mother who has a career and kid(s) to focus on.",
-        "I am an active sports person. No matter how busy I am, I do play a sport or workout frequently.",
-        "I live away from family and have to do all the cooking either by myself or my domestic help does it.",
-        "I am studying and do not workout or play a sport.",
-        "I am focussed on my health and buy only healthy food products.",
-        "I am homemaker and love to bake."
     ];
 
     const renderCheckboxes = (values, setFieldValue, checkboxGroup) => (
@@ -138,25 +148,40 @@ const NutriBudyStep4 = () => {
                         initialValues={formValue}
                         enableReinitialize
                         validationSchema={validationSchema}
-                        onSubmit={(values) => handleSubmit(values)}
+                        onSubmit={handleSubmit}
                     >
                         {({ values, setFieldValue }) => (
                             <Form>
                                 {renderCheckboxes(values, setFieldValue, checkboxes)}
                                 <IonCol size="12">
                                     <h3>Focus Health</h3>
-                                    {focusHealthOptions.map(option => (
-                                        <IonItem key={option}>
+                                    {focusHealthOptions.map((option, i) => (
+                                        <IonItem key={i}>
                                             <IonLabel className="StatementInfo">{option}</IonLabel>
-                                            <input type='checkbox'
-                                                checked={values.focus_health.includes(option)}
-                                                onChange={() => {
-                                                    const newfocus_health = values.focus_health.includes(option)
-                                                        ? values.focus_health.filter(pref => pref !== option)
-                                                        : [...values.focus_health, option];
-                                                    setFieldValue('focus_health', newfocus_health);
+                                            <IonCheckbox
+                                                className="ion-margin-start"
+                                                checked={checkedValues.includes(option)}
+                                                name="focus_health"
+                                                value={option}
+                                                onIonChange={(event) => {
+                                                    const isChecked = event.detail.checked;
+                                                    const value = event.target.value;
+
+                                                    if (isChecked) {
+                                                        setCheckedValues((prevValues) => [
+                                                          ...prevValues,
+                                                          value,
+                                                        ]);
+                                                      } else {
+                                                        setCheckedValues((prevValues) =>
+                                                          prevValues.filter(
+                                                            (item) => item !== value
+                                                          )
+                                                        );
+                                                      }
+                  
                                                 }}
-                                            />
+                                            ></IonCheckbox>
                                         </IonItem>
                                     ))}
                                 </IonCol>
