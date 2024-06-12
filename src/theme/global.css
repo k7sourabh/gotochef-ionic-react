@@ -467,13 +467,8 @@ iframe {
 }  */
 
 .CategoryThumb img {
-<<<<<<< HEAD
   width: 100%;
   height: 100%;
-=======
-  width: 150px;
-  height: 150px;
->>>>>>> 7307e344692471ad88a7e6d96c14279d05de86eb
   object-fit: cover;
   border-radius: 50%;
   /* max-width: 204px; */
@@ -3893,4 +3888,8 @@ align-items: center;
 }
 .IconHome{
   max-width: 500px;
+}
+.RecipeProduct {
+  width: 100%;
+  height: 100%;
 }

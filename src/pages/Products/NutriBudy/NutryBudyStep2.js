@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IonButton, IonCol, IonGrid, IonIcon, IonRow, IonSelect, IonSelectOption, IonText, IonItem, IonLabel, IonInput } from "@ionic/react";
 import { add } from "ionicons/icons";
 import { Formik, Field, Form } from 'formik';
-import { getApiDataWithAuth, postApiData } from "../../../utils/Utils";
+import { getApiData, postApiData } from "../../../utils/Utils";
 
 const NutryBudyStep2 = () => {
     const [StepSecondData, setStepSecondData] = useState({});
@@ -21,7 +21,7 @@ const NutryBudyStep2 = () => {
 
     const stateList = async () => {
         try {
-            const response = await getApiDataWithAuth("/getNutribuddy");
+            const response = await getApiData("/getNutribuddy");
             if (response?.status === 200) {
                 const data = response.data.data;
                 setStepSecondData(data);
@@ -57,6 +57,7 @@ const NutryBudyStep2 = () => {
             }
             const response = await postApiData('/postStepSecond', obj);
             console.log("response", response);
+            stateList();
         } catch (err) {
             console.log(err);
         }
@@ -71,12 +72,12 @@ const NutryBudyStep2 = () => {
             const obj = {
                 keyword: keyword
             }
-            const response = await postApiData('/getIngredients', obj);
-            console.log("post2", response.data.results);
+            // const response = await postApiData('/getIngredients', obj);
+            // console.log("post2", response.data.results);
 
-            if (type === "ingredient_eat") setEatSuggestions(response.data.results);
-            if (type === "ingredient_love") setLoveSuggestions(response.data.results);
-            if (type === "avoid_ingredient_1") setAvoidSuggestions(response.data.results);
+            // if (type === "ingredient_eat") setEatSuggestions(response.data.results);
+            // if (type === "ingredient_love") setLoveSuggestions(response.data.results);
+            // if (type === "avoid_ingredient_1") setAvoidSuggestions(response.data.results);
         } catch (err) {
             console.log(err);
         }

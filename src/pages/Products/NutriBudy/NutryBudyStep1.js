@@ -9,10 +9,10 @@ import {
   IonItem,
   IonLabel,
   IonInput,
-  useIonViewWillEnter
+  useIonViewWillEnter,
 } from "@ionic/react";
-import { useEffect, useState } from "react";
-import { getApiDataWithAuth, postApiData } from "../../../utils/Utils";
+import { useState, useEffect } from "react";
+import { getApiData, postApiData } from "../../../utils/Utils";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 
@@ -20,7 +20,6 @@ const NutryBudyStep1 = () => {
   const [stepFirstData, setStepFirstData] = useState({});
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
-
 
   const [formValues, setFormValues] = useState({
     name: "",
@@ -38,33 +37,32 @@ const NutryBudyStep1 = () => {
   });
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    lastName: Yup.string().required("Last Name is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    number: Yup.string()
-      .matches(
-        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
-        "Enter a valid contact number"
-      )
-      .required("Phone number is required"),
-    height: Yup.number().required("Height is required"),
-    weight: Yup.number().required("Weight is required"),
-    dob: Yup.string().required("Date of Birth is required"),
-    gender: Yup.string().required("Gender is required"),
-    password: Yup.string().notRequired(),
-    confirmPassword: Yup.string().when('password', {
-      is: password => password && password.length > 0,
-      then: Yup.string()
-        .oneOf([Yup.ref('password'), null], "Passwords must match")
-        .required("Confirm Password is required"),
-      otherwise: Yup.string().notRequired(),
-    })
+    // name: Yup.string().required("Name is required"),
+    // lastName: Yup.string().required("Last Name is required"),
+    // email: Yup.string().email("Invalid email").required("Email is required"),
+    // number: Yup.string()
+    //   .matches(
+    //     /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+    //     "Enter a valid contact number"
+    //   )
+    //   .required("Phone number is required"),
+    // height: Yup.number().required("Height is required"),
+    // weight: Yup.number().required("Weight is required"),
+    // dob: Yup.string().required("Date of Birth is required"),
+    // gender: Yup.string().required("Gender is required"),
+    // password: Yup.string().notRequired(),
+    // confirmPassword: Yup.string().when("password", {
+    //   is: (password) => password && password.length > 0,
+    //   then: Yup.string()
+    //     .oneOf([Yup.ref("password"), null], "Passwords must match")
+    //     .required("Confirm Password is required"),
+    //   otherwise: Yup.string().notRequired(),
+    // }),
   });
 
   const stateList = async () => {
     try {
-      const response = await getApiDataWithAuth("/getNutribuddy");
-      console.log("response", response)
+      const response = await getApiData("/getNutribuddy");
       if (response?.status === 200) {
         const data = response.data.data;
         setStepFirstData(data);
@@ -88,10 +86,12 @@ const NutryBudyStep1 = () => {
       console.error(err);
     }
   };
-
-  useEffect(() => {
+useEffect(()=>{
+  stateList();
+},[])
+  useIonViewWillEnter(() => {
     stateList();
-  }, []);
+  });
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -99,8 +99,7 @@ const NutryBudyStep1 = () => {
     }
   };
 
-  const handleSubmit = async (values, { resetForm }) => {
-    console.log('values', values)
+  const handleSubmit = async (values) => {
     try {
       const formData = new FormData();
       formData.append("name", values.name);
@@ -115,28 +114,27 @@ const NutryBudyStep1 = () => {
       formData.append("image", values.image);
       formData.append("user_id", values.id);
       formData.append("confrompassword", values.confirmPassword);
-      console.log('formData', formData)
 
-      const response = await postApiData("postStepFirst", formData);
-      console.log("response1", response)
+      const response = await postApiData("/postStepFirst", formData);
+      console.log("response", response);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
-    resetForm();
   };
 
   return (
     <IonGrid className="ion-padding-bottom">
       <div>
-        {formValues && formValues?.name && (
+        {formValues && formValues.name && (
           <Formik
+            enableReinitialize
             initialValues={formValues}
             validationSchema={validationSchema}
-            onSubmit={(values, { resetForm }) => {
-              handleSubmit(values, { resetForm });
+            onSubmit={(values) => {
+              handleSubmit(values);
             }}
           >
-            {({ isSubmitting, setFieldValue, values, resetForm }) => (
+            {({ isSubmitting, setFieldValue, values }) => (
               <Form>
                 <IonRow>
                   <IonCol size="12">
@@ -144,18 +142,22 @@ const NutryBudyStep1 = () => {
                   </IonCol>
                   <IonCol size="12" className="ion-padding-bottom">
                     <div className="N-profileInput">
-                      <lable>Name</lable>
+                      <label>Name</label>
                       <IonInput
                         className="ion-margin-vertical"
                         name="name"
                         type="text"
                         placeholder="Enter your Name"
-                        value={values?.name}
+                        value={values.name}
                         onIonChange={(e) =>
                           setFieldValue("name", e.detail.value)
                         }
                       ></IonInput>
-                      <ErrorMessage component="div" name="name" style={{ color: "red" }} />
+                      <ErrorMessage
+                        component="div"
+                        name="name"
+                        style={{ color: "red" }}
+                      />
                       <label>Last Name</label>
                       <IonInput
                         className="ion-margin-vertical"
@@ -167,7 +169,11 @@ const NutryBudyStep1 = () => {
                           setFieldValue("lastName", e.detail.value)
                         }
                       ></IonInput>
-                      <ErrorMessage component="div" name="lastName" style={{ color: "red" }} />
+                      <ErrorMessage
+                        component="div"
+                        name="lastName"
+                        style={{ color: "red" }}
+                      />
                       <label>Email</label>
                       <IonInput
                         className="ion-margin-vertical"
@@ -177,30 +183,42 @@ const NutryBudyStep1 = () => {
                         value={values.email}
                         readonly
                       ></IonInput>
-                      <ErrorMessage component="div" name="email" style={{ color: "red" }} />
-                      <label> Mob.Number</label>
+                      <ErrorMessage
+                        component="div"
+                        name="email"
+                        style={{ color: "red" }}
+                      />
+                      <label>Mob. Number</label>
                       <IonInput
                         className="ion-margin-vertical"
                         name="number"
-                        type="number"
+                        type="text"
                         placeholder="Enter your Phone Number"
                         value={values.number}
                         readonly
                       ></IonInput>
-                      <ErrorMessage component="div" name="number" style={{ color: "red" }} />
+                      <ErrorMessage
+                        component="div"
+                        name="number"
+                        style={{ color: "red" }}
+                      />
                       <label>Height</label>
                       <IonInput
                         className="ion-margin-vertical"
                         name="height"
                         type="number"
                         step="0.1"
-                        placeholder="Enter your Height(e.g.,5.5)"
+                        placeholder="Enter your Height (e.g., 5.5)"
                         value={values.height}
                         onIonChange={(e) =>
                           setFieldValue("height", e.detail.value)
                         }
                       ></IonInput>
-                      <ErrorMessage component="div" name="height" style={{ color: "red" }} />
+                      <ErrorMessage
+                        component="div"
+                        name="height"
+                        style={{ color: "red" }}
+                      />
                       <label>Weight</label>
                       <IonInput
                         className="ion-margin-vertical"
@@ -213,7 +231,11 @@ const NutryBudyStep1 = () => {
                           setFieldValue("weight", e.detail.value)
                         }
                       ></IonInput>
-                      <ErrorMessage component="div" name="weight" style={{ color: "red" }} />
+                      <ErrorMessage
+                        component="div"
+                        name="weight"
+                        style={{ color: "red" }}
+                      />
                       <label>Password</label>
                       <IonInput
                         className="ion-margin-vertical"
@@ -225,7 +247,11 @@ const NutryBudyStep1 = () => {
                           setFieldValue("password", e.detail.value)
                         }
                       ></IonInput>
-                      <ErrorMessage component="div" name="password" style={{ color: "red" }} />
+                      <ErrorMessage
+                        component="div"
+                        name="password"
+                        style={{ color: "red" }}
+                      />
                       <label>Confirm Password</label>
                       <IonInput
                         className="ion-margin-vertical"
@@ -237,7 +263,11 @@ const NutryBudyStep1 = () => {
                           setFieldValue("confirmPassword", e.detail.value)
                         }
                       ></IonInput>
-                      <ErrorMessage component="div" name="confirmPassword" style={{ color: "red" }} />
+                      <ErrorMessage
+                        component="div"
+                        name="confirmPassword"
+                        style={{ color: "red" }}
+                      />
 
                       <IonLabel>Enter Your DOB</IonLabel>
                       <IonInput
@@ -250,16 +280,20 @@ const NutryBudyStep1 = () => {
                           setFieldValue("dob", e.detail.value)
                         }
                       ></IonInput>
-                      <ErrorMessage component="div" name="dob" style={{ color: "red" }} />
+                      <ErrorMessage
+                        component="div"
+                        name="dob"
+                        style={{ color: "red" }}
+                      />
 
                       <div>
                         <label>Gender</label>
                         <IonRadioGroup
                           name="gender"
                           value={values.gender}
-                          onIonChange={(e) =>
-                            setFieldValue("gender", e.detail.value)
-                          }
+                          onIonChange={(e) => {
+                            setFieldValue("gender", e.detail.value);
+                          }}
                           className="flex ion-justify-content-center ion-align-items-center"
                         >
                           <IonItem lines="none">
@@ -279,30 +313,42 @@ const NutryBudyStep1 = () => {
                             />
                           </IonItem>
                         </IonRadioGroup>
-                        <ErrorMessage component="div" name="gender" style={{ color: "red" }} />
-
+                        <ErrorMessage
+                          component="div"
+                          name="gender"
+                          style={{ color: "red" }}
+                        />
                       </div>
                     </div>
                   </IonCol>
                   <IonCol
                     size="12"
-                    className="flex flex-column  ion-align-items-center ion-justify-content-center"
+                    className="flex flex-column ion-align-items-center ion-justify-content-center"
                   >
                     <div className="EditprofileImg N-ProfileEdit">
-                      <img src={imagePreview ? imagePreview : "./assets/img/camera-placeholder.png"}
-                        alt="" className="ProfileImg" />
+                      <img
+                        src={
+                          imagePreview
+                            ? imagePreview
+                            : "./assets/img/camera-placeholder.png"
+                        }
+                        alt=""
+                        className="ProfileImg"
+                      />
                       <div className="image-upload" onClick={handleImageClick}>
                         <label className="N-EditProfile">
                           <img src="./assets/img/edit.png" alt="" />
                         </label>
                         <input
                           ref={fileInputRef}
-                          type="file" name='image1'
+                          type="file"
+                          name="image1"
+                          accept="image/*"
                           onChange={(e) => {
                             const file = e.target.files[0];
                             setImagePreview(URL.createObjectURL(file));
                             if (file) {
-                              setFieldValue('image1', file);
+                              setFieldValue("image", file);
                             }
                           }}
                         />

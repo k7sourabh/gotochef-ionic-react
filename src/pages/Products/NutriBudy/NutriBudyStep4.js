@@ -5,7 +5,7 @@ import {
 } from "@ionic/react";
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { getApiDataWithAuth, postApiData } from '../../../utils/Utils';
+import { getApiData, postApiData } from '../../../utils/Utils';
 
 const NutriBudyStep4 = () => {
     const [stepFourthData, setStepFourthData] = useState([]);
@@ -23,8 +23,9 @@ const NutriBudyStep4 = () => {
     const validationSchema = Yup.object().shape({});
 
     const fetchData = async () => {
+        setLoader(true)
         try {
-            const response = await getApiDataWithAuth("/getNutribuddy");
+            const response = await getApiData("/getNutribuddy");
             if (response?.status === 200) {
                 const data = response.data.data;
                 setStepFourthData(data);
@@ -39,6 +40,7 @@ const NutriBudyStep4 = () => {
         } catch (err) {
             console.log(err);
         }
+        setLoader(false);
     };
 
     useEffect(() => {
