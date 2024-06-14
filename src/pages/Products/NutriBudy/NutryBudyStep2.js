@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { IonButton, IonCol, IonGrid, IonIcon, IonRow, IonSelect, IonSelectOption, IonText, IonItem, IonLabel, IonInput } from "@ionic/react";
+import {
+    IonButton, IonCol, IonGrid, IonIcon, IonRow, IonSelect, IonSelectOption, IonText, IonItem, IonLabel, IonInput
+} from "@ionic/react";
 import { add } from "ionicons/icons";
-import { Formik, Field, Form } from 'formik';
+import { Formik, Form } from 'formik';
 import { getApiData, postApiData } from "../../../utils/Utils";
 
 const NutryBudyStep2 = () => {
-    const [StepSecondData, setStepSecondData] = useState({});
     const [eatSuggestions, setEatSuggestions] = useState([]);
     const [loveSuggestions, setLoveSuggestions] = useState([]);
     const [avoidSuggestions, setAvoidSuggestions] = useState([]);
+    const [activeSuggestion, setActiveSuggestion] = useState(null);
     const [initialValues, setInitialValues] = useState({
         food_type: [],
         ingredient_eat: ["", "", ""],
@@ -16,7 +18,7 @@ const NutryBudyStep2 = () => {
         avoid_ingredient_1: ["", ""],
         id: "",
         allergy: [],
-        allergy_icons: []
+        allergy_icons: [] // Expecting [{ name: "Nuts", icon: "path/to/nuts-icon.png" }, ...]
     });
 
     const stateList = async () => {
@@ -24,7 +26,6 @@ const NutryBudyStep2 = () => {
             const response = await getApiData("/getNutribuddy");
             if (response?.status === 200) {
                 const data = response.data.data;
-                setStepSecondData(data);
                 setInitialValues({
                     food_type: data.food_type || [],
                     ingredient_eat: data.ingredient_eat || ["", "", ""],
@@ -43,6 +44,9 @@ const NutryBudyStep2 = () => {
     useEffect(() => {
         stateList();
     }, []);
+    useEffect(() => {
+        console.log("initialValues", initialValues)
+    }, [initialValues])
 
     const handleSubmit = async (values) => {
         try {
@@ -56,7 +60,6 @@ const NutryBudyStep2 = () => {
                 allergy_icons: values.allergy_icons
             }
             const response = await postApiData('/postStepSecond', obj);
-            console.log("response", response);
             stateList();
         } catch (err) {
             console.log(err);
@@ -65,24 +68,31 @@ const NutryBudyStep2 = () => {
     };
 
     const handleIngredientChange = async (index, value, setFieldValue, type) => {
-        console.log('value', value);
-        setFieldValue(`${type}.${index}`, value); // Update the field value immediately
+        setFieldValue(`${type}.${index}`, value);
+        setActiveSuggestion(type);
         const keyword = value;
         try {
-            const obj = {
-                keyword: keyword
-            }
-            // const response = await postApiData('/getIngredients', obj);
-            // console.log("post2", response.data.results);
+            const obj = { keyword: keyword };
+            const response = await postApiData('/getIngredients', obj);
+            // console.log("Ingredients response", response.data.results);
 
-            // if (type === "ingredient_eat") setEatSuggestions(response.data.results);
-            // if (type === "ingredient_love") setLoveSuggestions(response.data.results);
-            // if (type === "avoid_ingredient_1") setAvoidSuggestions(response.data.results);
+            if (type === "ingredient_eat") {
+                setEatSuggestions(response.data.results);
+                setLoveSuggestions([]);
+                setAvoidSuggestions([]);
+            } else if (type === "ingredient_love") {
+                setLoveSuggestions(response.data.results);
+                setEatSuggestions([]);
+                setAvoidSuggestions([]);
+            } else if (type === "avoid_ingredient_1") {
+                setAvoidSuggestions(response.data.results);
+                setEatSuggestions([]);
+                setLoveSuggestions([]);
+            }
         } catch (err) {
             console.log(err);
         }
     };
-
     return (
         <IonGrid>
             <Formik
@@ -154,12 +164,12 @@ const NutryBudyStep2 = () => {
                                                     handleIngredientChange(index, value, setFieldValue, 'ingredient_eat');
                                                 }}
                                             />
-                                            {eatSuggestions.length > 0 && (
+                                            {activeSuggestion === "ingredient_eat" && eatSuggestions.length > 0 && (
                                                 <IonSelect
                                                     interfaceOptions={{ header: "Select Ingredient" }}
                                                     onIonChange={(e) => {
                                                         setFieldValue(`ingredient_eat.${index}`, e.detail.value);
-                                                        setEatSuggestions([]); // Clear the suggestions after selection
+                                                        setEatSuggestions([]);
                                                     }}
                                                 >
                                                     {eatSuggestions.map((item, i) => (
@@ -189,12 +199,12 @@ const NutryBudyStep2 = () => {
                                                     handleIngredientChange(index, value, setFieldValue, 'ingredient_love');
                                                 }}
                                             />
-                                            {loveSuggestions.length > 0 && (
+                                            {activeSuggestion === "ingredient_love" && loveSuggestions.length > 0 && (
                                                 <IonSelect
                                                     interfaceOptions={{ header: "Select Ingredient" }}
                                                     onIonChange={(e) => {
                                                         setFieldValue(`ingredient_love.${index}`, e.detail.value);
-                                                        setLoveSuggestions([]); // Clear the suggestions after selection
+                                                        setLoveSuggestions([]);
                                                     }}
                                                 >
                                                     {loveSuggestions.map((item, i) => (
@@ -224,12 +234,12 @@ const NutryBudyStep2 = () => {
                                                     handleIngredientChange(index, value, setFieldValue, 'avoid_ingredient_1');
                                                 }}
                                             />
-                                            {avoidSuggestions.length > 0 && (
+                                            {activeSuggestion === "avoid_ingredient_1" && avoidSuggestions.length > 0 && (
                                                 <IonSelect
                                                     interfaceOptions={{ header: "Select Ingredient" }}
                                                     onIonChange={(e) => {
                                                         setFieldValue(`avoid_ingredient_1.${index}`, e.detail.value);
-                                                        setAvoidSuggestions([]); // Clear the suggestions after selection
+                                                        setAvoidSuggestions([]);
                                                     }}
                                                 >
                                                     {avoidSuggestions.map((item, i) => (
@@ -320,6 +330,26 @@ const NutryBudyStep2 = () => {
                                             <IonText>Garlic</IonText>
                                         </label>
                                     </div>
+                                    <div className="ImgIcon">
+                                        {values.allergy_icons.map((icon, index) => (
+                                            <label key={index} htmlFor={`allergy${index}`}>
+                                                <input
+                                                    type="checkbox"
+                                                    id={`allergy${index}`}
+                                                    value={icon.name}
+                                                    checked={values.allergy.includes(icon.name)}
+                                                    onChange={() => {
+                                                        const updatedAllergy = values.allergy.includes(icon.name)
+                                                            ? values.allergy.filter(item => item !== icon.name)
+                                                            : [...values.allergy, icon.name];
+                                                        setFieldValue('allergy', updatedAllergy);
+                                                    }}
+                                                />
+                                                <img src={icon.icon} alt={icon.name} className="ProfileImg" />
+                                                <IonText>{icon.name}</IonText>
+                                            </label>
+                                        ))}
+                                    </div>
                                     <div className="ImgBtn">
                                         <IonButton fill="clear">
                                             <IonIcon size="large" icon={add} />
@@ -329,12 +359,37 @@ const NutryBudyStep2 = () => {
 
                             </IonCol>
                             <IonCol size="12">
-                                <div class="uploadPicture-button">
-                                    <label htmlFor="AllergyPicture" class="UploadBtn">Upload Picture</label>
-                                    <input type="file" id="AllergyPicture" accept="image/*" />
-                                    <IonInput type="text"></IonInput>
+                                <div className="uploadPicture-button">
+                                    <label className="UploadBtn">Upload Picture</label>
+                                    <input
+                                        id="AllergyPicture"
+                                        type="file"
+                                        name="allergy_icons"
+                                        accept="image/png" 
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                const newName = document.getElementById('ImageNameInput').value;
+                                                const newFoodIcon = { icon: URL.createObjectURL(file), name: newName };
+                                                const newFoodIcons = [...values.allergy_icons, newFoodIcon];
+                                                setFieldValue('allergy_icons', newFoodIcons);
+                                            }
+                                        }}
+                                    />
+
+                                    <IonInput
+                                        type="text"
+                                        id="ImageNameInput"
+                                        placeholder="Enter image name"
+                                        value={values.newImageName} // Ensure this is defined in initialValues of Formik
+                                        onIonChange={(e) => {
+                                            const newName = e.detail.value;
+                                            setFieldValue('newImageName', newName); // Update Formik field value for image name
+                                        }}
+                                    />
                                 </div>
                             </IonCol>
+
                             <div className="SkipBtn ion-padding-vertical ">
                                 <IonButton className="Orangebtn" fill="clear" type='submit'>SAVE</IonButton>
                                 <IonButton>Skip Process</IonButton>

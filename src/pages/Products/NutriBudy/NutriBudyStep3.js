@@ -30,9 +30,7 @@ const NutriBudyStep3 = () => {
         food_icons: []
     });
 
-    useEffect(() => {
-        console.log('formvalue', formvalue);
-    }, [formvalue]);
+
 
     const validationSchema = Yup.object().shape({
         sweet: Yup.number().min(0).max(100),
@@ -73,7 +71,6 @@ const NutriBudyStep3 = () => {
     }, []);
 
     const handleSubmit = async (values) => {
-        console.log("Submitted values", values);
         setLoader(true)
         try {
             const formData = new FormData();
@@ -94,7 +91,6 @@ const NutriBudyStep3 = () => {
            
 
             const response = await postApiData('postStepThird', formData);
-            console.log('responsepost', response);
             presentToast("Top", response?.data?.message);
             setLoader(false)
         } catch (err) {
