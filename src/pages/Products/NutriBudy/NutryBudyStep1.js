@@ -95,7 +95,7 @@ const NutryBudyStep1 = () => {
   useEffect(() => {
     stateList();
   }, []);
- 
+
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -346,6 +346,10 @@ const NutryBudyStep1 = () => {
                       }
                       alt=""
                       className="ProfileImg"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/assets/img/img-placeholder.jpg";
+                      }}
                     />
                     <div className="image-upload" onClick={handleImageClick}>
                       <label className="N-EditProfile">

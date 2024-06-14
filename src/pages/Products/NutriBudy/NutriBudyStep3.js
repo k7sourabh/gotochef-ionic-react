@@ -13,6 +13,7 @@ import * as Yup from 'yup';
 const NutriBudyStep3 = () => {
     const [stepthirdData, setStepthirdData] = useState({});
     const [imagePreview, setImagePreview] = useState(null);
+    const[Toggle,setToggle]=useState(false)
     const [loader, setLoader] = useState(false);
     const [present] = useIonToast();
 
@@ -333,7 +334,7 @@ const NutriBudyStep3 = () => {
                                             </IonCol>
                                         </div>
                                         <div className="ImgBtn">
-                                            <IonButton fill="clear">
+                                            <IonButton fill="clear"onClick={()=>setToggle(!Toggle)}>
                                                 <IonIcon size="large" icon={add} />
                                             </IonButton>
                                         </div>
@@ -341,8 +342,9 @@ const NutriBudyStep3 = () => {
                                   
                                 </IonCol>
                                 <IonCol size="12" className="ion-padding-vertical">
-                                
-                                    <div className="uploadPicture-button">
+                                {
+                                    Toggle ?(
+                                        <div className="uploadPicture-button">
                                         <label className="UploadBtn">Upload Picture</label>
                                         <input
                                             id="AllergyPicture"
@@ -363,6 +365,9 @@ const NutriBudyStep3 = () => {
                                         <IonInput type="text" id="ImageNameInput" placeholder="Enter image name" 
                                         />
                                     </div>
+                                    ):null
+                                }
+                                    
                                 </IonCol>
 
 

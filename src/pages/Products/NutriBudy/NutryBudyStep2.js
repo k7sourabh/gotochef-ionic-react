@@ -11,6 +11,7 @@ const NutryBudyStep2 = () => {
     const [loveSuggestions, setLoveSuggestions] = useState([]);
     const [avoidSuggestions, setAvoidSuggestions] = useState([]);
     const [activeSuggestion, setActiveSuggestion] = useState(null);
+    const [handleUpload,sethandleUploadPicture]=useState(false)
     const [initialValues, setInitialValues] = useState({
         food_type: [],
         ingredient_eat: ["", "", ""],
@@ -50,16 +51,17 @@ const NutryBudyStep2 = () => {
 
     const handleSubmit = async (values) => {
         try {
-            const obj = {
-                veg_type: values.food_type,
-                ingredient_eat: values.ingredient_eat,
-                ingredient_love: values.ingredient_love,
-                avoid_ingredient_1: values.avoid_ingredient_1,
-                id: values.id,
-                allergy: values.allergy,
-                allergy_icons: values.allergy_icons
-            }
-            const response = await postApiData('/postStepSecond', obj);
+            
+            const formData=new FormData()
+            formData.append("veg_type",values.food_type)
+            formData.append('ingredient_eat',values.ingredient_eat)
+            formData.append('ingredient_love', values.ingredient_love)
+            formData.append('avoid_ingredient_1', values.avoid_ingredient_1)
+            formData.append('id', values.id)
+            formData.append('allergy', values.allergy)
+            formData.append('allergy_icons', values.allergy_icons)
+
+            const response = await postApiData('/postStepSecond', formData);
             stateList();
         } catch (err) {
             console.log(err);
@@ -351,7 +353,7 @@ const NutryBudyStep2 = () => {
                                         ))}
                                     </div>
                                     <div className="ImgBtn">
-                                        <IonButton fill="clear">
+                                        <IonButton fill="clear" onClick={()=>sethandleUploadPicture(!handleUpload)} >
                                             <IonIcon size="large" icon={add} />
                                         </IonButton>
                                     </div>
@@ -359,40 +361,45 @@ const NutryBudyStep2 = () => {
 
                             </IonCol>
                             <IonCol size="12">
-                                <div className="uploadPicture-button">
-                                    <label className="UploadBtn">Upload Picture</label>
-                                    <input
-                                        id="AllergyPicture"
-                                        type="file"
-                                        name="allergy_icons"
-                                        accept="image/png" 
-                                        onChange={(e) => {
-                                            const file = e.target.files[0];
-                                            if (file) {
-                                                const newName = document.getElementById('ImageNameInput').value;
-                                                const newFoodIcon = { icon: URL.createObjectURL(file), name: newName };
-                                                const newFoodIcons = [...values.allergy_icons, newFoodIcon];
-                                                setFieldValue('allergy_icons', newFoodIcons);
-                                            }
-                                        }}
-                                    />
-
-                                    <IonInput
-                                        type="text"
-                                        id="ImageNameInput"
-                                        placeholder="Enter image name"
-                                        value={values.newImageName} // Ensure this is defined in initialValues of Formik
-                                        onIonChange={(e) => {
-                                            const newName = e.detail.value;
-                                            setFieldValue('newImageName', newName); // Update Formik field value for image name
-                                        }}
-                                    />
-                                </div>
+                                {
+                                    handleUpload ?  (
+                                        <div className="uploadPicture-button">
+                                        <label className="UploadBtn">Upload Picture</label>
+                                        <input
+                                            id="AllergyPicture"
+                                            type="file"
+                                            name="allergy_icons"
+                                            accept="image/png" 
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                if (file) {
+                                                    const newName = document.getElementById('ImageNameInput').value;
+                                                    const newFoodIcon = { icon: URL.createObjectURL(file), name: newName };
+                                                    const newFoodIcons = [...values.allergy_icons, newFoodIcon];
+                                                    setFieldValue('allergy_icons', newFoodIcons);
+                                                }
+                                            }}
+                                        />
+    
+                                        <IonInput
+                                            type="text"
+                                            id="ImageNameInput"
+                                            placeholder="Enter image name"
+                                            value={values.newImageName} // Ensure this is defined in initialValues of Formik
+                                            onIonChange={(e) => {
+                                                const newName = e.detail.value;
+                                                setFieldValue('newImageName', newName); // Update Formik field value for image name
+                                            }}
+                                        />
+                                    </div>
+                                    ):null
+                                }
+                              
                             </IonCol>
 
                             <div className="SkipBtn ion-padding-vertical ">
                                 <IonButton className="Orangebtn" fill="clear" type='submit'>SAVE</IonButton>
-                                <IonButton>Skip Process</IonButton>
+                                <IonButton> Skip Process</IonButton>
                             </div>
                         </IonRow>
                     </Form>
