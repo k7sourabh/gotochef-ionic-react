@@ -6,7 +6,7 @@ import { add } from "ionicons/icons";
 import { Formik, Form } from 'formik';
 import { getApiData, postApiData } from "../../../utils/Utils";
 
-const NutryBudyStep2 = () => {
+const NutryBudyStep2 = ({onSkip }) => {
     const [eatSuggestions, setEatSuggestions] = useState([]);
     const [loveSuggestions, setLoveSuggestions] = useState([]);
     const [avoidSuggestions, setAvoidSuggestions] = useState([]);
@@ -399,7 +399,7 @@ const NutryBudyStep2 = () => {
 
                             <div className="SkipBtn ion-padding-vertical ">
                                 <IonButton className="Orangebtn" fill="clear" type='submit'>SAVE</IonButton>
-                                <IonButton> Skip Process</IonButton>
+                                <IonButton  onClick={onSkip}> Skip Process</IonButton>
                             </div>
                         </IonRow>
                     </Form>

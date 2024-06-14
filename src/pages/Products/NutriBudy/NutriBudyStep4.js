@@ -7,7 +7,7 @@ import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { getApiData, postApiData } from '../../../utils/Utils';
 
-const NutriBudyStep4 = () => {
+const NutriBudyStep4 = ({onSkip}) => {
     const [stepFourthData, setStepFourthData] = useState([]);
     const [showRequireCusines, setShowRequireCusines] = useState(false);
     const [checkedValues, setCheckedValues] = useState([]);
@@ -196,7 +196,7 @@ const NutriBudyStep4 = () => {
                                                     <IonSpinner name="crescent" />
                                                 </div>
                                             )}
-                                            <IonButton>Skip Process</IonButton>
+                                            <IonButton onClick={onSkip}>Skip Process</IonButton>
                                         </div>
                                     </IonCol>
                                 </IonRow>

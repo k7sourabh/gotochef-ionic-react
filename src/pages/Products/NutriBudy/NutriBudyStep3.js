@@ -10,7 +10,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 
-const NutriBudyStep3 = () => {
+const NutriBudyStep3 = ({onSkip}) => {
     const [stepthirdData, setStepthirdData] = useState({});
     const [imagePreview, setImagePreview] = useState(null);
     const[Toggle,setToggle]=useState(false)
@@ -381,7 +381,7 @@ const NutriBudyStep3 = () => {
                                                         <IonSpinner name="crescent" />
                                                     </div>
                                                 )}
-                                        <IonButton>Skip Process</IonButton>
+                                        <IonButton onClick={onSkip}>Skip Process</IonButton>
                                     </div>
                                 </IonCol>
                             </Form>

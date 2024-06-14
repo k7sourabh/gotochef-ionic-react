@@ -28,7 +28,14 @@ const NutriBudy = () => {
             setProgress(0);
         }, 1000);
     }
-
+    const handleSkip = () => {
+        // Increment the tab index or switch to the next step
+        const steps = ["step1", "step2", "step3", "step4"];
+        const currentIndex = steps.indexOf(selectedTab);
+        if (currentIndex < steps.length - 1) {
+          setSelectedTab(steps[currentIndex + 1]);
+        }
+      };
     return (
 
         <IonPage>
@@ -82,16 +89,15 @@ const NutriBudy = () => {
                                     {selectedTab === "step1" && (
                                        <NutryBudyStep1/>
                                     )}
-                                    {selectedTab === "step2" && (
-                                        <NutryBudyStep2/>
-                                    )}
+                                     {selectedTab === "step2" && 
+                                      <NutryBudyStep2 onSkip={handleSkip} />}
 
-                                    {selectedTab === "step3" && (
-                                      <NutriBudyStep3/>
-                                    )}
-                                    {selectedTab === "step4" && (
-                                        <NutriBudyStep4 />
-                                    )}
+                                    {selectedTab === "step3" && 
+                                      <NutriBudyStep3 onSkip={handleSkip}/>
+                                    }
+                                    {selectedTab === "step4" && 
+                                        <NutriBudyStep4 onSkip={handleSkip}/>
+                                    }
                                 </div>
                             </div>
                         </IonCol>
