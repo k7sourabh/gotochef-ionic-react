@@ -28,7 +28,7 @@ const Ranking = () => {
         setLoader(true)
         try {
             const response = await getApiData("/leaderboard-ranking");
-            console.log("response",response)
+            // console.log("response",response)
             setRankingData(response?.data?.ranking_data)
             setFriendData(response?.data?.ranking_data?.userpoints)
         } catch (err) {
@@ -180,7 +180,7 @@ const Ranking = () => {
                                                                 <IonText color="dark" className="ion-no-padding">
                                                                     MySmartKitchen
                                                                 </IonText>
-                                                                <IonText className='review-count'>0</IonText>
+                                                                <IonText className='review-count'>{item.mySmartKitchen}</IonText>
                                                             </div>
                                                             <div className="list-review">
                                                                 <IonText color="dark" className="ion-no-padding">

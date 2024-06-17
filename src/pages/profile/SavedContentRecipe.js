@@ -139,8 +139,8 @@ const SavedContentRecipe = () => {
                                                     <IonCol size="12">
                                                         {
                                                             RecipeData &&
-                                                            RecipeData.saved_recipes?.map((item, i) => (
-                                                                <IonCard className="ProductCard" key={i}>
+                                                            RecipeData.saved_recipes?.map((item) => (
+                                                                <IonCard className="ProductCard" key={item.id}>
                                                                     <IonButton fill='clear' className='RecipeProduct'
                                                                         onClick={() => handledetail(item.slug)}
                                                                     >
@@ -194,7 +194,7 @@ const SavedContentRecipe = () => {
                                         <IonRow>
                                             <IonCol size="12">
                                                 {
-                                                    RecipeData.fav_recipes?.map((item, i) => (
+                                                    RecipeData.fav_recipes?.map((item,i) => (
                                                         <IonCard className="ProductCard" key={i}>
                                                             <IonButton fill='clear' className='RecipeProduct'
                                                                 onClick={() => handledetail(item.slug)}
@@ -226,7 +226,6 @@ const SavedContentRecipe = () => {
                                                         </IonCard>
                                                     ))
                                                 }
-
                                             </IonCol>
                                         </IonRow>
                                     </IonGrid>
@@ -236,8 +235,8 @@ const SavedContentRecipe = () => {
                                         <IonRow>
                                             <IonCol size="12">
                                                 {
-                                                    RecipeData.cooked_recipes?.map((item, i) => (
-                                                        <IonCard className="ProductCard">
+                                                    RecipeData.cooked_recipes?.map((item) => (
+                                                        <IonCard className="ProductCard" key={item.id}>
                                                             <IonButton fill='clear' className='RecipeProduct'
                                                                 onClick={() => handledetail(item.slug)}
                                                             >
