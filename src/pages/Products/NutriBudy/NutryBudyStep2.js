@@ -95,6 +95,20 @@ const NutryBudyStep2 = ({onSkip }) => {
             console.log(err);
         }
     };
+
+    const deleteImage=async(food)=>{
+     console.log("allergyname",food)
+     try {
+         const obj = {
+             "allergyname": food 
+         };
+         
+         const response = await postApiData("/nutribuddy-allergy-delete", obj); 
+         console.log("delete", response);
+     } catch (err) {
+         console.log(err);
+     }
+    }
     return (
         <IonGrid>
             <Formik
@@ -255,8 +269,6 @@ const NutryBudyStep2 = ({onSkip }) => {
                                     ))}
                                 </div>
                             </IonCol>
-
-
                             <IonCol size="12">
                                 <h3>Allergy Setup</h3>
                                 <div className="AllergyBox ion-padding-vertical">
@@ -349,6 +361,7 @@ const NutryBudyStep2 = ({onSkip }) => {
                                                 />
                                                 <img src={icon.icon} alt={icon.name} className="ProfileImg" />
                                                 <IonText>{icon.name}</IonText>
+                                                <IonButton onClick={()=>deleteImage(icon.name)}>delete</IonButton>
                                             </label>
                                         ))}
                                     </div>

@@ -10,10 +10,10 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 
-const NutriBudyStep3 = ({onSkip}) => {
+const NutriBudyStep3 = ({ onSkip }) => {
     const [stepthirdData, setStepthirdData] = useState({});
     const [imagePreview, setImagePreview] = useState(null);
-    const[Toggle,setToggle]=useState(false)
+    const [Toggle, setToggle] = useState(false)
     const [loader, setLoader] = useState(false);
     const [present] = useIonToast();
 
@@ -72,6 +72,7 @@ const NutriBudyStep3 = ({onSkip}) => {
     }, []);
 
     const handleSubmit = async (values) => {
+        console.log("values",values)
         setLoader(true)
         try {
             const formData = new FormData();
@@ -89,7 +90,7 @@ const NutriBudyStep3 = ({onSkip}) => {
                     formData.append(`food_icons[${index}][name]`, icon.name);
                 }
             });
-           
+
 
             const response = await postApiData('postStepThird', formData);
             presentToast("Top", response?.data?.message);
@@ -106,6 +107,20 @@ const NutriBudyStep3 = ({onSkip}) => {
             position: position,
         });
     };
+    const deleteImage = async (foodname) => {
+        console.log(foodname);
+        try {
+            const obj = {
+                "foodname": foodname 
+            };
+            
+            const response = await postApiData("/nutribuddy-food-delete", obj); 
+            console.log("delete", response);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    
 
     return (
         <IonGrid className="ion-padding-bottom">
@@ -325,62 +340,59 @@ const NutriBudyStep3 = ({onSkip}) => {
                                                             }}
                                                         />
                                                         <label htmlFor={`myCheck${index}`}>
-                                                            <img src={icon.icon_food} alt={icon.name} className="ProfileImg" />
+                                                            <img src={icon.icon_food} alt="" className="ProfileImg" />
                                                             <IonText>{icon.name}</IonText>
                                                         </label>
+                                                        <button onClick={() => deleteImage(icon.name)}>X</button>
                                                     </div>
                                                 ))}
 
                                             </IonCol>
                                         </div>
                                         <div className="ImgBtn">
-                                            <IonButton fill="clear"onClick={()=>setToggle(!Toggle)}>
+                                            <IonButton fill="clear" onClick={() => setToggle(!Toggle)}>
                                                 <IonIcon size="large" icon={add} />
                                             </IonButton>
                                         </div>
                                     </div>
-                                  
+
                                 </IonCol>
                                 <IonCol size="12" className="ion-padding-vertical">
-                                {
-                                    Toggle ?(
-                                        <div className="uploadPicture-button">
-                                        <label className="UploadBtn">Upload Picture</label>
-                                        <input
-                                            id="AllergyPicture"
-                                            type="file"
-                                            name="food_icons"
-                                            accept="image/*"
-                                            onChange={(e) => {
-                                                const file = e.target.files[0];
-                                                if (file) {
-                                                    const newName = document.getElementById('ImageNameInput').value;
-                                                    const newFoodIcon = { icon_food: URL.createObjectURL(file), name: newName };
-                                                    const newFoodIcons = [...values.food_icons, newFoodIcon];
-                                                    setFieldValue('food_icons', newFoodIcons);
-                                                }
-                                            }}
-                                        />
-                                     
-                                        <IonInput type="text" id="ImageNameInput" placeholder="Enter image name" 
-                                        />
-                                    </div>
-                                    ):null
-                                }
-                                    
+                                    {
+                                        Toggle ? (
+                                            <div className="uploadPicture-button">
+                                                <label className="UploadBtn">Upload Picture</label>
+                                                <input
+                                                    id="AllergyPicture"
+                                                    type="file"
+                                                    name="food_icons"
+                                                    accept="image/.png*"
+                                                    onChange={(e) => {
+                                                        const file = e.target.files[0];
+                                                        if (file) {
+                                                            const newName = document.getElementById('ImageNameInput').value;
+                                                            const newFoodIcon = { icon_food: URL.createObjectURL(file), name: newName };
+                                                            const newFoodIcons = [...values.food_icons, newFoodIcon];
+                                                            setFieldValue('food_icons', newFoodIcons);
+                                                            console.log("newFoodIcon",newFoodIcon)
+                                                        }
+                                                    }}
+                                                />
+
+                                                <IonInput type="text" id="ImageNameInput" placeholder="Enter image name"
+                                                />
+                                            </div>
+                                        ) : null
+                                    }
                                 </IonCol>
-
-
-
-
                                 <IonCol>
                                     <div className="SkipBtn ion-padding-vertical">
                                         <IonButton className="Orangebtn" type="submit" fill="clear">SAVE</IonButton>
                                         {loader && (
-                                                    <div className="loader-container">
-                                                        <IonSpinner name="crescent" />
-                                                    </div>
-                                                )}
+                                            <div className="loader-container">
+                                                <IonSpinner name="crescent" />
+                                            </div>
+                                        )}
                                         <IonButton onClick={onSkip}>Skip Process</IonButton>
                                     </div>
                                 </IonCol>
