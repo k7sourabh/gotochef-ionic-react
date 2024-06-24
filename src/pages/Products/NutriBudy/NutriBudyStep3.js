@@ -11,7 +11,6 @@ import * as Yup from 'yup';
 
 
 const NutriBudyStep3 = ({ onSkip }) => {
-    const [stepthirdData, setStepthirdData] = useState({});
     const [imagePreview, setImagePreview] = useState(null);
     const [Toggle, setToggle] = useState(false)
     const [loader, setLoader] = useState(false);
@@ -49,7 +48,6 @@ const NutriBudyStep3 = ({ onSkip }) => {
                 const response = await getApiDataWithAuth('/getNutribuddy');
                 if (response?.status === 200) {
                     const data = response.data.data;
-                    setStepthirdData(data);
                     setFormvalue({
                         sweet: data.sweet || 0,
                         sour: data.sour || 0,
@@ -305,9 +303,9 @@ const NutriBudyStep3 = ({ onSkip }) => {
                                                             checked={values.food_like.includes(icon.name)} // Check if the current icon is included in food_like
                                                             onChange={() => {
                                                                 const newfoodlike = values.food_like.includes(icon.name)
-                                                                    ? values.food_like.filter(pref => pref !== icon.name) // Remove icon if already selected
-                                                                    : [...values.food_like, icon.name]; // Add icon if not already selected
-                                                                setFieldValue('food_like', newfoodlike); // Update food_like array in form values
+                                                                    ? values.food_like.filter(pref => pref !== icon.name) 
+                                                                    : [...values.food_like, icon.name]; 
+                                                                setFieldValue('food_like', newfoodlike); 
                                                             }}
                                                         />
                                                         <label htmlFor={`myCheck${index}`}>

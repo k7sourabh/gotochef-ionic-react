@@ -19,7 +19,7 @@ const NutryBudyStep2 = ({onSkip }) => {
         avoid_ingredient_1: ["", ""],
         id: "",
         allergy: [],
-        allergy_icons: [] // Expecting [{ name: "Nuts", icon: "path/to/nuts-icon.png" }, ...]
+        allergy_icons: [] 
     });
 
     const stateList = async () => {
@@ -76,8 +76,6 @@ const NutryBudyStep2 = ({onSkip }) => {
         try {
             const obj = { keyword: keyword };
             const response = await postApiData('/getIngredients', obj);
-            // console.log("Ingredients response", response.data.results);
-
             if (type === "ingredient_eat") {
                 setEatSuggestions(response.data.results);
                 setLoveSuggestions([]);
@@ -398,10 +396,10 @@ const NutryBudyStep2 = ({onSkip }) => {
                                             type="text"
                                             id="ImageNameInput"
                                             placeholder="Enter image name"
-                                            value={values.newImageName} // Ensure this is defined in initialValues of Formik
+                                            value={values.newImageName} 
                                             onIonChange={(e) => {
                                                 const newName = e.detail.value;
-                                                setFieldValue('newImageName', newName); // Update Formik field value for image name
+                                                setFieldValue('newImageName', newName);
                                             }}
                                         />
                                     </div>

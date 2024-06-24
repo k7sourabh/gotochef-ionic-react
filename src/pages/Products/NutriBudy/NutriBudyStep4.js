@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 import { getApiData, postApiData } from '../../../utils/Utils';
 
 const NutriBudyStep4 = ({onSkip}) => {
-    const [stepFourthData, setStepFourthData] = useState([]);
     const [showRequireCusines, setShowRequireCusines] = useState(false);
     const [checkedValues, setCheckedValues] = useState([]);
     const [present] = useIonToast();
@@ -28,7 +27,6 @@ const NutriBudyStep4 = ({onSkip}) => {
             const response = await getApiData("/getNutribuddy");
             if (response?.status === 200) {
                 const data = response.data.data;
-                setStepFourthData(data);
                 setFormValue({
                     health: data.health || [],
                     activity: data.activity || [],
