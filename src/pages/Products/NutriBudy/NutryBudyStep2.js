@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import {
-    IonButton, IonCol, IonGrid, IonIcon, IonRow, IonSelect, IonSelectOption, IonText, IonItem, IonLabel, IonInput
+    IonButton, IonCol, IonGrid, IonIcon, IonRow, IonSelect, IonSelectOption, IonText, IonItem, IonLabel, IonInput,
+    IonCheckbox,
+    IonSpinner,
+    useIonToast
 } from "@ionic/react";
 import { add } from "ionicons/icons";
 import { Formik, Form } from 'formik';
 import { getApiData, postApiData } from "../../../utils/Utils";
 
-const NutryBudyStep2 = ({onSkip }) => {
+const NutryBudyStep2 = ({ onSkip }) => {
     const [eatSuggestions, setEatSuggestions] = useState([]);
     const [loveSuggestions, setLoveSuggestions] = useState([]);
     const [avoidSuggestions, setAvoidSuggestions] = useState([]);
     const [activeSuggestion, setActiveSuggestion] = useState(null);
-    const [handleUpload,sethandleUploadPicture]=useState(false)
+    const [handleUpload, sethandleUploadPicture] = useState(false)
+    const [loader, setLoader] = useState(false);
+    const [present] = useIonToast();
+
+    const [checkedValues, setCheckedValues] = useState([]);
+
     const [initialValues, setInitialValues] = useState({
         food_type: [],
         ingredient_eat: ["", "", ""],
@@ -19,10 +27,11 @@ const NutryBudyStep2 = ({onSkip }) => {
         avoid_ingredient_1: ["", ""],
         id: "",
         allergy: [],
-        allergy_icons: [] 
+        allergy_icons: []
     });
 
     const stateList = async () => {
+        setLoader(true)
         try {
             const response = await getApiData("/getNutribuddy");
             if (response?.status === 200) {
@@ -36,25 +45,27 @@ const NutryBudyStep2 = ({onSkip }) => {
                     allergy: data.allergy || [],
                     allergy_icons: data.allergy_icons || []
                 });
+                setCheckedValues(data.food_type || [],)
             }
         } catch (err) {
             console.log(err);
         }
+        setLoader(false)
     };
 
     useEffect(() => {
         stateList();
     }, []);
     useEffect(() => {
-        console.log("initialValues", initialValues)
+        console.log(initialValues)
     }, [initialValues])
 
     const handleSubmit = async (values) => {
+        setLoader(true)
         try {
-            
-            const formData=new FormData()
-            formData.append("veg_type",values.food_type)
-            formData.append('ingredient_eat',values.ingredient_eat)
+            const formData = new FormData()
+            formData.append("veg_type", checkedValues)
+            formData.append('ingredient_eat', values.ingredient_eat)
             formData.append('ingredient_love', values.ingredient_love)
             formData.append('avoid_ingredient_1', values.avoid_ingredient_1)
             formData.append('id', values.id)
@@ -63,10 +74,13 @@ const NutryBudyStep2 = ({onSkip }) => {
 
             const response = await postApiData('/postStepSecond', formData);
             stateList();
+            presentToast("Top", response?.data?.message);
+
         } catch (err) {
             console.log(err);
         }
-        console.log('Form values', values);
+        console.log( values);
+        setLoader(false)
     };
 
     const handleIngredientChange = async (index, value, setFieldValue, type) => {
@@ -94,19 +108,32 @@ const NutryBudyStep2 = ({onSkip }) => {
         }
     };
 
-    const deleteImage=async(food)=>{
-     console.log("allergyname",food)
-     try {
-         const obj = {
-             "allergyname": food 
-         };
-         
-         const response = await postApiData("/nutribuddy-allergy-delete", obj); 
-         console.log("delete", response);
-     } catch (err) {
-         console.log(err);
-     }
+    const deleteImage = async (food) => {
+        console.log("allergyname", food)
+        try {
+            const obj = { "allergyname": food };
+            const response = await postApiData("/nutribuddy-allergy-delete", obj);
+            console.log("delete", response);
+        } catch (err) {
+            console.log(err);
+        }
     }
+
+    const Foodtype = [
+        { value: 'vegetarian', label: "Veg" },
+        { value: "non-vegetarian", label: "Non-veg" },
+        { value: "egg", label: "Egg" }
+    ];
+   
+
+    const presentToast = (position, message) => {
+        present({
+            message,
+            duration: 1500,
+            position,
+        });
+    };
+
     return (
         <IonGrid>
             <Formik
@@ -121,49 +148,35 @@ const NutryBudyStep2 = ({onSkip }) => {
                         <IonRow>
                             <IonCol className="flex flex-column ion-align-items-center ion-justify-content-center ion-padding-top">
                                 <IonItem lines='none' className="N-VegNon">
-                                    <IonLabel className="StatementInfo">Veg</IonLabel>
-                                    <input
-                                        type='checkbox'
-                                        checked={values.food_type.includes('vegetarian')}
-                                        onChange={() => {
-                                            const isChecked = values.food_type.includes('vegetarian');
-                                            const newFocusHealth = isChecked
-                                                ? values.food_type.filter(pref => pref !== 'vegetarian')
-                                                : [...values.food_type, 'vegetarian'];
-                                            setFieldValue('food_type', newFocusHealth);
-                                        }}
-                                    />
-                                </IonItem>
-                                <IonItem lines='none' className="N-VegNon">
-                                    <IonLabel className="StatementInfo">Non-veg</IonLabel>
-                                    <input
-                                        type='checkbox'
-                                        checked={values.food_type.includes('non-vegetarian')}
-                                        onChange={() => {
-                                            const isChecked = values.food_type.includes('non-vegetarian');
-                                            const newFocusHealth = isChecked
-                                                ? values.food_type.filter(pref => pref !== 'non-vegetarian' && pref !== 'egg')
-                                                : [...new Set([...values.food_type, 'non-vegetarian', 'egg'])];
-                                            setFieldValue('food_type', newFocusHealth);
-                                        }}
-                                    />
-                                </IonItem>
-                                <IonItem lines='none' className="N-VegNon">
-                                    <IonLabel className="StatementInfo">Egg</IonLabel>
-                                    <input
-                                        type='checkbox'
-                                        checked={values.food_type.includes('egg')}
-                                        onChange={() => {
-                                            const isChecked = values.food_type.includes('egg');
-                                            const newFocusHealth = isChecked
-                                                ? values.food_type.filter(pref => pref !== 'egg')
-                                                : [...values.food_type, 'egg'];
-                                            setFieldValue('food_type', newFocusHealth);
-                                        }}
-                                    />
+                                    {Foodtype.map((option) => (
+                                        <IonItem key={option.value}>
+                                            <IonLabel className="StatementInfo">{option.label}</IonLabel>
+                                            <IonCheckbox
+                                                className="ion-margin-start"
+                                                checked={checkedValues.includes(option.value)}
+                                                value={option.value}
+                                                onIonChange={(event) => {
+                                                    const isChecked = event.detail.checked;
+                                                    const value = event.target.value;
+
+                                                    if (isChecked) {
+                                                        setCheckedValues((prevValues) => [
+                                                            ...prevValues,
+                                                            value,
+                                                        ]);
+                                                    } else {
+                                                        setCheckedValues((prevValues) =>
+                                                            prevValues.filter(
+                                                                (item) => item !== value
+                                                            )
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </IonItem>
+                                    ))}
                                 </IonItem>
                             </IonCol>
-
                             <IonCol size="12">
                                 <div>
                                     <h4>Tell us 3 Ingredients you Eat</h4>
@@ -197,8 +210,6 @@ const NutryBudyStep2 = ({onSkip }) => {
                                     ))}
                                 </div>
                             </IonCol>
-
-
                             <IonCol size="12">
                                 <div>
                                     <h4>Tell us 3 Ingredients you love</h4>
@@ -232,8 +243,6 @@ const NutryBudyStep2 = ({onSkip }) => {
                                     ))}
                                 </div>
                             </IonCol>
-
-
                             <IonCol size="12">
                                 <div>
                                     <h4>Tell us 2 Ingredients you wish to avoid</h4>
@@ -359,12 +368,12 @@ const NutryBudyStep2 = ({onSkip }) => {
                                                 />
                                                 <img src={icon.icon} alt={icon.name} className="ProfileImg" />
                                                 <IonText>{icon.name}</IonText>
-                                                <IonButton onClick={()=>deleteImage(icon.name)}>delete</IonButton>
+                                                <IonButton onClick={() => deleteImage(icon.name)}>delete</IonButton>
                                             </label>
                                         ))}
                                     </div>
                                     <div className="ImgBtn">
-                                        <IonButton fill="clear" onClick={()=>sethandleUploadPicture(!handleUpload)} >
+                                        <IonButton fill="clear" onClick={() => sethandleUploadPicture(!handleUpload)} >
                                             <IonIcon size="large" icon={add} />
                                         </IonButton>
                                     </div>
@@ -373,44 +382,46 @@ const NutryBudyStep2 = ({onSkip }) => {
                             </IonCol>
                             <IonCol size="12">
                                 {
-                                    handleUpload ?  (
+                                    handleUpload ? (
                                         <div className="uploadPicture-button">
-                                        <label className="UploadBtn">Upload Picture</label>
-                                        <input
-                                            id="AllergyPicture"
-                                            type="file"
-                                            name="allergy_icons"
-                                            accept="image/png" 
-                                            onChange={(e) => {
-                                                const file = e.target.files[0];
-                                                if (file) {
-                                                    const newName = document.getElementById('ImageNameInput').value;
-                                                    const newFoodIcon = { icon: URL.createObjectURL(file), name: newName };
-                                                    const newFoodIcons = [...values.allergy_icons, newFoodIcon];
-                                                    setFieldValue('allergy_icons', newFoodIcons);
-                                                }
-                                            }}
-                                        />
-    
-                                        <IonInput
-                                            type="text"
-                                            id="ImageNameInput"
-                                            placeholder="Enter image name"
-                                            value={values.newImageName} 
-                                            onIonChange={(e) => {
-                                                const newName = e.detail.value;
-                                                setFieldValue('newImageName', newName);
-                                            }}
-                                        />
-                                    </div>
-                                    ):null
+                                            <label className="UploadBtn">Upload Picture</label>
+                                            <input
+                                                id="AllergyPicture"
+                                                type="file"
+                                                name="allergy_icons"
+                                                accept="image/png"
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    if (file) {
+                                                        const newName = document.getElementById('ImageNameInput').value;
+                                                        const newFoodIcon = { icon: URL.createObjectURL(file), name: newName };
+                                                        const newFoodIcons = [...values.allergy_icons, newFoodIcon];
+                                                        setFieldValue('allergy_icons', newFoodIcons);
+                                                    }
+                                                }}
+                                            />
+                                            <IonInput
+                                                type="text"
+                                                id="ImageNameInput"
+                                                placeholder="Enter image name"
+                                                value={values.newImageName}
+                                                onIonChange={(e) => {
+                                                    const newName = e.detail.value;
+                                                    setFieldValue('newImageName', newName);
+                                                }}
+                                            />
+                                        </div>
+                                    ) : null
                                 }
-                              
                             </IonCol>
-
                             <div className="SkipBtn ion-padding-vertical ">
                                 <IonButton className="Orangebtn" fill="clear" type='submit'>SAVE</IonButton>
-                                <IonButton  onClick={onSkip}> Skip Process</IonButton>
+                                {loader && (
+                                    <div className="loader-container">
+                                        <IonSpinner name="crescent" />
+                                    </div>
+                                )}
+                                <IonButton onClick={onSkip}> Skip Process</IonButton>
                             </div>
                         </IonRow>
                     </Form>
