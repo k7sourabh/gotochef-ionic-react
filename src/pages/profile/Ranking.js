@@ -11,7 +11,6 @@ import {
     IonList,
     IonItem,
     IonButton,
-    IonImg,
     IonPage,
     IonContent,
     IonHeader,

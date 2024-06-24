@@ -195,7 +195,7 @@ const AddIngredient = () => {
                     }
                   >
                     {categoryIngredientData &&
-                      categoryIngredientData?.map((data, index) => (
+                      categoryIngredientData?.map((data) => (
                         <IonSelectOption value={data.id} key={data.id}>
                           {data.category_name}
                         </IonSelectOption>

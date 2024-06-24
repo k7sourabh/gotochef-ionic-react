@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonIcon, IonText, useIonViewWillEnter } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonIcon, IonText } from '@ionic/react';
 import { useHistory } from 'react-router';
 import { getApiData } from '../../utils/Utils';
 import { heartOutline } from 'ionicons/icons';
@@ -8,10 +8,6 @@ const IngredientProduct = (props) => {
   const { productData, isLoading } = props;
   const [ingredientData, setIngredientData] = useState([]);
   const history = useHistory();
-
-  useEffect(() => {
-    fetchData(); 
-  }, [productData]);
 
   const fetchData = async () => {
     try {
@@ -27,7 +23,9 @@ const IngredientProduct = (props) => {
       console.log(error);
     }
   };
-  
+  useEffect(() => {
+    fetchData(); 
+  }, [productData]);
 
   const handleDetails = (slug) => {
     history.push(`/ingredient-detail/${slug}`);

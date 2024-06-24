@@ -191,89 +191,122 @@ const SavedContentRecipe = () => {
                                 )}
                                 {selectedTabladder === "favorite" && (
                                     <IonGrid>
-                                        <IonRow>
-                                            <IonCol size="12">
-                                                {
-                                                    RecipeData.fav_recipes?.map((item, i) => (
-                                                        <IonCard className="ProductCard" key={i}>
-                                                            <IonButton fill='clear' className='RecipeProduct'
-                                                                onClick={() => handledetail(item.slug)}
-                                                            >
-                                                                <img
-                                                                    src={item.images}
-                                                                    alt="category cover"
-                                                                    className="MainProductThumb"
-                                                                    onError={(e) => {
-                                                                        e.target.onerror = null;
-                                                                        e.target.src = "/assets/img/img-placeholder.jpg";
-                                                                    }}
-                                                                />
-                                                            </IonButton>
-                                                            <IonCardContent className="ion-no-padding ion-margin-top">
-                                                                <IonText className="ProductTitle">
-                                                                    {item.recipesName}
-                                                                </IonText>
-                                                                <IonButton
-                                                                    className="AddToCartBtn"
-                                                                    size="default"
-                                                                    shape="round"
-                                                                    fill="outline">
-                                                                    <div className="addText" onClick={() => handlefavorite(item.id)}>Remove
-                                                                        <IonIcon slot="end" size="small" icon={close} />
-                                                                    </div>
+                                        {
+                                            RecipeData && RecipeData?.fav_recipes?.length > 0 ? (
+                                                <IonRow>
+                                                    <IonCol size="12">
+                                                        {
+                                                            RecipeData.fav_recipes?.map((item, i) => (
+                                                                <IonCard className="ProductCard" key={i}>
+                                                                    <IonButton fill='clear' className='RecipeProduct'
+                                                                        onClick={() => handledetail(item.slug)}
+                                                                    >
+                                                                        <img
+                                                                            src={item.images}
+                                                                            alt="category cover"
+                                                                            className="MainProductThumb"
+                                                                            onError={(e) => {
+                                                                                e.target.onerror = null;
+                                                                                e.target.src = "/assets/img/img-placeholder.jpg";
+                                                                            }}
+                                                                        />
+                                                                    </IonButton>
+                                                                    <IonCardContent className="ion-no-padding ion-margin-top">
+                                                                        <IonText className="ProductTitle">
+                                                                            {item.recipesName}
+                                                                        </IonText>
+                                                                        <IonButton
+                                                                            className="AddToCartBtn"
+                                                                            size="default"
+                                                                            shape="round"
+                                                                            fill="outline">
+                                                                            <div className="addText" onClick={() => handlefavorite(item.id)}>Remove
+                                                                                <IonIcon slot="end" size="small" icon={close} />
+                                                                            </div>
+                                                                        </IonButton>
+                                                                    </IonCardContent>
+                                                                </IonCard>
+                                                            ))
+                                                        }
+                                                    </IonCol>
+                                                </IonRow>
+                                            ) : (
+                                                <IonGrid className="ion-padding-vertical ion-padding-horizontal">
+                                                    <IonRow>
+                                                        <IonCol>
+                                                            <div className="NoSubmitBtn">
+                                                                <IonButton fill="clear">
+                                                                    No favorite Recipes
                                                                 </IonButton>
-                                                            </IonCardContent>
-                                                        </IonCard>
-                                                    ))
-                                                }
-                                            </IonCol>
-                                        </IonRow>
+                                                            </div>
+                                                        </IonCol>
+                                                    </IonRow>
+                                                </IonGrid>
+                                            )
+                                        }
+
                                     </IonGrid>
                                 )}
                                 {selectedTabladder === "cooked" && (
                                     <IonGrid>
-                                        <IonRow>
-                                            <IonCol size="12">
-                                                {
-                                                    RecipeData.cooked_recipes?.map((item) => (
-                                                        <IonCard className="ProductCard" key={item.id}>
-                                                            <IonButton fill='clear' className='RecipeProduct'
-                                                                onClick={() => handledetail(item.slug)}
-                                                            >
-                                                                <img
-                                                                    src={item.images}
-                                                                    alt="category cover"
-                                                                    className="MainProductThumb"
-                                                                    onError={(e) => {
-                                                                        e.target.onerror = null;
-                                                                        e.target.src = "/assets/img/img-placeholder.jpg";
-                                                                    }}
-                                                                />
-                                                            </IonButton>
-                                                            <IonCardContent className="ion-no-padding ion-margin-top">
-                                                                <IonText className="ProductTitle">
-                                                                    {item.recipesName}
-                                                                </IonText>
-                                                                <IonButton
-                                                                    className="AddToCartBtn"
-                                                                    size="default"
-                                                                    shape="round"
-                                                                    fill="outline">
-                                                                    <div className="addText" onClick={() => handlecooked(item.id)}>Remove
-                                                                        <IonIcon slot="end" size="small" icon={close} />
-                                                                    </div>
+                                        {
+                                            RecipeData && RecipeData?.cooked_recipes?.length > 0 ? (
+                                                <IonRow>
+                                                    <IonCol size="12">
+                                                        {
+                                                            RecipeData.cooked_recipes?.map((item) => (
+                                                                <IonCard className="ProductCard" key={item.id}>
+                                                                    <IonButton fill='clear' className='RecipeProduct'
+                                                                        onClick={() => handledetail(item.slug)}
+                                                                    >
+                                                                        <img
+                                                                            src={item.images}
+                                                                            alt="category cover"
+                                                                            className="MainProductThumb"
+                                                                            onError={(e) => {
+                                                                                e.target.onerror = null;
+                                                                                e.target.src = "/assets/img/img-placeholder.jpg";
+                                                                            }}
+                                                                        />
+                                                                    </IonButton>
+                                                                    <IonCardContent className="ion-no-padding ion-margin-top">
+                                                                        <IonText className="ProductTitle">
+                                                                            {item.recipesName}
+                                                                        </IonText>
+                                                                        <IonButton
+                                                                            className="AddToCartBtn"
+                                                                            size="default"
+                                                                            shape="round"
+                                                                            fill="outline">
+                                                                            <div className="addText" onClick={() => handlecooked(item.id)}>Remove
+                                                                                <IonIcon slot="end" size="small" icon={close} />
+                                                                            </div>
+                                                                        </IonButton>
+                                                                        {loader && (
+                                                                            <div className="loader-container">
+                                                                                <IonSpinner name="crescent" />
+                                                                            </div>
+                                                                        )}
+                                                                    </IonCardContent>
+                                                                </IonCard>
+                                                            ))
+                                                        }
+                                                    </IonCol>
+                                                </IonRow>
+                                            ) : (
+                                                <IonGrid className="ion-padding-vertical ion-padding-horizontal">
+                                                    <IonRow>
+                                                        <IonCol>
+                                                            <div className="NoSubmitBtn">
+                                                                <IonButton fill="clear">
+                                                                    No cooked Recipes
                                                                 </IonButton>
-                                                                {loader && (
-                                                                    <div className="loader-container">
-                                                                        <IonSpinner name="crescent" />
-                                                                    </div>
-                                                                )}
-                                                            </IonCardContent>
-                                                        </IonCard>
-                                                    ))
-                                                }
-                                            </IonCol>
-                                        </IonRow>
+                                                            </div>
+                                                        </IonCol>
+                                                    </IonRow>
+                                                </IonGrid>
+                                            )
+                                        }
                                     </IonGrid>
                                 )}
                             </IonCol>
