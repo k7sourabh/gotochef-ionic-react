@@ -17,7 +17,7 @@ import {
     IonHeader,
     IonSpinner,
 } from "@ionic/react";
-import { getApiData, postApiData } from "../../utils/Utils";
+import { getApiData } from "../../utils/Utils";
 
 
 const Ranking = () => {

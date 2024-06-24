@@ -365,7 +365,7 @@ const NutryBudyStep1 = () => {
                           setImagePreview(URL.createObjectURL(file));
                           if (file) {
                             setFieldValue("image", file);
-                          }
+                          } 
                         }}
                       />
                     </div>

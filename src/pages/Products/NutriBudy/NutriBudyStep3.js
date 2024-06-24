@@ -30,9 +30,9 @@ const NutriBudyStep3 = ({ onSkip }) => {
         food_like: [],
         food_icons: []
     });
-useEffect(()=>{
-    console.log("formvalue",formvalue)
-},[formvalue])
+    useEffect(() => {
+        console.log("formvalue", formvalue)
+    }, [formvalue])
     const validationSchema = Yup.object().shape({
         sweet: Yup.number().min(0).max(100),
         sour: Yup.number().min(0).max(100),
@@ -72,7 +72,7 @@ useEffect(()=>{
     }, []);
 
     const handleSubmit = async (values) => {
-        console.log("values",values)
+        console.log("values", values)
         setLoader(true)
         try {
             const formData = new FormData();
@@ -109,16 +109,20 @@ useEffect(()=>{
         console.log(foodname);
         try {
             const obj = {
-                "foodname": foodname 
+                "foodname": foodname
             };
-            
-            const response = await postApiData("/nutribuddy-food-delete", obj); 
+
+            const response = await postApiData("/nutribuddy-food-delete", obj);
             console.log("delete", response);
         } catch (err) {
             console.log(err);
         }
     };
-    
+    const dietdata = [
+        { id: 'myCheckImg51', value: 'Keto', imgSrc: './assets/img/imagesketo.png', label: 'Keto' },
+        { id: 'myCheckImg52', value: 'GlutenFree', imgSrc: './assets/img/imagesGluten.jpg', label: 'Gluten Free' },
+        { id: 'myCheckImg53', value: 'JainFriedndly', imgSrc: './assets/img/pngwing.png', label: 'Jain Friendly' }
+    ]
 
     return (
         <IonGrid className="ion-padding-bottom">
@@ -223,59 +227,28 @@ useEffect(()=>{
                                 <IonCol size="12" className="ion-padding-top">
                                     <h3>Diet Preferences (If Any)</h3>
                                     <div className="flex DietPreFerns">
-                                        <div className="FillCheckBox ImgCheck">
-                                            <input
-                                                type="checkbox"
-                                                id="myCheckImg51"
-                                                checked={values.diet_pref.includes('Keto')}
-                                                onChange={() => {
-                                                    const newDietPref = values.diet_pref.includes('Keto')
-                                                        ? values.diet_pref.filter(pref => pref !== 'Keto')
-                                                        : [...values.diet_pref, 'Keto'];
-                                                    setFieldValue('diet_pref', newDietPref);
-                                                }}
-                                            />
-                                            <label htmlFor="myCheckImg51">
-                                                <img src="./assets/img/imagesketo.png" alt="" className="ProfileImg" />
-                                                <IonText>Keto</IonText>
-                                            </label>
-                                        </div>
-                                        <div className="FillCheckBox ImgCheck">
-                                            <input
-                                                type="checkbox"
-                                                id="myCheckImg52"
-                                                checked={values.diet_pref.includes('GlutenFree')}
-                                                onChange={() => {
-                                                    const newDietPref = values.diet_pref.includes('GlutenFree')
-                                                        ? values.diet_pref.filter(pref => pref !== 'GlutenFree')
-                                                        : [...values.diet_pref, 'GlutenFree'];
-                                                    setFieldValue('diet_pref', newDietPref);
-                                                }}
-                                            />
-                                            <label htmlFor="myCheckImg52">
-                                                <img src="./assets/img/imagesGluten.jpg" alt="" className="ProfileImg" />
-                                                <IonText>Gluten Free</IonText>
-                                            </label>
-                                        </div>
-                                        <div className="FillCheckBox ImgCheck">
-                                            <input
-                                                type="checkbox"
-                                                id="myCheckImg53"
-                                                checked={values.diet_pref.includes('JainFriedndly')}
-                                                onChange={() => {
-                                                    const newDietPref = values.diet_pref.includes('JainFriedndly')
-                                                        ? values.diet_pref.filter(pref => pref !== 'JainFriedndly')
-                                                        : [...values.diet_pref, 'JainFriedndly'];
-                                                    setFieldValue('diet_pref', newDietPref);
-                                                }}
-                                            />
-                                            <label htmlFor="myCheckImg53">
-                                                <img src="./assets/img/pngwing.png" alt="" className="ProfileImg" />
-                                                <IonText>Jain Friendly</IonText>
-                                            </label>
-                                        </div>
+                                        {dietdata.map(diet => (
+                                            <div className="FillCheckBox ImgCheck" key={diet.id}>
+                                                <input
+                                                    type="checkbox"
+                                                    id={diet.id}
+                                                    checked={values.diet_pref.includes(diet.value)}
+                                                    onChange={() => {
+                                                        const newDietPref = values.diet_pref.includes(diet.value)
+                                                            ? values.diet_pref.filter(pref => pref !== diet.value)
+                                                            : [...values.diet_pref, diet.value];
+                                                        setFieldValue('diet_pref', newDietPref);
+                                                    }}
+                                                />
+                                                <label htmlFor={diet.id}>
+                                                    <img src={diet.imgSrc} alt="" className="ProfileImg" />
+                                                    <IonText>{diet.label}</IonText>
+                                                </label>
+                                            </div>
+                                        ))}
                                     </div>
                                 </IonCol>
+
                                 <IonCol size="12" className="ion-padding-top">
                                     <h3>Which kind of food products would you like NB to recommend you?</h3>
                                     <div className="AllergyBox">
@@ -372,7 +345,7 @@ useEffect(()=>{
                                                             const newFoodIcon = { icon_food: URL.createObjectURL(file), name: newName };
                                                             const newFoodIcons = [...values.food_icons, newFoodIcon];
                                                             setFieldValue('food_icons', newFoodIcons);
-                                                            console.log("newFoodIcon",newFoodIcon)
+                                                            console.log("newFoodIcon", newFoodIcon)
                                                         }
                                                     }}
                                                 />

@@ -109,10 +109,6 @@ const AddIngredient = () => {
             </IonButton>
           </div>
         </IonHeader>
-
-
-
-
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -120,7 +116,7 @@ const AddIngredient = () => {
             handleSubmit(values, { resetForm });
           }}
         >
-          {({ isSubmitting, setFieldValue, values, resetForm }) => (
+          {({  setFieldValue, values, resetForm }) => (
             <Form>
               <IonRow className="ion-padding">
                 <IonCol size="12" className="FormGroup">

@@ -21,7 +21,7 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import { close } from "ionicons/icons";
-import { getApiData, postApiData } from "../../utils/Utils";
+import { getApiData } from "../../utils/Utils";
 import { useHistory } from 'react-router';
 
 const SavedContentRecipe = () => {
@@ -194,7 +194,7 @@ const SavedContentRecipe = () => {
                                         <IonRow>
                                             <IonCol size="12">
                                                 {
-                                                    RecipeData.fav_recipes?.map((item,i) => (
+                                                    RecipeData.fav_recipes?.map((item, i) => (
                                                         <IonCard className="ProductCard" key={i}>
                                                             <IonButton fill='clear' className='RecipeProduct'
                                                                 onClick={() => handledetail(item.slug)}

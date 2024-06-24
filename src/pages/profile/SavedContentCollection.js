@@ -17,14 +17,14 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import { close } from "ionicons/icons";
-import { getApiData, postApiData } from "../../utils/Utils";
+import { getApiData } from "../../utils/Utils";
 
 
 const SavedContentCollection = () => {
     const [present] = useIonToast();
     const [loader, setLoader] = useState(false);
     const [collectionsData, setCollectionsData] = useState([]);
-    
+
     const fetchCollection = async () => {
         setLoader(true)
         try {
