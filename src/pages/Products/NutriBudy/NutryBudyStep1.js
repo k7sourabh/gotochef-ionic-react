@@ -6,27 +6,37 @@ import {
   IonRadio,
   IonRadioGroup,
   IonRow,
+  IonSpinner,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { IonItem, IonLabel, IonInput } from "@ionic/react";
-import { getApiDataWithAuth } from "../../../utils/Utils";
+import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
+import { useIonToast } from "@ionic/react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
 const NutryBudyStep1 = () => {
   const [stepFirstData, setStepFirstData] = useState({});
+  const [image, setImage] = useState(null);
+  const [present] = useIonToast();
+  const [loader, setLoader] = useState(false);
   const [formValues, setFormValues] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    number: "",
-    foodType: "",
-    image: "",
+    name: stepFirstData?.name || "",
+    lastName: stepFirstData?.last_name || "",
+    email: stepFirstData?.email || "",
+    number: stepFirstData?.mobile || "",
+    height: stepFirstData?.height || "",
+    weight: stepFirstData?.weight || "",
+    password:"",
+    confpassword:"",
+    dob:stepFirstData?.dob||"",
+    gender:stepFirstData?.gender||"",
+    image:stepFirstData?.image||"",
   });
+
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
-    // address2: Yup.string(),
     lastName: Yup.string().required("Last Name is required"),
     email: Yup.number().required("Email is required"),
     number: Yup.string()
@@ -35,16 +45,28 @@ const NutryBudyStep1 = () => {
         "Enter valid contact number"
       )
       .required("Phone number is a required"),
-    foodType: Yup.string().required("foodType is required"),
+    height: Yup.string().required("Height is required"),
+    weight: Yup.string().required("Weight is required"),
+    password: Yup.string().required("Password is required"),
+    confpassword: Yup.string().required("Confirm Password is required").oneOf([Yup.ref("password")],"Password must match"),
+    dob: Yup.string().required("DOB is required"),
+    gender: Yup.string().required("Gender is required"),
+    image: Yup.string().required("Image is required"),
   });
 
-  const initialValues = {
-    name: stepFirstData?.name || "",
-    lastName: stepFirstData?.last_name || "",
-    email: stepFirstData?.email || "",
-    number: stepFirstData?.mobile || "",
-    foodType: stepFirstData?.last_name || "",
-  };
+  // const initialValues = {
+  //   name: stepFirstData?.name || "",
+  //   lastName: stepFirstData?.last_name || "",
+  //   email: stepFirstData?.email || "",
+  //   number: stepFirstData?.mobile || "",
+  //   height: stepFirstData?.height || "",
+  //   weight: stepFirstData?.weight || "",
+  //   password:"",
+  //   confpassword:"",
+  //   dob:stepFirstData?.dob||"",
+  //   gender:stepFirstData?.gender||"",
+  //   image:stepFirstData?.image||"",
+  // };
 
   const stateList = async () => {
     try {
@@ -56,18 +78,56 @@ const NutryBudyStep1 = () => {
           lastName: response?.data?.data?.last_name || "",
           email: response?.data?.data?.email || "",
           number: response?.data?.data?.mobile || "",
-          foodType: response?.data?.data?.food_type[0] || "",
+          height:response?.data?.data?.height||"",
+          weight:response?.data?.data?.weight||"",
+          dob:response?.data?.data?.dob||"",
+          gender:response?.data?.data?.gender||"",
           image: response?.data?.data?.image || "",
-        });
-      }
+        });      }
     } catch (err) {
       console.error(err);
     }
   };
-
   useEffect(() => {
     stateList();
   }, []);
+
+  const handleSubmit = async (values)=>{
+    setLoader(true);
+    try{
+      const formdata = new FormData();
+      formdata.append("user_id","3996");
+      formdata.append("name",values.name);
+      formdata.append("last_name",values.lastName);
+      formdata.append("mobile",values.number);
+      formdata.append("email",values.email);
+      formdata.append("password",values.password);
+      formdata.append("weight",values.weight);
+      formdata.append("height",values.height);
+      formdata.append("dob",values.dob);
+      formdata.append("gender",values.gender);
+      formdata.append("image",values.image);
+
+      const response =await postApiDataWithAuth("/postStepFirst",formdata);
+
+      if(response.data.status===200){
+        presentToast("Top", response?.data?.message);
+        stateList();
+      }
+
+      }catch(error){
+      console.log("Api Error",error);
+      }
+      setLoader(false);
+  }
+
+  const presentToast = (position, message) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
+  };
 
   return (
     <IonGrid className="ion-padding-bottom">
@@ -75,12 +135,12 @@ const NutryBudyStep1 = () => {
         {formValues && formValues?.name && (
           <Formik
             initialValues={formValues}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             onSubmit={(values) => {
-              //   handleSubmit(values);
+                handleSubmit(values);
             }}
           >
-            {({ isSubmitting, setFieldValue, values }) => (
+            {({ isSubmitting, setFieldValue, values}) => (
               <Form>
                 <IonRow>
                   <IonCol size="12">
@@ -136,17 +196,25 @@ const NutryBudyStep1 = () => {
                       ></IonInput>
                       <IonInput
                         className="ion-margin-vertical"
-                        name="number"
-                        type="number"
+                        name="height"
+                        type="float"
                         label="Default input"
                         placeholder="Enter your Height"
+                        value={values.height}
+                        onIonChange={(e) =>
+                          setFieldValue("height", e.detail.value)
+                        }
                       ></IonInput>
                       <IonInput
                         className="ion-margin-vertical"
-                        name="number"
+                        name="weight"
                         type="number"
                         label="Default input"
                         placeholder="Enter your Weight"
+                        value={values.weight}
+                        onIonChange={(e) =>
+                          setFieldValue("weight", e.detail.value)
+                        }
                       ></IonInput>
                       <IonInput
                         className="ion-margin-vertical"
@@ -154,13 +222,19 @@ const NutryBudyStep1 = () => {
                         type="password"
                         label="Default input"
                         placeholder="Enter your Password"
+                        onIonChange={(e) =>
+                          setFieldValue("password", e.detail.value)
+                        }
                       ></IonInput>
                       <IonInput
                         className="ion-margin-vertical"
-                        name="password"
+                        name="confpassword"
                         type="password"
                         label="Default input"
                         placeholder="Enter your Confirm Password"
+                        onIonChange={(e) =>
+                          setFieldValue("confpassword", e.detail.value)
+                        }
                       ></IonInput>
                       <IonLabel>Enter Your DOB</IonLabel>
                       <IonInput
@@ -169,16 +243,30 @@ const NutryBudyStep1 = () => {
                         type="date"
                         label="DOB"
                         placeholder="Enter your DOB"
+                        value={values.dob}
+                        onIonChange={(e) =>
+                          setFieldValue("dob", e.detail.value)
+                        }
                       ></IonInput>
                       <div>
-                        <IonRadioGroup className="flex ion-justify-content-center ion-align-items-center">
+                        <IonRadioGroup className="flex ion-justify-content-center ion-align-items-center"
+                            name="gender" 
+                            value={values.gender}
+                            onIonChange={(e) =>
+                              setFieldValue("gender", e.detail.value)
+                            }
+                        >
                           <IonItem lines="none">
                             <IonLabel>Female</IonLabel>
-                            <IonRadio slot="start" value="option1" />
+                            <IonRadio slot="start" 
+                            value="female"
+                            />
                           </IonItem>
                           <IonItem lines="none">
                             <IonLabel>Male</IonLabel>
-                            <IonRadio slot="start" value="option2" />
+                            <IonRadio slot="start" 
+                            value="male"
+                            />
                           </IonItem>
                         </IonRadioGroup>
                       </div>
@@ -210,21 +298,35 @@ const NutryBudyStep1 = () => {
                             alt=""
                           />
                         </label>
-                        <input id="file-input" type="file" />
+                        <input id="file-input" type="file"
+                        name="image"
+                        accept="image/*" 
+                         />
                       </div>
                     </div>
                   </IonCol>
                   <IonCol className="ion-justify-content-center flex ion-padding-top">
-                    <IonButton fill="clear" class="Orangebtn md button button-clear ion-activatable ion-focusable">SAVE</IonButton>
+                    <IonButton fill="clear" class="Orangebtn md button button-clear ion-activatable ion-focusable" 
+                     type="submit"
+                     value="Submit"
+                    >SAVE</IonButton>
+                     {loader && (
+                    <div className="loader-container">
+                      <IonSpinner name="crescent" />
+                    </div>
+                  )}
                   </IonCol>
                 </IonRow>
               </Form>
             )}
           </Formik>
-        )}
+      )}
       </div>
     </IonGrid>
   );
 };
 
 export default NutryBudyStep1;
+
+
+// use state for the initial values and check the condition for fomik to display data on refresh  use formvalue state for that 
