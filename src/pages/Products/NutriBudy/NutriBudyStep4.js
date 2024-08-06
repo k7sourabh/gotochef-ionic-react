@@ -7,6 +7,7 @@ import { add, flashlight, flashlightOutline, sunnyOutline } from "ionicons/icons
 import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
 import { Field, Formik,Form,ErrorMessage } from 'formik';
 import * as Yup from "yup";
+import {stateList } from "./NutriBudy";
 
 const NutriBudyStep4 = () => {
     const [present] = useIonToast();
@@ -17,30 +18,13 @@ const NutriBudyStep4 = () => {
         focus_health:"",
       });
 
-      const validationSchema = Yup.object().shape({
-        health: Yup.array().required("Select an option"),
-        activity: Yup.array().required("Select a activity"),
-        focus_health: Yup.array().required("Select an option"), 
-      });
-
-    const stateList = async () => {
-        try {
-          const response = await getApiDataWithAuth("/getNutribuddy");
-          if (response?.status === 200) {
-      
-            console.log("NUTRI",response.data.data);
-            setFormValues({
-              health: response?.data?.data?.health|| "",
-              activity: response?.data?.data?.activity || "",
-              focus_health: response?.data?.data?.focus_health || "",
-            });     
-        }
-        } catch (err) {
-          console.error(err);
-        }
-      };
       useEffect(() => {
-        stateList();
+        const response = JSON.parse(localStorage.getItem("nutriresponse"));
+        setFormValues({
+            health: response?.data?.data?.health|| "",
+            activity: response?.data?.data?.activity || "",
+            focus_health: response?.data?.data?.focus_health || "",
+          }); 
       }, []);
 
       const handleSubmit=async(values)=>{
@@ -76,7 +60,6 @@ const NutriBudyStep4 = () => {
             <Formik
                enableReinitialize={true} 
                initialValues={formValues}
-               validationSchema={validationSchema}
                onSubmit={handleSubmit}
             >
             {({setFieldValue, values}) => (
@@ -138,12 +121,6 @@ const NutriBudyStep4 = () => {
 
                             </div>
                         </IonCol>
-                        <ErrorMessage
-                            color="danger"
-                            name="health"
-                            component="div"
-                            className="error-message error-text"
-                        />
                         <IonCol size="12">
                             <h3>Activity</h3>
                             <div className="flex DietPreFerns">
@@ -199,12 +176,6 @@ const NutriBudyStep4 = () => {
                                 
                             </div>
                         </IonCol>
-                        <ErrorMessage
-                            color="danger"
-                            name="activity"
-                            component="div"
-                            className="error-message error-text"
-                        />
                     </IonRow>
                     <IonRow>
                         <IonCol size="12">
@@ -260,12 +231,6 @@ const NutriBudyStep4 = () => {
                                 ></Field>
                             </IonItem>
                         </IonCol>
-                        <ErrorMessage
-                            color="danger"
-                            name="focus_health"
-                            component="div"
-                            className="error-message error-text"
-                        />
                         <IonCol>
                             <div className="SkipBtn ion-padding-vertical ">
                                 <IonButton className="Orangebtn" fill="clear" type="submit">SAVE</IonButton>
@@ -287,3 +252,4 @@ const NutriBudyStep4 = () => {
 }
 
 export default NutriBudyStep4
+

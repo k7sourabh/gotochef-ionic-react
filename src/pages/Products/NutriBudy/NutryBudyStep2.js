@@ -6,12 +6,15 @@ import { Form, Formik,ErrorMessage, Field } from "formik";
 import { useIonToast } from "@ionic/react";
 import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
 import * as Yup from "yup"
+import {stateList } from "./NutriBudy";
 
-const NutryBudyStep2 = () => {
+const NutryBudyStep2 = ({setSelectedTab}) => {
     const [present] = useIonToast();
     const [loader, setLoader] = useState(false);
     const [addopen,setAddopen]=useState(false);
-    const [image,setImage] = useState([]);
+    const [step2image,setStep2Image] = useState([]);
+    const [iconinput,setIconInput] = useState("")
+    const [iconname,setIconname] = useState([]);
     const [formValues, setFormValues] = useState({
         foodType:[],
         ingredienteat:"",
@@ -21,35 +24,26 @@ const NutryBudyStep2 = () => {
         iconname:"",
         image:[]
       });
-      const validationSchema = Yup.object().shape({
-        foodType:Yup.array().required("Select a FoodType"),
-        ingredienteat:Yup.string().required("Mention the ingredients you eat"),
-        ingredientlove:Yup.string().required("Mention the ingredients you love"),
-        ingredientavoid:Yup.string().required("Mention the ingredients you avoid"),
-        allergy: Yup.array().required("Select an option")
-      })
 
-      const stateList = async () => {
-        try {
-          const response = await getApiDataWithAuth("/getNutribuddy");
-          if (response?.status === 200) {
-            console.log("NUTRI",response.data.data);
-            setFormValues({
-              foodType: response?.data?.data?.food_type || "",
-              ingredienteat: response?.data?.data?.ingredient_eat || "",
-              ingredientlove: response?.data?.data?.ingredient_love ||"",
-              ingredientavoid: response?.data?.data?.avoid_ingredient_1 || "",
-              allergy:response?.data?.data?.allergy||"",
-            });      }
-        } catch (err) {
-          console.error(err);
-        }
-      };
       useEffect(() => {
-        stateList();
+        const response =JSON.parse(localStorage.getItem("nutriresponse"));
+        setFormValues({
+            foodType: response?.data?.data?.food_type || [],
+            ingredienteat: response?.data?.data?.ingredient_eat || "",
+            ingredientlove: response?.data?.data?.ingredient_love ||"",
+            ingredientavoid: response?.data?.data?.avoid_ingredient_1 || "",
+            allergy:response?.data?.data?.allergy||[],
+          }); 
       }, []);
 
+      const handleupload=()=>{
+        setIconname((prev)=>[...prev,iconinput]);
+        setIconInput("");
+        setAddopen(false);
+      }
+
       const handleSubmit=async(values)=>{
+     
         setLoader(true)
         try{
 
@@ -60,21 +54,25 @@ const NutryBudyStep2 = () => {
             formdata.append("ingredient_love",values.ingredientlove);
             formdata.append("avoid_ingredient_1",values.ingredientavoid);
             formdata.append("allergy",values.allergy);
-            formdata.append("allergy_icons[]",values.image);
-            formdata.append("allergy_icons_name",values.iconname);
+            formdata.append("allergy_icons[]",step2image);
+            formdata.append("allergy_icons_name",iconname);
             const response =  await postApiDataWithAuth("/postStepSecond",formdata);
+
             if (response.status===200){
+
                 presentToast("Top", response?.data?.message);
                 stateList();
             }
+
             console.log("step2",response);
             console.log("valuse",values);
-            console.log("allergy",JSON.stringify(values.allergy));
+
         }catch(error){
             console.log("Api Error",error);
             }
         setLoader(false);
       }
+
       const presentToast = (position, message) => {
             present({
             message: message,
@@ -87,7 +85,6 @@ const NutryBudyStep2 = () => {
             <Formik
             enableReinitialize={true} 
             initialValues={formValues}
-            validationSchema={validationSchema}
             onSubmit={handleSubmit}
             >
             {({setFieldValue, values}) => (
@@ -123,12 +120,6 @@ const NutryBudyStep2 = () => {
                             />
                         </IonItem>
                     </IonCol>
-                    <ErrorMessage
-                        color="danger"
-                        name="foodType"
-                        component="div"
-                        className="error-message error-text"
-                    />
                     <IonCol size="12">
                         <div>
                             <h4>
@@ -196,12 +187,7 @@ const NutryBudyStep2 = () => {
                                       }
                                 ></IonInput>
                             </div>
-                            <ErrorMessage
-                                color="danger"
-                                name="ingredientavoid"
-                                component="div"
-                                className="error-message error-text"
-                            />
+                      
                         </div>
                     </IonCol>
                     <IonCol size="12">
@@ -241,12 +227,6 @@ const NutryBudyStep2 = () => {
                                         <IonText>Garlic</IonText>
                                     </label>
                                 </div>
-                                <ErrorMessage
-                                    color="danger"
-                                    name="allergy"
-                                    component="div"
-                                    className="error-message error-text"
-                                />
                                 <div className="ImgBtn">
                                     <IonButton fill="clear"onClick={()=>setAddopen(true)} >
                                         <IonIcon size="large" icon={add} />
@@ -263,17 +243,18 @@ const NutryBudyStep2 = () => {
                             <label for="" class="UploadBtn">Upload Picture</label>
                             <input type="file" id="AllergyPicture" multiple accept="image/*" onChange={(e) => {
                                 const file = e.target.files[0];
-                                setFieldValue("image",file);
+                                setStep2Image([...step2image,file]);
+                                
                             }}/>
-                            <IonInput type="text"
+                            <IonInput type="text"  
                             onIonChange={(e)=>{
-                                setFieldValue("iconname",e.target.value)
+                                setIconInput(e.target.value)
                             }}
                             ></IonInput>   
                         </div>
                         <br></br>
                         <div>
-                        <IonButton onClick={()=>setAddopen(false)}>-</IonButton>
+                        <IonButton onClick={handleupload}>Upload</IonButton>
                         </div>
                     </IonCol>
                     :<></>
@@ -286,7 +267,9 @@ const NutryBudyStep2 = () => {
                                     <IonSpinner name="crescent" />
                                     </div>
                             )}
-                            <IonButton>Skip Process</IonButton>
+                            <IonButton
+                            onClick={()=>setSelectedTab("step3")}
+                            >Skip Process</IonButton>
                         </div>
                     </IonCol>
             </IonRow>
@@ -298,3 +281,17 @@ const NutryBudyStep2 = () => {
 }
 
 export default NutryBudyStep2
+
+
+
+
+    //   const handleInputChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setIconname((prevname) => ({
+    //       ...prevname,
+    //       [name]: value,
+    //     }));
+        
+    //   };
+
+       // onIonChange={handleInputChange}

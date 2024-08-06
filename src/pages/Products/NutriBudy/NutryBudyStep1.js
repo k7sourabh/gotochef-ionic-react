@@ -14,8 +14,9 @@ import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
 import { useIonToast } from "@ionic/react";
 import { Form, Formik,ErrorMessage } from "formik";
 import * as Yup from "yup";
+import NutriBudy, {stateList } from "./NutriBudy";
 
-const NutryBudyStep1 = () => {
+const NutryBudyStep1 = ({setSelectedTab}) => {
   const [stepFirstData, setStepFirstData] = useState({});
   const [present] = useIonToast();
   const [image, setImage] = useState(null);
@@ -55,33 +56,23 @@ const NutryBudyStep1 = () => {
   });
 
 
-  const stateList = async () => {
-    try {
-      const response = await getApiDataWithAuth("/getNutribuddy");
-      if (response?.status === 200) {
-  
-        console.log("NUTRI",response.data.data);
-        setFormValues({
-          name: response?.data?.data?.name || "",
-          lastName: response?.data?.data?.last_name || "",
-          email: response?.data?.data?.email || "",
-          number: response?.data?.data?.mobile || "",
-          height:response?.data?.data?.height||"",
-          weight:response?.data?.data?.weight||"",
-          dob:response?.data?.data?.dob||"",
-          gender:response?.data?.data?.gender||"",
-          password:"",
-          confpassword:"",
-                   
-        }); 
-        setImage(response?.data?.data?.image);    
-    }
-    } catch (err) {
-      console.error(err);
-    }
-  };
   useEffect(() => {
-    stateList();
+    const response=JSON.parse(localStorage.getItem("nutriresponse"));
+    setFormValues({
+      name: response?.data?.data?.name || "",
+      lastName: response?.data?.data?.last_name || "",
+      email: response?.data?.data?.email || "",
+      number: response?.data?.data?.mobile || "",
+      height:response?.data?.data?.height||"",
+      weight:response?.data?.data?.weight||"",
+      dob:response?.data?.data?.dob||"",
+      gender:response?.data?.data?.gender||"",
+      password:"",
+      confpassword:"",
+               
+    }); 
+    setImage(response?.data?.data?.image);   
+    
   }, []);
 
   const handleSubmit = async (values)=>{
@@ -333,17 +324,11 @@ const NutryBudyStep1 = () => {
                     <div className="EditprofileImg N-ProfileEdit">
                       <img
                         src={image?image:"./assets/img/img-person.jpg"}
-                        // src="./assets/img/img-person.jpg"
                         alt=""
                         className="ProfileImg"
                       />
                       <div class="image-upload">
                         <label for="file-input" className="N-EditProfile">
-                          {/* src={
-                          !category?.images
-                            ? "/assets/img/img-placeholder.jpg"
-                            : category?.images
-                        } */}
                           <img
                             src="./assets/img/edit.png"
                             alt=""
@@ -380,7 +365,7 @@ const NutryBudyStep1 = () => {
                       <IonSpinner name="crescent" />
                     </div>
                   )}
-                      <IonButton
+                      <IonButton onClick={()=>setSelectedTab("step2")}
                       >Skip Process</IonButton>
                   </div>
                   </IonCol>
@@ -396,4 +381,3 @@ const NutryBudyStep1 = () => {
 export default NutryBudyStep1;
 
 
-// use state for the initial values and check the condition for fomik to display data on refresh  use formvalue state for that 

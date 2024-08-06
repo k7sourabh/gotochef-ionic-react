@@ -88,10 +88,7 @@ import SavedContentCollection from "./pages/profile/SavedContentCollection";
 import BadgesCollection from "./pages/profile/BadgesCollection";
 import EarnPoint from "./pages/profile/EarnPoint";
 import Ranking from "./pages/profile/Ranking";
-import NutriBudyStep3 from "./pages/Products/NutriBudy/NutriBudyStep3";
-import NutryBudyStep1 from "./pages/Products/NutriBudy/NutryBudyStep1";
-import NutryBudyStep2 from "./pages/Products/NutriBudy/NutryBudyStep2";
-import NutriBudyStep4 from "./pages/Products/NutriBudy/NutriBudyStep4";
+
 
 
 
@@ -230,21 +227,6 @@ const App = () => {
                   <NutriBudy />
                 </Route>
 
-                <Route path="/nutribudystep1" exact>
-                  <NutryBudyStep1 />
-                </Route>
-                
-                <Route path="/nutribudystep2" >
-                  <NutryBudyStep2 />
-                </Route>
-
-                <Route path="/nutribudystep3" exact>
-                  <NutriBudyStep3 />
-                </Route>
-
-                <Route path="/nutribudystep4" exact>
-                  <NutriBudyStep4/>
-                </Route>
 
                 <Route path="/home-recipe" exact>
                   <HomeRecipe />

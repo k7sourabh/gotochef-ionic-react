@@ -1,5 +1,5 @@
 import { IonButton, IonCol, IonContent,  IonGrid, IonHeader,IonPage, IonRow, IonSegment, IonSegmentButton, IonTitle } from "@ionic/react"
-
+import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
 import { useEffect, useState } from "react";
 import {  IonLabel } from '@ionic/react';
 import { IonProgressBar } from '@ionic/react';
@@ -28,6 +28,10 @@ const NutriBudy = () => {
             setProgress(0);
         }, 1000);
     }
+
+    useEffect(()=>{
+        stateList();
+    },[]);
 
     return (
 
@@ -80,17 +84,17 @@ const NutriBudy = () => {
                                         </IonSegmentButton>
                                     </IonSegment>
                                     {selectedTab === "step1" && (
-                                       <NutryBudyStep1/>
+                                       <NutryBudyStep1 setSelectedTab={setSelectedTab}/>
                                     )}
                                     {selectedTab === "step2" && (
-                                        <NutryBudyStep2/>
+                                        <NutryBudyStep2 setSelectedTab={setSelectedTab}/>
                                     )}
 
                                     {selectedTab === "step3" && (
-                                      <NutriBudyStep3/>
+                                      <NutriBudyStep3 setSelectedTab={setSelectedTab}/>
                                     )}
                                     {selectedTab === "step4" && (
-                                        <NutriBudyStep4 />
+                                        <NutriBudyStep4 setSelectedTab={setSelectedTab}/>
                                     )}
                                 </div>
                             </div>
@@ -103,3 +107,21 @@ const NutriBudy = () => {
     )
 }
 export default NutriBudy
+
+
+
+ export const stateList = async () => {
+    try {
+     const response = await getApiDataWithAuth("/getNutribuddy");
+      if (response?.status === 200) {
+  
+        console.log("NUTRI",response.data.data);
+        localStorage.setItem("nutriresponse",JSON.stringify(response));
+       
+    }
+    } catch (err) {
+      console.error(err);
+    }
+
+  };
+

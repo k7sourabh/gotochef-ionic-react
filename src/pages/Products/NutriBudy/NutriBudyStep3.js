@@ -4,12 +4,17 @@ import { useEffect, useState } from "react";
 import { IonItem, IonLabel, IonInput } from '@ionic/react';
 import { add, flashlight, flashlightOutline, sunnyOutline } from "ionicons/icons";
 import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik,ErrorMessage } from 'formik';
 import { useIonToast } from "@ionic/react";
-const NutriBudyStep3 = () => {
+import {stateList } from "./NutriBudy";
+import * as Yup from "yup";
+const NutriBudyStep3 = ({setSelectedTab}) => {
     const [addopen,setAddopen] =useState(false);
     const [present] = useIonToast();
     const [loader, setLoader] = useState(false);
+    const [step3image,setStep3Image] = useState([]);
+    const [iconinput,setIconInput] = useState("")
+    const [iconname,setIconname] = useState([]);
     const [formValues, setFormValues] = useState({
         sweet:"",
         sour:"",
@@ -18,31 +23,25 @@ const NutriBudyStep3 = () => {
         umami:"",
         dietpreference:"",
         recommended:"",
-        nbiconname:""
       });
-
-    const stateList = async () => {
-        try {
-          const response = await getApiDataWithAuth("/getNutribuddy");
-          if (response?.status === 200) {
-         
-            console.log("NUTRI",response.data.data);
-            setFormValues({
-              sweet: response?.data?.data?.sweet || "",
-              sour: response?.data?.data?.sour || "",
-              bitter: response?.data?.data?.bitter ||"",
-              salty: response?.data?.data?.salty || "",
-              umami:response?.data?.data?.umami||"",
-              dietpreference:response?.data?.data.diet_pref||"",
-              recommended:response?.data?.data?.food_like||"",
-            });      }
-        } catch (err) {
-          console.error(err);
-        }
-      };
       useEffect(() => {
-        stateList();
+        const response =JSON.parse(localStorage.getItem("nutriresponse"));
+        setFormValues({
+            sweet: response?.data?.data?.sweet || "",
+            sour: response?.data?.data?.sour || "",
+            bitter: response?.data?.data?.bitter ||"",
+            salty: response?.data?.data?.salty || "",
+            umami:response?.data?.data?.umami||"",
+            dietpreference:response?.data?.data.diet_pref||"",
+            recommended:response?.data?.data?.food_like||"",
+          });
       }, []);
+
+      const handleupload=()=>{
+        setIconname((prev)=>[...prev,iconinput]);
+        setIconInput("");
+        setAddopen(false);
+      }
 
       const handleSubmit= async (values)=>{
         console.log("step3",values);
@@ -57,8 +56,8 @@ const NutriBudyStep3 = () => {
             formdata.append("umami",values.umami);
             formdata.append("diet_pref",values.dietpreference);
             formdata.append("food_like",values.recommended);
-            formdata.append("food_icons[]",values.image);
-            formdata.append("food_icons_name",values.nbiconname);
+            formdata.append("food_icons[]",step3image);
+            formdata.append("food_icons_name",iconname);
 
             const response = await postApiDataWithAuth("/postStepThird",formdata);
             console.log("step3res",response)
@@ -251,6 +250,7 @@ const NutriBudyStep3 = () => {
                                             <IonIcon size="large" icon={add} />
                                             </IonButton>
                                         </div>
+                                    
                                     </div>
                                 </IonCol>
                                 {addopen?
@@ -259,18 +259,18 @@ const NutriBudyStep3 = () => {
                                         <label for="" class="UploadBtn">Upload Picture</label>
                                         <input type="file" id="AllergyPicture" onChange={(e)=>{
                                             const file = e.target.files[0];
-                                            setFieldValue("image",file);
+                                            setStep3Image([...step3image,file]);
                                         }} />
                                         <IonInput type="text"
                                         name="nbiconname"
                                         onIonChange={(e)=>{
-                                            setFieldValue("nbiconname",e.target.value)
+                                            setIconInput(e.target.value)
                                         }}
                                         ></IonInput>
                                     </div>
                                     <br></br>
                                     <div>
-                                    <IonButton onClick={()=>setAddopen(false)}>-</IonButton>
+                                    <IonButton onClick={handleupload}>Upload</IonButton>
                                     </div>
                                 </IonCol>
                                 :<></>
@@ -283,7 +283,9 @@ const NutriBudyStep3 = () => {
                                             <IonSpinner name="crescent" />
                                             </div>
                                         )}
-                                        <IonButton>Skip Process</IonButton>
+                                        <IonButton
+                                        onClick={()=>setSelectedTab("step4")}
+                                        >Skip Process</IonButton>
                                     </div>
                                 </IonCol>
                         </IonRow>
