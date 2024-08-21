@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { IonItem, IonLabel, IonInput } from '@ionic/react';
 import { useIonToast } from "@ionic/react";
 import { add, flashlight, flashlightOutline, sunnyOutline } from "ionicons/icons";
-import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
-import { Field, Formik,Form,ErrorMessage } from 'formik';
-import * as Yup from "yup";
-import {stateList } from "./NutriBudy";
+import { postApiDataWithAuth } from "../../../utils/Utils";
+import { Field, Formik,Form} from 'formik';
 
-const NutriBudyStep4 = () => {
+
+
+const NutriBudyStep4 = ({stateList,nutridata}) => {
     const [present] = useIonToast();
     const [loader, setLoader] = useState(false);
     const [formValues, setFormValues] = useState({
@@ -19,13 +19,12 @@ const NutriBudyStep4 = () => {
       });
 
       useEffect(() => {
-        const response = JSON.parse(localStorage.getItem("nutriresponse"));
         setFormValues({
-            health: response?.data?.data?.health|| "",
-            activity: response?.data?.data?.activity || "",
-            focus_health: response?.data?.data?.focus_health || "",
+            health: nutridata?.data?.data?.health|| "",
+            activity: nutridata?.data?.data?.activity || "",
+            focus_health: nutridata?.data?.data?.focus_health || "",
           }); 
-      }, []);
+      }, [nutridata]);
 
       const handleSubmit=async(values)=>{
         setLoader(true);
@@ -36,7 +35,7 @@ const NutriBudyStep4 = () => {
             formdata.append("activity",values.activity);
             formdata.append("focus_health",values.focus_health);
             const response= await postApiDataWithAuth("/postStepFourth",formdata);
-            console.log("response",response);
+      
             if(response?.status===200){
                 presentToast("Top", response?.data?.message);
                 stateList();

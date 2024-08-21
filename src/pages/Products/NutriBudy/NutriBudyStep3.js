@@ -3,12 +3,11 @@ import { IonButton, IonCheckbox, IonCol, IonContent, IonFab, IonFabButton, IonGr
 import { useEffect, useState } from "react";
 import { IonItem, IonLabel, IonInput } from '@ionic/react';
 import { add, flashlight, flashlightOutline, sunnyOutline } from "ionicons/icons";
-import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
-import { Field, Form, Formik,ErrorMessage } from 'formik';
+import {postApiDataWithAuth } from "../../../utils/Utils";
+import { Field, Form, Formik} from 'formik';
 import { useIonToast } from "@ionic/react";
-import {stateList } from "./NutriBudy";
-import * as Yup from "yup";
-const NutriBudyStep3 = ({setSelectedTab}) => {
+
+const NutriBudyStep3 = ({setSelectedTab,stateList,nutridata}) => {
     const [addopen,setAddopen] =useState(false);
     const [present] = useIonToast();
     const [loader, setLoader] = useState(false);
@@ -25,17 +24,16 @@ const NutriBudyStep3 = ({setSelectedTab}) => {
         recommended:"",
       });
       useEffect(() => {
-        const response =JSON.parse(localStorage.getItem("nutriresponse"));
         setFormValues({
-            sweet: response?.data?.data?.sweet || "",
-            sour: response?.data?.data?.sour || "",
-            bitter: response?.data?.data?.bitter ||"",
-            salty: response?.data?.data?.salty || "",
-            umami:response?.data?.data?.umami||"",
-            dietpreference:response?.data?.data.diet_pref||"",
-            recommended:response?.data?.data?.food_like||"",
+            sweet: nutridata?.data?.data?.sweet || "",
+            sour: nutridata?.data?.data?.sour || "",
+            bitter: nutridata?.data?.data?.bitter ||"",
+            salty: nutridata?.data?.data?.salty || "",
+            umami:nutridata?.data?.data?.umami||"",
+            dietpreference:nutridata?.data?.data.diet_pref||"",
+            recommended:nutridata?.data?.data?.food_like||"",
           });
-      }, []);
+      }, [nutridata]);
 
       const handleupload=()=>{
         setIconname((prev)=>[...prev,iconinput]);
@@ -44,7 +42,7 @@ const NutriBudyStep3 = ({setSelectedTab}) => {
       }
 
       const handleSubmit= async (values)=>{
-        console.log("step3",values);
+
         setLoader(true)
         try{
             const formdata = new FormData();
@@ -87,7 +85,7 @@ const NutriBudyStep3 = ({setSelectedTab}) => {
             initialValues={formValues}
             onSubmit={handleSubmit}
             >
-                {({ isSubmitting, setFieldValue, values}) => (
+                {({ setFieldValue, values}) => (
                     <Form>
                         <IonRow>
                                 <IonCol size="12" className="ion-no-padding">

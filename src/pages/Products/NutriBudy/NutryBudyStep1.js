@@ -10,16 +10,19 @@ import {
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { IonItem, IonLabel, IonInput } from "@ionic/react";
-import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
+import { postApiDataWithAuth } from "../../../utils/Utils";
 import { useIonToast } from "@ionic/react";
 import { Form, Formik,ErrorMessage } from "formik";
 import * as Yup from "yup";
-import NutriBudy, {stateList } from "./NutriBudy";
 
-const NutryBudyStep1 = ({setSelectedTab}) => {
-  const [stepFirstData, setStepFirstData] = useState({});
+
+const NutryBudyStep1 = ({setSelectedTab,stateList,nutridata,set}) => {
+
   const [present] = useIonToast();
   const [image, setImage] = useState(null);
+  const [password,setPassword] = useState("");
+  const [confirmpassword,setConfirmPassword]=useState("");
+  const [error,setError] = useState("");
   const [loader, setLoader] = useState(false);
   const [formValues, setFormValues] = useState({
     name: "",
@@ -36,73 +39,85 @@ const NutryBudyStep1 = ({setSelectedTab}) => {
   });
 
 
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    lastName: Yup.string().required("Last Name is required"),
-    email: Yup.string().email().required("Email is required"),
-    number: Yup.string()
-      .matches(
-        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
-        "Enter valid contact number"
-      )
-      .required("Phone number is a required"),
-    height: Yup.string().required("Height is required"),
-    weight: Yup.string().required("Weight is required"),
-    password: Yup.string().required("Password is required"),
-    confpassword: Yup.string().required("Confirm Password is required").oneOf([Yup.ref("password")],"Password must match"),
-    dob: Yup.string().required("DOB is required"),
-    gender: Yup.string().required("Gender is required"),
-    // image: Yup.string().required("Profile Photo is required"),
-  });
+  // const validationSchema = Yup.object().shape({
+  //   name: Yup.string().required("Name is required"),
+  //   lastName: Yup.string().required("Last Name is required"),
+  //   email: Yup.string().email().required("Email is required"),
+  //   number: Yup.string()
+  //     .matches(
+  //       /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+  //       "Enter valid contact number"
+  //     )
+  //     .required("Phone number is a required"),
+  //   height: Yup.string().required("Height is required"),
+  //   weight: Yup.string().required("Weight is required"),
+  //   password: Yup.string().required("Password is required"),
+  //   confpassword: Yup.string().required("Confirm Password is required").oneOf([Yup.ref("password")],"Password must match"),
+  //   dob: Yup.string().required("DOB is required"),
+  //   gender: Yup.string().required("Gender is required"),
+  //   // image: Yup.string().required("Profile Photo is required"),
+  // });
 
+  const validateEmail = email => typeof email === "string" && email.includes("@")&&email.includes(".com");
 
   useEffect(() => {
-    const response=JSON.parse(localStorage.getItem("nutriresponse"));
+ 
     setFormValues({
-      name: response?.data?.data?.name || "",
-      lastName: response?.data?.data?.last_name || "",
-      email: response?.data?.data?.email || "",
-      number: response?.data?.data?.mobile || "",
-      height:response?.data?.data?.height||"",
-      weight:response?.data?.data?.weight||"",
-      dob:response?.data?.data?.dob||"",
-      gender:response?.data?.data?.gender||"",
+      name: nutridata?.data?.data?.name || "",
+      lastName: nutridata?.data?.data?.last_name || "",
+      email:nutridata?.data?.data?.email ||"",
+      number: nutridata?.data?.data?.mobile || "",
+      height:nutridata?.data?.data?.height||"",
+      weight:nutridata?.data?.data?.weight||"",
+      dob:nutridata?.data?.data?.dob||"",
+      gender:nutridata?.data?.data?.gender||"",
       password:"",
       confpassword:"",
+      image:nutridata?.data?.data?.image||"",
                
     }); 
-    setImage(response?.data?.data?.image);   
+    setImage(nutridata?.data?.data?.image);   
     
-  }, []);
+  }, [nutridata]);
+
+  const validatePassword =()=>{
+    if(password!==confirmpassword){
+      setError("Password donot Match") 
+    }
+    else{
+      setError("")
+    }
+  }
 
   const handleSubmit = async (values)=>{
-    setLoader(true);
-    try{
-      const formdata = new FormData();
-      formdata.append("user_id","3996");
-      formdata.append("name",values.name);
-      formdata.append("last_name",values.lastName);
-      formdata.append("mobile",values.number);
-      formdata.append("email",values.email);
-      formdata.append("password",values.password);
-      formdata.append("weight",values.weight);
-      formdata.append("height",values.height);
-      formdata.append("dob",values.dob);
-      formdata.append("gender",values.gender);
-      formdata.append("image",values.image);
-      console.log("step1",values);
+    if(error===""){
+          setLoader(true);
+          try{
+              const formdata = new FormData();
+              formdata.append("user_id","3996");
+              formdata.append("name",values.name);
+              formdata.append("last_name",values.lastName);
+              formdata.append("mobile",values.number);
+              formdata.append("email",values.email);
+              formdata.append("password",password);
+              formdata.append("weight",values.weight);
+              formdata.append("height",values.height);
+              formdata.append("dob",values.dob);
+              formdata.append("gender",values.gender);
+              formdata.append("image",values.image);
 
-      const response =await postApiDataWithAuth("/postStepFirst",formdata);
+              const response =await postApiDataWithAuth("/postStepFirst",formdata);
 
-      if(response.status===200){
-        presentToast("Top", response?.data?.message);
-        stateList();
-      }
-
-      }catch(error){
-      console.log("Api Error",error);
-      }
-      setLoader(false);
+              if(response.status===200){
+                presentToast("Top", response?.data?.message);
+                stateList(); 
+              }
+          }catch(error){
+            console.log("Api Error",error);
+          }
+          setLoader(false);
+        }
+    
   }
 
   const presentToast = (position, message) => {
@@ -117,14 +132,14 @@ const NutryBudyStep1 = ({setSelectedTab}) => {
     <IonGrid className="ion-padding-bottom">
       <div>
           <Formik
-            enableReinitialize={true} 
+            enableReinitialize={true}
             initialValues={formValues}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             onSubmit={(values) => {
                 handleSubmit(values);
             }}
           >
-            {({ isSubmitting, setFieldValue, values}) => (
+            {({ setFieldValue, values}) => (
               <Form>
                 <IonRow>
                   <IonCol size="12">
@@ -175,9 +190,11 @@ const NutryBudyStep1 = ({setSelectedTab}) => {
                         label="Default input"
                         placeholder="Enter your Email"
                         value={values.email}
+                        disabled={!!validateEmail(values.email)}
                         onIonChange={(e) =>
-                          setFieldValue("email", e.detail.value)
+                            setFieldValue("email", e.detail.value)
                         }
+                        
                       ></IonInput>
                        <ErrorMessage
                       color="danger"
@@ -193,9 +210,8 @@ const NutryBudyStep1 = ({setSelectedTab}) => {
                         label="Default input"
                         placeholder="Enter your Phone Number"
                         value={values.number}
-                        onIonChange={(e) =>
-                          setFieldValue("number", e.detail.value)
-                        }
+                        disabled={true}
+
                       ></IonInput>
                        <ErrorMessage
                       color="danger"
@@ -243,8 +259,9 @@ const NutryBudyStep1 = ({setSelectedTab}) => {
                         type="password"
                         label="Default input"
                         placeholder="Enter your Password"
+                        value={password}
                         onIonChange={(e) =>
-                          setFieldValue("password", e.detail.value)
+                          setPassword(e.target.value)
                         }
                       ></IonInput>
                        <ErrorMessage
@@ -257,18 +274,15 @@ const NutryBudyStep1 = ({setSelectedTab}) => {
                         className="ion-margin-vertical"
                         name="confpassword"
                         type="password"
+                        value={confirmpassword}
                         label="Default input"
-                        placeholder="Enter your Confirm Password"
+                        placeholder="Confirm your Password"
                         onIonChange={(e) =>
-                          setFieldValue("confpassword", e.detail.value)
+                          setConfirmPassword(e.target.value)
                         }
-                      ></IonInput>
-                      <ErrorMessage
-                      color="danger"
-                      name="confpassword"
-                      component="div"
-                      className="error-message error-text"
-                    />
+                      ></IonInput>  
+                      {confirmpassword?validatePassword():<></>}
+                      {error?<div style={{color:"red",marginBottom:"10px"}}>{error}</div>:<></>}
                       <IonLabel>Enter Your DOB</IonLabel>
                       <IonInput
                         className="ion-margin-vertical"
@@ -356,7 +370,7 @@ const NutryBudyStep1 = ({setSelectedTab}) => {
                   </IonCol>
                   <IonCol className="ion-justify-content-center flex ion-padding-top">
                   <div className="SkipBtn ion-padding-vertical ">
-                    <IonButton fill="clear" class="Orangebtn md button button-clear ion-activatable ion-focusable" 
+                    <IonButton fill="clear" className="Orangebtn md button button-clear ion-activatable ion-focusable" 
                      type="submit"
                      value="Submit"
                     >SAVE</IonButton>

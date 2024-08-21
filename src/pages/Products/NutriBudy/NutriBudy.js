@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent,  IonGrid, IonHeader,IonPage, IonRow, IonSegment, IonSegmentButton, IonTitle } from "@ionic/react"
+import { IonButton, IonCol, IonContent,  IonGrid, IonHeader,IonPage, IonRow, IonSegment, IonSegmentButton, IonTitle,useIonViewWillEnter} from "@ionic/react"
 import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
 import { useEffect, useState } from "react";
 import {  IonLabel } from '@ionic/react';
@@ -10,6 +10,7 @@ import NutriBudyStep3 from "./NutriBudyStep3";
 
 const NutriBudy = () => {
     const [selectedTab, setSelectedTab] = useState("step1");
+    const [nutridata,setNutridata] = useState([]);
     const handleTabChange = (event) => {
         setSelectedTab(event.detail.value);
     };
@@ -29,7 +30,21 @@ const NutriBudy = () => {
         }, 1000);
     }
 
+
+    const stateList = async () => {
+        try {
+         const response = await getApiDataWithAuth("/getNutribuddy");
+          if (response?.status === 200) {
+            setNutridata(response);
+            console.log("NUTRI",response.data.data);     
+        }
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
     useEffect(()=>{
+       
         stateList();
     },[]);
 
@@ -84,17 +99,17 @@ const NutriBudy = () => {
                                         </IonSegmentButton>
                                     </IonSegment>
                                     {selectedTab === "step1" && (
-                                       <NutryBudyStep1 setSelectedTab={setSelectedTab}/>
+                                       <NutryBudyStep1 setSelectedTab={setSelectedTab} nutridata={nutridata} setNutridata={setNutridata} stateList={stateList}/>
                                     )}
                                     {selectedTab === "step2" && (
-                                        <NutryBudyStep2 setSelectedTab={setSelectedTab}/>
+                                        <NutryBudyStep2 setSelectedTab={setSelectedTab} nutridata={nutridata} stateList={stateList}/>
                                     )}
 
                                     {selectedTab === "step3" && (
-                                      <NutriBudyStep3 setSelectedTab={setSelectedTab}/>
+                                      <NutriBudyStep3 setSelectedTab={setSelectedTab} nutridata={nutridata} stateList={stateList}/>
                                     )}
                                     {selectedTab === "step4" && (
-                                        <NutriBudyStep4 setSelectedTab={setSelectedTab}/>
+                                        <NutriBudyStep4  nutridata={nutridata} stateList={stateList}/>
                                     )}
                                 </div>
                             </div>
@@ -110,18 +125,5 @@ export default NutriBudy
 
 
 
- export const stateList = async () => {
-    try {
-     const response = await getApiDataWithAuth("/getNutribuddy");
-      if (response?.status === 200) {
-  
-        console.log("NUTRI",response.data.data);
-        localStorage.setItem("nutriresponse",JSON.stringify(response));
-       
-    }
-    } catch (err) {
-      console.error(err);
-    }
 
-  };
 

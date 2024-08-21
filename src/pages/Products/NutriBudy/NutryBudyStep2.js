@@ -2,13 +2,12 @@ import React, { useState,useEffect } from 'react'
 import { IonButton, IonCheckbox, IonCol,  IonGrid,  IonIcon,  IonRow,  IonText, IonSpinner } from "@ionic/react"
 import { IonItem, IonLabel, IonInput } from '@ionic/react';
 import { add } from "ionicons/icons";
-import { Form, Formik,ErrorMessage, Field } from "formik";
+import { Form, Formik,Field } from "formik";
 import { useIonToast } from "@ionic/react";
-import { getApiDataWithAuth, postApiDataWithAuth } from "../../../utils/Utils";
-import * as Yup from "yup"
-import {stateList } from "./NutriBudy";
+import { postApiDataWithAuth } from "../../../utils/Utils";
 
-const NutryBudyStep2 = ({setSelectedTab}) => {
+
+const NutryBudyStep2 = ({setSelectedTab,stateList,nutridata}) => {
     const [present] = useIonToast();
     const [loader, setLoader] = useState(false);
     const [addopen,setAddopen]=useState(false);
@@ -26,15 +25,14 @@ const NutryBudyStep2 = ({setSelectedTab}) => {
       });
 
       useEffect(() => {
-        const response =JSON.parse(localStorage.getItem("nutriresponse"));
         setFormValues({
-            foodType: response?.data?.data?.food_type || [],
-            ingredienteat: response?.data?.data?.ingredient_eat || "",
-            ingredientlove: response?.data?.data?.ingredient_love ||"",
-            ingredientavoid: response?.data?.data?.avoid_ingredient_1 || "",
-            allergy:response?.data?.data?.allergy||[],
+            foodType: nutridata?.data?.data?.food_type || [],
+            ingredienteat: nutridata?.data?.data?.ingredient_eat || "",
+            ingredientlove: nutridata?.data?.data?.ingredient_love ||"",
+            ingredientavoid: nutridata?.data?.data?.avoid_ingredient_1 || "",
+            allergy:nutridata?.data?.data?.allergy||[],
           }); 
-      }, []);
+      }, [nutridata]);
 
       const handleupload=()=>{
         setIconname((prev)=>[...prev,iconinput]);
@@ -63,9 +61,6 @@ const NutryBudyStep2 = ({setSelectedTab}) => {
                 presentToast("Top", response?.data?.message);
                 stateList();
             }
-
-            console.log("step2",response);
-            console.log("valuse",values);
 
         }catch(error){
             console.log("Api Error",error);
@@ -137,12 +132,6 @@ const NutryBudyStep2 = ({setSelectedTab}) => {
                                       }
                                 ></IonInput>
                             </div>
-                            <ErrorMessage
-                                color="danger"
-                                name="ingredienteat"
-                                component="div"
-                                className="error-message error-text"
-                            />
                         </div>
                     </IonCol>
                     <IonCol size="12">
@@ -162,12 +151,7 @@ const NutryBudyStep2 = ({setSelectedTab}) => {
                                       }
                                 ></IonInput>
                             </div>
-                            <ErrorMessage
-                                color="danger"
-                                name="ingredientlove"
-                                component="div"
-                                className="error-message error-text"
-                            />
+
                         </div>
                     </IonCol>
                     <IonCol size="12">
@@ -284,14 +268,3 @@ export default NutryBudyStep2
 
 
 
-
-    //   const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setIconname((prevname) => ({
-    //       ...prevname,
-    //       [name]: value,
-    //     }));
-        
-    //   };
-
-       // onIonChange={handleInputChange}
