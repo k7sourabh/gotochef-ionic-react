@@ -151,7 +151,7 @@ const SavedContentRecipe = () => {
                                             </i>
                                         </IonButton>
                                         <IonTitle color="dark">
-                                            Saved Recipe
+                                            Saved Recipe 
                                         </IonTitle>
                                     </div>
                                 </IonHeader>
@@ -168,7 +168,7 @@ const SavedContentRecipe = () => {
                                         <IonLabel>Saved</IonLabel>
                                     </IonSegmentButton>
                                     <IonSegmentButton value="favorite">
-                                        <IonLabel>Favorite</IonLabel>
+                                        <IonLabel>Favourite</IonLabel>
                                     </IonSegmentButton>
                                     <IonSegmentButton value="cooked">
                                         <IonLabel>Cooked</IonLabel>
@@ -177,227 +177,177 @@ const SavedContentRecipe = () => {
                                 {selectedTabladder === "saved" && (
                                     <IonGrid>
                                         <IonRow>
-                                            {savedrecipes?
-                                            savedrecipes.map(
-                                                (item, index) => {
-                                                    return (
-                                                        <IonCol
-                                                            size="6"
-                                                            key={index}
-                                                        >
-                                                            <IonCard className="ProductCard">
-                                                                <img
-                                                                    src={
-                                                                        item.images
-                                                                    }
-                                                                    alt="category cover"
-                                                                    className="MainProductThumb"
-                                                                />
-                                                                <IonCardContent className="ion-no-padding ion-margin-top">
-                                                                    <IonText className="ProductTitle">
-                                                                        {
-                                                                            item.recipesName
+                                            {savedrecipes&&savedrecipes.length>0?
+                                                savedrecipes.map(
+                                                    (item, index) => {
+                                                        return (
+                                                            <IonCol
+                                                                size="6"
+                                                                key={index}
+                                                            >
+                                                                <IonCard className="ProductCard">
+                                                                    <img
+                                                                        src={
+                                                                            item.images
                                                                         }
-                                                                    </IonText>
-                                                                    <IonButton
-                                                                        className="AddToCartBtn"
-                                                                        size="default"
-                                                                        shape="round"
-                                                                        fill="outline"
-                                                                        onClick={() =>
-                                                                            HandleSaveddelete(
-                                                                                item.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <div className="addText">
-                                                                            Remove
-                                                                            <IonIcon
-                                                                                slot="end"
-                                                                                size="small"
-                                                                                icon={
-                                                                                    close
-                                                                                }
-                                                                            />
-                                                                        </div>
-                                                                    </IonButton>
-                                                                </IonCardContent>
-                                                            </IonCard>
-                                                        </IonCol>
-                                                    );
-                                                }
-                                            )
-                                        :
-                                        <div>No Data Found</div>
+                                                                        alt="category cover"
+                                                                        className="MainProductThumb"
+                                                                    />
+                                                                    <IonCardContent className="ion-no-padding ion-margin-top">
+                                                                        <IonText className="ProductTitle">
+                                                                            {
+                                                                                item.recipesName
+                                                                            }
+                                                                        </IonText>
+                                                                        <IonButton
+                                                                            className="AddToCartBtn"
+                                                                            size="default"
+                                                                            shape="round"
+                                                                            fill="outline"
+                                                                            onClick={() =>
+                                                                                HandleSaveddelete(
+                                                                                    item.id
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <div className="addText">
+                                                                                Remove
+                                                                                <IonIcon
+                                                                                    slot="end"
+                                                                                    size="small"
+                                                                                    icon={
+                                                                                        close
+                                                                                    }
+                                                                                />
+                                                                            </div>
+                                                                        </IonButton>
+                                                                    </IonCardContent>
+                                                                </IonCard>
+                                                            </IonCol>
+                                                        );
+                                                    }
+                                                )
+                                            :
+                                            <h2>No Saved Recipes Found</h2>
                                         }
-                                            {/* <IonCol size="6">
-                                                <IonCard className="ProductCard">
-                                                    <img
-                                                        src="/assets/img/sandwich.png"
-                                                        alt="category cover"
-                                                        className="MainProductThumb"
-                                                    />
-                                                    <IonCardContent className="ion-no-padding ion-margin-top">
-                                                        <IonText className="ProductTitle">
-                                                            Kesar Badam Flavour
-                                                        </IonText>
-                                                        <IonButton
-                                                            className="AddToCartBtn"
-                                                            size="default"
-                                                            shape="round"
-                                                            fill="outline"
-                                                        >
-                                                            <div className="addText">
-                                                                Remove
-                                                                <IonIcon
-                                                                    slot="end"
-                                                                    size="small"
-                                                                    icon={close}
-                                                                />
-                                                            </div>
-                                                        </IonButton>
-                                                    </IonCardContent>
-                                                </IonCard>
-                                            </IonCol>
-                                            <IonCol size="6">
-                                                <IonCard className="ProductCard">
-                                                    <img
-                                                        src="/assets/img/1525870462-Listing.jpg"
-                                                        alt="category cover"
-                                                        className="MainProductThumb"
-                                                    />
-                                                    <IonCardContent className="ion-no-padding ion-margin-top">
-                                                        <IonText className="ProductTitle">
-                                                            Kesar Badam Flavour
-                                                        </IonText>
-                                                        <IonButton
-                                                            className="AddToCartBtn"
-                                                            size="default"
-                                                            shape="round"
-                                                            fill="outline"
-                                                        >
-                                                            <div className="addText">
-                                                                Remove
-                                                                <IonIcon
-                                                                    slot="end"
-                                                                    size="small"
-                                                                    icon={close}
-                                                                />
-                                                            </div>
-                                                        </IonButton>
-                                                    </IonCardContent>
-                                                </IonCard>
-                                            </IonCol> */}
                                         </IonRow>
                                     </IonGrid>
                                 )}
                                 {selectedTabladder === "favorite" && (
                                     <IonGrid>
                                         <IonRow>
-                                            {favouriterecipes?.map(
-                                                (item, index) => {
-                                                    return (
-                                                        <IonCol
-                                                            size="6"
-                                                            key={index}
-                                                        >
-                                                            <IonCard className="ProductCard">
-                                                                <img
-                                                                    src={
-                                                                        item.images
-                                                                    }
-                                                                    alt="category cover"
-                                                                    className="MainProductThumb"
-                                                                />
-                                                                <IonCardContent className="ion-no-padding ion-margin-top">
-                                                                    <IonText className="ProductTitle">
-                                                                        {
-                                                                            item.recipesName
+                                            {favouriterecipes&&favouriterecipes.length>0?
+                                                favouriterecipes.map(
+                                                    (item, index) => {
+                                                        return (
+                                                            <IonCol
+                                                                size="6"
+                                                                key={index}
+                                                            >
+                                                                <IonCard className="ProductCard">
+                                                                    <img
+                                                                        src={
+                                                                            item.images
                                                                         }
-                                                                    </IonText>
-                                                                    <IonButton
-                                                                        className="AddToCartBtn"
-                                                                        size="default"
-                                                                        shape="round"
-                                                                        fill="outline"
-                                                                        onClick={() =>
-                                                                            HandleFavouritedelete(
-                                                                                item.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <div className="addText">
-                                                                            Remove
-                                                                            <IonIcon
-                                                                                slot="end"
-                                                                                size="small"
-                                                                                icon={
-                                                                                    close
-                                                                                }
-                                                                            />
-                                                                        </div>
-                                                                    </IonButton>
-                                                                </IonCardContent>
-                                                            </IonCard>
-                                                        </IonCol>
-                                                    );
-                                                }
-                                            )}
+                                                                        alt="category cover"
+                                                                        className="MainProductThumb"
+                                                                    />
+                                                                    <IonCardContent className="ion-no-padding ion-margin-top">
+                                                                        <IonText className="ProductTitle">
+                                                                            {
+                                                                                item.recipesName
+                                                                            }
+                                                                        </IonText>
+                                                                        <IonButton
+                                                                            className="AddToCartBtn"
+                                                                            size="default"
+                                                                            shape="round"
+                                                                            fill="outline"
+                                                                            onClick={() =>
+                                                                                HandleFavouritedelete(
+                                                                                    item.id
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <div className="addText">
+                                                                                Remove
+                                                                                <IonIcon
+                                                                                    slot="end"
+                                                                                    size="small"
+                                                                                    icon={
+                                                                                        close
+                                                                                    }
+                                                                                />
+                                                                            </div>
+                                                                        </IonButton>
+                                                                    </IonCardContent>
+                                                                </IonCard>
+                                                            </IonCol>
+                                                        );
+                                                    }
+                                                )
+                                                :
+                                                <h2>No Favourite Recipes Found</h2>
+                                            }
                                         </IonRow>
                                     </IonGrid>
                                 )}
                                 {selectedTabladder === "cooked" && (
                                     <IonGrid>
                                         <IonRow>
-                                            {cookedrecipes?.map(
-                                                (item, index) => {
-                                                    return (
-                                                        <IonCol
-                                                            size="6"
-                                                            key={index}
-                                                        >
-                                                            <IonCard className="ProductCard">
-                                                                <img
-                                                                    src={
-                                                                        item.images
-                                                                    }
-                                                                    alt="category cover"
-                                                                    className="MainProductThumb"
-                                                                />
-                                                                <IonCardContent className="ion-no-padding ion-margin-top">
-                                                                    <IonText className="ProductTitle">
-                                                                        {
-                                                                            item.recipesName
+                                            {cookedrecipes&&cookedrecipes.length>0?
+                                                cookedrecipes.map(
+                                                    (item, index) => {
+                                                        return (
+                                                            <IonCol
+                                                                size="6"
+                                                                key={index}
+                                                            >
+                                                                <IonCard className="ProductCard">
+                                                                    <img
+                                                                        src={
+                                                                            item.images
                                                                         }
-                                                                    </IonText>
-                                                                    <IonButton
-                                                                        className="AddToCartBtn"
-                                                                        size="default"
-                                                                        shape="round"
-                                                                        fill="outline"
-                                                                        onClick={() =>
-                                                                            HandleCookeddelete(
-                                                                                item.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <div className="addText">
-                                                                            Remove
-                                                                            <IonIcon
-                                                                                slot="end"
-                                                                                size="small"
-                                                                                icon={
-                                                                                    close
-                                                                                }
-                                                                            />
-                                                                        </div>
-                                                                    </IonButton>
-                                                                </IonCardContent>
-                                                            </IonCard>
-                                                        </IonCol>
-                                                    );
-                                                }
-                                            )}
+                                                                        alt="category cover"
+                                                                        className="MainProductThumb"
+                                                                    />
+                                                                    <IonCardContent className="ion-no-padding ion-margin-top">
+                                                                        <IonText className="ProductTitle">
+                                                                            {
+                                                                                item.recipesName
+                                                                            }
+                                                                        </IonText>
+                                                                        <IonButton
+                                                                            className="AddToCartBtn"
+                                                                            size="default"
+                                                                            shape="round"
+                                                                            fill="outline"
+                                                                            onClick={() =>
+                                                                                HandleCookeddelete(
+                                                                                    item.id
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <div className="addText">
+                                                                                Remove
+                                                                                <IonIcon
+                                                                                    slot="end"
+                                                                                    size="small"
+                                                                                    icon={
+                                                                                        close
+                                                                                    }
+                                                                                />
+                                                                            </div>
+                                                                        </IonButton>
+                                                                    </IonCardContent>
+                                                                </IonCard>
+                                                            </IonCol>
+                                                        );
+                                                    }
+                                                )
+                                                :
+                                                <h2>No Cooked Recipes Found</h2>
+                                            }
                                         </IonRow>
                                     </IonGrid>
                                 )}
