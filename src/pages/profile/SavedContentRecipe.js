@@ -16,6 +16,7 @@ import {
     IonPage,
     IonHeader,
     IonAlert,
+    useIonViewWillEnter
 } from "@ionic/react";
 import { useState } from "react";
 import { close } from "ionicons/icons";
@@ -38,16 +39,20 @@ const SavedContentRecipe = () => {
     };
 
     const Recipelist = async () => {
-        console.log("here");
-        const response = await getApiDataWithAuth("/saved-recipes");
-        console.log("res", response?.data);
-        if (response?.status === 200) {
-            setSavedrecipes(response?.data?.saved_recipes);
-            setFavouriterecipes(response?.data?.fav_recipes);
-            setCookedrecipes(response?.data?.cooked_recipes);
+ 
+        try{
+            const response = await getApiDataWithAuth("/saved-recipes");
+            if (response?.status === 200) {
+                setSavedrecipes(response?.data?.saved_recipes);
+                setFavouriterecipes(response?.data?.fav_recipes);
+                setCookedrecipes(response?.data?.cooked_recipes);
+            }
+        }catch(error){
+            console.log(error);
         }
+     
     };
-    useEffect(() => {
+    useIonViewWillEnter(() => {
         Recipelist();
     }, []);
 
@@ -68,11 +73,10 @@ const SavedContentRecipe = () => {
         console.log("cooked", cookedtodelete);
     };
 
-    const confirmRemove = async () => {
-        if (savedtodelete !== null) {
-            try {
+    const confirmRemove = async (url) => {
 
-                const response = await getApiDataWithAuth(`/saved-recipes-delete/${savedtodelete}`);
+            try {              
+                const response = await getApiDataWithAuth(url);
                 if(response?.status===200){
                     presentToast("Top",response?.data?.message_response);
                     Recipelist();
@@ -83,45 +87,6 @@ const SavedContentRecipe = () => {
                 } catch (err) {
                     console.log(err);
                 }
-            setShowAlert(false);
-            setSavedtoDelete(null);
-        }
-        if (favtodelete !== null) {
-            try {
-
-                const response = await getApiDataWithAuth(`/fav-recipes-delete/${favtodelete}`);
-                if(response?.status===200){
-                    presentToast("Top",response?.data?.message_response);
-                    Recipelist();
-                }
-                if(response?.status==404){
-                    presentToast("Top",response?.data?.message_response);
-                }
-                } catch (err) {
-                    console.log(err);
-                }
-            setShowAlert(false);
-            setFavtoDelete(null);
-            console.log("favid", favtodelete);
-        }
-        if (cookedtodelete !== null) {
-            try {
-
-                const response = await getApiDataWithAuth(`/cooked-recipes-delete/${cookedtodelete}`);
-                if(response?.status===200){
-                    presentToast("Top",response?.data?.message_response);
-                    Recipelist();
-                }
-                if(response?.status==404){
-                    presentToast("Top",response?.data?.message_response);
-                }
-                } catch (err) {
-                    console.log(err);
-                }
-            console.log("cookedid", cookedtodelete);
-            setShowAlert(false);
-            setCookedtoDelete(null);
-        }
     };
 
     const presentToast = (position, message) => {
@@ -205,8 +170,8 @@ const SavedContentRecipe = () => {
                                                                             shape="round"
                                                                             fill="outline"
                                                                             onClick={() =>
-                                                                                HandleSaveddelete(
-                                                                                    item.id
+                                                                                confirmRemove(
+                                                                                `/saved-recipes-delete/${item.id}`
                                                                                 )
                                                                             }
                                                                         >
@@ -264,9 +229,9 @@ const SavedContentRecipe = () => {
                                                                             shape="round"
                                                                             fill="outline"
                                                                             onClick={() =>
-                                                                                HandleFavouritedelete(
-                                                                                    item.id
-                                                                                )
+                                                                                confirmRemove(
+                                                                                    `/fav-recipes-delete/${item.id}`
+                                                                                    )
                                                                             }
                                                                         >
                                                                             <div className="addText">
@@ -323,9 +288,9 @@ const SavedContentRecipe = () => {
                                                                             shape="round"
                                                                             fill="outline"
                                                                             onClick={() =>
-                                                                                HandleCookeddelete(
-                                                                                    item.id
-                                                                                )
+                                                                                confirmRemove(
+                                                                                    `/cooked-recipes-delete/${item.id}`   
+                                                                                    )
                                                                             }
                                                                         >
                                                                             <div className="addText">
@@ -380,7 +345,7 @@ const SavedContentRecipe = () => {
                         {
                             text: "Delete",
                             handler: () => {
-                                confirmRemove();
+                                // confirmRemove();
                             },
                         },
                     ]}
