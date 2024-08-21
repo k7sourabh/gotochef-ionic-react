@@ -70,54 +70,54 @@ const SavedContentRecipe = () => {
 
     const confirmRemove = async () => {
         if (savedtodelete !== null) {
-            // try {
+            try {
 
-            //     const response = await getApiDataWithAuth(`/saved-recipes-delete/${savedtodelete}`);
-            //     if(response?.status===200){
-            //         presentToast("Top",response?.data?.message_response);
-            //         Recipelist();
-            //     }
-            //     if(response?.status==404){
-            //         presentToast("Top",response?.data?.message_response);
-            //     }
-            //     } catch (err) {
-            //         console.log(err);
-            //     }
+                const response = await getApiDataWithAuth(`/saved-recipes-delete/${savedtodelete}`);
+                if(response?.status===200){
+                    presentToast("Top",response?.data?.message_response);
+                    Recipelist();
+                }
+                if(response?.status==404){
+                    presentToast("Top",response?.data?.message_response);
+                }
+                } catch (err) {
+                    console.log(err);
+                }
             setShowAlert(false);
             setSavedtoDelete(null);
         }
         if (favtodelete !== null) {
-            // try {
+            try {
 
-            //     const response = await getApiDataWithAuth(`/fav-recipes-delete/${favtodelete}`);
-            //     if(response?.status===200){
-            //         presentToast("Top",response?.data?.message_response);
-            //         Recipelist();
-            //     }
-            //     if(response?.status==404){
-            //         presentToast("Top",response?.data?.message_response);
-            //     }
-            //     } catch (err) {
-            //         console.log(err);
-            //     }
+                const response = await getApiDataWithAuth(`/fav-recipes-delete/${favtodelete}`);
+                if(response?.status===200){
+                    presentToast("Top",response?.data?.message_response);
+                    Recipelist();
+                }
+                if(response?.status==404){
+                    presentToast("Top",response?.data?.message_response);
+                }
+                } catch (err) {
+                    console.log(err);
+                }
             setShowAlert(false);
             setFavtoDelete(null);
             console.log("favid", favtodelete);
         }
         if (cookedtodelete !== null) {
-            // try {
+            try {
 
-            //     const response = await getApiDataWithAuth(`/cooked-recipes-delete/${cookedtodelete}`);
-            //     if(response?.status===200){
-            //         presentToast("Top",response?.data?.message_response);
-            //         Recipelist();
-            //     }
-            //     if(response?.status==404){
-            //         presentToast("Top",response?.data?.message_response);
-            //     }
-            //     } catch (err) {
-            //         console.log(err);
-            //     }
+                const response = await getApiDataWithAuth(`/cooked-recipes-delete/${cookedtodelete}`);
+                if(response?.status===200){
+                    presentToast("Top",response?.data?.message_response);
+                    Recipelist();
+                }
+                if(response?.status==404){
+                    presentToast("Top",response?.data?.message_response);
+                }
+                } catch (err) {
+                    console.log(err);
+                }
             console.log("cookedid", cookedtodelete);
             setShowAlert(false);
             setCookedtoDelete(null);
