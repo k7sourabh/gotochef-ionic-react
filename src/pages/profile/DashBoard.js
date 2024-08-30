@@ -22,7 +22,7 @@ import {
   thumbsUpOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { getApiData } from "../../utils/Utils";
+import { getApiData, getApiDataWithAuth } from "../../utils/Utils";
 
 const Dashboard = () => {
   const [selectedTabladder, setSelectedTabladder] = useState("LadderStatus");
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   const recipeDetails = async () => {
     try {
-      const response = await getApiData(`/user-dashboard`);
+      const response = await getApiDataWithAuth(`/user-dashboard`);
       console.log(response?.data);
       setUserDashboardData(response?.data);
     } catch (e) {

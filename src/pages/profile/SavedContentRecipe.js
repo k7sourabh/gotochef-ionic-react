@@ -66,7 +66,7 @@ const SavedContentRecipe = () => {
                     presentToast("Top",response?.data?.message_response);
                     Recipelist();
                 }
-                if(response?.status==404){
+                if(response?.status===404){
                     presentToast("Top",response?.data?.message_response);
                 }
                 } catch (err) {

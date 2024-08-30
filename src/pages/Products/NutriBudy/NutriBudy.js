@@ -43,8 +43,7 @@ const NutriBudy = () => {
         }
       };
 
-    useEffect(()=>{
-       
+    useIonViewWillEnter(()=>{      
         stateList();
     },[]);
 

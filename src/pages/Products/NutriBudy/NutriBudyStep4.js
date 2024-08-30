@@ -13,16 +13,16 @@ const NutriBudyStep4 = ({stateList,nutridata}) => {
     const [present] = useIonToast();
     const [loader, setLoader] = useState(false);
     const [formValues, setFormValues] = useState({
-        health: "",
-        activity:"",
-        focus_health:"",
+        health: [],
+        activity:[],
+        focus_health:[],
       });
 
       useEffect(() => {
         setFormValues({
-            health: nutridata?.data?.data?.health|| "",
-            activity: nutridata?.data?.data?.activity || "",
-            focus_health: nutridata?.data?.data?.focus_health || "",
+            health: nutridata?.data?.data?.health|| [],
+            activity: nutridata?.data?.data?.activity || [],
+            focus_health: nutridata?.data?.data?.focus_health || [],
           }); 
       }, [nutridata]);
 
@@ -30,7 +30,7 @@ const NutriBudyStep4 = ({stateList,nutridata}) => {
         setLoader(true);
         try{
             const formdata =new FormData();
-            formdata.append("id","115");
+            formdata.append("id",nutridata?.data?.data?.id);
             formdata.append("health",values.health);
             formdata.append("activity",values.activity);
             formdata.append("focus_health",values.focus_health);

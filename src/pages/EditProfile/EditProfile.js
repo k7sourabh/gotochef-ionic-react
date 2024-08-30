@@ -187,16 +187,16 @@ const EditProfile = () => {
             </IonButton>
             <IonTitle color="dark">Edit Profile</IonTitle>
           </IonHeader>
-          {isLoading ? (
+          {/* {isLoading && (
             <div className="loader-container">
               <IonSpinner name="crescent" />
             </div>
-          ) : (
-            formValues &&
-            formValues.name && (
+          ) } */}
+          
               <Formik
                 initialValues={formValues}
                 validationSchema={validationSchema}
+                enableReinitialize={true}
                 onSubmit={(values) => {
                   profileSettingPost(values);
                 }}
@@ -232,7 +232,9 @@ const EditProfile = () => {
                               <input
                                 id="file-input"
                                 type="file"
+                                // accept="image/*"
                                 onChange={(e) => {
+                                  console.log(e.target.files[0])
                                   const file = e.target.files[0];
                                   if (file) {
                                     setFieldValue("avatar", file);
@@ -598,8 +600,8 @@ const EditProfile = () => {
                   </Form>
                 )}
               </Formik>
-            )
-          )}
+            
+         
           {!formValues && <IonText>Something went wrong</IonText>}
         </IonContent>
       </IonPage>

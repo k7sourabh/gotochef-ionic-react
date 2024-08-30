@@ -30,8 +30,8 @@ const SubmitRecipeStep2 = (props) => {
     steps: Yup.array().of(
       Yup.string().required("Step description is required")
     ),
-    blogLink: Yup.string()
-    .required("Blog link is required"),
+    // blogLink: Yup.string()
+    // .required("Blog link is required"),
     // youtubeLink: Yup.string()
     // .required("Youtube link is required"),
   });

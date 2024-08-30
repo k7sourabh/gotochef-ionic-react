@@ -49,7 +49,7 @@ const MyRecipeComponent = () => {
   useEffect(() => {
     fetchRecipeData();
   }, [location]);
-
+// location dependency is calling api again and again
   const fetchRecipeData = async () => {
     try {
       setIsLoading(true);
@@ -230,7 +230,7 @@ const MyRecipeComponent = () => {
               ))
             ) : (
               <IonCol size="12" className="ion-padding-horizontal">
-                <IonText>No draft recipe found</IonText>
+                <IonText>No draft recipes found</IonText>
               </IonCol>
             )}
           </IonRow>
