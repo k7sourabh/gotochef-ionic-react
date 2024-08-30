@@ -4,26 +4,18 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonList,
   IonItem,
-  IonMenuToggle,
   IonPage,
-  IonButtons,
   IonButton,
   IonIcon,
   IonGrid,
-  IonLabel,
-  IonMenuButton,
   IonSelect,
   IonSelectOption,
   IonRow,
-  IonCol,
+ 
 } from "@ionic/react";
 import {
-  add,
-  filterOutline,
-  personOutline,
-  sunnyOutline,
+  filterOutline
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { menuController } from "@ionic/core/components";

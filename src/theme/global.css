@@ -21,6 +21,9 @@ iframe {
   padding-top: 80px;
 }
 
+.scroll-y{
+  z-index: 999;
+}
 /* Header */
 
 .LogoGroup {
@@ -464,9 +467,9 @@ iframe {
 } */
 
 .CategoryThumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -3819,4 +3822,68 @@ label.cover-img-upload ion-text {
 }
 .TextDanger{
   color:  #9a1504;
+}
+.click-here{
+display: flex;
+align-items: center;
+}
+/* src/components/Table.css */
+
+.custom-grid {
+  padding: 20px;
+}
+
+.custom-row {
+  border: 1px solid red;
+  padding: 10px;
+}
+
+.custom-row ion-col {
+  text-align: center;
+  padding: 10px;
+}
+
+.custom-row ion-col:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ListBlock {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 15px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+}
+.list-recipe{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.list-review {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 5px 0px;
+  border-radius: 10px;
+}
+.list-box{
+  width: 100%;
+}
+.list-review .review-count{
+  border: 1px solid #9a1504;
+  padding: 10px;
+  border-radius: 100px;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.IconHome{
+  max-width: 500px;
 }
