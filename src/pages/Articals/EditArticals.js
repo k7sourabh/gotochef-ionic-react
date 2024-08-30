@@ -241,7 +241,8 @@ const EditArticles = () => {
                                                     <label htmlFor="file-input" className="N-EditProfile">
                                                         <img src="./assets/img/edit.png" alt="Edit" />
                                                     </label>
-                                                    <input id="file-input" type="file" name="image1" onChange={(e) => {
+                                                    <input id="file-input" type="file" name="image1" accept="image/*"
+                                                        onChange={(e) => {
                                                         const file = e.target.files[0];
                                                         setImagePreview(URL.createObjectURL(file));
                                                         setImageChanged(true);

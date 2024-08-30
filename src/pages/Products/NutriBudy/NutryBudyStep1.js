@@ -94,7 +94,7 @@ const NutryBudyStep1 = ({setSelectedTab,stateList,nutridata,set}) => {
           setLoader(true);
           try{
               const formdata = new FormData();
-              formdata.append("user_id","3996");
+              formdata.append("user_id",nutridata?.data?.data?.user_id);
               formdata.append("name",values.name);
               formdata.append("last_name",values.lastName);
               formdata.append("mobile",values.number);

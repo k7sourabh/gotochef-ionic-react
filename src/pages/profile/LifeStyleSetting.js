@@ -13,7 +13,7 @@ import {
     useIonToast
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
-import { getApiData, postApiData } from '../../utils/Utils';
+import { getApiData, getApiDataWithAuth, postApiData, postApiDataWithAuth } from '../../utils/Utils';
 import { useHistory } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -32,7 +32,7 @@ const LifeStyleSetting = () => {
 
     const fetchLifeStyleData = async () => {
         try {
-            const response = await getApiData("lifestyle-setting");
+            const response = await getApiDataWithAuth("lifestyle-setting");
             const selectedHealth = response?.data?.lifestyle_health?.filter(item => item.flag === 1).map(item => item.setting_name) || [];
             const selectedActivity = response?.data?.lifestyle_activity?.filter(item => item.flag === 1).map(item => item.setting_name) || [];
 
@@ -67,7 +67,7 @@ const LifeStyleSetting = () => {
     const handleSubmit = async (values) => {
          setLoading(true)
         try {
-            const response = await postApiData('lifestyle-setting-post', values);
+            const response = await postApiDataWithAuth('lifestyle-setting-post', values);
             if (response?.data?.status === 200) {
                 presentToast("Top", response?.data?.lifestyle_setting);
                 setTimeout(() => {

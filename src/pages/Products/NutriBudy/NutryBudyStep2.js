@@ -46,7 +46,7 @@ const NutryBudyStep2 = ({setSelectedTab,stateList,nutridata}) => {
         try{
 
             const formdata = new FormData();
-            formdata.append("id","115");
+            formdata.append("id",nutridata?.data?.data?.id);
             formdata.append("veg_type",values.foodType);
             formdata.append("ingredient_eat",values.ingredienteat);
             formdata.append("ingredient_love",values.ingredientlove);

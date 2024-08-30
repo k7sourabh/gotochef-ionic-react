@@ -17,7 +17,7 @@ import {
   useIonToast,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-import { getApiData, postApiData } from "../../utils/Utils";
+import { getApiDataWithAuth, postApiData ,getApiData, postApiDataWithAuth} from "../../utils/Utils";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -53,7 +53,8 @@ const FoodAdd = () => {
 
   const getFoodSetting = async () => {
     try {
-      const response = await getApiData("user-food-setting");
+      const response = await getApiDataWithAuth("user-food-setting");
+      console.log('res',response)
       if (response?.data?.status === 200) {
         setFoodSettingData(response?.data?.food_setting);
         setFormValues({
@@ -135,7 +136,7 @@ const FoodAdd = () => {
         cooking_techniques: checkedValuesCookings,
         cusines: checkedValues,
       };
-      const response = await postApiData("save-food-setting", obj);
+      const response = await postApiDataWithAuth("save-food-setting", obj);
       presentToast("Top", response?.data?.message_response);
     } catch (error) {
       console.error("Error while saving data:", error);
@@ -144,7 +145,7 @@ const FoodAdd = () => {
 
   const deleteFavIngredient = async (id) => {
     try {
-      const response = await getApiData(`/delete-fav-ingredient/${id}`);
+      const response = await getApiDataWithAuth(`/delete-fav-ingredient/${id}`);
       getFoodSetting();
       if (response?.data?.status === 200) {
         presentToast("Top", response?.data?.message);
@@ -156,7 +157,7 @@ const FoodAdd = () => {
 
   const deleteNagIngredient = async (id) => {
     try {
-      const response = await getApiData(`/delete-neg-ingredient/${id}`);
+      const response = await getApiDataWithAuth(`/delete-neg-ingredient/${id}`);
       getFoodSetting();
       if (response?.data?.status === 200) {
         presentToast("Top", response?.data?.message);
@@ -187,7 +188,7 @@ const FoodAdd = () => {
           </IonButton>
           <IonTitle color="dark">Food Setting</IonTitle>
         </IonHeader>
-        {formValues && formValues.sweetPreference && (
+        {/* {formValues && formValues.sweetPreference && ( */}
           <Formik
             initialValues={formValues}
             // validationSchema={validationSchema}
@@ -254,7 +255,10 @@ const FoodAdd = () => {
                         <IonCol size="12" className="ion-no-padding">
                           <h3>Taste Preferences</h3>
                           <div className="progressBar">
-                            <IonLabel>Sweet</IonLabel>
+                            <div className='flex ion-justify-content-between ion-align-items-center'>
+                                <IonLabel>Sweet</IonLabel>
+                                <IonLabel>{values.sweetPreference}%</IonLabel>
+                              </div>
                             <IonRange
                               min={0}
                               max={10}
@@ -275,7 +279,10 @@ const FoodAdd = () => {
                             </div>
                           </div>
                           <div className="progressBar ion-padding-top">
-                            <IonLabel>Sour</IonLabel>
+                            <div className='flex ion-justify-content-between ion-align-items-center'>
+                                <IonLabel>Sour</IonLabel>
+                                <IonLabel>{values.sourPreference}%</IonLabel>
+                              </div>
                             <IonRange
                               min={0}
                               max={10}
@@ -295,7 +302,10 @@ const FoodAdd = () => {
                             </div>
                           </div>
                           <div className="progressBar ion-padding-top">
-                            <IonLabel>Bitter</IonLabel>
+                            <div className='flex ion-justify-content-between ion-align-items-center'>
+                                <IonLabel>Bitter</IonLabel>
+                                <IonLabel>{values.bitterPreference}%</IonLabel>
+                              </div>
                             <IonRange
                               min={0}
                               max={10}
@@ -318,7 +328,10 @@ const FoodAdd = () => {
                             </div>
                           </div>
                           <div className="progressBar ion-padding-top">
-                            <IonLabel>Salty</IonLabel>
+                            <div className='flex ion-justify-content-between ion-align-items-center'>
+                                <IonLabel>Salty</IonLabel>
+                                <IonLabel>{values.saltyPreference}%</IonLabel>
+                              </div>
                             <IonRange
                               min={0}
                               max={10}
@@ -341,7 +354,10 @@ const FoodAdd = () => {
                             </div>
                           </div>
                           <div className="progressBar ion-padding-top">
-                            <IonLabel>Umami/Savoury</IonLabel>
+                            <div className='flex ion-justify-content-between ion-align-items-center'>
+                                <IonLabel>Umami/Savoury</IonLabel>
+                                <IonLabel>{values.umamiPreference}%</IonLabel>
+                              </div>
                             <IonRange
                               min={0}
                               max={10}
@@ -594,7 +610,7 @@ const FoodAdd = () => {
               );
             }}
           </Formik>
-        )}
+        {/* )} */}
       </IonContent>
     </IonPage>
   );

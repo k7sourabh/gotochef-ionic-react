@@ -107,6 +107,7 @@ const EditSubmitRecipeStep4 = (props) => {
                         name="images"
                         id="Cover-Profile"
                         type="file"
+                        accept="image/*"
                         onChange={(e) => {
                           const file = e.target.files[0];
                           setImagePreview(URL.createObjectURL(file));
@@ -143,6 +144,7 @@ const EditSubmitRecipeStep4 = (props) => {
                             name="images_opt1"
                             id="Cover-Profile1"
                             type="file"
+                            accept="image/*"
                             onChange={(e) => {
                               const file = e.target.files[0];
                               setImagePreview1(URL.createObjectURL(file));
@@ -170,6 +172,7 @@ const EditSubmitRecipeStep4 = (props) => {
                             name="images_opt2"
                             id="Cover-Profile2"
                             type="file"
+                            accept="image/*"
                             onChange={(e) => {
                               const file = e.target.files[0];
                               setImagePreview2(URL.createObjectURL(file));

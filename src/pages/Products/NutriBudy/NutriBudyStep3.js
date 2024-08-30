@@ -46,7 +46,7 @@ const NutriBudyStep3 = ({setSelectedTab,stateList,nutridata}) => {
         setLoader(true)
         try{
             const formdata = new FormData();
-            formdata.append("id","115");
+            formdata.append("id",nutridata?.data?.data?.id);
             formdata.append("sweet",values.sweet);
             formdata.append("sour",values.sour);
             formdata.append("bitter",values.bitter);
@@ -255,7 +255,7 @@ const NutriBudyStep3 = ({setSelectedTab,stateList,nutridata}) => {
                                 <IonCol size="12"  className='ion-padding-vertical'>
                                     <div class="uploadPicture-button">
                                         <label for="" class="UploadBtn">Upload Picture</label>
-                                        <input type="file" id="AllergyPicture" onChange={(e)=>{
+                                        <input type="file"  accept="image/*" id="AllergyPicture" onChange={(e)=>{
                                             const file = e.target.files[0];
                                             setStep3Image([...step3image,file]);
                                         }} />
