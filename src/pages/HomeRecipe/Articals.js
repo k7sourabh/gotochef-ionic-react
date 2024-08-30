@@ -19,7 +19,7 @@ import {
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import { getApiData, postApiData } from '../../utils/Utils';
+import { getApiData, getApiDataWithAuth, postApiData, postApiDataWithAuth } from '../../utils/Utils';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { close, pencilOutline } from "ionicons/icons";
 
@@ -37,7 +37,7 @@ const Articals = () => {
 
    const fetchArticalData = async () => {
       try {
-         const response = await getApiData("my-articles");
+         const response = await getApiDataWithAuth("my-articles");
          setSubmitData(response?.data?.my_articles?.submit_articles);
          setApprovedData(response?.data?.my_articles?.approved_articles);
       } catch (err) {
@@ -70,7 +70,7 @@ const Articals = () => {
          const obj = {
             'article_id': articleToDelete,
          };
-         const response = await postApiData("delete-article", obj);
+         const response = await postApiDataWithAuth("delete-article", obj);
          if (response.status === 200) {
             presentToast("Top", response?.data?.message_response);
             fetchArticalData();

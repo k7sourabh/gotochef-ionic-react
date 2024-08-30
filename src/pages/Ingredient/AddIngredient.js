@@ -19,7 +19,7 @@ import {
 import { listOutline } from "ionicons/icons";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { getApiData, postApiDataWithAuth } from "../../utils/Utils";
+import { getApiData, getApiDataWithAuth, postApiDataWithAuth } from "../../utils/Utils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import AddingredientPopup from "../../modal/AddingredientPopup";
 
@@ -41,7 +41,7 @@ const AddIngredient = () => {
 
   const CategoryIngredientlist = async () => {
     try {
-      const response = await getApiData("/category-ingredient");
+      const response = await getApiDataWithAuth("/category-ingredient");
       setCategoryIngredientData(response?.data?.ingredient_category);
     } catch (e) {
       console.log(e);
@@ -60,13 +60,14 @@ const AddIngredient = () => {
   });
 
   const handleSubmit = async (values, { resetForm }) => {
+    console.log(values, values.image)
     setLoader(true);
     try {
       const formdata = new FormData();
       formdata.append("ingredient_name", values.ingredientTitle);
       formdata.append("ingredient_category", values.category);
-      formdata.append("short_description", values.description);
       formdata.append("images", values.image);
+      formdata.append("short_description", values.description);
 
       const response = await postApiDataWithAuth("/ingredient-add", formdata);
 
@@ -144,6 +145,7 @@ const AddIngredient = () => {
                         name="image"
                         id="file-input"
                         type="file"
+                        accept="image/*"
                         onChange={(e) => {
                           const file = e.target.files[0];
                           setImage(URL.createObjectURL(file));

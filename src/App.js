@@ -91,6 +91,7 @@ import Ranking from "./pages/profile/Ranking";
 
 
 
+
 // Hide the splash (you should do this on app launch)
 await SplashScreen.hide();
 
@@ -225,6 +226,8 @@ const App = () => {
                 <Route path="/nutry-budy" exact>
                   <NutriBudy />
                 </Route>
+
+
                 <Route path="/home-recipe" exact>
                   <HomeRecipe />
                 </Route>

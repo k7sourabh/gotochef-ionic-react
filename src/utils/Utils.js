@@ -1,21 +1,47 @@
 /* eslint-disable arrow-body-style */
 import axios from "axios";
+import { clear, get } from "../services/Storage";
+import { useEffect } from "react";
 
 // const host = window.location.origin;    
-// export const GOTO_CHEF_API_URL = "http://20.207.207.62/api"
 export const GOTO_CHEF_API_URL = "https://www.justgotochef.com/api"
+// export const GOTO_CHEF_API_URL = "http://13.251.201.255/api"
 const axiosInstance = axios.create({
   baseURL: GOTO_CHEF_API_URL,
 });
 
-var token = localStorage.getItem("token");
 
 const axiosInstanceWithAuth = axios.create({
   baseURL: GOTO_CHEF_API_URL,
   headers: {
-    Authorization: `Bearer ${token}`,
-   },
+    "Content-Type": "application/json",
+  },
 });
+
+axiosInstanceWithAuth.interceptors.request.use(
+  async (config) => {
+    const accessToken = await get('token'); 
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+axiosInstanceWithAuth.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      await clear();
+    }
+    return Promise.reject(error);
+  }
+);
 
 export const getApiData = async (url) => {
   const res = await axiosInstance({

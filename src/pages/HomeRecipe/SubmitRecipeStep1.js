@@ -104,6 +104,7 @@ const SubmitRecipeStep1 = (props) => {
   };
 
   const handleSubmit = async (values) => {
+    console.log("userdata",userData);
     const obj = {
       user_id: userData.user_id,
       recipe_id: "",

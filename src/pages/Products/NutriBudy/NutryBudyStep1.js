@@ -6,81 +6,140 @@ import {
   IonRadio,
   IonRadioGroup,
   IonRow,
+  IonSpinner,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { IonItem, IonLabel, IonInput } from "@ionic/react";
-import { getApiDataWithAuth } from "../../../utils/Utils";
-import { Form, Formik } from "formik";
+import { postApiDataWithAuth } from "../../../utils/Utils";
+import { useIonToast } from "@ionic/react";
+import { Form, Formik,ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const NutryBudyStep1 = () => {
-  const [stepFirstData, setStepFirstData] = useState({});
+
+const NutryBudyStep1 = ({setSelectedTab,stateList,nutridata,set}) => {
+
+  const [present] = useIonToast();
+  const [image, setImage] = useState(null);
+  const [password,setPassword] = useState("");
+  const [confirmpassword,setConfirmPassword]=useState("");
+  const [error,setError] = useState("");
+  const [loader, setLoader] = useState(false);
   const [formValues, setFormValues] = useState({
     name: "",
-    lastName: "",
+    lastName:"",
     email: "",
     number: "",
-    foodType: "",
-    image: "",
+    height: "",
+    weight: "",
+    password:"",
+    confpassword:"",
+    dob:"",
+    gender:"",
+    image:"",
   });
 
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    // address2: Yup.string(),
-    lastName: Yup.string().required("Last Name is required"),
-    email: Yup.number().required("Email is required"),
-    number: Yup.string()
-      .matches(
-        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
-        "Enter valid contact number"
-      )
-      .required("Phone number is a required"),
-    foodType: Yup.string().required("foodType is required"),
-  });
 
-  const initialValues = {
-    name: stepFirstData?.name || "",
-    lastName: stepFirstData?.last_name || "",
-    email: stepFirstData?.email || "",
-    number: stepFirstData?.mobile || "",
-    foodType: stepFirstData?.last_name || "",
-  };
+  // const validationSchema = Yup.object().shape({
+  //   name: Yup.string().required("Name is required"),
+  //   lastName: Yup.string().required("Last Name is required"),
+  //   email: Yup.string().email().required("Email is required"),
+  //   number: Yup.string()
+  //     .matches(
+  //       /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+  //       "Enter valid contact number"
+  //     )
+  //     .required("Phone number is a required"),
+  //   height: Yup.string().required("Height is required"),
+  //   weight: Yup.string().required("Weight is required"),
+  //   password: Yup.string().required("Password is required"),
+  //   confpassword: Yup.string().required("Confirm Password is required").oneOf([Yup.ref("password")],"Password must match"),
+  //   dob: Yup.string().required("DOB is required"),
+  //   gender: Yup.string().required("Gender is required"),
+  //   // image: Yup.string().required("Profile Photo is required"),
+  // });
 
-  const stateList = async () => {
-    try {
-      const response = await getApiDataWithAuth("/getNutribuddy");
-      if (response?.status === 200) {
-        setStepFirstData(response?.data?.data);
-        setFormValues({
-          name: response?.data?.data?.name || "",
-          lastName: response?.data?.data?.last_name || "",
-          email: response?.data?.data?.email || "",
-          number: response?.data?.data?.mobile || "",
-          foodType: response?.data?.data?.food_type[0] || "",
-          image: response?.data?.data?.image || "",
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const validateEmail = email => typeof email === "string" && email.includes("@")&&email.includes(".com");
 
   useEffect(() => {
-    stateList();
-  }, []);
+ 
+    setFormValues({
+      name: nutridata?.data?.data?.name || "",
+      lastName: nutridata?.data?.data?.last_name || "",
+      email:nutridata?.data?.data?.email ||"",
+      number: nutridata?.data?.data?.mobile || "",
+      height:nutridata?.data?.data?.height||"",
+      weight:nutridata?.data?.data?.weight||"",
+      dob:nutridata?.data?.data?.dob||"",
+      gender:nutridata?.data?.data?.gender||"",
+      password:"",
+      confpassword:"",
+      image:nutridata?.data?.data?.image||"",
+               
+    }); 
+    setImage(nutridata?.data?.data?.image);   
+    
+  }, [nutridata]);
+
+  const validatePassword =()=>{
+    if(password!==confirmpassword){
+      setError("Password donot Match") 
+    }
+    else{
+      setError("")
+    }
+  }
+
+  const handleSubmit = async (values)=>{
+    if(error===""){
+          setLoader(true);
+          try{
+              const formdata = new FormData();
+              formdata.append("user_id",nutridata?.data?.data?.user_id);
+              formdata.append("name",values.name);
+              formdata.append("last_name",values.lastName);
+              formdata.append("mobile",values.number);
+              formdata.append("email",values.email);
+              formdata.append("password",password);
+              formdata.append("weight",values.weight);
+              formdata.append("height",values.height);
+              formdata.append("dob",values.dob);
+              formdata.append("gender",values.gender);
+              formdata.append("image",values.image);
+
+              const response =await postApiDataWithAuth("/postStepFirst",formdata);
+
+              if(response.status===200){
+                presentToast("Top", response?.data?.message);
+                stateList(); 
+              }
+          }catch(error){
+            console.log("Api Error",error);
+          }
+          setLoader(false);
+        }
+    
+  }
+
+  const presentToast = (position, message) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+    });
+  };
 
   return (
     <IonGrid className="ion-padding-bottom">
       <div>
-        {formValues && formValues?.name && (
           <Formik
+            enableReinitialize={true}
             initialValues={formValues}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             onSubmit={(values) => {
-              //   handleSubmit(values);
+                handleSubmit(values);
             }}
           >
-            {({ isSubmitting, setFieldValue, values }) => (
+            {({ setFieldValue, values}) => (
               <Form>
                 <IonRow>
                   <IonCol size="12">
@@ -97,7 +156,14 @@ const NutryBudyStep1 = () => {
                         onIonChange={(e) =>
                           setFieldValue("name", e.detail.value)
                         }
+                        
                       ></IonInput>
+                      <ErrorMessage
+                      color="danger"
+                      name="name"
+                      component="div"
+                      className="error-message error-text"
+                      />
 
                       <IonInput
                         className="ion-margin-vertical"
@@ -110,6 +176,12 @@ const NutryBudyStep1 = () => {
                           setFieldValue("lastName", e.detail.value)
                         }
                       ></IonInput>
+                      <ErrorMessage
+                      color="danger"
+                      name="lastName"
+                      component="div"
+                      className="error-message error-text"
+                    />
 
                       <IonInput
                         className="ion-margin-vertical"
@@ -118,10 +190,18 @@ const NutryBudyStep1 = () => {
                         label="Default input"
                         placeholder="Enter your Email"
                         value={values.email}
+                        disabled={!!validateEmail(values.email)}
                         onIonChange={(e) =>
-                          setFieldValue("email", e.detail.value)
+                            setFieldValue("email", e.detail.value)
                         }
+                        
                       ></IonInput>
+                       <ErrorMessage
+                      color="danger"
+                      name="email"
+                      component="div"
+                      className="error-message error-text"
+                    />
 
                       <IonInput
                         className="ion-margin-vertical"
@@ -130,38 +210,79 @@ const NutryBudyStep1 = () => {
                         label="Default input"
                         placeholder="Enter your Phone Number"
                         value={values.number}
-                        onIonChange={(e) =>
-                          setFieldValue("number", e.detail.value)
-                        }
+                        disabled={true}
+
                       ></IonInput>
+                       <ErrorMessage
+                      color="danger"
+                      name="number"
+                      component="div"
+                      className="error-message error-text"
+                    />
                       <IonInput
                         className="ion-margin-vertical"
-                        name="number"
-                        type="number"
+                        name="height"
+                        type="float"
                         label="Default input"
                         placeholder="Enter your Height"
+                        value={values.height}
+                        onIonChange={(e) =>
+                          setFieldValue("height", e.detail.value)
+                        }
                       ></IonInput>
+                       <ErrorMessage
+                      color="danger"
+                      name="height"
+                      component="div"
+                      className="error-message error-text"
+                    />
                       <IonInput
                         className="ion-margin-vertical"
-                        name="number"
+                        name="weight"
                         type="number"
                         label="Default input"
                         placeholder="Enter your Weight"
+                        value={values.weight}
+                        onIonChange={(e) =>
+                          setFieldValue("weight", e.detail.value)
+                        }
                       ></IonInput>
+                       <ErrorMessage
+                      color="danger"
+                      name="weight"
+                      component="div"
+                      className="error-message error-text"
+                    />
                       <IonInput
                         className="ion-margin-vertical"
                         name="password"
                         type="password"
                         label="Default input"
                         placeholder="Enter your Password"
+                        value={password}
+                        onIonChange={(e) =>
+                          setPassword(e.target.value)
+                        }
                       ></IonInput>
+                       <ErrorMessage
+                      color="danger"
+                      name="password"
+                      component="div"
+                      className="error-message error-text"
+                    />
                       <IonInput
                         className="ion-margin-vertical"
-                        name="password"
+                        name="confpassword"
                         type="password"
+                        value={confirmpassword}
                         label="Default input"
-                        placeholder="Enter your Confirm Password"
-                      ></IonInput>
+                        placeholder="Confirm your Password"
+                        onIonChange={(e) =>
+                          setConfirmPassword(e.target.value)
+                        }
+                      ></IonInput>  
+                      {confirmpassword?validatePassword():<></>}
+                      {error?<div style={{color:"red",marginBottom:"10px"}}>{error}</div>:<></>}
                       <IonLabel>Enter Your DOB</IonLabel>
                       <IonInput
                         className="ion-margin-vertical"
@@ -169,18 +290,44 @@ const NutryBudyStep1 = () => {
                         type="date"
                         label="DOB"
                         placeholder="Enter your DOB"
+                        value={values.dob}
+                        onIonChange={(e) =>
+                          setFieldValue("dob", e.detail.value)
+                        }
                       ></IonInput>
+                       <ErrorMessage
+                      color="danger"
+                      name="dob"
+                      component="div"
+                      className="error-message error-text"
+                    />
                       <div>
-                        <IonRadioGroup className="flex ion-justify-content-center ion-align-items-center">
+                        <IonRadioGroup className="flex ion-justify-content-center ion-align-items-center"
+                            name="gender" 
+                            value={values.gender}
+                            onIonChange={(e) =>
+                              setFieldValue("gender", e.detail.value)
+                            }
+                        >
                           <IonItem lines="none">
                             <IonLabel>Female</IonLabel>
-                            <IonRadio slot="start" value="option1" />
+                            <IonRadio slot="start" 
+                            value="female"
+                            />
                           </IonItem>
                           <IonItem lines="none">
                             <IonLabel>Male</IonLabel>
-                            <IonRadio slot="start" value="option2" />
+                            <IonRadio slot="start" 
+                            value="male"
+                            />
                           </IonItem>
                         </IonRadioGroup>
+                        <ErrorMessage
+                      color="danger"
+                      name="gender"
+                      component="div"
+                      className="error-message error-text"
+                    />
                       </div>
                     </div>
                   </IonCol>
@@ -190,41 +337,61 @@ const NutryBudyStep1 = () => {
                   >
                     <div className="EditprofileImg N-ProfileEdit">
                       <img
-                        src="./assets/img/img-person.jpg"
+                        src={image?image:"./assets/img/img-person.jpg"}
                         alt=""
                         className="ProfileImg"
                       />
                       <div class="image-upload">
                         <label for="file-input" className="N-EditProfile">
-                          {/* src={
-                          !category?.images
-                            ? "/assets/img/img-placeholder.jpg"
-                            : category?.images
-                        } */}
                           <img
-                            src={
-                              values.image
-                                ? values.image
-                                : "./assets/img/edit.png"
-                            }
+                            src="./assets/img/edit.png"
                             alt=""
                           />
                         </label>
-                        <input id="file-input" type="file" />
+                        <input id="file-input" type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            setImage(URL.createObjectURL(file))
+                            if (file) {
+                              setFieldValue("image", file);
+                            }
+                          
+                          }}
+                         />
                       </div>
                     </div>
+                    {/* <ErrorMessage
+                      color="danger"
+                      name="image"
+                      component="div"
+                      className="error-message error-text"
+                    /> */}
                   </IonCol>
                   <IonCol className="ion-justify-content-center flex ion-padding-top">
-                    <IonButton fill="clear" class="Orangebtn md button button-clear ion-activatable ion-focusable">SAVE</IonButton>
+                  <div className="SkipBtn ion-padding-vertical ">
+                    <IonButton fill="clear" className="Orangebtn md button button-clear ion-activatable ion-focusable" 
+                     type="submit"
+                     value="Submit"
+                    >SAVE</IonButton>
+                     {loader && (
+                    <div className="loader-container">
+                      <IonSpinner name="crescent" />
+                    </div>
+                  )}
+                      <IonButton onClick={()=>setSelectedTab("step2")}
+                      >Skip Process</IonButton>
+                  </div>
                   </IonCol>
                 </IonRow>
               </Form>
             )}
           </Formik>
-        )}
       </div>
     </IonGrid>
   );
 };
 
 export default NutryBudyStep1;
+
+

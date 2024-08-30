@@ -22,7 +22,7 @@ import {
   thumbsUpOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { getApiData } from "../../utils/Utils";
+import { getApiData, getApiDataWithAuth } from "../../utils/Utils";
 
 const Dashboard = () => {
   const [selectedTabladder, setSelectedTabladder] = useState("LadderStatus");
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   const recipeDetails = async () => {
     try {
-      const response = await getApiData(`/user-dashboard`);
+      const response = await getApiDataWithAuth(`/user-dashboard`);
       console.log(response?.data);
       setUserDashboardData(response?.data);
     } catch (e) {
@@ -54,7 +54,7 @@ const Dashboard = () => {
         <IonContent>
           <IonHeader className="TitleHead bottom-shadow">
             <IonButton className="backBtn" fill="clear" routerLink="/profile">
-              <i class="material-icons dark">west</i>
+              <i className="material-icons dark">west</i>
             </IonButton>
             <IonTitle color="dark">Dashboard</IonTitle>
           </IonHeader>
@@ -75,7 +75,7 @@ const Dashboard = () => {
                 </IonSegment>
 
                 {selectedTabladder === "LadderStatus" && (
-                  <IonGrid class="ion-no-padding">
+                  <IonGrid className="ion-no-padding">
                     <IonRow className="LadderContent">
                       <IonCol>
                         <div className="passionateText">
@@ -138,7 +138,7 @@ const Dashboard = () => {
                       </IonCol>
                     </IonRow>
                     <IonRow className="LadderContent">
-                      <IonGrid class="ion-no-padding">
+                      <IonGrid className="ion-no-padding">
                         <IonRow className="ViewsContent ion-padding-vertical">
                           <IonCol size="4" className="TotalViews">
                             <IonText>Total Views</IonText>
@@ -235,7 +235,7 @@ const Dashboard = () => {
                           <img
                             src="/assets/img/review.png"
                             alt="Images"
-                            class="TabIcon"
+                            className="TabIcon"
                           />
                           <IonLabel>Total Reviews</IonLabel>
                         </div>
@@ -275,7 +275,7 @@ const Dashboard = () => {
                           <img
                             src="/assets/img/Recipes.png"
                             alt="Images"
-                            class="TabIcon"
+                            className="TabIcon"
                           />
                           <IonLabel>Recipes</IonLabel>
                         </div>
@@ -323,7 +323,7 @@ const Dashboard = () => {
                               e.target.src = "/assets/img/img-placeholder.jpg";
                             }}
                             alt={`Recipe ${i}`}
-                            class="TabIcon"
+                            className="TabIcon"
                           />
 
                           <IonText>{data.num_review} Recipe</IonText>
@@ -354,7 +354,7 @@ const Dashboard = () => {
                             }}
                             // src={item.images}
                             alt={`Recipe ${i}`}
-                            class="TabIcon"
+                            className="TabIcon"
                           />
 
                           <IonText>{data.num_review} Like Review</IonText>

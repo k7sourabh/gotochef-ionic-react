@@ -14,7 +14,7 @@ import {
     IonSpinner,
 } from '@ionic/react';
 import React, { useEffect, useRef, useState } from 'react';
-import { getApiData, postApiData } from '../../utils/Utils';
+import { getApiData, postApiData, postApiDataWithAuth } from '../../utils/Utils';
 import { ErrorMessage, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
@@ -89,7 +89,7 @@ const AddProduct = () => {
             formData.append('image3', values.image3);
             formData.append('image4', values.image4);
 
-            const response = await postApiData('user-add-product', formData);
+            const response = await postApiDataWithAuth('user-add-product', formData);
 
             if (response.data.status === 200) {
                 setResponceData(response?.data?.message_response);
@@ -242,6 +242,7 @@ const AddProduct = () => {
                                                     <input
                                                         ref={fileInputRef}
                                                         type="file" name='image1'
+                                                        accept="image/*"
                                                         onChange={(e) => {
                                                             const file = e.target.files[0];
                                                             setImagePreview(URL.createObjectURL(file));
@@ -266,6 +267,7 @@ const AddProduct = () => {
                                                         <img src="./assets/img/edit.png" alt="" />
                                                     </label>
                                                     <input id="file-input2" type="file" name='image2'
+                                                        accept="image/*"
                                                         onChange={(e) => {
                                                             const file = e.target.files[0];
                                                             setImagePreview2(URL.createObjectURL(file));
@@ -288,7 +290,7 @@ const AddProduct = () => {
                                                     <label htmlFor="file-input3" className="N-EditProfile">
                                                         <img src="./assets/img/edit.png" alt="" />
                                                     </label>
-                                                    <input id="file-input3" type="file" name='image3'
+                                                    <input id="file-input3" type="file" name='image3'accept="image/*"
                                                         onChange={(e) => {
                                                             const file = e.target.files[0];
                                                             setImagePreview3(URL.createObjectURL(file));
@@ -311,7 +313,7 @@ const AddProduct = () => {
                                                     <label htmlFor="file-input4" className="N-EditProfile">
                                                         <img src="./assets/img/edit.png" alt="" />
                                                     </label>
-                                                    <input id="file-input4" type="file" name='image4'
+                                                    <input id="file-input4" type="file" name='image4'accept="image/*"
                                                         onChange={(e) => {
                                                             const file = e.target.files[0];
                                                             setImagePreview4(URL.createObjectURL(file));
