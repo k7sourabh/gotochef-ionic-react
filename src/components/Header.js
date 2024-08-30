@@ -67,12 +67,12 @@ const Header = () => {
       alert(content); // log the raw scanned content
     }
   };
-
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
     set("auth", "false");
-    history.push("/").catch((err) => console.error(err));
+    await logout();
+    // history.push("/").catch((err) => console.error(err));
   };
+
 
   return (
     <>
