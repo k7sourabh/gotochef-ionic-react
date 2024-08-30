@@ -14,7 +14,7 @@ import {
 } from "@ionic/react";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import { getApiData } from "../../utils/Utils";
+import { getApiData, getApiDataWithAuth } from "../../utils/Utils";
 import { add, closeCircle, remove, removeCircleOutline, star } from "ionicons/icons";
 import SavedContent from "./SavedContent";
 import Leaderboard from "./Leaderboard";
@@ -33,7 +33,7 @@ const Profile = () => {
 
   const userProfile = async () => {
     try {
-      const response = await getApiData(`/user-dashboard`);
+      const response = await getApiDataWithAuth(`/user-dashboard`);
       setUserProfileData(response?.data?.user_dashboard?.user_form_data);
     } catch (e) {
       console.log(e);
@@ -60,11 +60,11 @@ const Profile = () => {
           <IonRow className="profile-content ion-margin-horizontal">
             <div className="profileImg">
               <img
-                src={userProfileData?.avatar}
+                src={userProfileData.avatar? userProfileData.avatar:"./assets/img/img-person.jpg"}
                 alt="Images"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "/assets/img/img-placeholder.jpg";
+                  e.target.src = "./assets/img/img-person.jpg";
                 }}
               ></img>
             </div>
